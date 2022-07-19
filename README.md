@@ -64,15 +64,19 @@ python ./Program%File%_%Security%_%Tool%.py
 ```
 
 File: 
+
 	All: All FWs except Linux: KMT, TFT, bootblock, BL31, OpTee, uboot. (most common use case).
 	Bootblock: All FW up to bootblock (KMT, TFT, bootblock)
 	1FF: One File Flash: all FW, including Linux. Require 32MB flash or higher.
 Security: 
+
 	Basic (none-secure device)
 	Secure (locked device)
 Tool: can be 
+
 	EVB: support blue\green EVB board only. Require automation jumpers. Windows only
 	DediProg: SVB has a headaer for external Flash Programmer DediProg.
 	FUP: using internal UART of the Arbel. This feature is only supported in Z1. Deprecated.
+
 
 For EVB and FUP: Disable all terminal apps before execution.
