@@ -1,0 +1,344 @@
+-----------------------------------------------------------------------------
+Nuvoton Technology Corporation - Confidential
+NPCM8XX (Arbel) Image generation and programming scripts Release Letter
+Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
+-----------------------------------------------------------------------------
+
+NPCM850   Image generation and programming scripts Package Release Letter
+Version:  03.06.01
+Date:     Jul 2022
+
+This package is released under the terms of the Source Code License Agreement
+which is included in this package.
+
+PACKAGE CONTENTS
+----------------
+This package contains Image generation and programming scripts. For further information please review the "docs" folder.
+
+DESCRIPTION
+-----------
+This package contains the Nuvoton Image Generation and Programming Scripts (IGPS) for the NPCM8xx - Arbel.
+This package is released in alpha quality.
+
+REQUIREMENTS
+------------
+Hardware:
+- A Nuvoton NPCM850\NPCM830 A1 Silicon version BMC device (Arbel).
+- COM port cable. For DRB use a null modem cable. For EB use a USB cable (EB has an FTDI USB to COM device).
+
+INSTALLATION PROCEDURE
+----------------------
+Install on Linux:
+----------------
+- Install Python 3.7
+- Install OpenSSL 1.0.2 or above.
+- Download bingo sources from 
+         https://github.com/Nuvoton-Israel/bingo
+  and follow the the README to compile.
+  Copy output executable file to IGPS_X.Y.Z/py_scripts/ImageGeneration/bingo
+
+Usage for Linux users:
+----------------------
+- Run ImageGeneration/UpdateInputsBinaries_<chip_gen>_<board>.py to update image inputs of one of the available boards.
+  <chip_gen>: {A1,Z1}. 
+  <board>: {"SVB", "EB"}
+  This script needs to run only once. 
+  After that user may update py_scrips/ImageGeneration/inputs/ folder with alternative versions to the default binaries.  
+- Run GenerateAll.py to build combined images. 
+- Run ProgramAll_Basic.py  or  ProgramAll_Secure.py.
+
+For Windows users:
+------------------
+- Python 3.7 and above must be installed in C:\Python37\
+
+Usage for Windows users:
+----------------------
+- Run ImageGeneration/UpdateInputsBinaries_<chip_gen>_<board>.bat to update image inputs of one of the available boards.
+  <chip_gen>: {A1,Z1}. 
+  <board>: {"SVB", "EB"}
+  This script needs to run only once. 
+  After that user may update py_scrips\ImageGeneration\inputs folder with alternative versions to the default binaries.  
+- Run GenerateAll.py to build combined images. 
+  Users can also replace a single component in a pre-signed version using ReplaceComponent.bat
+
+- For Dediprog:  Run ProgramAll_Basic_DediProg.bat  or  ProgramAll_Secure_DediProg.bat
+- For blue EVB:  Run ProgramAll_Basic_EVB.bat       or  ProgramAll_Secure_EVB.bat
+- For Z1 devices only users can use FUP mode: ProgramAll_Basic_FUP.bat or ProgramAll_Secure_FUP.bat
+
+Signed version of IGPS
+------------------------
+Nuvoton provides to customers locked devices.
+To use those devices Nuvoton use its own private key to sign the images.
+This means users can generate flash images for these devices.
+Nuvoton provides a pre-signed IGPS version for locked devices.
+Update* and Generate* are not possible, only programming.
+If user wishes to update uboot\bl31\bootblock they may still do so by replaceing
+the file in inputs folder and executing ReplaceComponent.bat
+
+Image programming
+-----------------
+Connect a serial port (via COM port or USB to Serial) to Serial Interface 2
+Set strap9 to active low and issue power-on reset
+```
+python ./Program%File%_%Security%_%Tool%.py
+```
+
+File: 
+	All: All FWs except Linux: KMT, TFT, bootblock, BL31, OpTee, uboot. (most common use case).
+	Bootblock: All FW up to bootblock (KMT, TFT, bootblock)
+	1FF: One File Flash: all FW, including Linux. Require 32MB flash or higher.
+Security: 
+	Basic (none-secure device)
+	Secure (locked device)
+Tool: can be 
+	EVB: support blue\green EVB board only. Require automation jumpers. TeraTerm must be disabled before use.
+	DediProg: SVB has a header for external Flash Programmer DediProg.
+	FUP: using internal UART of the Arbel. This feature is only supported in Z1. Deprecated.
+	
+ENHANCEMENTS
+------------
+IGPS 03.06.01              - Jul 18 2022
+==============
+- First open source release.
+- Python 3.7
+- Tested on Linux (need to compile bingo locally)
+- TIP FW: 0.3.8 L0 0.2.3 L1:
+  * Support update commands.
+
+FIXED ISSUES
+------------
+
+
+KNOWN ISSUES
+------------
+- None.
+
+
+HISTORY
+-------
+IGPS 03.05.02              - Jun 22 2022
+==============
+- Bug fix ReplaceComponent.bat using command line parameters.
+- Bootblock: Add SWEEP_MAIN_FLOW field to header , bit-wise select sweeps.
+- Bootblock 0.2.1
+- Generate new combo: BootBlock_BL31_Tee_uboot, remove unused combos.
+- Remove CP image from 1FF option.
+- Bug fix replace compnent for bootblock (wrong key being used).
+- TIP_FW: 0.2.1 L1, 0.3.6 L0.
+
+
+IGPS 03.05.01              - Jun 12 2022
+==============
+- Generate and add RSA key to SKMT.
+- TIP FW: 0.3.4 L0 0.1.9 L1:
+   * Get RSA key from SKMT, which is signing the manifests.
+   * Use fixed key from header for ECC verify, instead of key scan.
+   * Keep SHA512 inside tip_firmware_image. Later can copy if to attestation shared object (if it needs sha512)
+
+
+IGPS 03.05.00              - Jun 2nd 2022
+==============
+- Add SKMT.
+- TIP FW: 0.3.3 L0 ,0.1.8 L1
+	- Add SKMT. works with IGPS 3.5.0 and above only.
+	- tip_firmware_image_verify_func: use SKMT\KMT according to image type. Optimize to do sha only once per image.
+	- add TIP_copy_hash_from_tip_log 
+- Bug fix to support Linux in HSM mode.
+- Move all keys to sub directory key_input. Add 5 SKMT keys
+- Replace*.bat allow selecting option in command line.
+
+
+IGPS 03.04.09              - May 25th 2022
+==============
+- Bootblock version 0.2.0
+- Add bootblock field: MC_CONFIG.print_enable
+- TIP_FW 0.3.2 L0 0.1.7 L1:
+	- L1: increase heap size to 40KB.
+	- Disable WD0 (enabled by TIP_ROM).
+	- replace secure_heap with heap_4.
+- BL31 1.5:
+	Set SW reset control register to support reset all modules when enabling SW1 reset.
+
+
+IGPS 03.04.08              - May 19th 2022
+==============
+- TIP FW L0: version 0.3.1
+- TIP_FW L1: version 0.1.6. 
+- Reduce KMT to 2 keys.
+
+IGPS 03.04.07              - May 12th 2022
+==============
+- TIP FW L0: version 0.2.9
+- TIP_FW L1: version 0.1.5. includes bug fix for trap on freertos.
+  Change load address to 0x20000. Impacts TipFwAndHeader_L1.xml. This is the final location for L1.
+  
+IGPS 03.04.06               - May 3rd 2022
+==============
+- TIP FW L0: version 0.2.8
+  Support Cerberus PCR manifest, w\o RSA key
+- TIP_FW L1: version 0.1.3.
+  Change load address to 0x32000. Impacts TipFwAndHeader_L1.xml.
+  
+IGPS 03.04.05               - Apr 4th 2022    
+==============
+- Fix OTP programmer scripts.
+- Check binary is not missing before use.
+- TIP_FW L0 0.2.2, L1 0.0.7
+	- Move KMT to be 4KB aligend.
+	- Boot from secondary flash: TIP_FW will always boot from same flash TIP_ROM booted L0 from. call tip_flash_set_active_flash to select te used flash. load_main_application: not related to recovery_boot anymore.
+	  loading will always be on same flash used for boot.
+	- tip_flash: fix issues with transition to small\large flash.
+	- If L0 fails to load: do SW reset to allow loading recovery image instead. L1 has same code under PRODUCTION_CODE (for now it's disabled for easy debug of L1).
+	- Bug fix: SWRSTC2, SWRSTC3 were not set properly (should be same as SWRSTC1).
+- bootblock: 0.1.9:
+	- Remove GIC init. moved to BL31.
+	- Add trim_2 initial offset to header. For EVB it will be [0,0]. For SVB and A1 it will be [10, 0].
+	- add mc_sweep_debug in header. bitwise field to enable test sweep. 
+	- Secondary reset: fix issue: no re-training of DDR in secondary reset.
+- tee : 3.16_npcm845x_v1.1.  Change load address.
+- bl31: bl31_ver=2.6_npcm845x_1.4
+
+IGPS 03.04.03               - Mar 10th 2022    
+==============
+- Split A1\Z1 SVB\EVB files for bootblock
+- Rename Kmt_TipFwL0_TipFwL1_BootBlock_BL31_Tee_uboot (was Kmt_TipFw_BootBlock_BL31_Tee_uboot)
+- Disable CRC check on header.
+- Change key signing file. Only one file is used: 
+  IGPS_3.4.3_Release\py_scripts\ImageGeneration\key_setting_edit_me.py
+  When changing key index no needto change KeyIndex inside the xml.
+  IGPS will write it internally to the binaries.
+- TIP_FW: 0.0.6 L1.
+- TIP_FW: 0.2.1 L0 : authenticate all images. 
+  Note: for now a failed image still boots.
+  In a few versions this will be disabled.
+- bl31 ver 2.6_npcm845x_1.2: load with header. Image starts at 0xFFFB1000 (header before).
+- Fix FUP issue with fixed COM port.
+- Pad all files to 32 bytes (inside inputs folder).
+- Comment out linux image merge. Takes a long time and lack of usage by the public.
+  To enable: uncomment py_scripts\ImageGeneration\GenerateImages.py lines 208, 209
+- FUP mode: to skip scan need to call:
+     ProgramAll_Basic_FUP.bat  COM20
+   (or other COM number)
+   
+IGPS 03.04.02               - Feb 24th 2022    
+==============
+- uboot: 2021.04-npcm8mnx-20220223: support mtest.
+- Rename UpdateInputsBinaries_Arbel_PD.bat  to UpdateInputsBinaries_A1.bat.
+
+IGPS 03.04.01               - Feb 23th 2022    
+==============
+- TIP_FW: 0.0.5 L1: support 4MB flashes and mix of flash types on same FIU.
+- TIP_FW: 0.2.0 L0.
+- uboot: 2021.04-npcm8mnx-20220223
+
+IGPS 03.04.00               - Feb 22th 2022    
+==============
+- TIP_FW: 0.0.4 L1.
+- TIP_FW: 0.1.9 L0.
+- tee and bl31 are taken from Github.
+- tee ver 3.16_npcm845x_v1
+- bl31 ver 2.6_npcm845x_1.1
+- Bootblock 0.1.8
+- Single uboot image: u-boot-2021.04-npcm8xx-20220214
+- Reorder bl31 and bootblock in RAM2.
+- Remove CRC32_Remove: secure image will hold both CRC and signature,
+   so that same bins will work both on basic and secure.
+- Linux 5.10.67.01.03 with support for PSPI.
+- Ready for A1 bringup.
+
+
+IGPS 03.03.08               - Jan 20th 2022    
+==============
+- Fix all xml title line.
+- Bug fix file name in FUP mode.
+- Split TIP_FW to L0 and L1 (both xml, FWs and scripts.)
+- TIP FW L0 0.1.7.
+- ITP_FW L1 0.0.2.
+- Add RunPartial parameter to GenerateAll*.bat and ReplaceComponent*.bat. 
+  This allows replaceing component from command line. 
+- Fix all xml files so that all xmls are standard (required for external parsers).
+  License comes after first header line.
+- uboot start address is now 0x7E00 including the header. 
+   The FW still starts at 0x8000, but the header is also copied to the DRAM.
+ 
+IGPS 03.03.05               - Dec 14th 2021    
+==============
+- Add uboot from GitHub (https://github.com/Nuvoton-Israel/u-boot/commit/e9a8402bd965b15ad4787b0c29de972c34cc6c15)
+- Older uboot's are kept under versions. To use: copy to inputs and run ReplaceComponent.bat.
+- Bootblock version 0.1.7
+- Set MC freq to 1000MHz. Needed for ECC support.
+
+IGPS 03.03.04               - Dec 14th 2021    
+==============
+- Bootblock version 0.1.6
+- TIP_FW version 0.1.5
+- Add ProgramAll_DediProg.bat. 
+  By default this will program Basic version.
+  To change, edit line 3
+- Add ProgramAll_EVB (works on blue EVB only).
+  By default this will program Basic version.
+  To change, edit line 12 (FILE_TO_PROGRAM)
+- Add BL31.bin and BL31_AndHeader.xml
+- Add OpTee: tee.bin + OpTeeAndHeader.xml.
+- BL31 and OpTee are loaded but not executed. 
+  Require separete arbel_tip_fw.bin to activate them.
+- Change the startTag for bootblock and uboot, so they both startin new line.  
+- ReplaceComponent.bat : add BL31 and OpTee replace options.
+- BL31 is copied to 0xFFFD0000
+
+IGPS 03.03.02               - Nov 23th 2021    
+==============
+- Bootblock version 0.1.5.
+- Add new header fields for bootblock MC (DQS in\out, trim delays).
+- Add new field to MC_CONFIG 
+			Bit 2: Select DRAM type. 
+				0: 1600 DRAM type clk.
+				1: 2133 DRAM type clk.
+  Note: Only 2133 mode is stable.
+  
+
+IGPS 03.03.01              - Nov 14th 2021
+==============
+- TIP_FW 0.1.4:
+   * Print uptime and KMT keys
+   * SPI-X handling.
+- Add replace single component option.
+
+IGPS 03.02.08              - Sep 13th 2021
+==============
+- BootBlock 0.1.2: Increase DDR frequency.
+- Change default MC frequency to 1066.
+- Move Linux image to offset 0x01010000 in flash.
+- uboot version 2019.01.09.26 : bug fix saveenv.
+
+
+IGPS 03.02.02              - Jul 8st 2021
+==============
+- BootBlock 0.0.7. Bug fix ECC. 
+- Add serial number to OTP.
+- Bug fix: GeneraKey for HSM file copy.
+- TIP FW 0.0.7.
+
+IGPS 03.02.00              - Jul 1st 2021
+==============
+- BootBlock 0.0.6  (with ECC support)
+- UBoot     2019.01.09.22
+- Updated TFT and Bootblock fields
+- Added SPI-X settings the OTP fuse array.
+- Split kmt xml, tft xml and fuse xml for Z11 and A1.
+- Add Linux image option. 
+
+IGPS 03.01.07 
+==============
+- Uboot: version 2019.01.09.18.
+- Bootblock 0.0.5.
+- TIP FW 0.0.3.
+- CP FW available ("hello world" version).
+- Update Bootblock header XMLs (board type).
+- Update scripts to get COM port number from command line (optional)
+
+
+
+-----------------------------------------------------------
+For contact information see "Contact Us" at www.nuvoton.com
+-----------------------------------------------------------

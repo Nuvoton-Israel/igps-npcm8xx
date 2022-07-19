@@ -1,0 +1,67 @@
+
+how to boot with ftp:
+=====================
+
+
+setenv eth_num                                2
+setenv ethact            gmac${eth_num}
+setenv fdtaddr           0x1000000
+setenv romaddr           0x1C00000
+setenv romsize           0x2800000
+setenv uimage_addr       0x400000
+setenv kernel_size       0xA00000
+setenv romfs_tftp_path romfs.img.gz
+setenv kernel_tftp_path  Image
+setenv fdt_path                nuvoton-npcm845-evb.dtb
+setenv serverip          10.168.2.1
+setenv ipaddr                    10.168.2.2
+setenv clksetting               'mw 0xf0801008 0x4138ADD'
+setenv ftp_load          'setenv autostart no; run ftp_fs; run ftp_kernel; run ftp_fdt'
+setenv ftp_fs            'mw.b ${romaddr} 0xFF ${romsize}; tftp ${romaddr} ${serverip}:${romfs_tftp_path}; setenv romsize ${filesize};'
+setenv ftp_kernel        'mw.b ${uimage_addr} 0xFF ${kernel_size}; tftp ${uimage_addr} ${serverip}:${kernel_tftp_path};setenv kernel_size ${filesize};'
+setenv ftp_fdt           'mw.b ${fdtaddr} 0xFF ${fdtsize}; tftp ${fdtaddr} ${serverip}:${fdt_path}; setenv fdtsize ${filesize};'
+setenv ftpboot           'run clksetting; run ftp_load; setenv autostart yes; run romfs_bootargs; booti 0x400000 - 0x1000000;'
+setenv bootargs 'earlycon=uart8250,mmio32,0xf0000000 root=/dev/ram console=ttyS0,115200n8 mem=976M ramdisk_size=64000 initrd=0x1c00000,0xE00000'
+setenv common_bootargs 'setenv bootargs earlycon=uart8250,mmio32,0xf0000000 basemac=${ethaddr} console=ttyS0,115200n8'
+setenv romfs_bootargs 'run common_bootargs;setenv bootargs ${bootargs} root=/dev/ram initrd=0x1c00000,0x3000000 ramdisk_size=96000 mem=976M fips=1'
+setenv openbmcboot 'run load_openbmc; sf probe 0:1; run common_bootargs; echo Booting Kernel from flash; echo +++ uimage at 0x${openbmc_addr}; echo Using bootargs: ${bootargs};bootm ${openbmc_addr}'
+setenv load_openbmc 'tftp 0x10000000 10.168.2.1:image-bmc'
+setenv openbmc_addr 0x10200000
+
+run ftpboot
+
+
+-------------------
+
+
+winnfsd.exe c:\Users\poleg\Desktop\nfs_stress_test /stresstest
+
+how to run stress tests
+=====================
+ifconfig eth1 10.168.2.2 netmask 255.255.255.0
+sleep 1
+mkdir /tmp/nfs
+mount -t nfs -o vers=3,nolock,rw 10.191.10.135:/stresstest /tmp/nfs
+/tmp/nfs/stress_test_menu.sh
+
+ifconfig eth0 10.168.1.2 netmask 255.255.255.0
+ifconfig eth1 10.168.2.2 netmask 255.255.255.0
+
+./iperf3 -s -B 10.168.1.2 -D
+./iperf3 -s -B 10.168.2.2 -D
+./iperf3 -s -B -u 10.168.2.2 -D
+
+mw 0xf082542c 0x16000900
+mw 0xf0824170 0x8010100
+
+ifconfig eth0 10.168.1.2 netmask 255.255.255.0
+ifconfig eth2 10.168.3.2 netmask 255.255.255.0
+ifconfig eth3 10.168.4.2 netmask 255.255.255.0
+
+ifconfig usb0 10.168.5.2 netmask 255.255.255.0
+ip link show usb0
+
+
+load elf in debugger:
+======================
+data.load.elf ...BMC_LINUX_KERNEL\build\vmlinux /NoCode
