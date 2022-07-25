@@ -498,6 +498,35 @@
 		<content format='32bit'>0x37</content>
 	</BinField>
 	
+	<BinField>
+		<!-- FIU 0 clk divider. -->
+		<name>FIU0_CLK_DIVIDER</name>          
+		<config>
+			<offset>0x14F</offset>       
+			<size>0x1</size> 
+		</config>
+		<content format='32bit'>0</content>
+	</BinField>
+	
+	<BinField>
+		<!-- FIU 1 clk divider. -->
+		<name>FIU1_CLK_DIVIDER</name>          
+		<config>
+			<offset>0x150</offset>       
+			<size>0x1</size> 
+		</config>
+		<content format='32bit'>0</content>
+	</BinField>
+	
+	<BinField>
+		<!-- FIU 3 clk divider. -->
+		<name>FIU3_CLK_DIVIDER</name>          
+		<config>
+			<offset>0x151</offset>       
+			<size>0x1</size> 
+		</config>
+		<content format='32bit'>0</content>
+	</BinField>
 	
 	<BinField>
 		<!-- Code destination address, 32-bit aligned: for BootBlock should be 0xFFFD0000 so code will run in 0xFFFB0200 as linked for -->

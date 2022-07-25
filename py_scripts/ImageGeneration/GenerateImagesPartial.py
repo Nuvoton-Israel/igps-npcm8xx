@@ -58,12 +58,8 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			shutil.copy(UbootAndHeader_secure_bin,                     UbootAndHeader_bin)
 			shutil.copy(BootBlockAndHeader_secure_bin,                 BootBlockAndHeader_bin)
 			shutil.copy(CpAndHeader_secure_bin,                        CpAndHeader_bin)
-			shutil.copy(Kmt_TipFwL0_secure_bin,                        Kmt_TipFwL0_Skmt_TipFwL1_bin)
 			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_secure_bin,                          Kmt_TipFwL0_Skmt_TipFwL1_bin)
-			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_secure_bin      ,          Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin)
 			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_secure_bin,          Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin)
-			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_secure_bin,       Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_bin)
-			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_linux_secure_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_linux_bin)
 			
 			
 			

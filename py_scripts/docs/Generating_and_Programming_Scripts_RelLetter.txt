@@ -5,7 +5,7 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.06.01
+Version:  03.06.02
 Date:     Jul 2022
 
 This package is released under the terms of the Source Code License Agreement
@@ -97,13 +97,25 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.06.01              - Jul 18 2022
+IGPS 03.06.02              - Jul 24 2022
 ==============
-- First open source release.
-- Python 3.7
-- Tested on Linux (need to compile bingo locally)
-- TIP FW: 0.3.8 L0 0.2.3 L1:
-  * Support update commands.
+- Restore Z1 XMLs.
+- Bug fix ReplaceComponent.bat
+- Add fiu clk dividers fields to Bootblock header xml.
+- TIP FW: 0.3.9 L0 0.2.4 L1:
+	- virtual flash bug fix: use memcy instead of tip_memcpy.
+	- shared attestation hash is 512.
+	- tip_mbx bug fixes.
+	- tip_combo: return early if failed to find image.
+	- init WD0RCR, 2, 3 before BMC starts.
+	- check load and verify return status. if verify tip images fail in secure boot, restart.
+
+- Bootblock: 0.2.2
+	- Fix GMMAP value for 2GB and 512MB.
+	- Add 3 FIU dividers to the the header (require IGPS 3.6.2 and above)
+	- Bug fix: add support for ODT termination of zero (termination disabled).
+	- Print pass\fail criteria for sweeps. Need to enable debug prints to use.
+
 
 FIXED ISSUES
 ------------
@@ -116,6 +128,14 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.06.01              - Jul 18 2022
+==============
+- First open source release.
+- Python 3.7
+- Tested on Linux (need to compile bingo locally)
+- TIP FW: 0.3.8 L0 0.2.3 L1:
+  * Support update commands.
+
 IGPS 03.05.02              - Jun 22 2022
 ==============
 - Bug fix ReplaceComponent.bat using command line parameters.
