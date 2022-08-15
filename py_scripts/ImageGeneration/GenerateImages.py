@@ -20,6 +20,35 @@ from .CRC32_Generator import *
 
 from .IGPS_files import *
 
+
+kmtS =      0xFFFFFFFF
+tipS_L0 =   0xFFFFFFFF
+skmtS  =    0xFFFFFFFF
+tipS_L1 =   0xFFFFFFFF
+bbS =       512*1024
+bl31S  =    0xFFFFFFFF
+OpTeeS =    0xFFFFFFFF
+ubootS =    0xFFFFFFFF
+cpS =       0xFFFFFFFF
+imageS =    0xFFFFFFFF
+romfsS =    0xFFFFFFFF
+dtbS =      0xFFFFFFFF
+
+kmtS_size =      0xFFFFFFFF
+tipS_L0_size =   0xFFFFFFFF
+skmtS_size  =    0xFFFFFFFF
+tipS_L1_size =   0xFFFFFFFF
+bbS_size =       0xFFFFFFFF
+bl31S_size  =    0xFFFFFFFF
+OpTeeS_size =    0xFFFFFFFF
+ubootS_size =    0xFFFFFFFF
+cpS_size =       0xFFFFFFFF
+imageS_size =    0xFFFFFFFF
+romfsS_size =    0xFFFFFFFF
+dtbS_size =      0xFFFFFFFF
+
+
+
 def Run_Init():
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -37,13 +66,81 @@ def Run_Init():
 	finally:
 		os.chdir(currpath)
 
+def allign_to_sector(num, round_to):
+	if (num % round_to == 0):
+		return num
+	else:
+		return  num + round_to - (num % round_to)
+	
+
+def Uboot_header_embed_pointers_to_all_fw():
+		# add image pointers to uboot header
+		
+		# calc sizes of images + headers:
+		kmtS_size =      os.path.getsize(KmtAndHeader_bin)
+		tipS_L0_size =   os.path.getsize(TipFwAndHeader_L0_bin)
+		skmtS_size  =    os.path.getsize(SkmtAndHeader_bin)
+		tipS_L1_size =   os.path.getsize(TipFwAndHeader_L1_bin)
+		bbS_size =       os.path.getsize(BootBlockAndHeader_bin)
+		bl31S_size  =    os.path.getsize(BL31_AndHeader_bin)
+		OpTeeS_size =    os.path.getsize(OpTeeAndHeader_bin)
+		ubootS_size =    os.path.getsize(UbootAndHeader_bin)
+		imageS_size =    os.path.getsize(image_bin)
+		romfsS_size =    os.path.getsize(romfs_bin)
+		dtbS_size =      os.path.getsize(dtb_bin)
+		
+		
+		bbS =  512*1024
+		bl31S  = bbS +    allign_to_sector(bbS_size    , 0x1000)
+		OpTeeS = bl31S +  allign_to_sector(bl31S_size  , 0x1000)
+		ubootS = OpTeeS + allign_to_sector(OpTeeS_size , 0x1000)
+		imageS = ubootS + allign_to_sector(ubootS_size , 0x110000)
+		romfsS = imageS + allign_to_sector(imageS_size , 0x1000)
+		dtbS =   romfsS + allign_to_sector(romfsS_size , 0x1000)
+		
+		tip_total_size = kmtS_size + tipS_L0_size + skmtS_size + tipS_L1_size
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1B8, 0             , 4, True, "TIP base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1BC, tip_total_size, 4, True, "TIP base size")
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1C0, bbS           , 4, True, "Bootblock base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1C4, bbS_size      , 4, True, "Bootblock base size")
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1C8, bl31S         , 4, True, "BL31 base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1CC, bl31S_size    , 4, True, "BL31 base size")
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1D0, OpTeeS        , 4, True, "OpTee base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1D4, OpTeeS_size   , 4, True, "OpTee base size")
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1D8, ubootS        , 4, True, "uboot base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1DC, ubootS_size   , 4, True, "uboot base size")
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1E0, imageS        , 4, True, "Linux base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1E4, imageS_size   , 4, True, "Linux base size")
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1E8, dtbS          , 4, True, "Linux DTS base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1EC, dtbS_size     , 4, True, "Linux DTS base size")
+		
+		Replace_binary_array(UbootAndHeader_bin, 0x1F0, romfsS        , 4, True, "Linux FS base address")
+		Replace_binary_array(UbootAndHeader_bin, 0x1F4, romfsS_size   , 4, True, "Linux FS base size")
+
+
+		# Replace_binary_array(UbootAndHeader_bin, 0x1BC, [0xAA, 0xBB, 0xCC, 0xDD], 4, False)
+
 
 def MergeBinFilesAndPadAndPrint(isPalladium):
 	# Merge files
+	bbS = 512*1024
+	
 	tipS_L0 =   Merge_bin_files_and_pad(KmtAndHeader_bin                                                , TipFwAndHeader_L0_bin , Kmt_TipFwL0_bin,                                       0x1000, 0x20)
 	skmtS  =    Merge_bin_files_and_pad(Kmt_TipFwL0_bin                                                 , SkmtAndHeader_bin     , Kmt_TipFwL0_Skmt_bin,                                  0x1000, 0x20)
 	tipS_L1 =   Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_bin                                            , TipFwAndHeader_L1_bin , Kmt_TipFwL0_Skmt_TipFwL1_bin,                           0x1000, 0x20)
-	bbS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin                                    , BootBlockAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin,                512*1024, 0x20)
+	bbS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin                                    , BootBlockAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin,                bbS, 0x20)
+	
+	# check that bootblock is still at 512KB offset
+	if (bbS != 512*1024):
+		print("       =============   ERROR: TIP_FW overflow ======================")
+		
 	bl31S  =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                          , BL31_AndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin,           0x1000, 0x20)
 	OpTeeS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                     , OpTeeAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin,     0x1000, 0x20)
 	ubootS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin               , UbootAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin,          0x1000, 0x20)
@@ -201,19 +298,17 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		Pad_bin_file_inplace(  Tip_FW_L1_file ,  32)
 		Pad_bin_file_inplace(  CP_FW_file     ,  32)
 		
-		
-
-
 		# Generate Basic Images
 		Generate_binary(KmtAndHeader_xml      , KmtAndHeader_bin)
 		Generate_binary(TipFwAndHeader_L0_xml , TipFwAndHeader_L0_bin)
 		Generate_binary(SkmtAndHeader_xml     , SkmtAndHeader_bin)
 		Generate_binary(TipFwAndHeader_L1_xml , TipFwAndHeader_L1_bin)
 		Generate_binary(BootBlockAndHeader_xml, BootBlockAndHeader_bin)
+		Generate_binary(BL31_AndHeader_xml    , BL31_AndHeader_bin)
+		Generate_binary(OpTeeAndHeader_xml    , OpTeeAndHeader_bin)
 		Generate_binary(UbootAndHeader_xml    , UbootAndHeader_bin)
 		Generate_binary(CpAndHeader_xml       , CpAndHeader_bin)
-		Generate_binary(OpTeeAndHeader_xml    , OpTeeAndHeader_bin)
-		Generate_binary(BL31_AndHeader_xml    , BL31_AndHeader_bin)
+		
 		
 		# Put the key index number inside tthe header a offset 140
 		Replace_binary_single_byte(KmtAndHeader_bin,       140, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
@@ -221,10 +316,15 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		Replace_binary_single_byte(SkmtAndHeader_bin,      140, ord(kmt_key_which_signs_skmt[-1]) - ord('0'))
 		Replace_binary_single_byte(TipFwAndHeader_L1_bin,  140, ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0'))
 		Replace_binary_single_byte(BootBlockAndHeader_bin, 140, ord(skmt_key_which_signs_bootblock[-1]) - ord('0'))
-		Replace_binary_single_byte(UbootAndHeader_bin,     140, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
-		Replace_binary_single_byte(OpTeeAndHeader_bin,     140, ord(skmt_key_which_signs_OpTee[-1]) - ord('0'))
 		Replace_binary_single_byte(BL31_AndHeader_bin,     140, ord(skmt_key_which_signs_BL31[-1]) - ord('0'))
+		Replace_binary_single_byte(OpTeeAndHeader_bin,     140, ord(skmt_key_which_signs_OpTee[-1]) - ord('0'))
+		Replace_binary_single_byte(UbootAndHeader_bin,     140, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
 		
+		
+		
+		Uboot_header_embed_pointers_to_all_fw()
+
+
 		CRC32_binary(KmtAndHeader_bin           , 112    , 12     , KmtAndHeader_bin)
 		CRC32_binary(TipFwAndHeader_L0_bin      , 112    , 12     , TipFwAndHeader_L0_bin)
 		CRC32_binary(TipFwAndHeader_L1_bin      , 112    , 12     , TipFwAndHeader_L1_bin)

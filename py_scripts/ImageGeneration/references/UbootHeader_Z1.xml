@@ -18,8 +18,8 @@
 		<!-- uboot tag (0x0A 0x55 0x42 0x4F 0x4F 0x54 0x42 0x4C) -->
 		<name>StartTag</name>         
 		<config>
-			<offset>0</offset>            <!-- offset in the header -->
-			<size>0x8</size>              <!-- size in the header -->
+			<offset>0</offset>    
+			<size>0x8</size>
 		</config>
 		<content format='bytes'>0x0A 0x55 0x42 0x4F 0x4F 0x54 0x42 0x4C</content>
 	</BinField>
@@ -29,19 +29,167 @@
 		<!-- Version -->
 		<name>SVN_Version</name>          
 		<config>
-			<offset>0x98</offset>        <!-- offset in the header -->
-			<size>0x2</size>              <!-- size in the header -->
+			<offset>0x98</offset>
+			<size>0x2</size>
 		</config>
-		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+		<content format='bytes'>0x00 0x00</content>
 	</BinField>
 	
+	
+	<!-- ==============      Start UBOOT SPECIFIC PARAMETERS ================  -->
+	<!-- uboot only parameters placeholder, do not change. IGPS will embed the values during build -->
+	<BinField>
+		<name>tip_size_reserved</name>          
+		<config>
+			<offset>0x1B8</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>tip_offset_reserved</name>          
+		<config>
+			<offset>0x1BC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>bootblock_flash_offset_reserved</name>          
+		<config>
+			<offset>0x1C0</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>bootblock_flash_size_reserved</name>          
+		<config>
+			<offset>0x1C4</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>bl31_size_reserved</name>          
+		<config>
+			<offset>0x1C8</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>bl31_offset_reserved</name>          
+		<config>
+			<offset>0x1CC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>optee_size_reserved</name>          
+		<config>
+			<offset>0x1D0</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>optee_offset_reserved</name>          
+		<config>
+			<offset>0x1D4</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>uboot_size_reserved</name>          
+		<config>
+			<offset>0x1D8</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>uboot_offset_reserved</name>          
+		<config>
+			<offset>0x1DC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>linux_image_size_reserved</name>          
+		<config>
+			<offset>0x1E0</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>linux_image_offset_reserved</name>          
+		<config>
+			<offset>0x1E4</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>dtb_size_reserved</name>          
+		<config>
+			<offset>0x1E8</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>dtb_offset_reserved</name>          
+		<config>
+			<offset>0x1EC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+		<BinField>
+		<name>linux_FS_size_reserved</name>          
+		<config>
+			<offset>0x1F0</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
+	
+	<BinField>
+		<name>linux_FS_offset_reserved</name>          
+		<config>
+			<offset>0x1F4</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>
+	</BinField>
 
+	<!-- ==============      END UBOOT SPECIFIC PARAMETERS ================  -->
+	
 	<BinField>
 		<!-- Code destination address, 32-bit aligned -->
 		<name>DestAddr</name>         
 		<config>
-			<offset>0x1F8</offset>        <!-- offset in the header -->
-			<size>0x4</size>              <!-- size in the header -->
+			<offset>0x1F8</offset>
+			<size>0x4</size>
 		</config>
 		<content format='32bit'>0x7E00</content>  <!-- including uboot header. uboot image starts at 0x8000 -->
 	</BinField>
@@ -50,8 +198,8 @@
 		<!-- BootBlock or u-boot Code size -->
 		<name>CodeSize</name>         
 		<config>
-			<offset>0x1FC</offset>        <!-- offset in the header -->
-			<size>0x4</size>              <!-- size in the header -->
+			<offset>0x1FC</offset>
+			<size>0x4</size>
 		</config>
 		<content format='FileSize'>inputs/u-boot.bin</content>	<!-- content the user should fill -->
 	</BinField>
@@ -60,7 +208,7 @@
 		<!-- The BootBlock or u-boot binary file -->
 		<name>Code</name>             
 		<config>
-			<offset>0x200</offset>        <!-- offset in the header -->
+			<offset>0x200</offset>
 			<size format='FileSize'>inputs/u-boot.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
 		<content format='FileContent'>inputs/u-boot.bin</content>  <!-- content the user should fill -->

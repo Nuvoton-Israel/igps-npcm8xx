@@ -102,6 +102,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			Pad_bin_file_inplace(  uboot_bin      ,  32)
 			Generate_binary(UbootAndHeader_xml    , UbootAndHeader_bin)
 			Replace_binary_single_byte(UbootAndHeader_bin,     140, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
+			Uboot_header_embed_pointers_to_all_fw()
 			Sign_binary(UbootAndHeader_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
 			shutil.copy(UbootAndHeader_secure_bin,            UbootAndHeader_bin)
 			
