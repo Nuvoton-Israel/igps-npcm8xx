@@ -17,7 +17,7 @@
 		
 	<BinField>
 		<!-- tip_fw_L1 tag (0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A) -->
-		<name>StartTag</name>         <!-- name of field -->
+		<name>StartTag</name>         
 		<config>
 			<offset>0</offset>            <!-- offset in the header -->
 			<size>0x8</size>              <!-- size in the header -->
@@ -30,7 +30,7 @@
 
 
 	<BinField>
-		<name>FWCrc</name>  <!-- name of field -->
+		<name>FWCrc</name>  
 		<config>
 			<offset>12</offset>
 			<size>4</size>
@@ -40,7 +40,7 @@
 
 
 	<BinField>
-		<name>KeyIndex</name>  <!-- name of field -->
+		<name>KeyIndex</name>  
 		<config>
 			<offset>140</offset>
 			<size>4</size>
@@ -49,9 +49,9 @@
 	</BinField>
 
 	<BinField>
-		<name>OtpFwVersion</name>  <!-- name of field -->
+		<name>SVN_Version</name>  
 		<config>
-			<offset>152</offset>
+			<offset>0x98</offset>
 			<size>2</size>
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
@@ -59,7 +59,7 @@
 
 	<BinField>
 		<!-- Code destination address, 32-bit aligned -->
-		<name>DestAddr_L1</name>         <!-- name of field -->
+		<name>DestAddr_L1</name>         
 		<config>
 			<offset>0x1F8</offset>        <!-- offset in the header -->
 			<size>0x4</size>              <!-- size in the header -->
@@ -69,7 +69,7 @@
 	
 	<BinField>
 		<!-- BootBlock or u-boot Code size -->
-		<name>CodeSize_L1</name>         <!-- name of field -->
+		<name>CodeSize_L1</name>         
 		<config>
 			<offset>0x1FC</offset>        <!-- offset in the header -->
 			<size>0x4</size>              <!-- size in the header -->
@@ -78,7 +78,7 @@
 	</BinField>
 
 	<BinField>
-		<name>TipFW_L1</name>             <!-- name of field -->
+		<name>TipFW_L1</name>             
 		<config>
 			<offset>0x200</offset>
 			<size format='FileSize'>inputs/arbel_tip_fw_L1.bin</size>                 <!-- size in the header calculated by tool-->

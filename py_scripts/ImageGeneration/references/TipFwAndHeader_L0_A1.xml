@@ -16,7 +16,7 @@
 	</ImageProperties>
 
 	<BinField>
-		<name>Anchor</name> <!-- name of field -->
+		<name>Anchor</name> 
 		<config>
 			<offset>0</offset>
 			<size>4</size>
@@ -27,7 +27,7 @@
 	<BinField>
 		<!-- CRC Enabled  (0x1E 0xAB 0xF2 0x57) or
 		     CRC Disabled (0xE1 0x54 0xF2 0x57) -->
-		<name>ExendedAnchor_CrcEn</name>         <!-- name of field -->
+		<name>ExendedAnchor_CrcEn</name>         
 		<config>
 			<offset>4</offset>
 			<size>4</size>
@@ -36,9 +36,9 @@
 	</BinField>
 
 	<BinField>
-		<name>FWCrc</name>  <!-- name of field -->
+		<name>FWCrc</name>  
 		<config>
-			<offset>12</offset>
+			<offset>0x0C</offset>
 			<size>4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>     <!-- will be calculated by IGPS -->
@@ -46,9 +46,9 @@
 
 	<BinField>
 		<!-- Code destination address, 32-bit aligned -->
-		<name>FwStartAddr</name>         <!-- name of field -->
+		<name>FwStartAddr</name>         
 		<config>
-			<offset>120</offset>
+			<offset>0x78</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x00020000</content>     <!-- content the user should fill -->
@@ -56,45 +56,45 @@
 
 	<BinField>
 		<!-- Code size -->
-		<name>FwLength</name>         <!-- name of field -->
+		<name>FwLength</name>         
 		<config>
-			<offset>132</offset>
+			<offset>0x84</offset>
 			<size>4</size>
 		</config>
 		<content format='FileSize'>inputs/arbel_tip_fw_L0.bin</content>	<!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
-		<name>KeyIndex</name>  <!-- name of field -->
+		<name>KeyIndex</name>  
 		<config>
-			<offset>140</offset>
+			<offset>0x8C</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x0</content>               <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
-		<name>OtpFwVersion</name>  <!-- name of field -->
+		<name>OtpFwVersion</name>  
 		<config>
-			<offset>152</offset>
+			<offset>0x98</offset>
 			<size>2</size>
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
-		<name>AesCbcIV</name>  <!-- name of field -->
+		<name>AesCbcIV</name>  
 		<config>
-			<offset>172</offset>
+			<offset>0xAC</offset>
 			<size>16</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
-		<name>TipFW</name>             <!-- name of field -->
+		<name>TipFW</name>             
 		<config>
-			<offset>256</offset>
+			<offset>0x100</offset>
 			<size format='FileSize'>inputs/arbel_tip_fw_L0.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
 		<content format='FileContent'>inputs/arbel_tip_fw_L0.bin</content>  <!-- content the user should fill -->

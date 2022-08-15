@@ -46,13 +46,14 @@
 	</BinField>
 
 	<BinField>
-		<name>OtpFwVersion</name>
+		<name>SVN_Version</name>
 		<config>
-			<offset>152</offset>
+			<offset>0x98</offset>
 			<size>2</size>
 		</config>
 		<content format='bytes'>0x00 0x00</content>               
 	</BinField>
+
 
 	<BinField>
 		<!-- Code destination address, 32-bit aligned -->

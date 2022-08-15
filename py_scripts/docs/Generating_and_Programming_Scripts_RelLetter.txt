@@ -5,8 +5,8 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.06.02
-Date:     Jul 2022
+Version:  03.06.04
+Date:     Aug 2022
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -97,6 +97,39 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 03.06.04              - Aug 14 2022
+==============
+- TIP_FW 0.4.1 L0 0.2.6 L1 
+   * flash driver bug fixes.
+   * Core reset bug fix: CORSTC: set to 1s, except MC bit
+   * Do not continue if BMC fail to boot.
+   * RESSR: copy values from TIP_SCR1 to INTCR2. Print last reset type.
+   * OEM: read 2 bytes from OTP (was 1).
+- Bootblock is alligned to 512KB.
+
+
+FIXED ISSUES
+------------
+
+
+KNOWN ISSUES
+------------
+- None.
+
+
+HISTORY
+-------
+IGPS 03.06.03              - Jul 28 2022
+==============
+- Add SVN version number on all headers.
+- 0.4.0 L0 0.2.5 L1:
+    - Add NVIC handler for BMC reset. (reload BMC only)
+    - A35_INIT earlier.
+    - Add version check, compare each version number against otp version number.
+    - Point image_header.data to the version number on the header.
+    - Note: OTP version increment is not yet supported. 
+
+
 IGPS 03.06.02              - Jul 24 2022
 ==============
 - Restore Z1 XMLs.
@@ -117,17 +150,6 @@ IGPS 03.06.02              - Jul 24 2022
 	- Print pass\fail criteria for sweeps. Need to enable debug prints to use.
 
 
-FIXED ISSUES
-------------
-
-
-KNOWN ISSUES
-------------
-- None.
-
-
-HISTORY
--------
 IGPS 03.06.01              - Jul 18 2022
 ==============
 - First open source release.
