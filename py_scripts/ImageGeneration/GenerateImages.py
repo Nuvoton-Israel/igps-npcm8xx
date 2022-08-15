@@ -43,7 +43,7 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	tipS_L0 =   Merge_bin_files_and_pad(KmtAndHeader_bin                                                , TipFwAndHeader_L0_bin , Kmt_TipFwL0_bin,                                       0x1000, 0x20)
 	skmtS  =    Merge_bin_files_and_pad(Kmt_TipFwL0_bin                                                 , SkmtAndHeader_bin     , Kmt_TipFwL0_Skmt_bin,                                  0x1000, 0x20)
 	tipS_L1 =   Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_bin                                            , TipFwAndHeader_L1_bin , Kmt_TipFwL0_Skmt_TipFwL1_bin,                           0x1000, 0x20)
-	bbS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin                                    , BootBlockAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin,                0x1000, 0x20)
+	bbS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin                                    , BootBlockAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin,                512*1024, 0x20)
 	bl31S  =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                          , BL31_AndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin,           0x1000, 0x20)
 	OpTeeS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                     , OpTeeAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin,     0x1000, 0x20)
 	ubootS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin               , UbootAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin,          0x1000, 0x20)
@@ -59,7 +59,7 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	Merge_bin_files_and_pad(BootBlock_BL31_OpTee_bin               , UbootAndHeader_bin    , BootBlock_BL31_OpTee_uboot_bin,          0x1000, 0x20)
 	
 	# os.remove(tmp_bin)
-	os.remove(Kmt_TipFwL0_bin)
+	# os.remove(Kmt_TipFwL0_bin)
 	os.remove(Kmt_TipFwL0_Skmt_bin)
 	os.remove(BootBlock_BL31_bin)
 	os.remove(BootBlock_BL31_OpTee_bin)
@@ -119,7 +119,7 @@ def MoveToFolder(isPalladium, dstFolder):
 	CheckIfFileExistsAndMove(BL31_AndHeader_bin                                               , dstFolder)
 	CheckIfFileExistsAndMove(OpTeeAndHeader_bin                                               , dstFolder)
 	CheckIfFileExistsAndMove(CpAndHeader_bin                                                  , dstFolder)
-	# CheckIfFileExistsAndMove(Kmt_TipFwL0_bin                                                  , dstFolder)
+	CheckIfFileExistsAndMove(Kmt_TipFwL0_bin                                                  , dstFolder)
 	# CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_bin                                             , dstFolder)
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_bin                                     , dstFolder)
 	# CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                           , dstFolder)
@@ -130,7 +130,6 @@ def MoveToFolder(isPalladium, dstFolder):
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin    , dstFolder)
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin                     , dstFolder)
 	
-
 
 def Run(TypeOfKey, pinCode,isPalladium):
 	currpath = os.getcwd()

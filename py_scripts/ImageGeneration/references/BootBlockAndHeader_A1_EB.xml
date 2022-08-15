@@ -24,16 +24,17 @@
 		<content format='bytes'>0x0A 0x50 0x08 0x55 0xAA 0x54 0x4F 0x4F</content>
 	</BinField>
 	
-	<BinField>
+		<BinField>
 		<!-- Version (Major.Minor) -->
-		<name>version</name>          
+		<name>SVN_Version</name>          
 		<config>
-			<offset>0x100</offset>       
-			<size>0x4</size> 
+			<offset>0x98</offset>       
+			<size>0x2</size> 
 		</config>
-		<content format='32bit'>0</content>               <!-- content the user should fill -->
+		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-		
+	
+			
 	<BinField>
 		<!-- Board manufaturer ( Dell = 0, Nuvoton = 100, Google = 1, MS = 2) -->
 		<name>vendor</name>          
@@ -527,6 +528,8 @@
 		</config>
 		<content format='32bit'>0</content>
 	</BinField>
+	
+
 	
 	<BinField>
 		<!-- Code destination address, 32-bit aligned: for BootBlock should be 0xFFFD0000 so code will run in 0xFFFB0200 as linked for -->

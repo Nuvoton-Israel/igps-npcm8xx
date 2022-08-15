@@ -26,14 +26,15 @@
 	
 	<BinField>
 		<!-- Version (Major.Minor) -->
-		<name>version</name>          
+		<name>SVN_Version</name>          
 		<config>
-			<offset>0x100</offset>       
-			<size>0x4</size> 
+			<offset>0x98</offset>       
+			<size>0x2</size> 
 		</config>
-		<content format='32bit'>0</content>               <!-- content the user should fill -->
+		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-		
+	
+			
 	<BinField>
 		<!-- Board manufaturer ( Dell = 0, Nuvoton = 100, Google = 1, MS = 2) -->
 		<name>vendor</name>          
