@@ -336,6 +336,49 @@ def Replace_binary_single_byte(binfile, offset, value):
 	
 	f.close()
 
+
+# Replace_binary_array: used to embed an array inside an image. Used for timestamp and address pointers.
+# bArray=True: num is an array, just write it in the file
+# bArray=False: num is a number in little endian, convert to array
+def Replace_binary_array(input_file, offset, num, size, bArray, title):
+	currpath = os.getcwd()
+	os.chdir(os.path.dirname(os.path.abspath(__file__)))
+	
+	print(("\033[95m" + "=========================================================="))
+	print(("== %s Replace_binary_array file %s offset %s num %s    " % (title, input_file, str(offset), str(num))))
+	print(("==========================================================" + "\x1b[0m"))
+
+	try:
+		# read input file:
+		if (os.path.isfile(input_file) == False):
+			print(("\033[91m" + "Replace_binary_array: input file " + input_file + " is missing\n\n" + "\033[97m"))
+			raise Exception('Missing file')
+
+		bin_file = open(input_file, "rb")
+		input = bin_file.read()
+		bin_file.close()
+
+		if (bArray == True):
+			arr = BigNum_2_Array(num, size, True)
+		else:
+			arr = bytearray(num)
+
+		#print(("size of input " + str(len(input))))
+		output = input[:offset] + arr + input[(offset + size):]
+		
+		# write the input with the embedded signature to the output file
+		print(("write " + str(arr) + " to file " + input_file))
+		input_file = open(input_file, "w+b")
+		input_file.write(output)
+		input_file.close()
+	except:
+		print(("\n\n FAIL %s Replace_binary_array.py: file %s offset %s array %s    " % (title, input_file, str(offset), str(arr))))
+		raise Exception('Replace_binary_array')
+	finally:
+		os.chdir(currpath)
+
+	os.chdir(currpath)
+
 	
 def Sign_binary(binfile, begin_offset, key, embed_signature, outputFile, TypeOfKey, pinCode , idNum):
 

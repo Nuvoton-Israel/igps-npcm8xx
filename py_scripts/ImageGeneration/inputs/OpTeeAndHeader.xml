@@ -34,8 +34,17 @@
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-
 	
+	<!-- timestamp -->
+	<BinField>
+		<name>timestamp_reserved</name>
+		<config>
+			<offset>0xBC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
+	</BinField>
+
 	<BinField>
 		<!-- BootBlock or u-boot Code size -->
 		<name>DestAddr</name>         
