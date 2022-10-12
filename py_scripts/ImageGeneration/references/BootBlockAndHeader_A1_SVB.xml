@@ -506,7 +506,7 @@
 			<offset>0x14F</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0</content>
+		<content format='32bit'>13</content>
 	</BinField>
 	
 	<BinField>
@@ -516,7 +516,7 @@
 			<offset>0x150</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0</content>
+		<content format='32bit'>13</content>
 	</BinField>
 	
 	<BinField>
@@ -526,7 +526,7 @@
 			<offset>0x151</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0</content>
+		<content format='32bit'>13</content>
 	</BinField>
 	
 	

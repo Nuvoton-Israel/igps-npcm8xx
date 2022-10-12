@@ -55,6 +55,9 @@ def Merge_bin_files_and_pad(inF1, inF2, outF, align, padding_at_end):
 	
 	status = 0
 	
+	#end allign always to sector:
+	align_end = 0x1000
+	
 
 	print(("\t\033[95m" + "Merge " + inF1 + " + " + inF2 + " => " + outF + "\033[97m"))
 	
@@ -78,12 +81,12 @@ def Merge_bin_files_and_pad(inF1, inF2, outF, align, padding_at_end):
 	if ((F1_size % align) != 0):
 		padding_size = align - (F1_size % align)
 	
-	if ((F2_size % align) != 0):
-		padding_size_end = align - (F2_size % align)
+	if ((F2_size % align_end) != 0):
+		padding_size_end = align_end - (F2_size % align_end)
 		
 	
 	print(("\tMerge " + hex(F1_size) + " bytes + " + hex(F2_size) + " bytes => " + outF))
-	print(("\tpadding " + hex(padding_size) + "\n\n" + "\x1b[0m"))
+	print(("\tpadding middle " + hex(padding_size) + "\tpadding end " + hex(padding_size_end) + "\n\n" + "\x1b[0m"))
 	
 	startLoc = F1_size + padding_size
 

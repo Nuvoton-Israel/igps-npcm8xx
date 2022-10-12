@@ -25,7 +25,7 @@
 		<content format='bytes'>0x0A 0x42 0x4C 0x33 0x31 0x4E 0x50 0x43</content>  <!-- content the user should fill -->
 	</BinField>
 
-		<BinField>
+	<BinField>
 		<!-- Version (Major.Minor) -->
 		<name>SVN_Version</name>          
 		<config>
@@ -33,6 +33,16 @@
 			<size>0x2</size> 
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+	</BinField>
+	
+		<!-- timestamp -->
+	<BinField>
+		<name>timestamp_reserved</name>
+		<config>
+			<offset>0xBC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
 	</BinField>
 
 	<BinField>

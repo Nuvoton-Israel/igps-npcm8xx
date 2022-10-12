@@ -211,6 +211,9 @@ otp_key6  = os.path.join(input_key_dir, "otp_ecc_key_6.der")
 id_otp_key6 = "6"
 otp_key7  = os.path.join(input_key_dir, "otp_ecc_key_7.der")
 id_otp_key7 = "7"
+otp_key8  = os.path.join(input_key_dir, "otp_ecc_key_8.der")
+id_otp_key8 = "8"
+
 
 
 from  .key_setting_edit_me import *

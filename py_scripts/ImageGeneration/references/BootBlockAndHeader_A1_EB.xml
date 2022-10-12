@@ -34,6 +34,16 @@
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
 	
+		<!-- timestamp -->
+	<BinField>
+		<name>timestamp_reserved</name>
+		<config>
+			<offset>0x1B0</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
+	</BinField>
+	
 			
 	<BinField>
 		<!-- Board manufaturer ( Dell = 0, Nuvoton = 100, Google = 1, MS = 2) -->
@@ -506,7 +516,7 @@
 			<offset>0x14F</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0</content>
+		<content format='32bit'>13</content>
 	</BinField>
 	
 	<BinField>
@@ -516,7 +526,7 @@
 			<offset>0x150</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0</content>
+		<content format='32bit'>13</content>
 	</BinField>
 	
 	<BinField>
@@ -526,7 +536,7 @@
 			<offset>0x151</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0</content>
+		<content format='32bit'>13</content>
 	</BinField>
 	
 

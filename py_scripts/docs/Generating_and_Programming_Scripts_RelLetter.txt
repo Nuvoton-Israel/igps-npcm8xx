@@ -5,8 +5,8 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.06.04
-Date:     Aug 2022
+Version:  03.07.02
+Date:     Oct. 2022
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -97,15 +97,12 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.06.04              - Aug 14 2022
+IGPS 03.07.02              - Oct 12 2022
 ==============
-- TIP_FW 0.4.1 L0 0.2.6 L1 
-   * flash driver bug fixes.
-   * Core reset bug fix: CORSTC: set to 1s, except MC bit
-   * Do not continue if BMC fail to boot.
-   * RESSR: copy values from TIP_SCR1 to INTCR2. Print last reset type.
-   * OEM: read 2 bytes from OTP (was 1).
-- Bootblock is alligned to 512KB.
+- uboot 2021.04-npcm8xx-20221011
+- 0.4.5 L0 0.3.4 L1  GOOGLE ONLY
+     - Google only version: Split SFDP to 16bytes reads.
+- Bootblock XML: Reduce FIU to 20MHz in bootblock header.
 
 
 FIXED ISSUES
@@ -119,6 +116,80 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.07.01              - Oct 3rd 2022
+==============
+- TIP_FW: 0.4.4 L0 0.3.3 L1
+   * Fix for openBMC reboot starting from recovery flash
+
+IGPS 03.07.00              - Sep 29th 2022
+==============
+- TIP_FW: 0.3.2 L1
+    * Demo for OCP:
+    - Fix for a trap caused by combo1 update during manifest revocation check.
+    - Tune parameter "configTICK_RATE_HZ" in FreeRTOSConfig.h to boost cerberus cmd execution time
+    - Use taskYield(platform_msleep(0)) in mbox receive packet path
+    - Remove "tip_platform_config.h". "platform_config.h" is the right place to do MCTP and Crypto customization.
+    - Debug prints cleanup
+
+IGPS 03.06.09              - Sep 22th 2022
+==============
+- TIP_FW: 0.3.0 L1
+    * Demo for OCP: match for DC-SCM flash layout.
+    * allow BMC side image replacement.
+	
+IGPS 03.06.08              - Sep 22th 2022
+==============
+- TIP_FW: 0.3.0 L1
+    * Demo for OCP: match for DC-SCM flash layout.
+
+IGPS 03.06.07              - Sep 21th 2022
+==============
+- TIP_FW: 0.4.4 L0 0.2.9 L1
+    * Demo for OCP
+- OpTee version 3.16 (revert from 3.18): https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm845x_3.16.0_1.1
+
+IGPS 03.06.06              - Sep 20th 2022
+==============
+- TIP_FW: 0.4.3 L0 0.2.8 L1 
+    * Bug fix: dummy cycles setting reused for next direct read. Split values handling.
+    * run BL31 only after update flow is complete.
+    * use get_uuid in tip_boot.
+    * Disable interrupts while booting BMC. Required to fix issue with NVIC_BMC_reset and debugger re-load.
+    * serial_print_init: always configure uart clocks.
+    * clear TIP_CTL_STS_DBGRST_STS on init.
+- B1: add key_mask field to KMT (backward compatible).
+- B1: Add key 8 (backward compatible).
+- uboot: https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2021.04-npcm8xx-20220907
+- OpTee version 3.18: https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm845x_3.18.0_v1.0
+- Bootblock version 0.2.3:
+   * MC: set bit 8 for DLL reset after writing to MRS registers.
+   * Flash: remove scan for uboot.
+
+
+
+IGPS 03.06.05              - Sep 4th 2022
+==============
+- 0.4.2 L0 0.2.7 L1 
+     - Add CLK_Delay_Sec.
+     - tip_cmd_device: read UUID from DIE\LOCATION\WAFER field in OTP.
+     - read OID from PDID register.
+     - Add timestamp to header + check during combo parse for update only. 
+- Add timestamps to all images in offset 0xBC.
+- uboot: add pointers to all images on flash.
+- Bug fix: too much gap between images. Now the gap is up to 0x1000, except
+  bootblock which is always alligned to 512KB.
+
+
+IGPS 03.06.04              - Aug 14 2022
+==============
+- TIP_FW 0.4.1 L0 0.2.6 L1 
+   * flash driver bug fixes.
+   * Core reset bug fix: CORSTC: set to 1s, except MC bit
+   * Do not continue if BMC fail to boot.
+   * RESSR: copy values from TIP_SCR1 to INTCR2. Print last reset type.
+   * OEM: read 2 bytes from OTP (was 1).
+- Bootblock is alligned to 512KB.
+
 IGPS 03.06.03              - Jul 28 2022
 ==============
 - Add SVN version number on all headers.
