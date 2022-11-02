@@ -83,6 +83,15 @@
 	</BinField>
 
 	<BinField>
+		<name>DME_challenge_offset</name>  
+		<config>
+			<offset>0xA8</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>               <!-- content the user should fill -->
+	</BinField>
+
+	<BinField>
 		<name>AesCbcIV</name>  
 		<config>
 			<offset>0xAC</offset>

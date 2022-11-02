@@ -5,8 +5,8 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.07.02
-Date:     Oct. 2022
+Version:  03.07.06
+Date:     Nov. 2022
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -97,13 +97,10 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.07.02              - Oct 12 2022
+IGPS 03.07.06_GOOGLE2              - Nov 2 2022
 ==============
-- uboot 2021.04-npcm8xx-20221011
-- 0.4.5 L0 0.3.4 L1  GOOGLE ONLY
-     - Google only version: Split SFDP to 16bytes reads.
-- Bootblock XML: Reduce FIU to 20MHz in bootblock header.
-
+- 0.4.5_GOOGLE2 L0 0.3.4_GOOGLE2 L1  GOOGLE ONLY
+     * Add flag CERBERUS_SECURE_BOOT_ONLY. No udpate, recovery and logging. 
 
 FIXED ISSUES
 ------------
@@ -116,6 +113,35 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.07.05              - Oct 27 2022
+==============
+- Bootblock version 0.2.6:
+     * Bug fix: If DRAM is 2GB and max DRAM size in header is smaller, 
+	   GMMAP should be set according to header, not according to the physical device. 
+- Bootblock XML: set max size of DRAM as 1GB by default. To enable 2GB need to manually change this value.
+
+IGPS 03.07.04              - Oct 20 2022
+==============
+- Bootblock version 0.2.4:
+   * MC: Support 2GB DRAM
+   * CLK: always set PLLs by bootblock (regardless of ROM init settings)
+   * SPI-X: upper limit of 33MHz. 
+- Bootblock XML: set max size of DRAM as 2GB. Bootblock will auto-detect the size if it's smaller.
+
+IGPS 03.07.03              - Oct 12 2022
+==============
+- uboot 2021.04-npcm8xx-20221011
+- 0.4.6 L0 0.3.5 L1
+     - Support all board types (flash connections detected at runtime.)
+- Bootblock XML: return FIU to 50MHz in bootblock header.
+
+IGPS 03.07.02              - Oct 12 2022
+==============
+- uboot 2021.04-npcm8xx-20221011
+- 0.4.5 L0 0.3.4 L1  GOOGLE ONLY
+     - Google only version: Split SFDP to 16bytes reads.
+- Bootblock XML: Reduce FIU to 20MHz in bootblock header.
+
 IGPS 03.07.01              - Oct 3rd 2022
 ==============
 - TIP_FW: 0.4.4 L0 0.3.3 L1

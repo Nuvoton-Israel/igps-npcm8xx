@@ -24,7 +24,7 @@
 		<content format='bytes'>0x0A 0x50 0x08 0x55 0xAA 0x54 0x4F 0x4F</content>
 	</BinField>
 	
-		<BinField>
+	<BinField>
 		<!-- Version (Major.Minor) -->
 		<name>SVN_Version</name>          
 		<config>
