@@ -5,7 +5,7 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.07.06
+Version:  03.07.06_GOOGLE3
 Date:     Nov. 2022
 
 This package is released under the terms of the Source Code License Agreement
@@ -97,10 +97,10 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.07.06_GOOGLE2              - Nov 2 2022
+IGPS 03.07.06_GOOGLE3        - Nov 20 2022
 ==============
-- 0.4.5_GOOGLE2 L0 0.3.4_GOOGLE2 L1  GOOGLE ONLY
-     * Add flag CERBERUS_SECURE_BOOT_ONLY. No udpate, recovery and logging. 
+- Bootblock 0.2.7: fix recalib
+    * WARNING: only supports A1. Only for GOOGLE.
 
 FIXED ISSUES
 ------------
@@ -113,6 +113,11 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.07.06_GOOGLE2              - Nov 2 2022
+==============
+- 0.4.5_GOOGLE2 L0 0.3.4_GOOGLE2 L1  GOOGLE ONLY
+     * Add flag CERBERUS_SECURE_BOOT_ONLY. No udpate, recovery and logging. 
+
 IGPS 03.07.05              - Oct 27 2022
 ==============
 - Bootblock version 0.2.6:
