@@ -5,8 +5,8 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.07.03
-Date:     Oct. 2022
+Version:  03.07.09
+Date:     Nov. 2022
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -97,13 +97,12 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.07.03              - Oct 12 2022
+IGPS 03.07.09              - Nov 22th 2022
 ==============
-- uboot 2021.04-npcm8xx-20221011
-- 0.4.6 L0 0.3.5 L1
-     - Support all board types (flash connections detected at runtime.)
-- Bootblock XML: return FIU to 50MHz in bootblock header.
-
+- Bootblock 0.2.8: bug fix recalib issue. Enable eSPI.
+- Optee 3.1.6_v1.3: print Optee version number.
+- Google: merged google branch to mainstream. To use: call UpdateInputBinaries_Google.bat
+- Monitor: add monitor program files. Fix monitor script.
 
 FIXED ISSUES
 ------------
@@ -116,6 +115,50 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.07.08              - Nov 7 2022
+==============
+- Bootblock revert to version 0.2.6 (fix only works on A1, fail to boot on z1)
+- TIP_FW: 0.4.8 L0 0.3.7 L1
+	- Bug fix, call bmc_continue in case of warm reset.
+	- Set all RCR regs so that host is not reset during warm boot. 
+	  New settings: 
+	  WD0RCR = 0300ef9d
+	  WD0RCRB = fffffc37
+	  (same settings for all warm resets)
+	  
+	  
+IGPS 03.07.07              - Nov 7 2022
+==============
+- Bootblock version 0.2.7:
+     * Bug fix: disable RECALIB in DDR.
+
+IGPS 03.07.06_GOOGLE2              - Nov 2 2022
+==============
+- 0.4.5_GOOGLE2 L0 0.3.4_GOOGLE2 L1  GOOGLE ONLY
+     * Add flag CERBERUS_SECURE_BOOT_ONLY. No udpate, recovery and logging. 
+
+IGPS 03.07.05              - Oct 27 2022
+==============
+- Bootblock version 0.2.6:
+     * Bug fix: If DRAM is 2GB and max DRAM size in header is smaller, 
+	   GMMAP should be set according to header, not according to the physical device. 
+- Bootblock XML: set max size of DRAM as 1GB by default. To enable 2GB need to manually change this value.
+
+IGPS 03.07.04              - Oct 20 2022
+==============
+- Bootblock version 0.2.4:
+   * MC: Support 2GB DRAM
+   * CLK: always set PLLs by bootblock (regardless of ROM init settings)
+   * SPI-X: upper limit of 33MHz. 
+- Bootblock XML: set max size of DRAM as 2GB. Bootblock will auto-detect the size if it's smaller.
+
+IGPS 03.07.03              - Oct 12 2022
+==============
+- uboot 2021.04-npcm8xx-20221011
+- 0.4.6 L0 0.3.5 L1
+     - Support all board types (flash connections detected at runtime.)
+- Bootblock XML: return FIU to 50MHz in bootblock header.
+
 IGPS 03.07.02              - Oct 12 2022
 ==============
 - uboot 2021.04-npcm8xx-20221011
