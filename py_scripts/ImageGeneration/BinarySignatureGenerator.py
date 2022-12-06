@@ -9,7 +9,11 @@ import sys
 import os
 
 # This file was downloaded from :https://github.com/andrivet/python-asn1/blob/master/src/asn1.py with MIT license:
-from . import asn1
+try:
+	from . import asn1
+except: 
+	import asn1
+	
 import binascii
 from array import array
 linux_prefix = " "
@@ -185,11 +189,12 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 		input = bin_file.read()
 		bin_file.close()
 		
+		begin_offset = int(begin_offset)
 		# build temporary file starting from the desired offset of the binfile
 		bin_file = open(bin_file_to_sign , "wb")
 		bin_file.write(input[begin_offset::])
 		bin_file.close()
-		pub_key_der = key.replace(".", "_pub.", 1)
+		pub_key_der = key.replace(".der", "_pub.der", 1)
 		if (TypeOfKey == "openssl"):
 			################################################################################
 			sig_der = output_filename.replace(".bin", "_sig.der")
@@ -245,6 +250,7 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 		print ("\nSignature.s:")
 		arr_s = BigNum_2_Array(signature[1], key_size, True)
 
+		embed_signature = int(embed_signature)
 		output = input[:embed_signature] + arr_r + arr_s + input[(embed_signature + key_size*2):]
 		# write the input with the embedded signature to the output file
 		print(("write to output file " + output_filename))
@@ -331,8 +337,8 @@ def Replace_binary_single_byte(binfile, offset, value):
 		return -1
 		
 	with open(binfile, 'rb+') as f:
-		f.seek(offset)
-		f.write((chr(value)).encode('utf8'))
+		f.seek(int(offset))
+		f.write((chr(int(value))).encode('utf8'))
 	
 	f.close()
 
@@ -388,3 +394,13 @@ def Sign_binary(binfile, begin_offset, key, embed_signature, outputFile, TypeOfK
 	print(("==========================================================" + "\x1b[0m"))
 
 	Sign_binary_openssl_or_HSM(binfile, begin_offset, key, embed_signature, outputFile, TypeOfKey, pinCode,idNum)
+	
+
+if __name__ == "__main__":
+	args = sys.argv
+	# args[0] = current file
+	# args[1] = function name
+	# args[2:] = function args : (*unpacked)
+	globals()[args[1]]( * args[2: ])
+	
+	
