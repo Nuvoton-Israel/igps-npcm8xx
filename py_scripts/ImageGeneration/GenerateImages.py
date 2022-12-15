@@ -146,7 +146,7 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	OpTeeS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                     , OpTeeAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin,     0x1000, 0x20)
 	ubootS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin               , UbootAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin,          0x1000, 0x20)
 	# cpS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin         , CpAndHeader_bin       , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_bin,       0x1000, 0x20)
-	imageS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin      , image_bin             , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, 0x110000, 0x20)
+	imageS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin      , image_bin             , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, 0x400000, 0x20)
 	#romfsS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, romfs_bin             , tmp_bin,                                0x1000, 0x20)
 	#dtbS =      Merge_bin_files_and_pad(tmp_bin                                          , dtb_bin ,               Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, 0x1000, 0x20)
 

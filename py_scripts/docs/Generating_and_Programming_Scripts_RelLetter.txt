@@ -5,8 +5,8 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.07.09
-Date:     Nov. 2022
+Version:  03.08.00
+Date:     Dec. 2022
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -34,7 +34,7 @@ Install on Linux:
 - Install OpenSSL 1.0.2 or above.
 - Download bingo sources from 
          https://github.com/Nuvoton-Israel/bingo
-  and follow the the README to compile.
+  and follow the README to compile.
   Copy output executable file to IGPS_X.Y.Z/py_scripts/ImageGeneration/bingo
 
 Usage for Linux users:
@@ -97,12 +97,23 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.07.09              - Nov 22th 2022
+IGPS 03.08.00              - Dec 15th 2022
 ==============
-- Bootblock 0.2.8: bug fix recalib issue. Enable eSPI.
-- Optee 3.1.6_v1.3: print Optee version number.
-- Google: merged google branch to mainstream. To use: call UpdateInputBinaries_Google.bat
-- Monitor: add monitor program files. Fix monitor script.
+- TIP_FW: 0.5.0 L0 0.3.9 L1 
+	- Code cleanup for production.
+	- bug fix key selection during recovery.
+	- Add DME+RIOT data export to PCI MBOX.
+	- align BMC and TIP that both will use PLL2 and not CLKREF.
+	- Bug fix: don't save previous INTCR2 for reset indication.
+	- Bug fix: update flow using wrong KMT. 
+- TIP_FW: 0.5.0 L0 0.3.9 L1 GOOGLE3 
+    - aligned to the above release.
+	- split SFDP
+	- enable flag CERBERUS_SECURE_BOOT_ONLY
+- uboot https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2021.04-npcm8xx-20221215
+- OpTee: https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm845x_3.18.0_v1.0
+- linux offset 4MB.
+- Update scripts to sign in yocto build (signatures only).	
 
 FIXED ISSUES
 ------------
@@ -115,6 +126,13 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.07.09              - Nov 22th 2022
+==============
+- Bootblock 0.2.8: bug fix recalib issue. Enable eSPI.
+- Optee 3.1.6_v1.3: print Optee version number.
+- Google: merged google branch to mainstream. To use: call UpdateInputBinaries_Google.bat
+- Monitor: add monitor program files. Fix monitor script.
+
 IGPS 03.07.08              - Nov 7 2022
 ==============
 - Bootblock revert to version 0.2.6 (fix only works on A1, fail to boot on z1)
@@ -135,7 +153,7 @@ IGPS 03.07.07              - Nov 7 2022
 IGPS 03.07.06_GOOGLE2              - Nov 2 2022
 ==============
 - 0.4.5_GOOGLE2 L0 0.3.4_GOOGLE2 L1  GOOGLE ONLY
-     * Add flag CERBERUS_SECURE_BOOT_ONLY. No udpate, recovery and logging. 
+     * Add flag CERBERUS_SECURE_BOOT_ONLY. No update, recovery and logging. 
 
 IGPS 03.07.05              - Oct 27 2022
 ==============
@@ -227,7 +245,7 @@ IGPS 03.06.05              - Sep 4th 2022
 - Add timestamps to all images in offset 0xBC.
 - uboot: add pointers to all images on flash.
 - Bug fix: too much gap between images. Now the gap is up to 0x1000, except
-  bootblock which is always alligned to 512KB.
+  bootblock which is always aligned to 512KB.
 
 
 IGPS 03.06.04              - Aug 14 2022
@@ -238,7 +256,7 @@ IGPS 03.06.04              - Aug 14 2022
    * Do not continue if BMC fail to boot.
    * RESSR: copy values from TIP_SCR1 to INTCR2. Print last reset type.
    * OEM: read 2 bytes from OTP (was 1).
-- Bootblock is alligned to 512KB.
+- Bootblock is aligned to 512KB.
 
 IGPS 03.06.03              - Jul 28 2022
 ==============
@@ -266,7 +284,7 @@ IGPS 03.06.02              - Jul 24 2022
 
 - Bootblock: 0.2.2
 	- Fix GMMAP value for 2GB and 512MB.
-	- Add 3 FIU dividers to the the header (require IGPS 3.6.2 and above)
+	- Add 3 FIU dividers to the header (require IGPS 3.6.2 and above)
 	- Bug fix: add support for ODT termination of zero (termination disabled).
 	- Print pass\fail criteria for sweeps. Need to enable debug prints to use.
 
@@ -286,7 +304,7 @@ IGPS 03.05.02              - Jun 22 2022
 - Bootblock 0.2.1
 - Generate new combo: BootBlock_BL31_Tee_uboot, remove unused combos.
 - Remove CP image from 1FF option.
-- Bug fix replace compnent for bootblock (wrong key being used).
+- Bug fix replace component for bootblock (wrong key being used).
 - TIP_FW: 0.2.1 L1, 0.3.6 L0.
 
 
@@ -347,7 +365,7 @@ IGPS 03.04.05               - Apr 4th 2022
 - Fix OTP programmer scripts.
 - Check binary is not missing before use.
 - TIP_FW L0 0.2.2, L1 0.0.7
-	- Move KMT to be 4KB aligend.
+	- Move KMT to be 4KB aligned.
 	- Boot from secondary flash: TIP_FW will always boot from same flash TIP_ROM booted L0 from. call tip_flash_set_active_flash to select te used flash. load_main_application: not related to recovery_boot anymore.
 	  loading will always be on same flash used for boot.
 	- tip_flash: fix issues with transition to small\large flash.
@@ -368,7 +386,7 @@ IGPS 03.04.03               - Mar 10th 2022
 - Disable CRC check on header.
 - Change key signing file. Only one file is used: 
   IGPS_3.4.3_Release\py_scripts\ImageGeneration\key_setting_edit_me.py
-  When changing key index no needto change KeyIndex inside the xml.
+  When changing key index no need to change KeyIndex inside the xml.
   IGPS will write it internally to the binaries.
 - TIP_FW: 0.0.6 L1.
 - TIP_FW: 0.2.1 L0 : authenticate all images. 
@@ -418,7 +436,7 @@ IGPS 03.03.08               - Jan 20th 2022
 - TIP FW L0 0.1.7.
 - ITP_FW L1 0.0.2.
 - Add RunPartial parameter to GenerateAll*.bat and ReplaceComponent*.bat. 
-  This allows replaceing component from command line. 
+  This allows replacing component from command line. 
 - Fix all xml files so that all xmls are standard (required for external parsers).
   License comes after first header line.
 - uboot start address is now 0x7E00 including the header. 
@@ -444,7 +462,7 @@ IGPS 03.03.04               - Dec 14th 2021
 - Add BL31.bin and BL31_AndHeader.xml
 - Add OpTee: tee.bin + OpTeeAndHeader.xml.
 - BL31 and OpTee are loaded but not executed. 
-  Require separete arbel_tip_fw.bin to activate them.
+  Require separate arbel_tip_fw.bin to activate them.
 - Change the startTag for bootblock and uboot, so they both startin new line.  
 - ReplaceComponent.bat : add BL31 and OpTee replace options.
 - BL31 is copied to 0xFFFD0000
