@@ -232,12 +232,19 @@ def MoveToFolder(isPalladium, dstFolder):
 def Run(TypeOfKey, pinCode,isPalladium):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
+	
+	# in case user wants to use HSM only TIP side images will be signed with HSM. The other images are build with yocto+openssl
+	TypeOfKey_TIP = "HSM"
+	TypeOfKey_BMC = "openssl"
 	try:
 		if TypeOfKey == "HSM":
 			if (os.path.isfile("pkcs11-tool.exe") == False):
 				print("pkcs11-tool.exe doesn't exist!")
 				return
+		# openssl: :use openssl for both images
+		else:	
+			TypeOfKey_TIP = TypeOfKey
+			TypeOfKey_BMC = TypeOfKey
 		if os.path.isdir(outputs_dir):
 			rmtree(outputs_dir)
 		os.mkdir(outputs_dir)
@@ -269,17 +276,17 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		# Generate Key Manifest
 
 		print("Generate KMT keys")
-		GenerateKeyECC(kmt_key0, TypeOfKey, pinCode, id_kmt_key0)
-		GenerateKeyECC(kmt_key1, TypeOfKey, pinCode, id_kmt_key1)
+		GenerateKeyECC(kmt_key0, TypeOfKey_TIP, pinCode, id_kmt_key0)
+		GenerateKeyECC(kmt_key1, TypeOfKey_TIP, pinCode, id_kmt_key1)
 
 		Generate_binary(kmt_map_xml, kmt_map_bin)
 		
 		print("Generate SKMT keys")
-		GenerateKeyECC(skmt_key0, TypeOfKey, pinCode, id_skmt_key0)
-		GenerateKeyECC(skmt_key1, TypeOfKey, pinCode, id_skmt_key1)
-		GenerateKeyECC(skmt_key2, TypeOfKey, pinCode, id_skmt_key2)
-		GenerateKeyECC(skmt_key3, TypeOfKey, pinCode, id_skmt_key3)
-		GenerateKeyECC(skmt_key4, TypeOfKey, pinCode, id_skmt_key4)
+		GenerateKeyECC(skmt_key0, TypeOfKey_TIP, pinCode, id_skmt_key0)
+		GenerateKeyECC(skmt_key1, TypeOfKey_BMC, pinCode, id_skmt_key1)
+		GenerateKeyECC(skmt_key2, TypeOfKey_BMC, pinCode, id_skmt_key2)
+		GenerateKeyECC(skmt_key3, TypeOfKey_BMC, pinCode, id_skmt_key3)
+		GenerateKeyECC(skmt_key4, TypeOfKey_BMC, pinCode, id_skmt_key4)
 
 		Generate_binary(skmt_map_xml, skmt_file)
 		
@@ -353,14 +360,15 @@ def Run(TypeOfKey, pinCode,isPalladium):
 
 
 		# Sign Images (and a secure  image)
-		Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]))
-		Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
-		Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]))
-		Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]))
-		Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
-		Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
-		Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]))
-		Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]))
+		Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]))
+		Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
+		Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]))
+		Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]))
+		Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
+		Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
+		Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]))
+		Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]))
+
 		Generate_binary(CpAndHeader_xml       , CpAndHeader_bin)
 		
 		#remove CRC

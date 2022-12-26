@@ -5,7 +5,7 @@ Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.08.00
+Version:  03.08.01
 Date:     Dec. 2022
 
 This package is released under the terms of the Source Code License Agreement
@@ -97,6 +97,28 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 03.08.01              - Dec 26th 2022
+==============
+- Preparation for yocto signing:
+  * All TIP images are now signed using HSM.
+  * All BMC images are signed with openssl key : SKMT key 1.
+  * SKMT key 1 is added to IGPS including private key to allow users to sign.
+  * TIP_FW still allows loading unsigned images to BMC. 
+    Next release this bypass will be blocked so all images must be signed. 
+  * Old mode of signing all images with openssl is still supported as before.
+  	
+
+FIXED ISSUES
+------------
+
+
+KNOWN ISSUES
+------------
+- None.
+
+
+HISTORY
+-------
 IGPS 03.08.00              - Dec 15th 2022
 ==============
 - TIP_FW: 0.5.0 L0 0.3.9 L1 
@@ -113,19 +135,9 @@ IGPS 03.08.00              - Dec 15th 2022
 - uboot https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2021.04-npcm8xx-20221215
 - OpTee: https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm845x_3.18.0_v1.0
 - linux offset 4MB.
-- Update scripts to sign in yocto build (signatures only).	
-
-FIXED ISSUES
-------------
+- Update scripts to sign in yocto build (signatures only).
 
 
-KNOWN ISSUES
-------------
-- None.
-
-
-HISTORY
--------
 IGPS 03.07.09              - Nov 22th 2022
 ==============
 - Bootblock 0.2.8: bug fix recalib issue. Enable eSPI.
