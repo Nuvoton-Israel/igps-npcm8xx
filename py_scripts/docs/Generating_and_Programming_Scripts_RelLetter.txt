@@ -1,12 +1,12 @@
 -----------------------------------------------------------------------------
 Nuvoton Technology Corporation - Confidential
 NPCM8XX (Arbel) Image generation and programming scripts Release Letter
-Copyright (c) 2022 Nuvoton Technology Corporation. All Rights Reserved.
+Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.08.01
-Date:     Dec. 2022
+Version:  03.08.03
+Date:     Jan. 2023
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -97,17 +97,32 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.08.01              - Dec 26th 2022
+IGPS 03.08.03              - Jan 9th 2023
 ==============
-- Preparation for yocto signing:
-  * All TIP images are now signed using HSM.
-  * All BMC images are signed with openssl key : SKMT key 1.
-  * SKMT key 1 is added to IGPS including private key to allow users to sign.
-  * TIP_FW still allows loading unsigned images to BMC. 
-    Next release this bypass will be blocked so all images must be signed. 
-  * Old mode of signing all images with openssl is still supported as before.
-  	
+- TIP_FW 0.5.3 L0 0.4.2 L1
+    * FreeRTOS: in case of assert: print useful info.
+    * NVIC_BMC_reset: clear NVIC int before reloading BMC.
+    * in BMC reset and spurious interrupt reset: read the int number from the active and not the pending.
+    * NVIC_IntHandlerCommon: bug fix: clear correct number.
+    * Big fix: enable all traps in hardware_app_init. 
+    * Add task bmc_task to handle BMC reset reload.
+    * Increase heap_size to 0xA000.
+    * HOSTPER: set to 1 till KCS bug is fixed.
+	* Flash: check if FIU1 and FIU 0\CS1 are disabled by OTP bit.
+	* Flash: bug fix: do not enable FIU1 CS2\3.
+	* Flash: Allow using a 4MB flash for image.
+	* Update FreeRTOS to none-MPU version.
+	* Spurious interrupt handling: in case of spurious interrupt print correct int number + NVIC state, and then clear it.
+	* OTP version: use two bits for each version number.
+	* Copy DBGRST too to INTCR2.
+	* Debug log: bug fix: data corruption in case of a 16MB flash. Replace the code so that 
+		 Debug log is 64KB (one flash block). 
+		 its location is 
+		  - split flash for active recovery:  64KB before recovery image.
+		  - two flash mode: last block in active flash.
+	* UUID: add full data read (wafer, X\Y, year, work week). Note: debug chips do not contain this info.
 
+	
 FIXED ISSUES
 ------------
 
@@ -119,6 +134,25 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.08.02              - Dec 29th 2022
+==============
+- TIP FW 0.5.1 L0 0.4.0 L1
+    * Set RCR regs only in PORST.
+    * Change RCR values for TIP reset.
+    * NVIC: print more data on spurious interrupts.
+    * SPIX - set FIU_FIX to SINGLES. Other FIUs remain in INCREASING mode as before.
+- TIP FW 0.5.1 L0 0.4.0 L1 GOOGLE4, derived from to the version mentioned above.
+
+IGPS 03.08.01              - Dec 26th 2022
+==============
+- Preparation for yocto signing:
+  * All TIP images are now signed using HSM.
+  * All BMC images are signed with openssl key : SKMT key 1.
+  * SKMT key 1 is added to IGPS including private key to allow users to sign.
+  * TIP_FW still allows loading unsigned images to BMC. 
+    Next release this bypass will be blocked so all images must be signed. 
+  * Old mode of signing all images with openssl is still supported as before.
+  	
 IGPS 03.08.00              - Dec 15th 2022
 ==============
 - TIP_FW: 0.5.0 L0 0.3.9 L1 
