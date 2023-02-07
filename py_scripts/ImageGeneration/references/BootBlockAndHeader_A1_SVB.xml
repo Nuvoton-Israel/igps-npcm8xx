@@ -38,7 +38,7 @@
 	<BinField>
 		<name>timestamp_reserved</name>
 		<config>
-			<offset>0x1B0</offset>
+			<offset>0xBC</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
