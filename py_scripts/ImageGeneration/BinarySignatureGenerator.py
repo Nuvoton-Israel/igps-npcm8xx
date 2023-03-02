@@ -162,6 +162,22 @@ def executeCMD(cmd):
 	if rc != 0:
 		print("execute CMD failed \n\n\n")
 
+def extract_bin_file_to_sign(bin_filename, begin_offset):
+	currpath = os.getcwd()
+	os.chdir(os.path.dirname(os.path.abspath(__file__)))
+	bin_file_to_sign = bin_filename.replace(".", "_part_to_sign.")
+	# read input file:
+	if (os.path.isfile(bin_filename) == False):
+		print("Input file " + bin_filename + " is missing")
+		raise Exception('Missing file')
+	bin_file = open(bin_filename, "rb")
+	input = bin_file.read()
+	bin_file.close()
+	# build temporary file starting from the desired offset of the binfile
+	bin_file = open(bin_file_to_sign , "wb")
+	bin_file.write(input[begin_offset::])
+	bin_file.close()
+
 def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature, output_filename , TypeOfKey, pinCode, idNum):
 	_openssl = openssl
 	if os.name != "nt":

@@ -37,22 +37,26 @@ CP_FW_file        = os.path.join(inputs_dir        , "arbel_cp_fw.bin"         )
 
 BootBlockAndHeader_xml                = os.path.join(inputs_dir        , "BootBlockAndHeader.xml")
 BootBlockAndHeader_bin                = os.path.join(outputs_dir       , "BootBlockAndHeader.bin")
+BootBlockAndHeader_der                = os.path.join(outputs_dir       , "BootBlockAndHeader_sig.der")
 BootBlockAndHeader_basic_bin          = os.path.join(basic_outputs_dir , "BootBlockAndHeader.bin")
 BootBlockAndHeader_secure_bin         = os.path.join(secure_outputs_dir, "BootBlockAndHeader.bin")
 
 BL31_AndHeader_xml                    = os.path.join(inputs_dir        , "BL31_AndHeader.xml")
 BL31_AndHeader_bin                    = os.path.join(outputs_dir       , "BL31_AndHeader.bin")
+BL31_AndHeader_der                    = os.path.join(outputs_dir       , "BL31_AndHeader_sig.der")
 BL31_AndHeader_basic_bin              = os.path.join(basic_outputs_dir , "BL31_AndHeader.bin")
 BL31_AndHeader_secure_bin             = os.path.join(secure_outputs_dir, "BL31_AndHeader.bin")
 
 OpTeeAndHeader_xml                    = os.path.join(inputs_dir        , "OpTeeAndHeader.xml")
 OpTeeAndHeader_bin                    = os.path.join(outputs_dir       , "OpTeeAndHeader.bin")
+OpTeeAndHeader_der                    = os.path.join(outputs_dir       , "OpTeeAndHeader_sig.der")
 OpTeeAndHeader_basic_bin              = os.path.join(basic_outputs_dir , "OpTeeAndHeader.bin")
 OpTeeAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "OpTeeAndHeader.bin")
 
 
 UbootAndHeader_xml                    = os.path.join(inputs_dir        , "UbootHeader.xml")
 UbootAndHeader_bin                    = os.path.join(outputs_dir       , "UbootAndHeader.bin")
+UbootAndHeader_der                    = os.path.join(outputs_dir       , "UbootAndHeader_sig.der")
 UbootAndHeader_basic_bin              = os.path.join(basic_outputs_dir , "UbootAndHeader.bin")
 UbootAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "UbootAndHeader.bin")
 

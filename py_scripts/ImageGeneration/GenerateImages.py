@@ -245,28 +245,24 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		else:	
 			TypeOfKey_TIP = TypeOfKey
 			TypeOfKey_BMC = TypeOfKey
-		if os.path.isdir(outputs_dir):
-			rmtree(outputs_dir)
-		os.mkdir(outputs_dir)
-		os.mkdir(basic_outputs_dir)
-		os.mkdir(secure_outputs_dir)
 		
-		print("Generate Manifest RSA keys")
-		GenerateKeyRSA(rsa_key0, TypeOfKey, pinCode, id_rsa_key0)
-
+		Run_Init()
 		
-		
-		# Genearte Fuse Array
-		print("Generate OTP keys")
-		GenerateKeyECC(otp_key0, TypeOfKey, pinCode, id_otp_key0)
-		GenerateKeyECC(otp_key1, TypeOfKey, pinCode, id_otp_key1)
-		GenerateKeyECC(otp_key2, TypeOfKey, pinCode, id_otp_key2)
-		GenerateKeyECC(otp_key3, TypeOfKey, pinCode, id_otp_key3)
-		GenerateKeyECC(otp_key4, TypeOfKey, pinCode, id_otp_key4)
-		GenerateKeyECC(otp_key5, TypeOfKey, pinCode, id_otp_key5)
-		GenerateKeyECC(otp_key6, TypeOfKey, pinCode, id_otp_key6)
-		GenerateKeyECC(otp_key7, TypeOfKey, pinCode, id_otp_key7)
-		GenerateKeyECC(otp_key8, TypeOfKey, pinCode, id_otp_key8)
+		if TypeOfKey != "RemoteHSM":
+			print("Generate Manifest RSA keys")
+			GenerateKeyRSA(rsa_key0, TypeOfKey, pinCode, id_rsa_key0)
+			
+			# Genearte Fuse Array
+			print("Generate OTP keys")
+			GenerateKeyECC(otp_key0, TypeOfKey, pinCode, id_otp_key0)
+			GenerateKeyECC(otp_key1, TypeOfKey, pinCode, id_otp_key1)
+			GenerateKeyECC(otp_key2, TypeOfKey, pinCode, id_otp_key2)
+			GenerateKeyECC(otp_key3, TypeOfKey, pinCode, id_otp_key3)
+			GenerateKeyECC(otp_key4, TypeOfKey, pinCode, id_otp_key4)
+			GenerateKeyECC(otp_key5, TypeOfKey, pinCode, id_otp_key5)
+			GenerateKeyECC(otp_key6, TypeOfKey, pinCode, id_otp_key6)
+			GenerateKeyECC(otp_key7, TypeOfKey, pinCode, id_otp_key7)
+			GenerateKeyECC(otp_key8, TypeOfKey, pinCode, id_otp_key8)
 
 		if(os.path.isfile(arbel_fuse_map_xml) == True):
 			print("Generate OTP image")
@@ -275,18 +271,20 @@ def Run(TypeOfKey, pinCode,isPalladium):
 			print("Skip OTP generation")
 		# Generate Key Manifest
 
-		print("Generate KMT keys")
-		GenerateKeyECC(kmt_key0, TypeOfKey_TIP, pinCode, id_kmt_key0)
-		GenerateKeyECC(kmt_key1, TypeOfKey_TIP, pinCode, id_kmt_key1)
+		if TypeOfKey != "RemoteHSM":
+			print("Generate KMT keys")
+			GenerateKeyECC(kmt_key0, TypeOfKey_TIP, pinCode, id_kmt_key0)
+			GenerateKeyECC(kmt_key1, TypeOfKey_TIP, pinCode, id_kmt_key1)
 
 		Generate_binary(kmt_map_xml, kmt_map_bin)
 		
-		print("Generate SKMT keys")
-		GenerateKeyECC(skmt_key0, TypeOfKey_TIP, pinCode, id_skmt_key0)
-		GenerateKeyECC(skmt_key1, TypeOfKey_BMC, pinCode, id_skmt_key1)
-		GenerateKeyECC(skmt_key2, TypeOfKey_BMC, pinCode, id_skmt_key2)
-		GenerateKeyECC(skmt_key3, TypeOfKey_BMC, pinCode, id_skmt_key3)
-		GenerateKeyECC(skmt_key4, TypeOfKey_BMC, pinCode, id_skmt_key4)
+		if TypeOfKey != "RemoteHSM":
+			print("Generate SKMT keys")
+			GenerateKeyECC(skmt_key0, TypeOfKey_TIP, pinCode, id_skmt_key0)
+			GenerateKeyECC(skmt_key1, TypeOfKey_BMC, pinCode, id_skmt_key1)
+			GenerateKeyECC(skmt_key2, TypeOfKey_BMC, pinCode, id_skmt_key2)
+			GenerateKeyECC(skmt_key3, TypeOfKey_BMC, pinCode, id_skmt_key3)
+			GenerateKeyECC(skmt_key4, TypeOfKey_BMC, pinCode, id_skmt_key4)
 
 		Generate_binary(skmt_map_xml, skmt_file)
 		
@@ -340,12 +338,6 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		Replace_binary_array(OpTeeAndHeader_bin,     0xBC, ticks, 4, True, "OpTee     add timestamp")
 		Replace_binary_array(UbootAndHeader_bin,     0xBC, ticks, 4, True, "UBOOT     add timestamp")
 		
-
-		
-		
-		
-		
-		
 		Uboot_header_embed_pointers_to_all_fw()
 
 
@@ -358,26 +350,65 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		# Move Basic images to Basic Directory	
 		MoveToFolder(isPalladium, basic_outputs_dir)
 
+		if TypeOfKey == "RemoteHSM":
+			# For signing with an remote HSM extract binaries that need to be signed
+			extract_bin_file_to_sign(KmtAndHeader_basic_bin, 112)
+			extract_bin_file_to_sign(TipFwAndHeader_L0_basic_bin, 112)
+			extract_bin_file_to_sign(SkmtAndHeader_basic_bin, 112)
+			extract_bin_file_to_sign(TipFwAndHeader_L1_basic_bin, 112)
+			extract_bin_file_to_sign(BootBlockAndHeader_basic_bin, 112)
+			extract_bin_file_to_sign(BL31_AndHeader_basic_bin, 112)
+			extract_bin_file_to_sign(OpTeeAndHeader_basic_bin, 112)
+			extract_bin_file_to_sign(UbootAndHeader_basic_bin, 112)
 
-		# Sign Images (and a secure  image)
-		Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]))
-		Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
-		Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]))
-		Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]))
-		Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
-		Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
-		Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]))
-		Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]))
+		else: # all other typeofkey continue to signing
+			Sign(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP, TypeOfKey_BMC)
 
-		Generate_binary(CpAndHeader_xml       , CpAndHeader_bin)
-		
-		#remove CRC
-		# Note: secure image will hold both CRC and signature, so that same
-		# bins will work both on basic and secure.
-		
-		# CRC32_remove(KmtAndHeader_bin          , 112    , 12     , KmtAndHeader_bin)
-		# CRC32_remove(TipFwAndHeader_L0_bin     , 112    , 12     , TipFwAndHeader_L0_bin)
-		# CRC32_remove(TipFwAndHeader_L1_bin     , 112    , 12     , TipFwAndHeader_L1_bin)
+	except (Exception) as e:
+		print("\n GenerateImages.py: Error building binaries (%s)" % str(e))
+		raise
+
+	finally:
+		os.chdir(currpath)
+
+def Sign(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_BMC=None):
+
+	currpath = os.getcwd()
+	os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+	try:
+		if TypeOfKey == "RemoteHSM":
+			# Embed_external_sig(sig_der, binfile , outputFile, embed_signature)
+			Embed_external_sig(KmtAndHeader_der, KmtAndHeader_basic_bin , KmtAndHeader_bin, 16)
+			Embed_external_sig(TipFwAndHeader_L0_der, TipFwAndHeader_L0_basic_bin, TipFwAndHeader_L0_bin, 16)
+			Embed_external_sig(SkmtAndHeader_der, SkmtAndHeader_basic_bin , SkmtAndHeader_bin, 16)
+			Embed_external_sig(TipFwAndHeader_L1_der, TipFwAndHeader_L1_basic_bin, TipFwAndHeader_L1_bin, 16)
+			# BMC bootloaders not verified now. Use tip l1 signature for builds for now
+			Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16)
+			Embed_external_sig(BL31_AndHeader_der, BL31_AndHeader_basic_bin, BL31_AndHeader_bin, 16)
+			Embed_external_sig(OpTeeAndHeader_der, OpTeeAndHeader_basic_bin, OpTeeAndHeader_bin, 16)
+			Embed_external_sig(UbootAndHeader_der, UbootAndHeader_basic_bin, UbootAndHeader_bin, 16)
+
+		else:
+			# Sign Images (and a secure  image)
+			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]))
+			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
+			Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]))
+			Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]))
+			Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
+			Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
+			Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]))
+			Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]))
+
+			Generate_binary(CpAndHeader_xml       , CpAndHeader_bin)
+			
+			# remove CRC
+			# Note: secure image will hold both CRC and signature, so that same
+			# bins will work both on basic and secure.
+			
+			# CRC32_remove(KmtAndHeader_bin          , 112    , 12     , KmtAndHeader_bin)
+			# CRC32_remove(TipFwAndHeader_L0_bin     , 112    , 12     , TipFwAndHeader_L0_bin)
+			# CRC32_remove(TipFwAndHeader_L1_bin     , 112    , 12     , TipFwAndHeader_L1_bin)
 
 		MergeBinFilesAndPadAndPrint(isPalladium)
 		# Move Secure images to Secure Directory

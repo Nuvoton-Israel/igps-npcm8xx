@@ -33,6 +33,10 @@ try:
 			
 		elif (sys.argv[index] == "openssl"):
 			TypeOfKey = "openssl"
+
+		elif (sys.argv[index] == "RemoteHSM"):
+			TypeOfKey = "RemoteHSM"
+			print("No keys will be generated. Signing remotely in DELL HSM")
 		
 		elif ((sys.argv[index] == "HSM") or (sys.argv[index] == "hsm")):
 			TypeOfKey = "HSM"

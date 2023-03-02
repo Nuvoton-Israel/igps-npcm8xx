@@ -74,7 +74,7 @@
 	</BinField>
 
 	<BinField>
-		<name>OtpFwVersion</name>  
+		<name>SVN_Version</name>  
 		<config>
 			<offset>0x98</offset>
 			<size>2</size>

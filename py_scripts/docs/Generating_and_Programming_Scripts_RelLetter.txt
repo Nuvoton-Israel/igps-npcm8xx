@@ -5,7 +5,7 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.08.05
+Version:  03.08.06
 Date:     Feb. 2023
 
 This package is released under the terms of the Source Code License Agreement
@@ -58,7 +58,17 @@ Usage for Windows users:
   <board>: {"SVB", "EB"}
   This script needs to run only once. 
   After that user may update py_scrips\ImageGeneration\inputs folder with alternative versions to the default binaries.  
-- Run GenerateAll.py to build combined images. 
+- Run GenerateAll.py to build combined images.
+  Users can select between three signing options:
+  * openssl: run localy.
+  * HSM: use any pkcs11 compliant HSM locally. 
+  	To use an HSM need to install at /py_scripts/ImageGeneration/
+  	- pkcs11-tool.exe
+	- opensc.dll or any dll required for your spefic HSM HW.
+  * Remote HSM: users who use a standalone remote HSM need to port the binaries to the HSM
+    and then copy back the signatures back to IGPS.
+    The signatures are then embedded to the binaries by IGSP.
+
   Users can also replace a single component in a pre-signed version using ReplaceComponent.bat
 
 - For Dediprog:  Run ProgramAll_Basic_DediProg.bat  or  ProgramAll_Secure_DediProg.bat
@@ -97,14 +107,14 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.08.05              - Feb 7th 2023
+IGPS 03.08.06              - Mar 2nd 2023
 ==============
-- bl31: npcm845x_2.6.0_1.5-1-g69e6d531f.
-- TIP_FW 0.5.5 L0 0.4.4 L1
-    * tip_mbx: reconfig the uart after BMC is up (singleton).
-    * recovery: warn the user and give them curtesy 10 seconds.
-    * bug fix: flash: wrong init fiu and cs in xfer.
-    * bug fix: flash: support single flash mode. tested on 4MB and 16MB.
+- removed uage of Arbel_programmer_monitor_printonly.bin, changed to Arbel_programmer_monitor_internaluser.bin
+- removed a wrong declaration of otp_prog_FW_bin that overwritten the case of a different Arbel_programmer_monitor_XXX.bin 
+- updated MonitorAndHeader.xml with 3 flags: Interactive mode , Programming options:, Dump_otp. details inside the file.
+- TIP_FW 0.5.6 L0 0.4.5 L1
+    * Avoid forcing sig check on BMC images.
+- Add support for RemoteHSM   
 
 FIXED ISSUES
 ------------
@@ -117,6 +127,15 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.08.05              - Feb 7th 2023
+==============
+- bl31: npcm845x_2.6.0_1.5-1-g69e6d531f.
+- TIP_FW 0.5.5 L0 0.4.4 L1
+    * tip_mbx: reconfig the uart after BMC is up (singleton).
+    * recovery: warn the user and give them curtesy 10 seconds.
+    * bug fix: flash: wrong init fiu and cs in xfer.
+    * bug fix: flash: support single flash mode. tested on 4MB and 16MB.
+
 IGPS 03.08.04              - Jan 16th 2023
 ==============
 - TIP_FW 0.5.4 L0 0.4.3 L1

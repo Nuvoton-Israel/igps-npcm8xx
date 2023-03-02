@@ -1,6 +1,6 @@
 arbel_a35_bootblock    = "arbel_a35_bootblock.0.2.8.bin"
-arbel_tip_fw_L0        = "arbel_tip_fw_L0.0.5.5.bin"
-arbel_tip_fw_L1        = "arbel_tip_fw_L1.0.4.4.bin"
+arbel_tip_fw_L0        = "arbel_tip_fw_L0.0.5.6.bin"
+arbel_tip_fw_L1        = "arbel_tip_fw_L1.0.4.5.bin"
 arbel_tip_fw_google_L0 = "arbel_tip_fw_L0.0.5.4_GOOGLE5.bin"
 arbel_tip_fw_google_L1 = "arbel_tip_fw_L1.0.4.3_GOOGLE5.bin"
 arbel_uboot            = "u-boot_2021.04-npcm8xx-20221215.bin"
