@@ -188,6 +188,7 @@
 			Bit 3: enable 3 seconds delay.
 			Bit 4: enable debug sweeps (in addition to sweep_debug)
 			Bit 5: enable prints during MC training
+			Bit 6: DRAM is DDP device (default is SDP)
 			 -->
 		<name>MC_CONFIG</name>          
 		<config>

@@ -36,6 +36,8 @@ SET STRAP5=2
 SET STRAP5_ASSERTED=-pin-set %STRAP5% %PIN_LOW%
 SET STRAP5_RELEASE=-pin-set %STRAP5% %PIN_IN%
 
+taskkill /IM "ttermpro.exe" /F
+
 
 :: enter the EVB into tri-state 
 echo.
@@ -96,7 +98,8 @@ echo *** Flash Programming Passed :-)  ****
 echo **************************************
 echo.
 echo.
-pause
-exit
+powershell.exe -ExecutionPolicy Bypass -File .\Open_All_Ports.ps1
+timeout /T 100
+
 
 

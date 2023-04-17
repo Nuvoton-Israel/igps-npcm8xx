@@ -70,6 +70,7 @@ try:
 	ImageGeneration.UpdateInputsBinaries.copy_uboot_files(uboot_bin_source, Ubootheader_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_tz_files(bl31_bin_source, tee_bin_source)
 	ImageGeneration.UpdateInputsBinaries.copy_linux_files(linux_image_source, linux_fs_source, linux_dtb_source)
+	ImageGeneration.UpdateInputsBinaries.copy_default_keys()
 
 	print("---------------------------------------------")
 	print("Binaries for Arbel PD are ready in 'inputs'")

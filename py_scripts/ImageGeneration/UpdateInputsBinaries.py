@@ -12,7 +12,7 @@ from shutil import copyfile
 
 
 inputs_dir = os.path.join("ImageGeneration", "inputs")
-
+inputs_keys_dir = os.path.join("ImageGeneration", "inputs", "key_input")
 bb_bin = "arbel_a35_bootblock.bin"
 bb_header_xml = "BootBlockAndHeader.xml"
 uboot_bin = "u-boot.bin"
@@ -32,13 +32,19 @@ CP_FW_file = "arbel_cp_fw.bin"
 cp_xml = "CpFwAndHeader.xml"
 fuse_xml = "arbel_fuse_map.xml"
 
-def copy_files(src, dest):
+def copy_files(src, dest, keys = 0):
 	try:
 		currpath = os.getcwd()
 		dest_file = os.path.join(inputs_dir, dest)
+		
+		if keys == 1:
+			dest_file = os.path.join(inputs_keys_dir, dest)
 
 		if not os.path.isdir(inputs_dir):
 			os.mkdir(inputs_dir)
+			
+		if not os.path.isdir(inputs_keys_dir):
+			os.mkdir(inputs_keys_dir)
 
 		if os.path.isfile(dest_file):
 			os.remove(dest_file)
@@ -114,3 +120,24 @@ def copy_cp_fw_files(cp, cpheader):
 	copy_files(cp, CP_FW_file)
 	copy_files(cpheader, cp_xml)
 
+def copy_default_keys():
+	currpath = os.getcwd()	
+	
+	# if the fist key is there, doesn't touch the key_input folder
+	single_key = os.path.join(inputs_dir, "key_input", "kmt_ecc_key_0_pub.der")
+	if os.path.isfile(single_key):
+		return
+
+	src_dir = os.path.join("ImageGeneration", "keys", "openssl")
+	dest_dir = os.path.join("ImageGeneration", "inputs", "key_input")
+	
+	if not os.path.isdir(dest_dir):
+		os.mkdir(dest_dir)
+
+	print(("Copy %s to %s" % (src_dir, dest_dir)))
+	
+	key_files = os.listdir(src_dir)
+	
+	for k in key_files:
+		copy_files(os.path.join(src_dir, k), k)
+		

@@ -5,8 +5,8 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.08.06
-Date:     Feb. 2023
+Version:  03.08.07
+Date:     Apr. 2023
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -23,7 +23,7 @@ This package is released in alpha quality.
 REQUIREMENTS
 ------------
 Hardware:
-- A Nuvoton NPCM850\NPCM830 A1 Silicon version BMC device (Arbel).
+- A Nuvoton NPCM850\NPCM830 A1 or A2 Silicon version BMC device (Arbel).
 - COM port cable. For DRB use a null modem cable. For EB use a USB cable (EB has an FTDI USB to COM device).
 
 INSTALLATION PROCEDURE
@@ -107,14 +107,44 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.08.06              - Mar 2nd 2023
-==============
-- removed uage of Arbel_programmer_monitor_printonly.bin, changed to Arbel_programmer_monitor_internaluser.bin
-- removed a wrong declaration of otp_prog_FW_bin that overwritten the case of a different Arbel_programmer_monitor_XXX.bin 
-- updated MonitorAndHeader.xml with 3 flags: Interactive mode , Programming options:, Dump_otp. details inside the file.
-- TIP_FW 0.5.6 L0 0.4.5 L1
-    * Avoid forcing sig check on BMC images.
-- Add support for RemoteHSM   
+IGPS 03.08.07              - April 9th 2023
+============
+- bug fix: when run Udpate*.bat also update the key_input folder to default openssl keys.
+- Support A2.
+- TIP_FW: 0.5.7 L0 0.4.6 L1 
+	* Bug fix for bmc reset task not getting active flash handler properly.
+	* TIP flash API enhancement.
+	* Bug fix for bmc reset task stack overflow (used by "reset" from Uboot to reload BMC images.)
+	* Enable stack overflow detection logic under macro (_TIP_DEBUG_BUILD_).
+	* Bug fix for configLIBRARY_LOWEST_INTERRUPT_PRIORITY in FreeRTOSConfig.h.
+	* add delay before recovery copy flash.
+	* force main and recovery flashes to be the same.
+	* Add timestamp compare to combo.
+	* tip_flash: fix prints
+	* Fix uptime print.
+	* Support A2.
+	* Fix INTRC2 settings.
+	* Enable QUAD mode. 
+- Bootblock 0.2.9 
+    * Bug fix: fixed a bug in testing of MC is already initialized.
+    * Bug fix: fixed a bug in setting the security enable bit.
+    * MC: Added support to 2x1G DDR.
+    * Clear MC interrupts in warm boot too.
+    * Fix FIU1 clk divider range. Can be up to 256.
+    * Support A2.
+    * Support 4GB. max_ddr_size in header should be 0xFFFFFFFF.
+    * Use SCRPAD_10 to indicate bootblock state: 
+       * 0xAAAAAAAA - working.
+       * 0x00000001 - training pass
+       * 0x00000002 - training fail
+    * SCRPAD2 is the size, SCRPAD3 is the size of 1MB. SCRPAD2 is always limited to 2GB.
+    * MC: measure DRAM size before enabling ECC.
+    *   * limitation: can't detect size, need to set max_dram_size in the header according to device, otherwise there 
+          is an exception after ECC is enabled.
+    * MC BIST is up to 2GB. rest is with for loop.
+- uboot 2021.04.10.02
+    * Support 4GB.
+- Add Open_All_Ports script. 
 
 FIXED ISSUES
 ------------
@@ -127,6 +157,15 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.08.06              - Mar 2nd 2023
+==============
+- removed uage of Arbel_programmer_monitor_printonly.bin, changed to Arbel_programmer_monitor_internaluser.bin
+- removed a wrong declaration of otp_prog_FW_bin that overwritten the case of a different Arbel_programmer_monitor_XXX.bin 
+- updated MonitorAndHeader.xml with 3 flags: Interactive mode , Programming options:, Dump_otp. details inside the file.
+- TIP_FW 0.5.6 L0 0.4.5 L1
+    * Avoid forcing sig check on BMC images.
+- Add support for RemoteHSM   
+
 IGPS 03.08.05              - Feb 7th 2023
 ==============
 - bl31: npcm845x_2.6.0_1.5-1-g69e6d531f.
