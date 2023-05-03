@@ -36,7 +36,7 @@ try:
 
 		elif (sys.argv[index] == "RemoteHSM"):
 			TypeOfKey = "RemoteHSM"
-			print("No keys will be generated. Signing remotely in DELL HSM")
+			print("No keys will be generated. Signing remotely in HSM")
 		
 		elif ((sys.argv[index] == "HSM") or (sys.argv[index] == "hsm")):
 			TypeOfKey = "HSM"
