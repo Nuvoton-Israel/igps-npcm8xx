@@ -83,6 +83,7 @@ def Uboot_header_embed_pointers_to_all_fw():
 		skmtS_size  =    os.path.getsize(SkmtAndHeader_bin)
 		tipS_L1_size =   os.path.getsize(TipFwAndHeader_L1_bin)
 		bbS_size =       os.path.getsize(BootBlockAndHeader_bin)
+		bbS_no_tip_size = os.path.getsize(BootBlockAndHeader_no_tip_bin)
 		bl31S_size  =    os.path.getsize(BL31_AndHeader_bin)
 		OpTeeS_size =    os.path.getsize(OpTeeAndHeader_bin)
 		ubootS_size =    os.path.getsize(UbootAndHeader_bin)
@@ -133,28 +134,33 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	# Merge files
 	bbS = 512*1024
 	
-	tipS_L0 =   Merge_bin_files_and_pad(KmtAndHeader_bin                                                , TipFwAndHeader_L0_bin , Kmt_TipFwL0_bin,                                       0x1000, 0x20)
-	skmtS  =    Merge_bin_files_and_pad(Kmt_TipFwL0_bin                                                 , SkmtAndHeader_bin     , Kmt_TipFwL0_Skmt_bin,                                  0x1000, 0x20)
-	tipS_L1 =   Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_bin                                            , TipFwAndHeader_L1_bin , Kmt_TipFwL0_Skmt_TipFwL1_bin,                           0x1000, 0x20)
-	bbS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin                                    , BootBlockAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin,                bbS, 0x20)
+	tipS_L0 =   Merge_bin_files_and_pad(KmtAndHeader_bin            , TipFwAndHeader_L0_bin , Kmt_TipFwL0_bin                       , 0x1000, 0x20)
+	skmtS  =    Merge_bin_files_and_pad(Kmt_TipFwL0_bin             , SkmtAndHeader_bin     , Kmt_TipFwL0_Skmt_bin                  , 0x1000, 0x20)
+	tipS_L1 =   Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_bin        , TipFwAndHeader_L1_bin , Kmt_TipFwL0_Skmt_TipFwL1_bin          , 0x1000, 0x20)
+	bbS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin, BootBlockAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin, bbS   , 0x20)
 	
 	# check that bootblock is still at 512KB offset
 	if (bbS != 512*1024):
 		print("       =============   ERROR: TIP_FW overflow ======================")
 		
-	bl31S  =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                          , BL31_AndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin,           0x1000, 0x20)
-	OpTeeS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                     , OpTeeAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin,     0x1000, 0x20)
-	ubootS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin               , UbootAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin,          0x1000, 0x20)
-	# cpS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin         , CpAndHeader_bin       , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_bin,       0x1000, 0x20)
-	imageS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin      , image_bin             , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, 0x400000, 0x20)
-	#romfsS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, romfs_bin             , tmp_bin,                                0x1000, 0x20)
-	#dtbS =      Merge_bin_files_and_pad(tmp_bin                                          , dtb_bin ,               Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, 0x1000, 0x20)
+	bl31S  =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                        , BL31_AndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                                ,           0x1000                     , 0x20)
+	OpTeeS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                   , OpTeeAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin                          ,     0x1000                           , 0x20)
+	ubootS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin             , UbootAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin                    ,          0x1000                      , 0x20)
+	# cpS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin     , CpAndHeader_bin   , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_bin                 ,       0x1000                         , 0x20)
+	imageS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin       , image_bin         , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin              , 0x400000                             , 0x20)
+	#romfsS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, romfs_bin         , tmp_bin                                                                    ,                                0x1000, 0x20)
+	#dtbS =      Merge_bin_files_and_pad(tmp_bin                                                      , dtb_bin           ,               Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, 0x1000                               , 0x20)
 
-	uboot_no_tzS = Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                       , UbootAndHeader_bin    , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin,           0x1000, 0x20)
+	uboot_no_tzS = Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                     , UbootAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin                               ,           0x1000                     , 0x20)
 
-	Merge_bin_files_and_pad(BootBlockAndHeader_bin                 , BL31_AndHeader_bin    , BootBlock_BL31_bin,           0x1000, 0x20)
-	Merge_bin_files_and_pad(BootBlock_BL31_bin                     , OpTeeAndHeader_bin    , BootBlock_BL31_OpTee_bin,     0x1000, 0x20)
-	Merge_bin_files_and_pad(BootBlock_BL31_OpTee_bin               , UbootAndHeader_bin    , BootBlock_BL31_OpTee_uboot_bin,          0x1000, 0x20)
+	Merge_bin_files_and_pad(BootBlockAndHeader_bin                                                    , BL31_AndHeader_bin, BootBlock_BL31_bin                                                         ,           0x1000                     , 0x20)
+	Merge_bin_files_and_pad(BootBlock_BL31_bin                                                        , OpTeeAndHeader_bin, BootBlock_BL31_OpTee_bin                                                   ,     0x1000                           , 0x20)
+	Merge_bin_files_and_pad(BootBlock_BL31_OpTee_bin                                                  , UbootAndHeader_bin, BootBlock_BL31_OpTee_uboot_bin                                             ,          0x1000                      , 0x20)
+
+	Merge_bin_files_and_pad(BootBlockAndHeader_no_tip_bin                                             , BL31_AndHeader_bin, BootBlock_BL31_no_tip_bin                                                  ,     0x1000                           , 0x20)
+	Merge_bin_files_and_pad(BootBlock_BL31_no_tip_bin                                                 , OpTeeAndHeader_bin, BootBlock_BL31_OpTee_no_tip_bin                                            ,     0x1000                           , 0x20)
+	Merge_bin_files_and_pad(BootBlock_BL31_OpTee_no_tip_bin                                           , UbootAndHeader_bin, BootBlock_BL31_OpTee_uboot_no_tip_bin                                      ,          0x1000                      , 0x20)
+	
 	
 	# os.remove(tmp_bin)
 	# os.remove(Kmt_TipFwL0_bin)
@@ -164,6 +170,8 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	os.remove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin)
 	os.remove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin)
 	os.remove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin)
+	os.remove(BootBlock_BL31_no_tip_bin)
+	os.remove(BootBlock_BL31_OpTee_no_tip_bin)
 
 	startFl = 0x80000000
 	print(("KMT starts at       "  + hex(startFl)+            " size " + hex(os.path.getsize(KmtAndHeader_bin))))
@@ -176,7 +184,6 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	print(("Uboot starts at     "  + hex(ubootS  + startFl) + " size " + hex(os.path.getsize(UbootAndHeader_bin))))
 	#print ("CP starts at        "  + hex(cpS     + startFl) + " size " + hex(os.path.getsize(CpAndHeader_bin)))
 	print(("image starts at     "  + hex(imageS  + startFl) + " size " + hex(os.path.getsize(image_bin))))
-	
 	# print ("romfs starts at     "+ hex(romfsS  + startFl) + " size " + hex(os.path.getsize(romfs_bin)))
 	# print ("dtb starts at       "+ hex(dtbS    + startFl) + " size " + hex(os.path.getsize(dtb_bin)))
 	
@@ -185,27 +192,27 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 		
 	# Convert files to hex
 	if (isPalladium):
-		Convert_file_to_hex_like_PD_likes_it(BootBlockAndHeader_bin        , BootBlockAndHeader_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(UbootAndHeader_bin            , UbootAndHeader_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(TipFwAndHeader_L0_bin         , TipFwAndHeader_L0_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(TipFwAndHeader_L1_bin         , TipFwAndHeader_L1_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(KmtAndHeader_bin              , KmtAndHeader_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(CpAndHeader_bin               , CpAndHeader_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(Kmt_TipFwL0_Skmt_TipFwL1_bin                 , Kmt_TipFwL0_Skmt_TipFwL1_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin       , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin.replace(".bin", ".hex"), 1)
-		Convert_file_to_hex_like_PD_likes_it(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin.replace(".bin", ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(BootBlockAndHeader_bin                      , BootBlockAndHeader_bin.replace(".bin"                      , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(UbootAndHeader_bin                          , UbootAndHeader_bin.replace(".bin"                          , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(TipFwAndHeader_L0_bin                       , TipFwAndHeader_L0_bin.replace(".bin"                       , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(TipFwAndHeader_L1_bin                       , TipFwAndHeader_L1_bin.replace(".bin"                       , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(KmtAndHeader_bin                            , KmtAndHeader_bin.replace(".bin"                            , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(CpAndHeader_bin                             , CpAndHeader_bin.replace(".bin"                             , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(Kmt_TipFwL0_Skmt_TipFwL1_bin                , Kmt_TipFwL0_Skmt_TipFwL1_bin.replace(".bin"                , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin      , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin.replace(".bin"      , ".hex"), 1)
+		Convert_file_to_hex_like_PD_likes_it(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin.replace(".bin", ".hex"), 1)
 
 
 def MoveToFolder(isPalladium, dstFolder):
 	if (isPalladium):
-		move(KmtAndHeader_bin.replace(".bin", ".hex")             , dstFolder)
-		move(SkmtAndHeader_bin.replace(".bin", ".hex")            , dstFolder)
-		move(TipFwAndHeader_L0_bin.replace(".bin", ".hex")        , dstFolder)
-		move(UbootAndHeader_L1_bin.replace(".bin", ".hex")        , dstFolder)
-		move(BootBlockAndHeader_bin.replace(".bin", ".hex")       , dstFolder)
-		move(CpAndHeader_bin.replace(".bin", ".hex")              , dstFolder)
-		move(Kmt_TipFwL0_Skmt_TipFwL1_bin.replace(".bin", ".hex")                , dstFolder)
-		move(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin.replace(".bin", ".hex")      , dstFolder)
+		move(KmtAndHeader_bin.replace(".bin"                            , ".hex"), dstFolder)
+		move(SkmtAndHeader_bin.replace(".bin"                           , ".hex"), dstFolder)
+		move(TipFwAndHeader_L0_bin.replace(".bin"                       , ".hex"), dstFolder)
+		move(UbootAndHeader_L1_bin.replace(".bin"                       , ".hex"), dstFolder)
+		move(BootBlockAndHeader_bin.replace(".bin"                      , ".hex"), dstFolder)
+		move(CpAndHeader_bin.replace(".bin"                             , ".hex"), dstFolder)
+		move(Kmt_TipFwL0_Skmt_TipFwL1_bin.replace(".bin"                , ".hex"), dstFolder)
+		move(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin.replace(".bin"      , ".hex"), dstFolder)
 		move(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin.replace(".bin", ".hex"), dstFolder)
 		
 	CheckIfFileExistsAndMove(KmtAndHeader_bin                                                 , dstFolder)
@@ -214,6 +221,7 @@ def MoveToFolder(isPalladium, dstFolder):
 	CheckIfFileExistsAndMove(TipFwAndHeader_L1_bin                                            , dstFolder)
 	CheckIfFileExistsAndMove(UbootAndHeader_bin                                               , dstFolder)
 	CheckIfFileExistsAndMove(BootBlockAndHeader_bin                                           , dstFolder)
+	CheckIfFileExistsAndMove(BootBlockAndHeader_no_tip_bin                                    , dstFolder)
 	CheckIfFileExistsAndMove(BL31_AndHeader_bin                                               , dstFolder)
 	CheckIfFileExistsAndMove(OpTeeAndHeader_bin                                               , dstFolder)
 	CheckIfFileExistsAndMove(CpAndHeader_bin                                                  , dstFolder)
@@ -225,6 +233,7 @@ def MoveToFolder(isPalladium, dstFolder):
 	# CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin                , dstFolder)
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin          , dstFolder)
 	CheckIfFileExistsAndMove(BootBlock_BL31_OpTee_uboot_bin                                   , dstFolder)
+	CheckIfFileExistsAndMove(BootBlock_BL31_OpTee_uboot_no_tip_bin                            , dstFolder)
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin    , dstFolder)
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin                     , dstFolder)
 	
@@ -294,6 +303,7 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		
 		print("\nAlign input images\n")
 		Pad_bin_file_inplace(  bb_bin         ,  32)
+		Pad_bin_file_inplace(  bb_bin_no_tip  ,  32)
 		Pad_bin_file_inplace(  uboot_bin      ,  32)
 		Pad_bin_file_inplace(  tee_bin        ,  32)
 		Pad_bin_file_inplace(  bl31_bin       ,  32)
@@ -306,18 +316,19 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		Pad_bin_file_inplace(  CP_FW_file     ,  32)
 		
 		# Generate Basic Images
-		Generate_binary(KmtAndHeader_xml      , KmtAndHeader_bin)
-		Generate_binary(TipFwAndHeader_L0_xml , TipFwAndHeader_L0_bin)
-		Generate_binary(SkmtAndHeader_xml     , SkmtAndHeader_bin)
-		Generate_binary(TipFwAndHeader_L1_xml , TipFwAndHeader_L1_bin)
-		Generate_binary(BootBlockAndHeader_xml, BootBlockAndHeader_bin)
-		Generate_binary(BL31_AndHeader_xml    , BL31_AndHeader_bin)
-		Generate_binary(OpTeeAndHeader_xml    , OpTeeAndHeader_bin)
-		Generate_binary(UbootAndHeader_xml    , UbootAndHeader_bin)
-		Generate_binary(CpAndHeader_xml       , CpAndHeader_bin)
+		Generate_binary(KmtAndHeader_xml             , KmtAndHeader_bin)
+		Generate_binary(TipFwAndHeader_L0_xml        , TipFwAndHeader_L0_bin)
+		Generate_binary(SkmtAndHeader_xml            , SkmtAndHeader_bin)
+		Generate_binary(TipFwAndHeader_L1_xml        , TipFwAndHeader_L1_bin)
+		Generate_binary(BootBlockAndHeader_xml       , BootBlockAndHeader_bin)
+		Generate_binary(BootBlockAndHeader_no_tip_xml, BootBlockAndHeader_no_tip_bin)
+		Generate_binary(BL31_AndHeader_xml           , BL31_AndHeader_bin)
+		Generate_binary(OpTeeAndHeader_xml           , OpTeeAndHeader_bin)
+		Generate_binary(UbootAndHeader_xml           , UbootAndHeader_bin)
+		Generate_binary(CpAndHeader_xml              , CpAndHeader_bin)
 		
 		
-		# Put the key index number inside tthe header a offset 140
+		# Put the key index number inside the header at offset 140
 		Replace_binary_single_byte(KmtAndHeader_bin,       140, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
 		Replace_binary_single_byte(TipFwAndHeader_L0_bin,  140, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))
 		Replace_binary_single_byte(SkmtAndHeader_bin,      140, ord(kmt_key_which_signs_skmt[-1]) - ord('0'))
@@ -329,14 +340,15 @@ def Run(TypeOfKey, pinCode,isPalladium):
 		
 		# insert timestamp to header:
 		ticks = int(time.time()) % 0xFFFFFFFF
-		Replace_binary_array(KmtAndHeader_bin,       0xBC, ticks, 4, True, "KMT       add timestamp")
-		Replace_binary_array(TipFwAndHeader_L0_bin,  0xBC, ticks, 4, True, "L0        add timestamp")
-		Replace_binary_array(SkmtAndHeader_bin,      0xBC, ticks, 4, True, "SKMT      add timestamp")
-		Replace_binary_array(TipFwAndHeader_L1_bin,  0xBC, ticks, 4, True, "L1        add timestamp")
-		Replace_binary_array(BootBlockAndHeader_bin, 0xBC, ticks, 4, True, "Bootblock add timestamp")
-		Replace_binary_array(BL31_AndHeader_bin,     0xBC, ticks, 4, True, "BL31      add timestamp")
-		Replace_binary_array(OpTeeAndHeader_bin,     0xBC, ticks, 4, True, "OpTee     add timestamp")
-		Replace_binary_array(UbootAndHeader_bin,     0xBC, ticks, 4, True, "UBOOT     add timestamp")
+		Replace_binary_array(KmtAndHeader_bin             , 0xBC,   ticks, 4, True, "KMT       add timestamp")
+		Replace_binary_array(TipFwAndHeader_L0_bin        , 0xBC,   ticks, 4, True, "L0        add timestamp")
+		Replace_binary_array(SkmtAndHeader_bin            , 0xBC,   ticks, 4, True, "SKMT      add timestamp")
+		Replace_binary_array(TipFwAndHeader_L1_bin        , 0xBC,   ticks, 4, True, "L1        add timestamp")
+		Replace_binary_array(BootBlockAndHeader_bin       , 0xBC,   ticks, 4, True, "Bootblock add timestamp")
+		Replace_binary_array(BootBlockAndHeader_no_tip_bin, 0xBC,   ticks, 4, True, "Bootblock add timestamp")
+		Replace_binary_array(BL31_AndHeader_bin           , 0xBC,   ticks, 4, True, "BL31      add timestamp")
+		Replace_binary_array(OpTeeAndHeader_bin           , 0xBC,   ticks, 4, True, "OpTee     add timestamp")
+		Replace_binary_array(UbootAndHeader_bin           , 0xBC,   ticks, 4, True, "UBOOT     add timestamp")
 		
 		Uboot_header_embed_pointers_to_all_fw()
 
@@ -352,14 +364,14 @@ def Run(TypeOfKey, pinCode,isPalladium):
 
 		if TypeOfKey == "RemoteHSM":
 			# For signing with an remote HSM extract binaries that need to be signed
-			extract_bin_file_to_sign(KmtAndHeader_basic_bin, 112)
-			extract_bin_file_to_sign(TipFwAndHeader_L0_basic_bin, 112)
-			extract_bin_file_to_sign(SkmtAndHeader_basic_bin, 112)
-			extract_bin_file_to_sign(TipFwAndHeader_L1_basic_bin, 112)
+			extract_bin_file_to_sign(KmtAndHeader_basic_bin      , 112)
+			extract_bin_file_to_sign(TipFwAndHeader_L0_basic_bin , 112)
+			extract_bin_file_to_sign(SkmtAndHeader_basic_bin     , 112)
+			extract_bin_file_to_sign(TipFwAndHeader_L1_basic_bin , 112)
 			extract_bin_file_to_sign(BootBlockAndHeader_basic_bin, 112)
-			extract_bin_file_to_sign(BL31_AndHeader_basic_bin, 112)
-			extract_bin_file_to_sign(OpTeeAndHeader_basic_bin, 112)
-			extract_bin_file_to_sign(UbootAndHeader_basic_bin, 112)
+			extract_bin_file_to_sign(BL31_AndHeader_basic_bin    , 112)
+			extract_bin_file_to_sign(OpTeeAndHeader_basic_bin    , 112)
+			extract_bin_file_to_sign(UbootAndHeader_basic_bin    , 112)
 
 		else: # all other typeofkey continue to signing
 			Sign(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP, TypeOfKey_BMC)
@@ -378,16 +390,16 @@ def Sign(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_BMC=None
 
 	try:
 		if TypeOfKey == "RemoteHSM":
-			# Embed_external_sig(sig_der, binfile , outputFile, embed_signature)
-			Embed_external_sig(KmtAndHeader_der, KmtAndHeader_basic_bin , KmtAndHeader_bin, 16)
-			Embed_external_sig(TipFwAndHeader_L0_der, TipFwAndHeader_L0_basic_bin, TipFwAndHeader_L0_bin, 16)
-			Embed_external_sig(SkmtAndHeader_der, SkmtAndHeader_basic_bin , SkmtAndHeader_bin, 16)
-			Embed_external_sig(TipFwAndHeader_L1_der, TipFwAndHeader_L1_basic_bin, TipFwAndHeader_L1_bin, 16)
+			# Embed_external_sig(sig_der             , binfile                     , outputFile            , embed_signature)
+			Embed_external_sig(KmtAndHeader_der      , KmtAndHeader_basic_bin      , KmtAndHeader_bin      , 16)
+			Embed_external_sig(TipFwAndHeader_L0_der , TipFwAndHeader_L0_basic_bin , TipFwAndHeader_L0_bin , 16)
+			Embed_external_sig(SkmtAndHeader_der     , SkmtAndHeader_basic_bin     , SkmtAndHeader_bin     , 16)
+			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16)
 			# BMC bootloaders not verified now. Use tip l1 signature for builds for now
 			Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16)
-			Embed_external_sig(BL31_AndHeader_der, BL31_AndHeader_basic_bin, BL31_AndHeader_bin, 16)
-			Embed_external_sig(OpTeeAndHeader_der, OpTeeAndHeader_basic_bin, OpTeeAndHeader_bin, 16)
-			Embed_external_sig(UbootAndHeader_der, UbootAndHeader_basic_bin, UbootAndHeader_bin, 16)
+			Embed_external_sig(BL31_AndHeader_der    , BL31_AndHeader_basic_bin    , BL31_AndHeader_bin    , 16)
+			Embed_external_sig(OpTeeAndHeader_der    , OpTeeAndHeader_basic_bin    , OpTeeAndHeader_bin    , 16)
+			Embed_external_sig(UbootAndHeader_der    , UbootAndHeader_basic_bin    , UbootAndHeader_bin    , 16)
 
 		else:
 			# Sign Images (and a secure  image)
@@ -413,7 +425,8 @@ def Sign(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_BMC=None
 		MergeBinFilesAndPadAndPrint(isPalladium)
 		# Move Secure images to Secure Directory
 		MoveToFolder(isPalladium, secure_outputs_dir)
-
+		# need to remove the no tip secure bin that was created in last operation of moving all from basic to secure
+		os.remove(BootBlock_BL31_OpTee_uboot_secure_no_tip_bin)
 	except (Exception) as e:
 		print(("\n GenerateImages.py: Error building binaries (%s)" % str(e)))
 		raise

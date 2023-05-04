@@ -176,7 +176,7 @@
 			<offset>0x130</offset>
 			<size>0x4</size> 
 		</config>
-		<content format='32bit'>0x40000000</content>     <!-- content the user should fill -->
+		<content format='32bit'>0xFFFFFFFF</content>     <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -188,6 +188,7 @@
 			Bit 3: enable 3 seconds delay.
 			Bit 4: enable debug sweeps (in addition to sweep_debug)
 			Bit 5: enable prints during MC training
+			Bit 6: DRAM is DDP device (default is SDP)
 			 -->
 		<name>MC_CONFIG</name>          
 		<config>

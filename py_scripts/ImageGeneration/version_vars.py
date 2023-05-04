@@ -1,4 +1,5 @@
-arbel_a35_bootblock    = "arbel_a35_bootblock.0.2.9.bin"
+arbel_a35_bootblock    = "arbel_a35_bootblock.0.3.0.bin"
+arbel_a35_bootblock_no_tip    = "arbel_a35_bootblock_no_tip.0.3.0.bin"
 arbel_tip_fw_L0        = "arbel_tip_fw_L0.0.5.7.bin"
 arbel_tip_fw_L1        = "arbel_tip_fw_L1.0.4.6.bin"
 arbel_tip_fw_google_L0 = "arbel_tip_fw_L0.0.5.7_GOOGLE6.bin"

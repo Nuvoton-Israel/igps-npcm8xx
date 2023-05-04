@@ -14,7 +14,9 @@ from shutil import copyfile
 inputs_dir = os.path.join("ImageGeneration", "inputs")
 inputs_keys_dir = os.path.join("ImageGeneration", "inputs", "key_input")
 bb_bin = "arbel_a35_bootblock.bin"
+bb_bin_no_tip = "arbel_a35_bootblock_no_tip.bin"
 bb_header_xml = "BootBlockAndHeader.xml"
+bb_header_no_tip_xml = "BootBlockAndHeader_no_tip.xml"
 uboot_bin = "u-boot.bin"
 uboot_header_xml = "UbootHeader.xml"
 tee_bin = "tee.bin"
@@ -71,6 +73,11 @@ def copy_bootblock_files(BootBlock, BBheader):
 
 	copy_files(BootBlock, bb_bin)
 	copy_files(BBheader, bb_header_xml)
+	
+def copy_bootblock_no_tip(BootBlock, BBheader):
+
+	copy_files(BootBlock, bb_bin_no_tip)
+	copy_files(BBheader, bb_header_no_tip_xml)
 
 def copy_uboot_files(uboot, Ubootheader):
 
@@ -78,6 +85,7 @@ def copy_uboot_files(uboot, Ubootheader):
 	copy_files(Ubootheader, uboot_header_xml)
 
 def copy_tz_files(bl31, tee):
+
 	copy_files(bl31, bl31_bin)
 	copy_files(tee, tee_bin)
 

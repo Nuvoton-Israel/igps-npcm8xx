@@ -22,6 +22,7 @@ secure_outputs_dir                    = os.path.join(outputs_dir       , "Secure
 
 
 bb_bin            = os.path.join(inputs_dir        , "arbel_a35_bootblock.bin" )
+bb_bin_no_tip     = os.path.join(inputs_dir        , "arbel_a35_bootblock_no_tip.bin" )
 uboot_bin         = os.path.join(inputs_dir        , "u-boot.bin"              )
 tee_bin           = os.path.join(inputs_dir        , "tee.bin"                 )
 bl31_bin          = os.path.join(inputs_dir        , "bl31.bin"                )
@@ -41,6 +42,11 @@ BootBlockAndHeader_der                = os.path.join(outputs_dir       , "BootBl
 BootBlockAndHeader_basic_bin          = os.path.join(basic_outputs_dir , "BootBlockAndHeader.bin")
 BootBlockAndHeader_secure_bin         = os.path.join(secure_outputs_dir, "BootBlockAndHeader.bin")
 
+BootBlockAndHeader_no_tip_xml         = os.path.join(inputs_dir        , "BootBlockAndHeader_no_tip.xml")
+BootBlockAndHeader_no_tip_bin         = os.path.join(outputs_dir       , "BootBlockAndHeader_no_tip.bin")
+BootBlockAndHeader_no_tip_basic_bin   = os.path.join(basic_outputs_dir , "BootBlockAndHeader_no_tip.bin")
+BootBlockAndHeader_no_tip_secure_bin  = os.path.join(secure_outputs_dir, "BootBlockAndHeader_no_tip.bin")
+
 BL31_AndHeader_xml                    = os.path.join(inputs_dir        , "BL31_AndHeader.xml")
 BL31_AndHeader_bin                    = os.path.join(outputs_dir       , "BL31_AndHeader.bin")
 BL31_AndHeader_der                    = os.path.join(outputs_dir       , "BL31_AndHeader_sig.der")
@@ -59,10 +65,6 @@ UbootAndHeader_bin                    = os.path.join(outputs_dir       , "UbootA
 UbootAndHeader_der                    = os.path.join(outputs_dir       , "UbootAndHeader_sig.der")
 UbootAndHeader_basic_bin              = os.path.join(basic_outputs_dir , "UbootAndHeader.bin")
 UbootAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "UbootAndHeader.bin")
-
-BootBlockAndUboot_basic_bin           = os.path.join(basic_outputs_dir , "BootBlockAndUboot.bin")
-BootBlockAndUboot_secure_bin          = os.path.join(secure_outputs_dir, "BootBlockAndUboot.bin")
-
 
 kmt_map_xml                           = os.path.join(inputs_dir        , "kmt_map.xml")
 kmt_map_bin                           = os.path.join(inputs_dir        , "kmt_map.bin")
@@ -150,8 +152,6 @@ Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin             = os.path.join(out
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_basic_bin         = os.path.join(basic_outputs_dir , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee.bin")
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_secure_bin        = os.path.join(secure_outputs_dir, "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee.bin")
 
-
-
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin         = os.path.join(outputs_dir       , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot.bin")
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_basic_bin   = os.path.join(basic_outputs_dir , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot.bin")
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_secure_bin  = os.path.join(secure_outputs_dir, "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot.bin")
@@ -167,6 +167,16 @@ BootBlock_BL31_OpTee_secure_bin  = os.path.join(secure_outputs_dir, "BootBlock_B
 BootBlock_BL31_OpTee_uboot_bin         = os.path.join(outputs_dir       , "BootBlock_BL31_Tee_uboot.bin")
 BootBlock_BL31_OpTee_uboot_basic_bin   = os.path.join(basic_outputs_dir , "BootBlock_BL31_Tee_uboot.bin")
 BootBlock_BL31_OpTee_uboot_secure_bin  = os.path.join(secure_outputs_dir, "BootBlock_BL31_Tee_uboot.bin")
+
+BootBlock_BL31_no_tip_bin         = os.path.join(outputs_dir       , "BootBlock_BL31_no_tip.bin")
+BootBlock_BL31_basic_no_tip_bin   = os.path.join(basic_outputs_dir , "BootBlock_BL31_no_tip.bin")
+
+BootBlock_BL31_OpTee_no_tip_bin         = os.path.join(outputs_dir       , "BootBlock_BL31_Tee_no_tip.bin")
+BootBlock_BL31_OpTee_basic_no_tip_bin   = os.path.join(basic_outputs_dir , "BootBlock_BL31_Tee_no_tip.bin")
+
+BootBlock_BL31_OpTee_uboot_no_tip_bin         = os.path.join(outputs_dir       , "image_no_tip.bin")
+BootBlock_BL31_OpTee_uboot_basic_no_tip_bin   = os.path.join(basic_outputs_dir , "image_no_tip.bin")
+BootBlock_BL31_OpTee_uboot_secure_no_tip_bin = os.path.join(secure_outputs_dir , "image_no_tip.bin")
 
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin         = os.path.join(outputs_dir       , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot.bin")
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_basic_bin   = os.path.join(basic_outputs_dir , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot.bin")

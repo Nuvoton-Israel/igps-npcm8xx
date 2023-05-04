@@ -39,7 +39,8 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 				return
 		
 		if (int(component_num) == 0):
-			print("\n======\nTo replace: \n======\nKMT       press 1\nTIP_FW    press 2\nBootBlock press 3\nUboot     press 4\nCP        press 5\nFuse file press 6\nBL31      press 7\nOpTee     press 8\nSkmt      press 9\n")
+			print("\n======\nTo replace: \n======\nKMT       press 1\nTIP_FW    press 2\nBootBlock press 3\nUboot     press 4\nCP        press 5\n"  \
+			"Fuse file press 6\nBL31      press 7\nOpTee     press 8\nSkmt      press 9\nNO_TIP BB press 10\n")
 
 		if (int(component_num) == 0):
 			choice = eval(input("\n Please don't forget to step over the binary in the 'inputs' folder before running this script\n"))
@@ -48,27 +49,24 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 		
 		print(("\n  Selected option is " + str(choice) + "\n\nCopying secured files to output_binaries..."))
 
-		if choice != 1 and choice != 2 and choice != 3  and choice != 4 and choice != 5 and choice != 6 and choice != 7 and choice != 8 and choice != 9:
+		if choice != 1 and choice != 2 and choice != 3  and choice != 4 and choice != 5 and choice != 6 and choice != 7 and choice != 8 and choice != 9 and choice != 10:
 			print("No such choice \n")
 			return
 		
 		if (choice != 6):
-			shutil.copy(KmtAndHeader_secure_bin,                       KmtAndHeader_bin)
-			shutil.copy(SkmtAndHeader_secure_bin,                      SkmtAndHeader_bin)
-			shutil.copy(TipFwAndHeader_L0_secure_bin,                  TipFwAndHeader_L0_bin)
-			shutil.copy(TipFwAndHeader_L1_secure_bin,                  TipFwAndHeader_L1_bin)
-			shutil.copy(BL31_AndHeader_secure_bin,                     BL31_AndHeader_bin)
-			shutil.copy(OpTeeAndHeader_secure_bin,                     OpTeeAndHeader_bin)
-			shutil.copy(UbootAndHeader_secure_bin,                     UbootAndHeader_bin)
-			shutil.copy(BootBlockAndHeader_secure_bin,                 BootBlockAndHeader_bin)
-			shutil.copy(CpAndHeader_secure_bin,                        CpAndHeader_bin)
-			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_secure_bin,                          Kmt_TipFwL0_Skmt_TipFwL1_bin)
-			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_secure_bin,          Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin)
+			shutil.copy(KmtAndHeader_secure_bin                                       , KmtAndHeader_bin)
+			shutil.copy(SkmtAndHeader_secure_bin                                      , SkmtAndHeader_bin)
+			shutil.copy(TipFwAndHeader_L0_secure_bin                                  , TipFwAndHeader_L0_bin)
+			shutil.copy(TipFwAndHeader_L1_secure_bin                                  , TipFwAndHeader_L1_bin)
+			shutil.copy(BL31_AndHeader_secure_bin                                     , BL31_AndHeader_bin)
+			shutil.copy(OpTeeAndHeader_secure_bin                                     , OpTeeAndHeader_bin)
+			shutil.copy(UbootAndHeader_secure_bin                                     , UbootAndHeader_bin)
+			shutil.copy(BootBlockAndHeader_secure_bin                                 , BootBlockAndHeader_bin)
+			shutil.copy(BootBlockAndHeader_no_tip_secure_bin                          , BootBlockAndHeader_no_tip_bin)
+			shutil.copy(CpAndHeader_secure_bin                                        , CpAndHeader_bin)
+			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_secure_bin                           , Kmt_TipFwL0_Skmt_TipFwL1_bin)
+			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_secure_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin)
 			
-			
-			
-		
-
 		# Sign Images (and a secure  image) according to the choice
 		if (choice == 1):
 			print("Replace KMT")
@@ -105,6 +103,13 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			Sign_binary(BootBlockAndHeader_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_secure_bin, TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
 			shutil.copy(BootBlockAndHeader_secure_bin,            BootBlockAndHeader_bin)
 			
+		elif (choice == 10):
+			print("Replace bootblock no tip")
+			Pad_bin_file_inplace(  bb_bin_no_tip         ,  32)
+			Generate_binary(BootBlockAndHeader_no_tip_xml, BootBlockAndHeader_bin)
+			Replace_binary_array(BootBlockAndHeader_no_tip_bin, 0xBC, ticks, 4, True, "Bootblock add timestamp")
+			shutil.copy(BootBlockAndHeader_no_tip_secure_bin,            BootBlockAndHeader_no_tip_bin)
+		
 		elif (choice == 4):
 			print("Replace uboot")
 			Pad_bin_file_inplace(  uboot_bin      ,  32)

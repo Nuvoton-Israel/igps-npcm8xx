@@ -106,7 +106,7 @@
 			<offset>136</offset>
 			<size>4</size>
 		</config>
-		<content format='32bit'>0x0</content>               <!-- B1: key index, bitwise -->
+		<content format='32bit'>0xFF</content>               <!-- B1: key index, bitwise -->
 	</BinField>
 
 	<BinField>

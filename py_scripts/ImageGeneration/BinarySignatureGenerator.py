@@ -160,8 +160,8 @@ def executeCMD(cmd):
 	print(cmd)
 	rc = os.system(cmd)
 	if rc != 0:
-		print("execute CMD failed \n\n\n")
-
+		raise ValueError("execute CMD failed \n\n")
+		
 def extract_bin_file_to_sign(bin_filename, begin_offset):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -274,9 +274,6 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 		output_file.write(output)
 		output_file.close()
 
-	except:
-		print(("\n\n Sign_binary_openssl.py: signing %s to %s failed" % (bin_filename, output_filename)))
-		raise Exception('OpenSSL fail')
 	finally:
 		if os.path.isfile(sig_der)  :
 			os.remove(sig_der)

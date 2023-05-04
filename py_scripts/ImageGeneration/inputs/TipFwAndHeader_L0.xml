@@ -63,6 +63,15 @@
 		</config>
 		<content format='FileSize'>inputs/arbel_tip_fw_L0.bin</content>	<!-- content the user should fill -->
 	</BinField>
+	
+	<BinField>
+		<name>KeyMask</name>    <!-- A2: bit mask of keys to test.  A1: NA -->
+		<config>
+			<offset>0x88</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0xFF</content>               <!-- B1: key index, bitwise -->
+	</BinField>
 
 	<BinField>
 		<name>KeyIndex</name>  
@@ -74,7 +83,7 @@
 	</BinField>
 
 	<BinField>
-		<name>SVN_Version</name>  
+		<name>OtpFwVersion</name>  
 		<config>
 			<offset>0x98</offset>
 			<size>2</size>

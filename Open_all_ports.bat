@@ -1,0 +1,1 @@
+powershell.exe -ExecutionPolicy Bypass -File .\py_scripts\ImageProgramming\Open_All_Ports.ps1

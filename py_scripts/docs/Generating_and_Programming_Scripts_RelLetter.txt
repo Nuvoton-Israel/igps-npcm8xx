@@ -5,8 +5,8 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.08.07
-Date:     Apr. 2023
+Version:  03.08.08
+Date:     May 2023
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -107,6 +107,28 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 03.08.08              - May 3rd 2023
+============
+- Modified update & Generate scripts to support the new BootBlock no TIP files, XML , etc.
+- BootBlock 0.3.0
+	* Added support of no TIP mode
+	* Set all DRAM values to 0x14000000 ( while(1) ).
+	* Tested with all DRAMs size (1,2,4GB) and types (SDP, DDP), with and without ECC.
+	Fix FIU1 frequancy to 50MHz.
+- No TIP mode is only for A2 users.
+- IGPS still supports TIP mode.
+
+FIXED ISSUES
+------------
+
+
+KNOWN ISSUES
+------------
+- None.
+
+
+HISTORY
+-------
 IGPS 03.08.07              - April 9th 2023
 ============
 - bug fix: when run Udpate*.bat also update the key_input folder to default openssl keys.
@@ -146,17 +168,6 @@ IGPS 03.08.07              - April 9th 2023
     * Support 4GB.
 - Add Open_All_Ports script. 
 
-FIXED ISSUES
-------------
-
-
-KNOWN ISSUES
-------------
-- None.
-
-
-HISTORY
--------
 IGPS 03.08.06              - Mar 2nd 2023
 ==============
 - removed uage of Arbel_programmer_monitor_printonly.bin, changed to Arbel_programmer_monitor_internaluser.bin
