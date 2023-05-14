@@ -25,10 +25,11 @@ https://www.openssl.org/source/
 https://github.com/Nuvoton-Israel/uart-update-tool
 Used for programing the flash using the Arbel ROM UFPP mode.
 
-Download and compile these three tools. The first tools should be placed inside ./ImageGeneration
-The last tool should be placed inside ./ImageProgramming.
-
 WARNING: Programming with UUT is only supported in  NPCM8XX Z1. Tool is obsulete.
+
+Download and compile bingo and openssl tools. The bingo should be placed inside ./ImageGeneration
+openssl should be placed inside ./ImageProgramming.
+
 
 ## Notes about input files
 All the files in this package are used for EB\SVB. For other vendors, please contact tali.perry@nuvoton.com. 
@@ -40,7 +41,7 @@ All the files in this package are used for EB\SVB. For other vendors, please con
 python ./UpdateInputsBinaries_%Chip*_%Board%.py
 python ./GenerateAll.py
 ```
-Chip:  A1\Z1 device.
+Chip:  A2\A1\Z1 device.
 Board: SVB\EB are currently supported. 
 
 Note: UpdateInputBinaries*.bat resets all the images and xml files inside py_scripts\ImageGeneration\inputs folder.
