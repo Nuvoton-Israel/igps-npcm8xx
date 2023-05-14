@@ -5,7 +5,7 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.08.08
+Version:  03.08.09
 Date:     May 2023
 
 This package is released under the terms of the Source Code License Agreement
@@ -107,16 +107,45 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.08.08              - May 3rd 2023
+IGPS 03.08.09              - May 14th 2023
 ============
-- Modified update & Generate scripts to support the new BootBlock no TIP files, XML , etc.
-- BootBlock 0.3.0
-	* Added support of no TIP mode
-	* Set all DRAM values to 0x14000000 ( while(1) ).
-	* Tested with all DRAMs size (1,2,4GB) and types (SDP, DDP), with and without ECC.
-	Fix FIU1 frequancy to 50MHz.
-- No TIP mode is only for A2 users.
-- IGPS still supports TIP mode.
+- Bootblock 0.3.1:
+	- Bug fix FIU settings: when selecting FIU divider in header make sure the frequancy will 
+	  remain lower during runtime. previously bootblock always sets to 50MHz (default) then 
+	  change according to header. Now setting of 50MHz is only done if header field is zero or 0xFF.
+	- Bug fix: CLK call CLK_Verify_and_update_dividers once (instead of twice).
+- uboot v2021.04-npcm8xx-20230511 
+	u-boot.bin is built with extra configs
+		CONFIG_CMD_EXT4=y
+		CONFIG_CMD_FS_GENERIC=y
+		CONFIG_CMD_GPT=y
+		CONFIG_CMD_PART=y
+
+		CONFIG_TEE=y
+		CONFIG_OPTEE=y
+		CONFIG_TPM=y
+		CONFIG_TPM_V2=y
+		CONFIG_TPM2_FTPM_TEE=y
+		CONFIG_CMD_TPM=y
+		CONFIG_TPM2_MB=y
+		#CONFIG_TCG2_LOG_BASE_ADDRESS=0x35F00000
+		CONFIG_SUPPORT_EMMC_RPMB=y
+
+- TIP_FW 0.5.9 L0 0.4.8 L1
+	- Add the support for updating TIP FW Combo 0 and Combo 1 together.
+	  When the public key that is used to verify BMC combo is modified, SKMT and BMC Combo must be update together.
+	  Previous FW update flow doesn't fit. This patch adds a third option (combo 2) that updates Combo 0 and Combo 1 together.
+	- Port hardware crypto library NCL to TIP to replace mbedtls (except X-509).
+	- Enlarge configTOTAL_HEAP_SIZE to 0xb000 to accommodate larger MCTP stack size to support "challenge"
+	  command when NCL is ported.
+	- NCL uses NCL_FIPS_MODE instead of NON_FIPS_MODE.
+	- Added Z1: PKA_IntHandler, therefore returned to run the RSA selftest that was excluded.
+	- Added code for A2.
+	- flash: support flash size mix.
+	- restore:
+		- force main and recovery flashes to be the same.
+		- Add timestamp compare to combo.
+
 
 FIXED ISSUES
 ------------
@@ -129,6 +158,17 @@ KNOWN ISSUES
 
 HISTORY
 -------
+IGPS 03.08.08              - May 3rd 2023
+============
+- Modified update & Generate scripts to support the new BootBlock no TIP files, XML , etc.
+- BootBlock 0.3.0
+	* Added support of no TIP mode
+	* Set all DRAM values to 0x14000000 ( while(1) ).
+	* Tested with all DRAMs size (1,2,4GB) and types (SDP, DDP), with and without ECC.
+	Fix FIU1 frequancy to 50MHz.
+- No TIP mode is only for A2 users.
+- IGPS still supports TIP mode.
+
 IGPS 03.08.07              - April 9th 2023
 ============
 - bug fix: when run Udpate*.bat also update the key_input folder to default openssl keys.

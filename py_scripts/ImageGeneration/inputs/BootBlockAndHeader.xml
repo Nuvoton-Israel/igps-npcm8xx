@@ -73,7 +73,7 @@
 			<offset>0x10C</offset>       
 			<size>0x2</size> 
 		</config>
-		<content format='32bit'>1066</content> 
+		<content format='32bit'>1000</content> 
 	</BinField>
 	<BinField>
 		<!-- supporeted values: 333,500,600,666,700,720,750,800,825,850,900,950,1000. 
@@ -176,7 +176,7 @@
 			<offset>0x130</offset>
 			<size>0x4</size> 
 		</config>
-		<content format='32bit'>0xFFFFFFFF</content>     <!-- content the user should fill -->
+		<content format='32bit'>0x40000000</content>     <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -492,6 +492,7 @@
 		</config>
 		<content format='32bit'>0x00</content>
 	</BinField>
+
 	
 	<BinField>
 		<!-- SWEEP_MAIN_FLOW: enable running main flow sweeps. bitwise:
@@ -540,7 +541,6 @@
 		<content format='32bit'>0</content>
 	</BinField>
 	
-
 	
 	<BinField>
 		<!-- Code destination address, 32-bit aligned: for BootBlock should be 0xFFFD0000 so code will run in 0xFFFB0200 as linked for -->

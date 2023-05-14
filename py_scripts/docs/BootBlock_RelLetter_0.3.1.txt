@@ -1,0 +1,272 @@
+----------------------------------------------------------------------
+ SPDX-License-Identifier: GPL-2.0                                     
+ Copyright (c) 2010-2023 by Nuvoton Technology Corporation   
+ All rights reserved       
+
+ NPCM8XX (Arbel) A35 BootBlock Release Letter 
+----------------------------------------------------------------------
+
+# NPCM8XX bootBlock Package Release Letter
+Version: 00.03.01
+Date:    May 2023
+
+
+# PACKAGE CONTENTS
+----------------
+This package contains the following files/folders:
+- Sources\Arbel_A35_BootBlock_RelLetter.txt           - This release letter
+- Sources\sources\                                    - Main source files
+- Sources\SWC_DEFS\                                   - definition source files
+- Sources\SWC_HAL\                                    - HW drivers files
+- Sources\Build.bat, clean.bat                        - Building batch files for Windows
+- Sources\makefile                                    - makefile for Windows and Linux
+- Sources\HowToBuild.txt                              - How to build description
+
+Output Files:
+- Images\arbel_a35_bootblock.elf                      - Output image elf
+- Images\arbel_a35_bootblock.dat                      - Output image dat
+- Images\arbel_a35_bootblock.bin                      - Output image bin
+- Images\arbel_a35_bootblock.map                      - Output image map
+
+
+# DESCRIPTION
+-----------
+This package contains the Nuvoton Arbel BootBlock for the NPCM8XX A35 main core.
+This package is released in alpha quality.
+
+
+# REQUIREMENTS
+------------
+Hardware:
+- A Nuvoton NPCM8XX Z1\A1\A2 Silicon BMC device.
+
+
+# INSTALLATION PROCEDURE
+----------------------
+After compilation (see HowToBuild.txt) program   deliverables\arbel_a35_bootblock.bin
+to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
+
+
+# ENHANCEMENTS
+----------------
+version 0.3.1     - May 10 2023 
+=============
+- Bug fix FIU settings: when selecting FIU divider in header make sure the frequancy will 
+  remain lower during runtime. previously bootblock always sets to 50MHz (default) then 
+  change according to header. Now setting of 50MHz is only done if header field is zero or 0xFF.
+- Bug fix: CLK call CLK_Verify_and_update_dividers once (instead of twice).
+
+
+# HISTORY
+----------------
+version 0.3.0     - May 3 2023
+=============
+- Added support for no tip mode (NOTIP); regular TIP mode stayed the same.
+- Added files "images.c\.h"
+- Modified all production\build\makefile files to support the compilation of NOTIP mode with flags as parameter.
+- SWC_HAL: clg_regs.h : defined " WD0RCRB_CP2_TIP_Z1" and "WD0RCRB_SEC_REG_RST_A1" instead of under condition of version.
+- MC: fix issue: ECC init cause fail to load optee.
+- Version fully tested with: 1GB, 2GB SDP+DDP, 4GB. with and without ECC. With and without size limit.
+- Fill all DRAM memory with while(1) insteaad of zeros.
+- CLK bug fix: if the header field of FIU divider is zero speed was set to 9MHz. Fixed to 50MHz.
+- Init all SPs of all ELs to be the same as EL3. Later each level should change.
+- MC: in BIST test: clear interrupts at the end and fix address lines count value.
+
+version 0.2.9     - Mar 30 2022
+=============
+- Bug fix: fixed a bug in testing of MC is already initialized.
+- Bug fix: fixed a bug in setting the security enable bit.
+- MC: Added support to 2x1G DDR.
+- Clear MC interrupts in warm boot too.
+- Fix FIU1 clk divider range. Can be up to 256.
+- Support A2.
+- Support 4GB. max_ddr_size in header should be 0xFFFFFFFF or zero.
+- Use SCRPAD_10 to indicate bootblock state: 
+   * 0xAAAAAAAA - working.
+   * 0x00000001 - training pass
+   * 0x00000002 - training fail
+- SCRPAD2 is the size, SCRPAD3 is the size of 1MB. SCRPAD2 is always limited to 2GB.
+- MC: measure DRAM size before enabling ECC.
+-   * limitation: can't detect size, need to set max_dram_size in the header according to device, otherwise there 
+      is an exception after ECC is enabled.
+- MC BIST is up to 2GB. rest is with for loop.
+
+
+version 0.2.8     - Nov 22 2022
+=============
+- Bug fix 2: disable RECALIB in DDR, after training, before sweep phase.
+- eSPI: enable auto handshake.
+
+# FIXED ISSUES
+------------
+- Update the setting of Read Latency after training based on main clock to avoid an ECC error in read after write.
+
+version 0.2.7     - Nov 7 2022
+=============
+- Bug fix: disable RECALIB in DDR.
+
+version 0.2.6     - Oct 26 2022
+=============
+- Bug fix: If DRAM is 2GB and max DRAM size in header is smaller, GMMAP should be set according to header, not 
+according to the physical device. 
+
+version 0.2.4     - Oct 18th 2022
+=============
+- MC: Support 2GB DRAM
+- MC: Updated TRFC default to 2GB DRAM and fixed value for 1600/1G
+- CLK: always set PLLs by bootblock. Set all dividers in PORST.
+- SPI-X: upper limit of 33MHz.
+
+version 0.2.3     - Sep 20 2022
+=============
+- MC: set bit 8 for DLL reset after writing to MRS registers.
+- Flash: remove scan for uboot. 
+- Remove FIU driver (not used).
+
+version 0.2.2     - Jul 24 2022
+=============
+- Fix GMMAP value for 2GB and 512MB.
+- Add 3 FIU dividers to the the header (require IGPS 3.6.2 and above)
+- Bug fix: add support for ODT termination of zero (termination disabled).
+- Print pass\fail criteria for sweeps. Need to enable debug prints to use.
+
+version 0.2.0     - May 25 2022
+=============
+- Clear notifications before bootblock finish.
+- MC print depends on MC_CONFIG value, bit 5.
+- Remove DQS output sweep.
+- Modified Security setup based on validation results and new implementation scheme.
+- Switch to -O2.
+- Increase SPI frequency to 50MHz (was 20MHz).
+
+version 0.1.9     - Apr. 4 2022
+=============
+- Remove GIC init. moved to BL31.
+- Add trim_2 initial offset to header. For EVB it will be [0,0]. For SVB and A1 it will be [10, 0].
+- add mc_sweep_debug in header. bitwise field to enable test sweep. 
+- Secondary reset: fix issue: no re-training of DDR in secondary reset.
+- IGPS 3.4.5 and above.
+
+version 0.1.8     - Feb 14 2022
+=============
+- Add phase1,2 dlls_trim[1:3] and vref to header.
+- Move bootblock to end of RAM2. secondary code is just at the top. stack is in the beginning.
+- Secondary cores: avoid using stack , waiting in holding pen in end of RAM2. 
+  Each is waiting for a separate SCRPAD (0xF0800E10, 0xF0800E14, 0xF0800E18, 0xF0800E1C).
+
+version 0.1.7     - Dec 20 2021
+=============
+- Bug fix when settings both PLLs to same value, both use PLL1 
+  while PLL0 is disabled. Fix: leave PLL0 enabled for modules still using it 
+  (efect: CLKSEL_RCPCKSEL, CLKSEL_RGSEL, CLKSEL_AHB6SSEL).
+- Use  SCRPAD_10_41(2) and (3) to get the jump address from the TIP.
+- DQS override: set the value w\o setting the override bit (which makes the training fail).
+- Later enable the override bit after leveling and before DQs sweep.
+- Dump mem regions for BL31, Tee and uboot (addresses hard coded).
+- Only works with IGPS 3.3.3 and above.
+- Shorten the memory test.
+- Add ECC priority.
+- Zero all dram.
+- trap handler: print all ARM registers.
+
+
+version 0.1.5     - Oct 22 2021
+=============
+- Changed reference to MC frequency to enum.
+- Added PHI parameter calculation based on specification and modified parameter setting accordingly
+- Update the setting of Read Latency after training based on main clock to avoid an ECC error in read after write
+- Add header fields to override DQS in\out and dlls_trim. Require IGPS 3.3.2 and above.
+
+
+version 0.1.4     - Oct 6 2021
+=============
+- Move SMP register to 0xF0800E00 (SCRPAD_10 + SCRPAD_11 are now used and written by Linux).
+- Change UART to be UART0 only.
+- Print to SPI-X address 0 value 0xAA. For debug.
+
+# FIXED ISSUES
+------------
+- None.
+
+
+# KNOWN ISSUES
+------------
+- None.
+
+
+# HISTORY
+-------------------
+version 0.1.4     - Oct 6 2021
+=============
+- Move SMP register to 0xF0800E00 (SCRPAD_10(0) + SCRPAD_11(0) are now used and written by Linux).
+- Change UART to be UART0 only.
+- Print to SPI-X address 0 value 0xAA. For debug.
+
+version 0.1.3     - Sept 22 2021
+=============
+- First open source release. 
+
+version 0.1.2     - Sep 13 2021
+=============
+- Improved support for setting delay values for CS/DQ and Clock
+- Support UNQ additional flows steps and settings
+- fixed bugs in the setting of DLL_PHY_RECALIB counter
+- Fixed values timeouts of MC TYPE0 TYPE1 recalibration
+- Improved PHY logging
+
+version 0.1.1     - Aug 26 2021
+=============
+- Added support for setting delay values for CS/DQ and Clock
+- set pre-defined values for delay for DQ and CS
+version 0.1.0     - Aug 19 2021
+=============
+- Fixed non ECC regions field to be in 1MB resolution.
+- Check if non ECC region exist in header if its End value is bigger than 0
+  instead of Start value, since Start value can be 0
+- Update AHBCKFI.AHB_CLK_FRQ according AHB frequency
+
+version 0.0.9     - Aug 17 2021
+=============
+- When no ECC is used, don't set DENALI_CTL_129.DISABLE_RD_INTERLEAVE.
+- Before initializing MC check also DENALI_CTL_0_START since MC might be reset
+  by WD reset while INTCR2_MC_INIT is still set.
+  
+version 0.0.8     - Aug 1 2021
+=============
+- Bug fix: IRQ handler.
+- Print error logs only from core 0.
+
+version 0.0.5   - May 6th 2021
+=============
+- Clear MC interrupts.
+- set cntfrq_el0 for all 4 cores.
+- Add more MC clock options (1037MHz , 1050MHz).
+- Print last reset.
+
+version 0.0.4   - Apr. 22 2021
+=============
+- Stable on SVB, up to 900MHz. EVB up to 1200MHz.
+- Enable CP image search and load in bootblock. In IGPS there is CP FW "hello world".
+- Print all clocks and board type (from header).
+- Verify uboot copy. 
+- Skip setting host IF. 
+
+version 0.0.3   - Apr. 13 2021
+=============
+- Stable on EVB, up to 1000MHz. Not stable on SVB.
+- Bug fix clock settings from header.
+- change header to include odt.
+
+version 0.0.2   - Mar. 17 2021
+=============
+- Change UART settings according to strap5.
+
+version 0.0.1
+=============
+- First release. DDR training MC frequency at 700MHz only. hard-coded. CPU frequency according to strap.
+
+
+
+-----------------------------------------------------------
+For contact information see "Contact Us" at www.nuvoton.com
+-----------------------------------------------------------

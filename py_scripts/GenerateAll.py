@@ -15,6 +15,7 @@ try:
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+	# default values:
 	pinCode = "0"
 	component_num = "0"
 	runPartial = False
