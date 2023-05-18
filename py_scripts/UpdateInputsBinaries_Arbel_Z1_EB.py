@@ -34,7 +34,9 @@ CpFW_xml_source = os.path.join(ref_dir, "CpFwAndHeader.xml")
 
 
 BootBlock_bin_source = os.path.join(versions_dir, arbel_a35_bootblock)
+BootBlock_bin_no_tip_source = os.path.join(versions_dir, arbel_a35_bootblock_no_tip)
 BBheader_xml_source = os.path.join(ref_dir, "BootBlockAndHeader_Z1_EB.xml")
+BBheader_xml_no_tip_source = os.path.join(ref_dir, "BootBlockAndHeader_A1_EB_NoTip.xml")
 
 uboot_bin_source = os.path.join(versions_dir, arbel_uboot)
 Ubootheader_xml_source = os.path.join(ref_dir, "UbootHeader_Z1.xml")
@@ -65,6 +67,7 @@ try:
 	ImageGeneration.UpdateInputsBinaries.copy_kmt_files(kmt_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_tip_fw_files(TipFW_L0_bin_source, TipFW_L0_xml_source, TipFW_L1_bin_source, TipFW_L1_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_cp_fw_files(CpFW_bin_source, CpFW_xml_source)
+	ImageGeneration.UpdateInputsBinaries.copy_bootblock_no_tip(BootBlock_bin_no_tip_source, BBheader_xml_no_tip_source)
 	ImageGeneration.UpdateInputsBinaries.copy_bootblock_files(BootBlock_bin_source, BBheader_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_uboot_files(uboot_bin_source, Ubootheader_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_tz_files(bl31_bin_source, tee_bin_source)

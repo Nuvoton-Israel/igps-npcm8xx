@@ -424,7 +424,7 @@
 			<offset>0x148</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0x8A</content>
+		<content format='32bit'>0xFF</content>
 	</BinField>
 	
 	<BinField>

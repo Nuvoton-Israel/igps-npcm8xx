@@ -5,7 +5,7 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.08.09
+Version:  03.09.00
 Date:     May 2023
 
 This package is released under the terms of the Source Code License Agreement
@@ -107,6 +107,27 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 03.09.00              - May 18th 2023
+============
+- Bootblock version 0.3.2
+     * skip clearing INTCR2
+     * SCRPAD 10 is now reset counter.
+     * split CRC file (tip\notip).
+     * Clear SCRPAD10-19.
+- Add BootBlockAndHeader_A1_EB_NoTip.xml for EB.	
+
+FIXED ISSUES
+------------
+
+
+KNOWN ISSUES
+------------
+- None.
+
+
+HISTORY
+-------
+
 IGPS 03.08.09              - May 14th 2023
 ============
 - Bootblock 0.3.1:
@@ -146,18 +167,6 @@ IGPS 03.08.09              - May 14th 2023
 		- force main and recovery flashes to be the same.
 		- Add timestamp compare to combo.
 
-
-FIXED ISSUES
-------------
-
-
-KNOWN ISSUES
-------------
-- None.
-
-
-HISTORY
--------
 IGPS 03.08.08              - May 3rd 2023
 ============
 - Modified update & Generate scripts to support the new BootBlock no TIP files, XML , etc.
