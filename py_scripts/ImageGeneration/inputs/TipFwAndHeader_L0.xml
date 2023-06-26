@@ -45,8 +45,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- Code destination address, 32-bit aligned: Note, field inactive in Z1, only for A1. -->
-		<name>FwStartAddr</name>         <!-- name of field -->
+		<!-- Code destination address, 32-bit aligned -->
+		<name>FwStartAddr</name>         
 		<config>
 			<offset>0x78</offset>
 			<size>4</size>
@@ -63,6 +63,15 @@
 		</config>
 		<content format='FileSize'>inputs/arbel_tip_fw_L0.bin</content>	<!-- content the user should fill -->
 	</BinField>
+	
+	<BinField>
+		<name>KeyMask</name>    <!-- A2: bit mask of keys to test.  A1: NA -->
+		<config>
+			<offset>0x88</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0xFF</content>               <!-- B1: key index, bitwise -->
+	</BinField>
 
 	<BinField>
 		<name>KeyIndex</name>  
@@ -74,7 +83,7 @@
 	</BinField>
 
 	<BinField>
-		<name>SVN_Version</name>  
+		<name>OtpFwVersion</name>  
 		<config>
 			<offset>0x98</offset>
 			<size>2</size>
@@ -82,9 +91,33 @@
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
 
+	<BinField>
+		<name>DME_challenge_offset</name>  
+		<config>
+			<offset>0xA8</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>               <!-- content the user should fill -->
+	</BinField>
 
+	<BinField>
+		<name>AesCbcIV</name>  
+		<config>
+			<offset>0xAC</offset>
+			<size>16</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content>               <!-- content the user should fill -->
+	</BinField>
 	
-	
+	<!-- timestamp -->
+	<BinField>
+		<name>timestamp_reserved</name>
+		<config>
+			<offset>0xBC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
+	</BinField>
 
 	<BinField>
 		<name>TipFW</name>             

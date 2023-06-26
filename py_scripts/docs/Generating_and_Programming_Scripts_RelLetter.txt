@@ -5,7 +5,7 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.09.00
+Version:  03.09.01
 Date:     May 2023
 
 This package is released under the terms of the Source Code License Agreement
@@ -107,14 +107,51 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.09.00              - May 18th 2023
+IGPS 03.09.01              - Jun 26th 2023
 ============
-- Bootblock version 0.3.2
-     * skip clearing INTCR2
-     * SCRPAD 10 is now reset counter.
-     * split CRC file (tip\notip).
-     * Clear SCRPAD10-19.
-- Add BootBlockAndHeader_A1_EB_NoTip.xml for EB.	
+- TIP FW 0.6.0 L0 0.4.9 L1
+         * New memory map. TIP_VIRTUAL_FLASH_BASE_ADDR moved to 0x1000000.
+         * Fix NVIC_TrapHandlerCommon: uart reconfig should be after sampling core registers.
+         * Fix DRAM window handling bug, in order to allow loading images to any address in DRAM.
+         * In recovery mode: add an option to go to halt (print "N" at the start).
+         * Merge PR #24: "Add the support for enforcing recovery image to match active at boot time"
+         * Add support for ECC 384 + 521 
+         * Add the support of ecc HW with tip_ecc_hw_ncl.c instead of old implementation using mbedtls code
+         * Wake all 4 cores when jump to DRAM (feature was limited to RAM2 only).
+         * Bug fix SFDP dummy byte.
+
+- Remove no_tip file from ReplaceComponent.bat	
+- uboot: 
+		https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2021.04-npcm8xx-20230626
+
+		-CONFIG_SYS_TEXT_BASE=0x8000
+		+CONFIG_SYS_TEXT_BASE=0x06208000
+		+CONFIG_TEE=y
+		+CONFIG_OPTEE=y
+		+CONFIG_TPM=y
+		+CONFIG_TPM_V2=y
+		+CONFIG_TPM2_FTPM_TEE=y
+		+CONFIG_CMD_TPM=y
+		+CONFIG_TPM2_MB=y
+		+CONFIG_SUPPORT_EMMC_RPMB=y
+
+- bl31: Release V2.8.2
+		https://github.com/Nuvoton-Israel/arm-trusted-firmware/releases/tag/v2.8.2
+	    * change load address of BL31 to 0x02000000
+	    * change load address of OPTEE-OS to 0x02100000
+	    * change load address of BL33  to 0x06208000
+
+- optee: Release npcm845x_3.18.0_v1.0-697
+		https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm845x_3.18.0_v1.0-697
+        * change load address of OPTEE-OS from to 0x02100000
+
+- bootblock 0.3.3
+		https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.3.3
+        * Add header field GMMAP at offset 0x152 which is copied to INTCR4.GMMAP0 and 1.
+
+- XML: add bootblock field to select GMMAP. Default is zero. If it's FF value is set as before by bootblock, according to DRAM size.
+- XML: bootblock sets MC to 1050MHz by default.
+- Bug fix in Open_all_ports batch. 
 
 FIXED ISSUES
 ------------
@@ -126,8 +163,7 @@ KNOWN ISSUES
 
 
 HISTORY
--------
-
+------- 
 IGPS 03.08.09              - May 14th 2023
 ============
 - Bootblock 0.3.1:

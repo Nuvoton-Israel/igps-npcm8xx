@@ -98,7 +98,7 @@ echo *** Flash Programming Passed :-)  ****
 echo **************************************
 echo.
 echo.
-powershell.exe -ExecutionPolicy Bypass -File .\Open_All_Ports.ps1
+.\Open_all_ports.bat
 timeout /T 100
 
 

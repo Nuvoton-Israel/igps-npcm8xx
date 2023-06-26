@@ -62,7 +62,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			shutil.copy(OpTeeAndHeader_secure_bin                                     , OpTeeAndHeader_bin)
 			shutil.copy(UbootAndHeader_secure_bin                                     , UbootAndHeader_bin)
 			shutil.copy(BootBlockAndHeader_secure_bin                                 , BootBlockAndHeader_bin)
-			shutil.copy(BootBlockAndHeader_no_tip_secure_bin                          , BootBlockAndHeader_no_tip_bin)
+			shutil.copy(BootBlockAndHeader_no_tip_basic_bin                           , BootBlockAndHeader_no_tip_bin)
 			shutil.copy(CpAndHeader_secure_bin                                        , CpAndHeader_bin)
 			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_secure_bin                           , Kmt_TipFwL0_Skmt_TipFwL1_bin)
 			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_secure_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin)
@@ -108,7 +108,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			Pad_bin_file_inplace(  bb_bin_no_tip         ,  32)
 			Generate_binary(BootBlockAndHeader_no_tip_xml, BootBlockAndHeader_bin)
 			Replace_binary_array(BootBlockAndHeader_no_tip_bin, 0xBC, ticks, 4, True, "Bootblock add timestamp")
-			shutil.copy(BootBlockAndHeader_no_tip_secure_bin,            BootBlockAndHeader_no_tip_bin)
+			shutil.copy(BootBlockAndHeader_no_tip_basic_bin,            BootBlockAndHeader_no_tip_bin)
 		
 		elif (choice == 4):
 			print("Replace uboot")

@@ -200,7 +200,7 @@
 			<offset>0x1F8</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0x7E00</content>  <!-- including uboot header. uboot image starts at 0x8000 -->
+		<content format='32bit'>0x06207e00</content>  <!-- including uboot header. uboot image starts at 0x8000 -->
 	</BinField>
 	
 	<BinField>

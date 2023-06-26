@@ -41,21 +41,26 @@ try:
 		
 		elif ((sys.argv[index] == "HSM") or (sys.argv[index] == "hsm")):
 			TypeOfKey = "HSM"
+		
+		elif ((sys.argv[index] == "pincode")):
+			pinCode = sys.argv[index+1]
+			index += 1
 
 		else:
 			component_num = sys.argv[index]
 		index += 1
 
 	if TypeOfKey == "HSM":
-		msg = "please enter user name pin: \n"
-		reply1 = str(input(msg).strip())
-		msg = "please enter user name pin again to verify: \n"
-		reply2 = str(input(msg).strip())
-		if reply1 == reply2:
-			pinCode = reply1
-		else:
-			TypeOfKey = "openssl"
-			print("not the same pin ! using open SSL instead ")
+		if pinCode == "0":
+			msg = "please enter user name pin: \n"
+			reply1 = str(input(msg).strip())
+			msg = "please enter user name pin again to verify: \n"
+			reply2 = str(input(msg).strip())
+			if reply1 == reply2:
+				pinCode = reply1
+			else:
+				TypeOfKey = "openssl"
+				print("not the same pin ! using open SSL instead ")
 			
 
 	# if (len(sys.argv) >= 4): #3rd param may be the flag "partial" \ "palladium", 4th param may be "palladium"

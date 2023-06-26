@@ -7,8 +7,8 @@
 ----------------------------------------------------------------------
 
 # NPCM8XX bootBlock Package Release Letter
-Version: 00.03.02
-Date:    May 2023
+Version: 00.03.03
+Date:    Jun 2023
 
 
 # PACKAGE CONTENTS
@@ -56,6 +56,12 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
+version 0.3.3     - Jun 18th 2023
+=============
+- Add header field GMMAP at offset 0x152 which is copied to INTCR4.GMMAP0 and 1.
+
+# HISTORY
+----------------
 version 0.3.2     - May 18 2023
 =============
 - skip clearing INTCR2
@@ -63,8 +69,6 @@ version 0.3.2     - May 18 2023
 - split CRC file (tip\notip).
 - Clear SCRPAD10-19.
 
-# HISTORY
-----------------
 version 0.3.1     - May 10 2023 
 =============
 - Bug fix FIU settings: when selecting FIU divider in header make sure the frequancy will 

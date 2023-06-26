@@ -12,7 +12,7 @@
 	<!-- BMC mandatory fields -->
 	<ImageProperties>
 		<BinSize>0</BinSize> <!-- If 0 the binary size will be calculated by the tool -->
-		<PadValue>0xFF</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
+		<PadValue>0</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
 	</ImageProperties>
 
 	<BinField>
@@ -101,6 +101,15 @@
 	</BinField>
 
 	<BinField>
+		<name>KeyMask</name>    <!-- B1: If value is none zero, check the mask to try several keys -->
+		<config>
+			<offset>136</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0xFF</content>               <!-- B1: key index, bitwise -->
+	</BinField>
+
+	<BinField>
 		<name>KeyIndex</name>
 		<config>
 			<offset>140</offset>
@@ -119,7 +128,7 @@
 	</BinField>
 
 	<BinField>
-		<name>reserved_not_used_Z1_TipFwEncryptionControl</name>
+		<name>TipFwEncryptionControl</name>
 		<config>
 			<offset>148</offset>
 			<size>1</size>
@@ -139,19 +148,20 @@
 	<BinField>
 		<name>fwTableOffset</name>
 		<config>
-			<offset>168</offset>
+			<offset>0xA8</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x80001000</content>               <!-- challenge offset -->
 	</BinField>
 
+	<!-- timestamp -->
 	<BinField>
-		<name>dmeChallengeOffset</name>
+		<name>timestamp_reserved</name>
 		<config>
-			<offset>172</offset>
-			<size>4</size>
+			<offset>0xBC</offset>
+			<size>0x4</size>
 		</config>
-		<content format='32bit'>0x8000FFBC</content>        <!-- bit 31 set (valid), points to offfset 0xFFBC -->
+		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- DO NOT EDIT: IGPS will add timestamp to all binaries -->
 	</BinField>
 
 	<BinField>

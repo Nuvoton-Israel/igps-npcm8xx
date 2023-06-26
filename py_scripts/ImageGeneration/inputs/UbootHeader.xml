@@ -35,6 +35,7 @@
 		<content format='bytes'>0x00 0x00</content>
 	</BinField>
 	
+
 	<!-- timestamp -->
 	<BinField>
 		<name>timestamp_reserved</name>
@@ -47,15 +48,7 @@
 	
 	<!-- ==============      Start UBOOT SPECIFIC PARAMETERS ================  -->
 	<!-- uboot only parameters placeholder, do not change. IGPS will embed the values during build -->
-	<BinField>
-		<name>tip_size_reserved</name>          
-		<config>
-			<offset>0x1B8</offset>
-			<size>0x4</size>
-		</config>
-		<content format='bytes'>0x00 0x00 0x00 0x00</content>
-	</BinField>
-	
+
 	<BinField>
 		<name>tip_offset_reserved</name>          
 		<config>
@@ -200,7 +193,7 @@
 			<offset>0x1F8</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0x7E00</content>  <!-- including uboot header. uboot image starts at 0x8000 -->
+		<content format='32bit'>0x06207e00</content>  <!-- including uboot header. uboot image starts at 0x8000 -->
 	</BinField>
 	
 	<BinField>

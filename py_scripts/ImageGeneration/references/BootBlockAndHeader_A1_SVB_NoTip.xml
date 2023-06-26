@@ -73,7 +73,7 @@
 			<offset>0x10C</offset>       
 			<size>0x2</size> 
 		</config>
-		<content format='32bit'>1066</content> 
+		<content format='32bit'>1050</content> 
 	</BinField>
 	<BinField>
 		<!-- supporeted values: 333,500,600,666,700,720,750,800,825,850,900,950,1000. 
@@ -540,7 +540,24 @@
 		<content format='32bit'>15</content>
 	</BinField>
 	
-	
+	<BinField>
+		<!-- GMMAP    
+			GMMAP sets GFX area 16MB possible values:
+			 0h: 0 to 0x01000000
+			1Fh: 1F00_0000h to 1FFF_FFFFh
+			1Bh: 1B00_0000h to 1BFF_FFFFh
+			3Fh: 3F00_0000h to 3FFF_FFFFh
+			37h: 3700_0000h to 37FF_FFFFh
+			7Fh: 7F00_0000h to 7FFF_FFFFh
+			6Fh: 6F00_0000h to 6FFF_FFFFh
+			-->
+		<name>GMMAP</name>          
+		<config>
+			<offset>0x152</offset>       
+			<size>0x1</size> 
+		</config>
+		<content format='32bit'>0</content>
+	</BinField>
 	
 	<BinField>
 		<!-- Code destination address, 32-bit aligned: for BootBlock should be 0xFFFD0000 so code will run in 0xFFFB0200 as linked for -->

@@ -50,7 +50,7 @@
 			<offset>0x1F8</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0xFFFB0E00</content>	<!-- content the user should fill -->
+		<content format='32bit'>0x1FFFE00</content>	<!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
