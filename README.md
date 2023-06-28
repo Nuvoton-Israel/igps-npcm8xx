@@ -21,7 +21,7 @@ Version: OpenSSL 1.0.2j-fips  26 Sep 2016
 Linux users can download it from:
 https://www.openssl.org/source/
 
-### 3.	UUT
+### 3.	UUT - Z1 only
 https://github.com/Nuvoton-Israel/uart-update-tool
 Used for programing the flash using the Arbel ROM UFPP mode.
 
@@ -40,8 +40,8 @@ All the files in this package are used for EB\SVB. For other vendors, please con
 python ./UpdateInputsBinaries_%Chip*_%Board%.py
 python ./GenerateAll.py
 ```
-Chip:  A2\A1\Z1 device.
-Board: SVB\EB are currently supported. 
+Chip:  Z1\A1\A2 device.
+Board: SVB\EB\DC-SCM are currently supported. 
 
 Note: UpdateInputBinaries*.bat resets all the images and xml files inside py_scripts\ImageGeneration\inputs folder.
 After that users can override the existing files in inputs folder, or use as is.
@@ -55,6 +55,34 @@ This means users can generate flash images for these devices.
 Nuvoton provides a pre-signed IGPS version for locked devices.
 Update* and Generate* are not possible, only programming.
 If user wishes to update uboot\bl31\bootblock they may still do so by replaceing the file in inputs folder and executing ReplaceComponent.bat
+
+### Signing options
+IGPS supports three modes for signing
+
+1. OpenSSL signatures:
+   IGPS contains a list of default OpenSSL keys.
+   If the user deletes a key, IGPS will re-generates a new random key using OpenSSL.
+   Then the keys are used for signing the image.   
+
+2. HSM signatures:
+   IGPS can use pkcs11-tool to communicate with an external HSM element, like a NitroKey for example.
+   In this case, the private key is not accessible directly. It is kept on the HSM.
+   IGPS will use the HSM key to sign all images.
+   
+3. Remote HSM:
+   This mode is used for HSM that is remote and inaccessible from IGPS.
+   The user is in charge to send the binary files (8 files end with _part_to_sign.bin)
+   for signing in to an HSM.
+   Then user should load the signature files in DER format and public keys back to IGPS.
+   IGPS will embed the signature and the keys provided by the user.    
+
+For all modes of signing:
+   Public keys are put in OTP file\KMT\SKMT depending on the key type.
+   Signatures are embedded into the flash image.
+
+   
+   If other means of signing are required, please contact tali.perry@nuvoton.com
+   Nuvoton recommends coordinating a bring-up test for customer HSM needs.
 
 ### Image programming:
 Connect a serial port (via COM port or USB to Serial) to Serial Interface 2

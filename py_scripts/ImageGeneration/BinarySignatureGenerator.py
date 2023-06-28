@@ -180,8 +180,10 @@ def extract_bin_file_to_sign(bin_filename, begin_offset):
 
 def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature, output_filename , TypeOfKey, pinCode, idNum):
 	_openssl = openssl
+	_pkcs_tool = "pkcs11-tool.exe"
 	if os.name != "nt":
 		_openssl = linux_prefix + openssl
+		_pkcs_tool = linux_prefix + "pkcs11-tool"
 
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -243,10 +245,10 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 			bin_file_to_sign_hashed = bin_file_to_sign.replace(".bin", "_hashed.bin")
 			print(("bin_file_to_sign_hashed is:"+bin_file_to_sign_hashed))
 
-			cmd = "pkcs11-tool.exe --id " + idNum + " --hash -m SHA512  -p " + pinCode + " -i " + bin_file_to_sign + " --output-file " + bin_file_to_sign_hashed
+			cmd = _pkcs_tool + " --id " + idNum + " --hash -m SHA512  -p " + pinCode + " -i " + bin_file_to_sign + " --output-file " + bin_file_to_sign_hashed
 			executeCMD(cmd)
 
-			cmd = "pkcs11-tool.exe --id " + idNum + " -s -p " + pinCode + " -m ECDSA --signature-format openssl -i " + bin_file_to_sign_hashed + " --output-file " + sig_der
+			cmd = _pkcs_tool + " --id " + idNum + " -s -p " + pinCode + " -m ECDSA --signature-format openssl -i " + bin_file_to_sign_hashed + " --output-file " + sig_der
 			executeCMD(cmd)
 
 			print("verify:")
