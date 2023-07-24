@@ -73,7 +73,7 @@
 			<offset>0x10C</offset>       
 			<size>0x2</size> 
 		</config>
-		<content format='32bit'>1050</content> 
+		<content format='32bit'>1000</content> 
 	</BinField>
 	<BinField>
 		<!-- supporeted values: 333,500,600,666,700,720,750,800,825,850,900,950,1000. 
@@ -176,7 +176,7 @@
 			<offset>0x130</offset>
 			<size>0x4</size> 
 		</config>
-		<content format='32bit'>0xFFFFFFFF</content>     <!-- content the user should fill -->
+		<content format='32bit'>0x40000000</content>     <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -201,16 +201,17 @@
 
 	<BinField>
 		<!-- HOST_IF.
-			0xFF: LPC backward compatible
+			0xFF: do nothing
 			0x00: LPC. 
 			0x01: eSPI
-			0x02: GPIOs TRIS.  -->
+			0x02: GPIOs TRIS.
+			0x03: release host wait, disable eSPI -->
 		<name>HOST_IF</name>          
 		<config>
 			<offset>0x135</offset>       
 			<size>0x1</size> 
 		</config>
-		<content format='32bit'>0x00</content>
+		<content format='32bit'>0x01</content>
 	</BinField>
 	
 	
@@ -492,6 +493,7 @@
 		</config>
 		<content format='32bit'>0x00</content>
 	</BinField>
+
 	
 	<BinField>
 		<!-- SWEEP_MAIN_FLOW: enable running main flow sweeps. bitwise:
@@ -557,6 +559,19 @@
 			<size>0x1</size> 
 		</config>
 		<content format='32bit'>0</content>
+	</BinField>
+	
+	<BinField>
+		<!-- baud rate options:
+		9600,14400,19200,38400,57600,115200,230400,380400,460800,921600
+		default is 115200.
+			-->
+		<name>BAUD_RATE</name>          
+		<config>
+			<offset>0x154</offset>       
+			<size>0x4</size> 
+		</config>
+		<content format='32bit'>115200</content>
 	</BinField>
 	
 	<BinField>

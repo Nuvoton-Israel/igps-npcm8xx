@@ -157,7 +157,11 @@ def  Extract_bin_public_key_from_DER_file(DER_file, bin_file, includingPriv = 1 
 	bin_file_handler.close()
 
 def executeCMD(cmd):
-	print(cmd)
+	cmd_to_print = cmd
+	pincode = cmd.find("-p ")
+	if pincode > 0 :
+		cmd_to_print = cmd[0:(pincode + 2)] + "****** " + cmd[(pincode + 10):]
+	print(cmd_to_print)
 	rc = os.system(cmd)
 	if rc != 0:
 		raise ValueError("execute CMD failed \n\n")

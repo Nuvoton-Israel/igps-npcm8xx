@@ -5,8 +5,8 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.09.01
-Date:     May 2023
+Version:  03.09.02
+Date:     Jul 2023
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -85,6 +85,34 @@ Update* and Generate* are not possible, only programming.
 If user wishes to update uboot\bl31\bootblock they may still do so by replaceing
 the file in inputs folder and executing ReplaceComponent.bat
 
+Signing options
+----------------
+IGPS supports three modes for signing
+
+1. OpenSSL signatures:
+   IGPS contains a list of default OpenSSL keys.
+   If the user deletes a key, IGPS will re-generates a new random key using OpenSSL.
+   Then the keys are used for signing the image.   
+
+2. HSM signatures:
+   IGPS can use pkcs11-tool to communicate with an external HSM element, like a NitroKey for example.
+   In this case, the private key is not accessible directly. It is kept on the HSM.
+   IGPS will use the HSM key to sign all images.
+   
+3. Remote HSM:
+   This mode is used for HSM that is remote and inaccessible from IGPS.
+   The user is in charge to send the binary files (8 files end with _part_to_sign.bin)
+   for signing in to an HSM.
+   Then user should load the signature files in DER format and public keys back to IGPS.
+   IGPS will embed the signature and the keys provided by the user.    
+
+For all modes of signing:
+   Public keys are put in OTP file\KMT\SKMT depending on the key type.
+   Signatures are embedded into the flash image.
+
+   If other means of signing are required, please contact tali.perry@nuvoton.com
+   Nuvoton recommends coordinating a bring-up test for customer HSM needs.
+
 Image programming
 -----------------
 Connect a serial port (via COM port or USB to Serial) to Serial Interface 2
@@ -107,7 +135,48 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.09.01              - Jun 26th 2023
+IGPS 03.09.02              - Jul 17th 2023
+============
+- bootblock 0.3.5
+		https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.3.5
+         * bug fix: support NO_TIP mode + updated memory map. all images are loaded to DRAM. (from version bootblock 0.3.4)
+         * Call CLK_ConfigureFIUClock only in PORST (update SPI dividers from header).
+         * re-enable HOST_IF field in header. Supported values:
+			0xFF: do nothing
+			0x00: LPC. 
+			0x01: eSPI
+			0x02: GPIOs TRIS.
+			0x03: release host wait, disable eSPI
+                configuration is done only in PORST.
+        * add baud rate field to header:
+          Supported values: 9600,14400,19200,38400,57600,115200,230400,380400,460800,921600
+       		default is 115200.
+
+- update README with signing options.
+- Support pkcs11-tool on Linux.
+- Bingo 0.0.6.
+	https://github.com/Nuvoton-Israel/bingo/releases/tag/Bingo_0.0.6
+- update Monitor 1.0.9 (contact Nuvoton for internal users only release).
+- Optee npcm845x_3.22.0-rc1-7:
+	https://github.com/Nuvoton-Israel/optee_os/releases/tag/3.22.0-rc1-7
+	- change load address of OPTEE-OS from 0x36000000 to 0x02100000
+	- added HUK reading from TIP Mailbox DME PCR0
+- TIP_FW 0.6.1 L0 0.5.0 L1:
+    * Udpate RCR regs whenever PORST bit is set in TIP_SCR1 (ignore all other bits).
+    * Export PCI parameters on any reset. re order the parameter locations.
+    * Fix typos un uptime and similar.
+    * SWRST4 is TIP_RESET.
+-uboot https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2021.04-npcm8xx-20230724
+    * u-boot.bin is built with extra config to skip UART initialization in u-boot
+	CONFIG_SYS_SKIP_UART_INIT
+- Update bootblock XML: 
+   * Add host IF field. eSPI in all flavours except Google XML.
+   * Add BAUD rate field. default is 115200.
+
+HISTORY
+------- 
+	
+IGPS 03.09.01              - J un 26th 2023
 ============
 - TIP FW 0.6.0 L0 0.4.9 L1
          * New memory map. TIP_VIRTUAL_FLASH_BASE_ADDR moved to 0x1000000.
@@ -153,17 +222,6 @@ IGPS 03.09.01              - Jun 26th 2023
 - XML: bootblock sets MC to 1050MHz by default.
 - Bug fix in Open_all_ports batch. 
 
-FIXED ISSUES
-------------
-
-
-KNOWN ISSUES
-------------
-- None.
-
-
-HISTORY
-------- 
 IGPS 03.08.09              - May 14th 2023
 ============
 - Bootblock 0.3.1:
