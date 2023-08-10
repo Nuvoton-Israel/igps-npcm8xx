@@ -5,8 +5,8 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.09.02
-Date:     Jul 2023
+Version:  03.09.03
+Date:     Aug 2023
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -135,6 +135,23 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 03.09.03              - Aug 10th 2023
+============
+- uboot https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2021.04-npcm8xx-20230809
+       * Fix incorrect ram size of 4GB dram with ECC enabled
+- TIP_FW 0.6.2 L0 0.5.1 L1 
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_L0_0.6.2_L1_0.5.1
+       * Fix trap issue in export found on DC_SCM only.
+       * Optimize memory usage.
+       * RSA and RNG code cleanup.
+- Update scripts: fix typos.
+- Update scripts: copy all keys always. to replace a key please remove it from both: 
+	IGPS_..\py_scripts\ImageGeneration\keys\
+	IGPS_..\py_scripts\ImageGeneration\inputs\key_input
+
+
+HISTORY
+------- 
 IGPS 03.09.02              - Jul 17th 2023
 ============
 - bootblock 0.3.5
@@ -173,8 +190,6 @@ IGPS 03.09.02              - Jul 17th 2023
    * Add host IF field. eSPI in all flavours except Google XML.
    * Add BAUD rate field. default is 115200.
 
-HISTORY
-------- 
 	
 IGPS 03.09.01              - J un 26th 2023
 ============

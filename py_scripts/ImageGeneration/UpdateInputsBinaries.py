@@ -130,11 +130,6 @@ def copy_cp_fw_files(cp, cpheader):
 
 def copy_default_keys():
 	currpath = os.getcwd()	
-	
-	# if the fist key is there, doesn't touch the key_input folder
-	single_key = os.path.join(inputs_dir, "key_input", "kmt_ecc_key_0_pub.der")
-	if os.path.isfile(single_key):
-		return
 
 	src_dir = os.path.join("ImageGeneration", "keys", "openssl")
 	dest_dir = os.path.join("ImageGeneration", "inputs", "key_input")
@@ -147,5 +142,5 @@ def copy_default_keys():
 	key_files = os.listdir(src_dir)
 	
 	for k in key_files:
-		copy_files(os.path.join(src_dir, k), k)
+		copyfile(os.path.join(src_dir, k), os.path.join(dest_dir, k))
 		

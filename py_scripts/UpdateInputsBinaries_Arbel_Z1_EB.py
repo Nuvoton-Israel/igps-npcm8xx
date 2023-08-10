@@ -57,7 +57,7 @@ try:
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 	print("--------------------------------------")
-	print("Updating input binaries for  Arbel PD")
+	print("Updating input binaries for  Arbel Z1 EB")
 	print("--------------------------------------")
 
 	if not os.path.isdir(ref_dir):
