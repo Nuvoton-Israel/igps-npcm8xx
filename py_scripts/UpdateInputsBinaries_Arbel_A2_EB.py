@@ -44,7 +44,7 @@ BBheader_xml_source = os.path.join(ref_dir, "BootBlockAndHeader_A1_EB.xml")
 BBheader_xml_no_tip_source = os.path.join(ref_dir, "BootBlockAndHeader_A1_EB_NoTip.xml")
 
 uboot_bin_source = os.path.join(versions_dir, arbel_uboot)
-Ubootheader_xml_source = os.path.join(ref_dir, "UbootHeader_A1.xml")
+Ubootheader_xml_source = os.path.join(ref_dir, "UbootHeader_A2.xml")
 
 tee_bin_source = os.path.join(versions_dir, arbel_tee)
 tee_xml_source = os.path.join(ref_dir, "OpTeeAndHeader.xml")

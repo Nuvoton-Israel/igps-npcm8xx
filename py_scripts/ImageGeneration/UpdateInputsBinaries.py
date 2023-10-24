@@ -5,39 +5,12 @@
 # Copyright (C) 2022 Nuvoton Technologies, All Rights Reserved
 #-------------------------------------------------------------------------
 
-import sys
-import os
-
-from shutil import copyfile
-
-
-inputs_dir = os.path.join("ImageGeneration", "inputs")
-inputs_keys_dir = os.path.join("ImageGeneration", "inputs", "key_input")
-bb_bin = "arbel_a35_bootblock.bin"
-bb_bin_no_tip = "arbel_a35_bootblock_no_tip.bin"
-bb_header_xml = "BootBlockAndHeader.xml"
-bb_header_no_tip_xml = "BootBlockAndHeader_no_tip.xml"
-uboot_bin = "u-boot.bin"
-uboot_header_xml = "UbootHeader.xml"
-tee_bin = "tee.bin"
-bl31_bin = "bl31.bin"
-image_file = "Image"
-romfs_file = "romfs.img.gz"
-dtb_file = "nuvoton-npcm845-evb.dtb"
-uboot_env_file = "uboot_env.bin"
-kmt_xml = "KmtAndHeader.xml"
-Tip_FW_L0_file = "arbel_tip_fw_L0.bin"
-Tip_FW_L1_file = "arbel_tip_fw_L1.bin"
-tip_L0_xml = "TipFwAndHeader_L0.xml"
-tip_L1_xml = "TipFwAndHeader_L1.xml"
-CP_FW_file = "arbel_cp_fw.bin"
-cp_xml = "CpFwAndHeader.xml"
-fuse_xml = "arbel_fuse_map.xml"
+from ImageGeneration.IGPS_files import *
 
 def copy_files(src, dest, keys = 0):
 	try:
 		currpath = os.getcwd()
-		dest_file = os.path.join(inputs_dir, dest)
+		dest_file = os.path.join("ImageGeneration", inputs_dir, dest)
 		
 		if keys == 1:
 			dest_file = os.path.join(inputs_keys_dir, dest)
@@ -71,65 +44,70 @@ def copy_files(src, dest, keys = 0):
 
 def copy_bootblock_files(BootBlock, BBheader):
 
-	copy_files(BootBlock, bb_bin)
-	copy_files(BBheader, bb_header_xml)
+	copy_files(BootBlock, filename_bb_bin)
+	copy_files(BBheader, filename_bb_header_xml)
 	
 def copy_bootblock_no_tip(BootBlock, BBheader):
 
-	copy_files(BootBlock, bb_bin_no_tip)
-	copy_files(BBheader, bb_header_no_tip_xml)
+	copy_files(BootBlock, filename_bb_bin_no_tip)
+	copy_files(BBheader, filename_bb_header_no_tip_xml)
 
 def copy_uboot_files(uboot, Ubootheader):
 
-	copy_files(uboot, uboot_bin)
-	copy_files(Ubootheader, uboot_header_xml)
+	copy_files(uboot, filename_uboot_bin)
+	copy_files(Ubootheader, filename_uboot_header_xml)
 
-def copy_tz_files(bl31, tee):
+def copy_tz_files(bl31, bl31header, tee, tee_header):
 
-	copy_files(bl31, bl31_bin)
-	copy_files(tee, tee_bin)
+	copy_files(bl31, filename_bl31_bin)
+	copy_files(bl31header, filename_bl31_xml)
+	copy_files(tee, filename_tee_bin)
+	copy_files(tee_header, filename_tee_xml)
 
 
 def copy_linux_files(Image, romfs, dtb):
 
-	copy_files(Image, image_file)
-	copy_files(romfs, romfs_file)
-	copy_files(dtb, dtb_file)
+	copy_files(Image, filename_image_file)
+	copy_files(romfs, filename_romfs_file)
+	copy_files(dtb, filename_dtb_file)
 
 def copy_uboot_env(uboot_env):
 
-	copy_files(uboot_env, uboot_env_file)
+	copy_files(uboot_env, filename_uboot_env_file)
 
-def copy_kmt_files(kmtheader):
+def copy_kmt_files(kmtheader, skmtheader):
 
-	copy_files(kmtheader, kmt_xml)
+	copy_files(kmtheader, filename_kmt_xml)
+	copy_files(skmtheader, filename_skmt_xml)
 
 def copy_fuse_files(fuse):
 
 	if os.path.isfile(fuse):
-		copy_files(fuse, fuse_xml)
+		copy_files(fuse, filename_fuse_xml)
 		
 	else:
 		print("   SKIP OTP FILE   ")
 		return
 
-	copy_files(fuse, fuse_xml)
 
-def copy_tip_fw_files(tip_L0, tipheader_L0, tip_L1, tipheader_L1):
+def copy_tip_fw_files(tip_L0, tipheader_L0, sa_tip_L0, sa_tip_xml, tip_L1, tipheader_L1):
 
-	copy_files(tip_L0, Tip_FW_L0_file)
-	copy_files(tipheader_L0, tip_L0_xml)
-	
-	copy_files(tip_L1, Tip_FW_L1_file)
-	copy_files(tipheader_L1, tip_L1_xml)
+	copy_files(tip_L0, filename_Tip_FW_L0_file)
+	copy_files(tipheader_L0, filename_tip_L0_xml)
+
+	copy_files(sa_tip_L0, filename_SA_Tip_FW_L0_file)
+	copy_files(sa_tip_xml, filename_sa_xml)
+
+	copy_files(tip_L1, filename_Tip_FW_L1_file)
+	copy_files(tipheader_L1, filename_tip_L1_xml)
 
 def copy_cp_fw_files(cp, cpheader):
 
-	copy_files(cp, CP_FW_file)
-	copy_files(cpheader, cp_xml)
+	copy_files(cp, filename_CP_FW_file)
+	copy_files(cpheader, filename_cp_xml)
 
 def copy_default_keys():
-	currpath = os.getcwd()	
+	currpath = os.getcwd()
 
 	src_dir = os.path.join("ImageGeneration", "keys", "openssl")
 	dest_dir = os.path.join("ImageGeneration", "inputs", "key_input")

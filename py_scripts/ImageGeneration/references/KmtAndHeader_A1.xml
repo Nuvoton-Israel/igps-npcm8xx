@@ -126,16 +126,26 @@
 		</config>
 		<content format='32bit'>0x0</content>
 	</BinField>
-
+		
 	<BinField>
-		<name>TipFwEncryptionControl</name>
+		<name>EncryptionControl</name>
 		<config>
 			<offset>148</offset>
 			<size>1</size>
 		</config>
-		<content format='bytes'>0x0</content>
+		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
-
+	
+	<BinField>
+		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
+		<config>
+			<offset>0x96</offset>
+			<size>2</size>
+		</config>
+		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+	</BinField>
+	
+	
 	<BinField>
 		<name>OtpFwVersion</name>
 		<config>
@@ -151,7 +161,16 @@
 			<offset>0xA8</offset>
 			<size>4</size>
 		</config>
-		<content format='32bit'>0x80001000</content>               <!-- challenge offset -->
+		<content format='32bit'>0</content>               <!-- optional offset for L0 -->
+	</BinField>
+	
+	<BinField>
+		<name>AesCbcIV_reserved_do_not_change</name>  
+		<config>
+			<offset>0xAC</offset>
+			<size>16</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add IV to all binaries -->
 	</BinField>
 
 	<!-- timestamp -->

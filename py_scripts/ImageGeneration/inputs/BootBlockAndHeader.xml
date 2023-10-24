@@ -23,7 +23,44 @@
 		</config>
 		<content format='bytes'>0x0A 0x50 0x08 0x55 0xAA 0x54 0x4F 0x4F</content>
 	</BinField>
+
+	<BinField>
+		<name>KeyMask</name>    <!-- If value is none zero, check the mask to try several keys -->
+		<config>
+			<offset>0x88</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
+	</BinField>
+
+	<BinField>
+		<name>KeyIndex</name>  
+		<config>
+			<offset>0x8C</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
+	</BinField>
+
+	<BinField>
+		<name>EncryptionControl</name>
+		<config>
+			<offset>0x94</offset>
+			<size>1</size>
+		</config>
+		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
+	</BinField>
+			
+	<BinField>
+		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
+		<config>
+			<offset>0x96</offset>
+			<size>2</size>
+		</config>
+		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+	</BinField>
 	
+		
 	<BinField>
 		<!-- Version (Major.Minor) -->
 		<name>SVN_Version</name>          
@@ -33,7 +70,16 @@
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-	
+
+	<BinField>
+		<name>AesCbcIV_reserved_do_not_change</name>  
+		<config>
+			<offset>0xAC</offset>
+			<size>16</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add IV to all binaries -->
+	</BinField>	
+
 		<!-- timestamp -->
 	<BinField>
 		<name>timestamp_reserved</name>

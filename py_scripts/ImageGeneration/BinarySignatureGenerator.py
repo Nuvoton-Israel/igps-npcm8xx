@@ -7,6 +7,7 @@
 
 import sys
 import os
+import hashlib
 
 # This file was downloaded from :https://github.com/andrivet/python-asn1/blob/master/src/asn1.py with MIT license:
 try:
@@ -292,6 +293,35 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 
 
 
+def bin_calc_hash(bin_filename, max_size):
+	_openssl = openssl
+	if os.name != "nt":
+		_openssl = linux_prefix + openssl
+
+	currpath = os.getcwd()
+	os.chdir(os.path.dirname(os.path.abspath(__file__)))
+	
+	if (os.path.isfile(bin_filename) == False):
+		print(("currpath " +  os.getcwd()))
+		print(("\033[91m" + "bin_calc_hash  Error: " +  bin_filename + " file is missing\n\n" + "\033[97m"))
+		return -1
+
+	try:
+		h = hashlib.new("sha256")
+		with open(bin_filename,"rb") as f:
+			h.update(f.read())
+
+	finally:
+		os.chdir(currpath)
+		
+	arr = bytearray(h.digest())
+	
+	arr_ret = arr[:max_size]
+	# hex_str = ''.join(['{:02x}'.format(byte) for byte in arr_ret])
+	# print(hex_str)
+	return arr_ret
+
+
 def Embed_external_sig(sig_der, input_file, output_file, embed_signature):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -368,9 +398,9 @@ def Replace_binary_single_byte(binfile, offset, value):
 def Replace_binary_array(input_file, offset, num, size, bArray, title):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
-	
+
 	print(("\033[95m" + "=========================================================="))
-	print(("== %s Replace_binary_array file %s offset %s num %s    " % (title, input_file, str(offset), str(num))))
+	print(("== %s Replace_binary_array file %s offset %s " % (title, input_file, str(offset))))
 	print(("==========================================================" + "\x1b[0m"))
 
 	try:
@@ -384,15 +414,25 @@ def Replace_binary_array(input_file, offset, num, size, bArray, title):
 		bin_file.close()
 
 		if (bArray == True):
-			arr = BigNum_2_Array(num, size, True)
+			arr1 = BigNum_2_Array(num, size, True)
 		else:
-			arr = bytearray(num)
+			arr1 = bytearray(num)
 
+		# pad with zeros if needed or truncate array if needed
+		if len(arr1) < size:
+			arr = b'\x00' * (size - len(arr1)) + arr1	
+		elif len(arr1) > size:
+			arr = arr1[:size]	
+		else:
+			arr = arr1
+	
+		hex_string = ''.join(['{:02x}'.format(byte) for byte in arr])
+		
 		#print(("size of input " + str(len(input))))
 		output = input[:offset] + arr + input[(offset + size):]
 		
 		# write the input with the embedded signature to the output file
-		print(("write " + str(arr) + " to file " + input_file))
+		print(("write " + hex_string + " to file " + input_file))
 		input_file = open(input_file, "w+b")
 		input_file.write(output)
 		input_file.close()

@@ -19,22 +19,63 @@ outputs_dir = "output_binaries"
 input_key_dir                         = os.path.join(inputs_dir        , "key_input")
 basic_outputs_dir                     = os.path.join(outputs_dir       , "Basic")
 secure_outputs_dir                    = os.path.join(outputs_dir       , "Secure")
+inputs_keys_dir                       = os.path.join("ImageGeneration", "inputs", "key_input")
 
+# filenames used for inputs directory:
+filename_bb_bin = "arbel_a35_bootblock.bin"
+filename_bb_bin_no_tip = "arbel_a35_bootblock_no_tip.bin"
+filename_bb_header_xml = "BootBlockAndHeader.xml"
+filename_bb_header_no_tip_xml = "BootBlockAndHeader_no_tip.xml"
+filename_uboot_bin = "u-boot.bin"
+filename_uboot_header_xml = "UbootHeader.xml"
+filename_tee_bin = "tee.bin"
+filename_bl31_bin = "bl31.bin"
+filename_image_file = "Image"
+filename_romfs_file = "romfs.img.gz"
+filename_dtb_file = "nuvoton-npcm845-evb.dtb"
+filename_uboot_env_file = "uboot_env.bin"
+filename_kmt_xml = "KmtAndHeader.xml"
+filename_Tip_FW_L0_file = "arbel_tip_fw_L0.bin"
+filename_SA_Tip_FW_L0_file = "sa_arbel_tip_fw_L0.bin"
+filename_Tip_FW_L1_file = "arbel_tip_fw_L1.bin"
+filename_tip_L0_xml = "TipFwAndHeader_L0.xml"
+filename_tip_L1_xml = "TipFwAndHeader_L1.xml"
+filename_CP_FW_file = "arbel_cp_fw.bin"
+filename_cp_xml = "CpFwAndHeader.xml"
+filename_fuse_xml = "arbel_fuse_map.xml"
+filename_bl31_xml = "BL31_AndHeader.xml"
+filename_tee_xml = "OpTeeAndHeader.xml"
+filename_skmt_xml = "SkmtAndHeader.xml"
+filename_skmt_bin = "skmt_map.bin"
+filename_sa_xml = "SA_TipFwAndHeader_L0.xml"
+filename_sa_bin = "SA_TipFwAndHeader_L0.bin"
 
-bb_bin            = os.path.join(inputs_dir        , "arbel_a35_bootblock.bin" )
-bb_bin_no_tip     = os.path.join(inputs_dir        , "arbel_a35_bootblock_no_tip.bin" )
-uboot_bin         = os.path.join(inputs_dir        , "u-boot.bin"              )
-tee_bin           = os.path.join(inputs_dir        , "tee.bin"                 )
-bl31_bin          = os.path.join(inputs_dir        , "bl31.bin"                )
-image_file        = os.path.join(inputs_dir        , "Image"                   )
-romfs_file        = os.path.join(inputs_dir        , "romfs.img.gz"            )
-dtb_file          = os.path.join(inputs_dir        , "nuvoton-npcm845-evb.dtb" )
-uboot_env_file    = os.path.join(inputs_dir        , "uboot_env.bin"           )
-Tip_FW_L0_file    = os.path.join(inputs_dir        , "arbel_tip_fw_L0.bin"     )
-skmt_file         = os.path.join(inputs_dir        , "skmt_map.bin"            )
-Tip_FW_L1_file    = os.path.join(inputs_dir        , "arbel_tip_fw_L1.bin"     )
-CP_FW_file        = os.path.join(inputs_dir        , "arbel_cp_fw.bin"         )
-
+bb_bin               = os.path.join(inputs_dir, filename_bb_bin               )
+bb_bin_no_tip        = os.path.join(inputs_dir, filename_bb_bin_no_tip        )
+bb_header_xml        = os.path.join(inputs_dir, filename_bb_header_xml        )
+bb_header_no_tip_xml = os.path.join(inputs_dir, filename_bb_header_no_tip_xml )
+uboot_bin            = os.path.join(inputs_dir, filename_uboot_bin            )
+uboot_header_xml     = os.path.join(inputs_dir, filename_uboot_header_xml     )
+tee_bin              = os.path.join(inputs_dir, filename_tee_bin              )
+bl31_bin             = os.path.join(inputs_dir, filename_bl31_bin             )
+image_bin           = os.path.join(inputs_dir, filename_image_file           )
+romfs_bin           = os.path.join(inputs_dir, filename_romfs_file           )
+dtb_bin             = os.path.join(inputs_dir, filename_dtb_file             )
+uboot_env_file       = os.path.join(inputs_dir, filename_uboot_env_file       )
+kmt_xml              = os.path.join(inputs_dir, filename_kmt_xml              )
+Tip_FW_L0_bin        = os.path.join(inputs_dir, filename_Tip_FW_L0_file       )
+SA_Tip_FW_L0_bin     = os.path.join(inputs_dir, filename_SA_Tip_FW_L0_file    )
+Tip_FW_L1_bin        = os.path.join(inputs_dir, filename_Tip_FW_L1_file       )
+tip_L0_xml           = os.path.join(inputs_dir, filename_tip_L0_xml           )
+tip_L1_xml           = os.path.join(inputs_dir, filename_tip_L1_xml           )
+CP_FW_bin            = os.path.join(inputs_dir, filename_CP_FW_file           )
+cp_xml               = os.path.join(inputs_dir, filename_cp_xml               )
+fuse_xml             = os.path.join(inputs_dir, filename_fuse_xml             )
+bl31_xml             = os.path.join(inputs_dir, filename_bl31_xml             )
+tee_xml              = os.path.join(inputs_dir, filename_tee_xml              )
+skmt_xml             = os.path.join(inputs_dir, filename_skmt_xml             )
+skmt_bin             = os.path.join(inputs_dir, filename_skmt_bin             )
+sa_xml               = os.path.join(inputs_dir, filename_sa_xml               )
 
 BootBlockAndHeader_xml                = os.path.join(inputs_dir        , "BootBlockAndHeader.xml")
 BootBlockAndHeader_bin                = os.path.join(outputs_dir       , "BootBlockAndHeader.bin")
@@ -59,7 +100,6 @@ OpTeeAndHeader_der                    = os.path.join(outputs_dir       , "OpTeeA
 OpTeeAndHeader_basic_bin              = os.path.join(basic_outputs_dir , "OpTeeAndHeader.bin")
 OpTeeAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "OpTeeAndHeader.bin")
 
-
 UbootAndHeader_xml                    = os.path.join(inputs_dir        , "UbootHeader.xml")
 UbootAndHeader_bin                    = os.path.join(outputs_dir       , "UbootAndHeader.bin")
 UbootAndHeader_der                    = os.path.join(outputs_dir       , "UbootAndHeader_sig.der")
@@ -69,24 +109,8 @@ UbootAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "UbootA
 kmt_map_xml                           = os.path.join(inputs_dir        , "kmt_map.xml")
 kmt_map_bin                           = os.path.join(inputs_dir        , "kmt_map.bin")
 
-kmt_key0                              = os.path.join(input_key_dir        , "kmt_ecc_key_0.der")
-id_kmt_key0 = "8"
-kmt_key1                              = os.path.join(input_key_dir        , "kmt_ecc_key_1.der")
-id_kmt_key1 = "9"
-
 skmt_map_xml                           = os.path.join(inputs_dir        , "skmt_map.xml")
 skmt_map_bin                           = os.path.join(inputs_dir        , "skmt_map.bin")
-
-skmt_key0                              = os.path.join(input_key_dir        , "skmt_ecc_key_0.der")
-id_skmt_key0 = "10"
-skmt_key1                              = os.path.join(input_key_dir        , "skmt_ecc_key_1.der")
-id_skmt_key1 = "11"
-skmt_key2                              = os.path.join(input_key_dir        , "skmt_ecc_key_2.der")
-id_skmt_key2 = "12"
-skmt_key3                              = os.path.join(input_key_dir        , "skmt_ecc_key_3.der")
-id_skmt_key3 = "13"
-skmt_key4                              = os.path.join(input_key_dir        , "skmt_ecc_key_4.der")
-id_skmt_key4 = "14"
 
 rsa_key0                               = os.path.join(input_key_dir        , "rsa_key_0.der")
 id_rsa_key0 = "15"
@@ -96,6 +120,11 @@ TipFwAndHeader_L0_bin                    = os.path.join(outputs_dir       , "Tip
 TipFwAndHeader_L0_der                    = os.path.join(outputs_dir       , "TipFwAndHeader_L0_sig.der")
 TipFwAndHeader_L0_basic_bin              = os.path.join(basic_outputs_dir , "TipFwAndHeader_L0.bin")
 TipFwAndHeader_L0_secure_bin             = os.path.join(secure_outputs_dir, "TipFwAndHeader_L0.bin")
+
+SA_TipFwAndHeader_L0_bin                  = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0.bin")
+SA_TipFwAndHeader_L0_xml                  = os.path.join(inputs_dir        , "SA_TipFwAndHeader_L0.xml")
+SA_TipFwAndHeader_L0_basic_bin            = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0.bin")
+SA_TipFwAndHeader_L0_secure_bin           = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0.bin")
 
 TipFwAndHeader_L1_xml                    = os.path.join(inputs_dir        , "TipFwAndHeader_L1.xml")
 TipFwAndHeader_L1_bin                    = os.path.join(outputs_dir       , "TipFwAndHeader_L1.bin")
@@ -108,7 +137,6 @@ KmtAndHeader_bin                      = os.path.join(outputs_dir       , "KmtAnd
 KmtAndHeader_der                      = os.path.join(outputs_dir       , "KmtAndHeader_sig.der")
 KmtAndHeader_basic_bin                = os.path.join(basic_outputs_dir , "KmtAndHeader.bin")
 KmtAndHeader_secure_bin               = os.path.join(secure_outputs_dir, "KmtAndHeader.bin")
-
 
 SkmtAndHeader_xml                      = os.path.join(inputs_dir        , "SkmtAndHeader.xml")
 SkmtAndHeader_bin                      = os.path.join(outputs_dir       , "SkmtAndHeader.bin")
@@ -124,13 +152,14 @@ CpAndHeader_secure_bin                = os.path.join(secure_outputs_dir , "CpAnd
 tmp_bin                               = os.path.join(outputs_dir       , "tmp.bin")
 
 
-image_bin                             = os.path.join(inputs_dir        , "Image")
-romfs_bin                             = os.path.join(inputs_dir        , "romfs.img.gz")
-dtb_bin                               = os.path.join(inputs_dir        , "nuvoton-npcm845-evb.dtb")
 
 Kmt_TipFwL0_bin                       = os.path.join(outputs_dir       , "Kmt_TipFwL0.bin")
 Kmt_TipFwL0_basic_bin                 = os.path.join(basic_outputs_dir , "Kmt_TipFwL0.bin")
 Kmt_TipFwL0_secure_bin                = os.path.join(secure_outputs_dir, "Kmt_TipFwL0.bin")
+
+SA_Kmt_TipFwL0_bin                     = os.path.join(outputs_dir       , "SA_Kmt_TipFwL0.bin")
+SA_Kmt_TipFwL0_basic_bin               = os.path.join(basic_outputs_dir , "SA_Kmt_TipFwL0.bin")
+SA_Kmt_TipFwL0_secure_bin              = os.path.join(secure_outputs_dir, "SA_Kmt_TipFwL0.bin")
 
 Kmt_TipFwL0_Skmt_bin                         = os.path.join(outputs_dir       , "Kmt_TipFwL0_Skmt.bin")
 Kmt_TipFwL0_Skmt_basic_bin                   = os.path.join(basic_outputs_dir , "Kmt_TipFwL0_Skmt.bin")
@@ -226,8 +255,23 @@ id_otp_key6 = "6"
 otp_key7  = os.path.join(input_key_dir, "otp_ecc_key_7.der")
 id_otp_key7 = "7"
 otp_key8  = os.path.join(input_key_dir, "otp_ecc_key_8.der")
-id_otp_key8 = "8"
+id_otp_key8 = "15"
 
+kmt_key0                              = os.path.join(input_key_dir        , "kmt_ecc_key_0.der")
+id_kmt_key0 = "8"
+kmt_key1                              = os.path.join(input_key_dir        , "kmt_ecc_key_1.der")
+id_kmt_key1 = "9"
+
+skmt_key0                              = os.path.join(input_key_dir        , "skmt_ecc_key_0.der")
+id_skmt_key0 = "10"
+skmt_key1                              = os.path.join(input_key_dir        , "skmt_ecc_key_1.der")
+id_skmt_key1 = "11"
+skmt_key2                              = os.path.join(input_key_dir        , "skmt_ecc_key_2.der")
+id_skmt_key2 = "12"
+skmt_key3                              = os.path.join(input_key_dir        , "skmt_ecc_key_3.der")
+id_skmt_key3 = "13"
+skmt_key4                              = os.path.join(input_key_dir        , "skmt_ecc_key_4.der")
+id_skmt_key4 = "14"
 
 
 from  .key_setting_edit_me import *

@@ -126,7 +126,17 @@
 		</config>
 		<content format='bytes'>0x0</content>
 	</BinField>
-
+	
+	<BinField>
+		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
+		<config>
+			<offset>0x96</offset>
+			<size>2</size>
+		</config>
+		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+	</BinField>
+	
+	
 	<BinField>
 		<name>OtpFwVersion</name>
 		<config>
@@ -142,7 +152,7 @@
 			<offset>168</offset>
 			<size>4</size>
 		</config>
-		<content format='32bit'>0x80001000</content>               <!-- challenge offset -->
+		<content format='32bit'>0x80001000</content>
 	</BinField>
 
 	<BinField>

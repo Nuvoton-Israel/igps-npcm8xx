@@ -40,11 +40,11 @@ CpFW_xml_source = os.path.join(ref_dir, "CpFwAndHeader.xml")
 
 BootBlock_bin_source = os.path.join(versions_dir, arbel_a35_bootblock)
 BootBlock_bin_no_tip_source = os.path.join(versions_dir, arbel_a35_bootblock_no_tip)
-BBheader_xml_source = os.path.join(ref_dir, "BootBlockAndHeader_A1_Google.xml")
-BBheader_xml_no_tip_source = os.path.join(ref_dir, "BootBlockAndHeader_A1_Google_NoTip.xml")
+BBheader_xml_source = os.path.join(ref_dir, "BootBlockAndHeader_A2_Google.xml")
+BBheader_xml_no_tip_source = os.path.join(ref_dir, "BootBlockAndHeader_A2_Google_NoTip.xml")
 
 uboot_bin_source = os.path.join(versions_dir, arbel_uboot)
-Ubootheader_xml_source = os.path.join(ref_dir, "UbootHeader_A1.xml")
+Ubootheader_xml_source = os.path.join(ref_dir, "UbootHeader_A2.xml")
 
 tee_bin_source = os.path.join(versions_dir, arbel_tee)
 tee_xml_source = os.path.join(ref_dir, "OpTeeAndHeader.xml")
