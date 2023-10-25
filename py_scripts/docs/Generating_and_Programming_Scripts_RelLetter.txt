@@ -5,8 +5,8 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.09.04
-Date:     Sep 2023
+Version:  03.09.05
+Date:     Oct 2023
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -135,6 +135,36 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 03.09.05              - Oct 23     2023
+============
+- OPTEE: 0.0.4 : https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm_4_0_0
+  * Reading HUK from UUID stored in two scratchpad registers
+- Add UpdateInputBinaries for A2. Files are the same as A1.
+- u-boot: v2023.10-npcm8xx-20231023: 
+    https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20231023
+   first release of npcm-v2023.10
+   - Fix memory corruption in GFX frame buffer.
+- TIP_FW 0.6.4 L0 0.5.3 L1
+    * Fix DRAM window handling bug, oinorder to allow loading images to any address in DRAM.
+    * Fix access for Z1 devices to NCL lib.
+    * Move tip log to end of recovery flash.
+    * Support flash encryption. Need to create per die key and enable in each image header. 
+    * Fix TAG aliign issue.
+    * Support A35 bootblock reset case.
+    * Switch to lightweight X.509 and base64 API to remove mbedTLS from L0 completely
+    * Extend key scan option from TIP_ROM to all images
+    * Enhance NCL hash porting with SW SHA1 support
+    * TIP_SCR0 fix configuration during BMC reset.
+    * Update OEM table
+    * Customize TIP DICE layer 0 to generate ECC-384 device ID key pair matching ROM 
+    * Generate counter DICE is missing. Fuse DME and DICE request.
+- Bootblock 0.3.6:
+    * Fix SPIX settings. SPIX should be below 33MHz. It was calculated according to SPI0 and not SPIX, and then set to SPIX.
+    * Read the DIE information from OTP and place it in SCRACHPAD 72 and 73, for the OPTEE to read it 
+    * Bug fix: return pass status to TIP in secondary reset if training is skipped.
+  
+HISTORY
+------- 
 IGPS 03.09.04              - Sep 28th 2023
 ============
 - SA TIP_FW 0.2.1 L0 
@@ -151,9 +181,6 @@ IGPS 03.09.04              - Sep 28th 2023
    Note: for flash encryption, SVN and key_mask need to udpate TIP_FW from azure.
 - Cleanup Update* scripts.
 - Add batch file to NO_TIP modes.
-
-HISTORY
-------- 
 
 IGPS 03.09.03              - Aug 10th 2023
 ============

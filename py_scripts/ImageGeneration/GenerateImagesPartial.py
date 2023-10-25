@@ -22,6 +22,7 @@ from .CRC32_Generator import *
 from .GenerateImages import *
 from  .key_setting_edit_me import *
 
+from .IGPS_files import *
 
 	
 def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
@@ -79,8 +80,8 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 2):
 			print("Replace TIP_FW")
-			Pad_bin_file_inplace(  Tip_FW_L0_file ,  32)
-			Pad_bin_file_inplace(  Tip_FW_L1_file ,  32)
+			Pad_bin_file_inplace(  Tip_FW_L0_bin ,  32)
+			Pad_bin_file_inplace(  Tip_FW_L1_bin ,  32)
 			Generate_binary(TipFwAndHeader_L0_xml    , TipFwAndHeader_L0_bin)
 			Generate_binary(TipFwAndHeader_L1_xml    , TipFwAndHeader_L1_bin)
 			Replace_binary_single_byte(TipFwAndHeader_L0_bin,  140, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))

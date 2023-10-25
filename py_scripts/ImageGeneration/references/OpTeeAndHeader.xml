@@ -42,7 +42,12 @@
 	</BinField>
 
 	<BinField>
-		<name>EncryptionControl</name> <config> <offset>0x94</offset> <size>1</size> </config> <content format='bytes'>0x3</content>    <!-- FW encryption: to enable set value to 0x03 -->			
+		<name>EncryptionControl</name> 
+		<config> 
+			<offset>0x94</offset> 
+			<size>1</size> 
+		</config> 
+		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->			
 	</BinField>
 
 	<BinField>
