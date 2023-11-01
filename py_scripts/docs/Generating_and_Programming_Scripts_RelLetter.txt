@@ -5,8 +5,8 @@ Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.09.05
-Date:     Oct 2023
+Version:  03.09.06
+Date:     Nov 2023
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -135,6 +135,23 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 03.09.06              - Nov 1     2023
+============
+- TIP_FW: 0.6.5 L0 0.5.4 L1
+    * MC reset, if needed, performed synchronously from TIP side while BMC is in reset.
+- Bootblock version 0.3.7
+    * Modify the Makefile to ensure compatibility with Linux compilation and incorporate a build.sh script.
+    * In NO_TIP mode: if training fails perform FSW to retry.
+    * In TIP mode: need to use TIP_FW 0.6.5 and up so that TIP will reset MC before bootblock to ansure no BMC access 
+    * during reset MC.
+    * Update timer driver with registers and basic functunality.
+    * Update FIU divider on every reset, according to header.
+- bl31: https://github.com/Nuvoton-Israel/arm-trusted-firmware/releases/tag/v2.9.0
+    * Fix GFX frame buffer memory corruption during secondary boot.
+- Scripts: create image_no_tip_SA.bin for A1 mimic no_tip mode (concatenated file image_no_tip + SA FW).
+
+HISTORY
+------- 
 IGPS 03.09.05              - Oct 23     2023
 ============
 - OPTEE: 0.0.4 : https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm_4_0_0
@@ -162,9 +179,7 @@ IGPS 03.09.05              - Oct 23     2023
     * Fix SPIX settings. SPIX should be below 33MHz. It was calculated according to SPI0 and not SPIX, and then set to SPIX.
     * Read the DIE information from OTP and place it in SCRACHPAD 72 and 73, for the OPTEE to read it 
     * Bug fix: return pass status to TIP in secondary reset if training is skipped.
-  
-HISTORY
-------- 
+ 
 IGPS 03.09.04              - Sep 28th 2023
 ============
 - SA TIP_FW 0.2.1 L0 

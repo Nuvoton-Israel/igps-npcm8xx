@@ -7,8 +7,8 @@
 ----------------------------------------------------------------------
 
 # NPCM8XX bootBlock Package Release Letter
-Version: 00.03.06
-Date:    Oct 2023
+Version: 00.03.07
+Date:    Nov 2023
 
 
 # PACKAGE CONTENTS
@@ -56,14 +56,23 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
+version 0.3.7     - Nov 1st 2023 
+=============
+- Modify the Makefile to ensure compatibility with Linux compilation and incorporate a build.sh script.
+- In NO_TIP mode: if training fails perform FSW to retry.
+- In TIP mode: need to use TIP_FW 0.6.5 and up so that TIP will reset MC before bootblock to ansure no BMC access 
+  during reset MC.
+- Update timer driver with registers and basic functunality.
+- Update FIU divider on every reset, according to header.
+
+# HISTORY
+----------------
 version 0.3.6     - Oct 19th 2023 
 =============
 - Fix SPIX settings. SPIX should be below 33MHz. It was calculated according to SPI0 and not SPIX, and then set to SPIX.
 - Read the DIE information from OTP and place it in SCRACHPAD 72 and 73, for the OPTEE to read it 
 - Bug fix: return pass status to TIP in secondary reset if training is skipped.
 
-# HISTORY
-----------------
 version 0.3.5     - Jul 13th 2023
 =============
 - Call CLK_ConfigureFIUClock only in PORST (update SPI dividers from header).

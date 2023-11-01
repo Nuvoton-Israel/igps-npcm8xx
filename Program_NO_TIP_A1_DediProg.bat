@@ -7,6 +7,4 @@ rem -------------------------------------------------------------------------
 
 
 
-"C:\Program Files (x86)\DediProg\SF100\dpcmd.exe" -u .\py_scripts\ImageGeneration\output_binaries\Basic\image_no_tip.bin    --type W25Q256JV
-"C:\Program Files (x86)\DediProg\SF100\dpcmd.exe" -u .\py_scripts\ImageGeneration\output_binaries\Secure\SA_Kmt_TipFwL0.bin --type W25Q256JV --addr 0x200000
-
+"C:\Program Files (x86)\DediProg\SF100\dpcmd.exe" -u .\py_scripts\ImageGeneration\output_binaries\Secure\image_no_tip_SA.bin    --type W25Q256JV

@@ -121,10 +121,14 @@ TipFwAndHeader_L0_der                    = os.path.join(outputs_dir       , "Tip
 TipFwAndHeader_L0_basic_bin              = os.path.join(basic_outputs_dir , "TipFwAndHeader_L0.bin")
 TipFwAndHeader_L0_secure_bin             = os.path.join(secure_outputs_dir, "TipFwAndHeader_L0.bin")
 
-SA_TipFwAndHeader_L0_bin                  = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0.bin")
-SA_TipFwAndHeader_L0_xml                  = os.path.join(inputs_dir        , "SA_TipFwAndHeader_L0.xml")
-SA_TipFwAndHeader_L0_basic_bin            = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0.bin")
-SA_TipFwAndHeader_L0_secure_bin           = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0.bin")
+SA_TipFwAndHeader_L0_bin                  = os.path.join(outputs_dir        , "SA_TipFwAndHeader_L0.bin")
+SA_TipFwAndHeader_L0_xml                  = os.path.join(inputs_dir         , "SA_TipFwAndHeader_L0.xml")
+SA_TipFwAndHeader_L0_basic_bin            = os.path.join(basic_outputs_dir  , "SA_TipFwAndHeader_L0.bin")
+SA_TipFwAndHeader_L0_secure_bin           = os.path.join(secure_outputs_dir , "SA_TipFwAndHeader_L0.bin")
+
+image_no_tip_SA_bin                       = os.path.join(outputs_dir        , "image_no_tip_SA.bin")
+image_no_tip_SA_basic_bin                 = os.path.join(basic_outputs_dir  , "image_no_tip_SA.bin")
+image_no_tip_SA_secure_bin                = os.path.join(secure_outputs_dir , "image_no_tip_SA.bin")
 
 TipFwAndHeader_L1_xml                    = os.path.join(inputs_dir        , "TipFwAndHeader_L1.xml")
 TipFwAndHeader_L1_bin                    = os.path.join(outputs_dir       , "TipFwAndHeader_L1.bin")
@@ -223,9 +227,6 @@ Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_linux_bin          = os.p
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_linux_basic_bin    = os.path.join(basic_outputs_dir , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot_cp_linux.bin")
 Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_linux_secure_bin   = os.path.join(secure_outputs_dir, "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot_cp_linux.bin")
 
-Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin          = os.path.join(outputs_dir       , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot.bin")
-Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_basic_bin    = os.path.join(basic_outputs_dir , "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot.bin")
-Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_secure_bin   = os.path.join(secure_outputs_dir, "Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot.bin")
 
 
 # note: the next files are used only for XIP mode (basic mode only), where KMT is not used
