@@ -63,7 +63,7 @@
 		<!-- BMC optional fields -->
 	<BinField>
 		<!-- Version -->
-		<name>SVN_Version</name>          
+		<name>SVN_Version_reserved_do_no_use</name>          
 		<config>
 			<offset>0x98</offset>
 			<size>0x2</size>

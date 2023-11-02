@@ -16,8 +16,7 @@ rem -------------------------------------------------------------------------
 @echo off
 
 
-SET FILE_TO_PROGRAM=".\py_scripts\ImageGeneration\output_binaries\Basic\image_no_tip.bin"
-SET FILE_TO_PROGRAM_SA=".\py_scripts\ImageGeneration\output_binaries\Secure\SA_Kmt_TipFwL0.bin"
+SET FILE_TO_PROGRAM=".\py_scripts\ImageGeneration\output_binaries\Secure\image_no_tip_SA.bin"
 
 ECHO === PROGRAM  %FILE_TO_PROGRAM% =======
 
@@ -60,12 +59,6 @@ echo **************************************
 echo.
 ::Arbel_EVB_FlashProg.exe -list 
 .\py_scripts\ImageProgramming\Arbel_EVB_FlashProg.exe -open-desc "NPCM8mnx_Evaluation_Board B" -verify-on -pin-set 7 %PIN_LOW% -prog-file %FILE_TO_PROGRAM% 0 0 -1 -reset 
-if NOT ERRORLEVEL 0 goto ERROR
-
-.\py_scripts\ImageProgramming\Arbel_EVB_Automation.exe -open-desc "NPCM8mnx_Evaluation_Board A" %PORST_ASSERTED% %STRAP7_ASSERTED% -update -delay 10 %PORST_RELEASE% -update -delay 10
-if NOT ERRORLEVEL 0 goto ERROR
-
-.\py_scripts\ImageProgramming\Arbel_EVB_FlashProg.exe -open-desc "NPCM8mnx_Evaluation_Board B" -verify-on -pin-set 7 %PIN_LOW% -prog-file %FILE_TO_PROGRAM_SA% 0x200000  -reset 
 if NOT ERRORLEVEL 0 goto ERROR
 
 :: exit the EVB from tri-state 

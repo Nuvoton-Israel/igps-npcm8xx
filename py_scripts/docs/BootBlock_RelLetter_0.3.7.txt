@@ -56,7 +56,7 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
-version 0.3.7     - Nov 1st 2023 
+version 0.3.7     - Nov 2nd 2023 
 =============
 - Modify the Makefile to ensure compatibility with Linux compilation and incorporate a build.sh script.
 - In NO_TIP mode: if training fails perform FSW to retry.
@@ -64,6 +64,7 @@ version 0.3.7     - Nov 1st 2023
   during reset MC.
 - Update timer driver with registers and basic functunality.
 - Update FIU divider on every reset, according to header.
+- Set RDLEN to 0 on AHB6 and AHB13.
 
 # HISTORY
 ----------------

@@ -135,17 +135,18 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 03.09.06              - Nov 1     2023
+IGPS 03.09.06              - Nov 2     2023
 ============
 - TIP_FW: 0.6.5 L0 0.5.4 L1
     * MC reset, if needed, performed synchronously from TIP side while BMC is in reset.
 - Bootblock version 0.3.7
     * Modify the Makefile to ensure compatibility with Linux compilation and incorporate a build.sh script.
     * In NO_TIP mode: if training fails perform FSW to retry.
-    * In TIP mode: need to use TIP_FW 0.6.5 and up so that TIP will reset MC before bootblock to ansure no BMC access 
+    * In TIP mode: need to use TIP_FW 0.6.5 and up so that TIP will reset MC before bootblock to ensure no BMC access 
     * during reset MC.
-    * Update timer driver with registers and basic functunality.
-    * Update FIU divider on every reset, according to header.
+    * Update timer driver with registers and basic functionality.
+    * Update FIU divider on every reset, according to the header.
+    * Set RDLEN to 0 on AHB6 and AHB13.
 - bl31: https://github.com/Nuvoton-Israel/arm-trusted-firmware/releases/tag/v2.9.0
     * Fix GFX frame buffer memory corruption during secondary boot.
 - Scripts: create image_no_tip_SA.bin for A1 mimic no_tip mode (concatenated file image_no_tip + SA FW).

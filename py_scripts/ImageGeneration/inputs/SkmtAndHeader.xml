@@ -52,12 +52,14 @@
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
 	
-
-
 	<BinField>
-		<name>EncryptionControl</name> <config> <offset>0x94</offset> <size>1</size> </config> <content format='bytes'>0x3</content>    <!-- FW encryption not supported for key stores -->		
+		<name>EncryptionControl</name>
+		<config>
+			<offset>0x94</offset>
+			<size>1</size>
+		</config>
+		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
-	
 	
 	<BinField>
 		<name>SVN_Version</name>
