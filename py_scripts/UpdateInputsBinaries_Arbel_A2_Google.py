@@ -22,13 +22,13 @@ skmt_xml_source = os.path.join(ref_dir, "SkmtAndHeader.xml")
 
 fuse_xml_source = os.path.join(ref_dir, "arbel_fuse_map_A1.xml")
 
-TipFW_L0_bin_source = os.path.join(versions_dir, arbel_tip_fw_google_L0)
+TipFW_L0_bin_source = os.path.join(versions_dir, arbel_tip_fw_L0)
 TipFW_L0_xml_source = os.path.join(ref_dir, "TipFwAndHeader_L0_A1.xml")
 
 SA_TipFW_L0_bin_source = os.path.join(versions_dir, sa_arbel_tip_fw_L0)
 SA_TipFW_L0_xml_source = os.path.join(ref_dir, "SA_TipFwAndHeader_L0.xml")
 
-TipFW_L1_bin_source = os.path.join(versions_dir, arbel_tip_fw_google_L1)
+TipFW_L1_bin_source = os.path.join(versions_dir, arbel_tip_fw_L1)
 TipFW_L1_xml_source = os.path.join(ref_dir, "TipFwAndHeader_L1_A1.xml")
 
 

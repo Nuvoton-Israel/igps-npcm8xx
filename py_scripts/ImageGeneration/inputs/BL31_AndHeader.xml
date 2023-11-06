@@ -50,17 +50,6 @@
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->		
 	</BinField>
 	
-	
-	<BinField>
-		<!-- Version (Major.Minor) -->
-		<name>SVN_Version_reserved_do_no_use</name>          
-		<config>
-			<offset>0x98</offset>       
-			<size>0x2</size> 
-		</config>
-		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
-	</BinField>
-	
 		<!-- timestamp -->
 	<BinField>
 		<name>timestamp_reserved</name>

@@ -610,6 +610,35 @@
 	</BinField>
 	
 	<BinField>
+		<!-- FIU_DRD_CFG0_Set		-->
+		<name>FIU_DRD_CFG_0_Set</name>          
+		<config>
+			<offset>0x158</offset>       
+			<size>0x4</size> 
+		</config>
+		<content format='32bit'>0xFFFFFFFF</content>
+	</BinField>
+	
+	<BinField>
+		<!-- FIU_DRD_CFG1_Set		-->
+		<name>FIU_DRD_CFG_1_Set</name>          
+		<config>
+			<offset>0x15C</offset>       
+			<size>0x4</size> 
+		</config>
+		<content format='32bit'>0xFFFFFFFF</content>
+	</BinField>
+	
+	<BinField>
+		<!-- FIU_DRD_CFG3_Set		-->
+		<name>FIU_DRD_CFG_3_Set</name>          
+		<config>
+			<offset>0x160</offset>       
+			<size>0x4</size> 
+		</config>
+		<content format='32bit'>0xFFFFFFFF</content>
+	</BinField>
+	<BinField>
 		<!-- Code destination address, 32-bit aligned: for BootBlock should be 0xFFFD0000 so code will run in 0xFFFB0200 as linked for -->
 		<name>DestAddr</name>         
 		<config>
