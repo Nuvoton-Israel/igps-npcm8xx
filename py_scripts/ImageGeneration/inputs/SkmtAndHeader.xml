@@ -35,7 +35,7 @@
 	</BinField>
 	
 	<BinField>
-		<name>KeyMask</name>    <!-- If value is none zero, check the mask to try several keys -->
+		<name>KeyMask</name>    <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
 			<offset>0x88</offset>
 			<size>4</size>

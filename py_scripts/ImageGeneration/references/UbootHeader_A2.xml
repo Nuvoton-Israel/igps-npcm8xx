@@ -25,7 +25,7 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyMask</name>    <!-- If value is none zero, check the mask to try several keys -->
+		<name>KeyMask</name>    <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
 			<offset>0x88</offset>
 			<size>4</size>
@@ -51,26 +51,6 @@
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
 		
-	<BinField>
-		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
-		<config>
-			<offset>0x96</offset>
-			<size>2</size>
-		</config>
-		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
-	</BinField>
-		
-	<!-- BMC optional fields -->
-	<BinField>
-		<!-- Version -->
-		<name>SVN_Version</name>          
-		<config>
-			<offset>0x98</offset>
-			<size>0x2</size>
-		</config>
-		<content format='bytes'>0x00 0x00</content>
-	</BinField>
-
 	<BinField>
 		<name>AesCbcIV_reserved_do_not_change</name>  
 		<config>
