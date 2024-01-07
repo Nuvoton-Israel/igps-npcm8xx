@@ -12,7 +12,7 @@
 	<!-- BMC mandatory fields -->
 	<ImageProperties>
 		<BinSize>0</BinSize> <!-- If 0 the binary size will be calculated by the tool -->
-		<PadValue>0xFF</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
+		<PadValue>0</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
 	</ImageProperties>
 
 	<BinField>
@@ -97,7 +97,16 @@
 			<offset>132</offset>
 			<size>4</size>
 		</config>
-		<content format='FileSize'>inputs/kmt_map.bin</content>
+		<content format='FileSize'>output_binaries/tmp/kmt_map.bin</content>
+	</BinField>
+
+	<BinField>
+		<name>KeyMask</name>    <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<config>
+			<offset>136</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0xFF</content>               <!-- B1: key index, bitwise -->
 	</BinField>
 
 	<BinField>
@@ -115,18 +124,18 @@
 			<offset>144</offset>
 			<size>4</size>
 		</config>
-		<content format='32bit'>0x0</content>
+		<content format='32bit'>0</content>
 	</BinField>
 
 	<BinField>
-		<name>reserved_not_used_Z1_TipFwEncryptionControl</name>
+		<name>EncryptionControl</name>
 		<config>
 			<offset>148</offset>
 			<size>1</size>
 		</config>
-		<content format='bytes'>0x0</content>
+		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
-	
+
 	<BinField>
 		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
 		<config>
@@ -135,8 +144,8 @@
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-	
-	
+
+
 	<BinField>
 		<name>OtpFwVersion</name>
 		<config>
@@ -149,28 +158,38 @@
 	<BinField>
 		<name>fwTableOffset</name>
 		<config>
-			<offset>168</offset>
+			<offset>0xA8</offset>
 			<size>4</size>
 		</config>
-		<content format='32bit'>0x80001000</content>
+		<content format='32bit'>0</content>               <!-- optional offset for L0 -->
 	</BinField>
 
 	<BinField>
-		<name>dmeChallengeOffset</name>
+		<name>AesCbcIV_reserved_do_not_change</name>
 		<config>
-			<offset>172</offset>
-			<size>4</size>
+			<offset>0xAC</offset>
+			<size>16</size>
 		</config>
-		<content format='32bit'>0x8000FFBC</content>        <!-- bit 31 set (valid), points to offfset 0xFFBC -->
+		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add IV to all binaries -->
+	</BinField>
+
+	<!-- timestamp -->
+	<BinField>
+		<name>timestamp_reserved</name>
+		<config>
+			<offset>0xBC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- DO NOT EDIT: IGPS will add timestamp to all binaries -->
 	</BinField>
 
 	<BinField>
 		<name>kmt_map</name>
 		<config>
 			<offset>256</offset>
-			<size format='FileSize'>inputs/kmt_map.bin</size>                 <!-- size in the header calculated by tool-->
+			<size format='FileSize'>output_binaries/tmp/kmt_map.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/kmt_map.bin</content>
+		<content format='FileContent'>output_binaries/tmp/kmt_map.bin</content>
 	</BinField>
 
 </Bin_Ecc_Map>

@@ -48,17 +48,13 @@ def Pad_bin_file_inplace(inF, align):
 
 # merge inF1 and inF2 to create outF. 
 # Align both files according to align size. pad with 0xFF
-def Merge_bin_files_and_pad(inF1, inF2, outF, align, padding_at_end):
+def Merge_bin_files_and_pad(inF1, inF2, outF, align, padding_at_end, align_end = 0x1000):
 
 	padding_size = 0
 	padding_size_end = 0
 	
 	status = 0
 	
-	#end allign always to sector:
-	align_end = 0x1000
-	
-
 	print(("\t\033[95m" + "Merge " + inF1 + " + " + inF2 + " => " + outF + "\033[97m"))
 	
 	if (os.path.isfile(inF1) == False):
@@ -151,8 +147,11 @@ def Generate_binary(xmlFile, outputFile, mask = False):
 		if rc != 0:
 			raise BingoError(rc)
 	except:
-		print(("Generate_binary.py: generating %s failed" % (outputFile)))
-		print(("Generate_binary.py: error in  %s " % (xmlFile)))
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
+		print(("BinaryGenerator.py: generating %s failed" % (outputFile)))
+		print((" error in  %s " % (xmlFile)))
 		raise
 	finally:
 		os.chdir(currpath)

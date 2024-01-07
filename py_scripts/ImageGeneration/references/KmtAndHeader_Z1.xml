@@ -97,7 +97,7 @@
 			<offset>132</offset>
 			<size>4</size>
 		</config>
-		<content format='FileSize'>inputs/kmt_map.bin</content>
+		<content format='FileSize'>output_binaries/tmp/kmt_map.bin</content>
 	</BinField>
 
 	<BinField>
@@ -126,7 +126,7 @@
 		</config>
 		<content format='bytes'>0x0</content>
 	</BinField>
-	
+
 	<BinField>
 		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
 		<config>
@@ -135,8 +135,8 @@
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-	
-	
+
+
 	<BinField>
 		<name>OtpFwVersion</name>
 		<config>
@@ -168,9 +168,9 @@
 		<name>kmt_map</name>
 		<config>
 			<offset>256</offset>
-			<size format='FileSize'>inputs/kmt_map.bin</size>                 <!-- size in the header calculated by tool-->
+			<size format='FileSize'>output_binaries/tmp/kmt_map.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/kmt_map.bin</content>
+		<content format='FileContent'>output_binaries/tmp/kmt_map.bin</content>
 	</BinField>
 
 </Bin_Ecc_Map>

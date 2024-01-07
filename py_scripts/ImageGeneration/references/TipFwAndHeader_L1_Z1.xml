@@ -14,23 +14,23 @@
 		<BinSize>0</BinSize> <!-- If 0 the binary size will be calculated by the tool -->
 		<PadValue>0xFF</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
 	</ImageProperties>
-		
+
 	<BinField>
 		<!-- tip_fw_L1 tag (0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A) -->
-		<name>StartTag</name>         
+		<name>StartTag</name>
 		<config>
 			<offset>0</offset>            <!-- offset in the header -->
 			<size>0x8</size>              <!-- size in the header -->
 		</config>
 		<content format='bytes'>0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A</content>
 	</BinField>
-	
+
 
 
 
 
 	<BinField>
-		<name>FWCrc</name>  
+		<name>FWCrc</name>
 		<config>
 			<offset>12</offset>
 			<size>4</size>
@@ -49,7 +49,7 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyIndex</name>  
+		<name>KeyIndex</name>
 		<config>
 			<offset>140</offset>
 			<size>4</size>
@@ -57,7 +57,7 @@
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
 
-	
+
 	<BinField>
 		<name>EncryptionControl</name>
 		<config>
@@ -66,7 +66,7 @@
 		</config>
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x01 -->
 	</BinField>
-	
+
 	<BinField>
 		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
 		<config>
@@ -75,25 +75,25 @@
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-	
+
 	<BinField>
-		<name>SVN_Version</name>  
+		<name>SVN_Version</name>
 		<config>
 			<offset>0x98</offset>
 			<size>2</size>
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-	
+
 	<BinField>
-		<name>AesCbcIV_reserved_do_not_change</name>  
+		<name>AesCbcIV_reserved_do_not_change</name>
 		<config>
 			<offset>0xAC</offset>
 			<size>16</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add IV to all binaries -->
 	</BinField>
-	
+
 	<!-- timestamp -->
 	<BinField>
 		<name>timestamp_reserved</name>
@@ -105,32 +105,42 @@
 	</BinField>
 
 	<BinField>
+		<!-- Offset of registers table. This field is written automatically by IGPS -->
+		<name>Regs_offset_do_not_edit</name>
+		<config>
+			<offset>0x1B4</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0xFFFFFFFF</content>     <!-- do not edit, IGPS auto fill this field -->
+	</BinField>
+
+	<BinField>
 		<!-- Code destination address, 32-bit aligned -->
-		<name>DestAddr_L1</name>         
+		<name>DestAddr_L1</name>
 		<config>
 			<offset>0x1F8</offset>        <!-- offset in the header -->
 			<size>0x4</size>              <!-- size in the header -->
 		</config>
 		<content format='32bit'>0x20000</content>  <!-- content the user should fill -->
 	</BinField>
-	
+
 	<BinField>
 		<!-- BootBlock or u-boot Code size -->
-		<name>CodeSize_L1</name>         
+		<name>CodeSize_L1</name>
 		<config>
 			<offset>0x1FC</offset>        <!-- offset in the header -->
 			<size>0x4</size>              <!-- size in the header -->
 		</config>
-		<content format='FileSize'>inputs/arbel_tip_fw_L1.bin</content>	<!-- content the user should fill -->
+		<content format='FileSize'>output_binaries/tmp/arbel_tip_fw_L1.bin</content>	<!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
-		<name>TipFW_L1</name>             
+		<name>TipFW_L1</name>
 		<config>
 			<offset>0x200</offset>
-			<size format='FileSize'>inputs/arbel_tip_fw_L1.bin</size>                 <!-- size in the header calculated by tool-->
+			<size format='FileSize'>output_binaries/tmp/arbel_tip_fw_L1.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/arbel_tip_fw_L1.bin</content>  <!-- content the user should fill -->
+		<content format='FileContent'>output_binaries/tmp/arbel_tip_fw_L1.bin</content>  <!-- content the user should fill -->
 	</BinField>
 
 </Bin_Ecc_Map>

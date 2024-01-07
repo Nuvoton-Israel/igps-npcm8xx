@@ -106,6 +106,9 @@ def GenerateKeyECC_OpenSSL(keyFileName):
 		os.remove(pub_key_pem)
 		
 	except:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 		print(("Generate Key failed" % (keyFileName)))
 		raise
 	finally:
@@ -145,6 +148,9 @@ def GenerateKeyECC_HSM(keyFileName, pinCode, idNum):
 		Extract_bin_public_key_from_DER_file(keyFilePub, output_bin_file, 0) #0 means no private key on DER file
 
 	except:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 		print(("Generate Key HSM failed" % (keyFilePub)))
 		raise
 

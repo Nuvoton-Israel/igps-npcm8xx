@@ -369,6 +369,9 @@ def Embed_external_sig(sig_der, input_file, output_file, embed_signature):
 		output_file.write(output)
 		output_file.close()
 	except:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 		print(("\n\n Embed_external_sig.py: embed external key %s to %s failed" % (input_file, output_file)))
 		raise Exception('Embed_external_sig')
 	finally:
@@ -437,6 +440,9 @@ def Replace_binary_array(input_file, offset, num, size, bArray, title):
 		input_file.write(output)
 		input_file.close()
 	except:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 		print(("\n\n FAIL %s Replace_binary_array.py: file %s offset %s array %s    " % (title, input_file, str(offset), str(arr))))
 		raise Exception('Replace_binary_array')
 	finally:

@@ -16,7 +16,7 @@
 	</ImageProperties>
 
 	<BinField>
-		<name>Anchor</name> 
+		<name>Anchor</name>
 		<config>
 			<offset>0</offset>
 			<size>4</size>
@@ -27,7 +27,7 @@
 	<BinField>
 		<!-- CRC Enabled  (0x1E 0xAB 0xF2 0x57) or
 		     CRC Disabled (0xE1 0x54 0xF2 0x57) -->
-		<name>ExendedAnchor_CrcEn</name>         
+		<name>ExendedAnchor_CrcEn</name>
 		<config>
 			<offset>4</offset>
 			<size>4</size>
@@ -36,7 +36,7 @@
 	</BinField>
 
 	<BinField>
-		<name>FWCrc</name>  
+		<name>FWCrc</name>
 		<config>
 			<offset>0x0C</offset>
 			<size>4</size>
@@ -46,7 +46,7 @@
 
 	<BinField>
 		<!-- Code destination address, 32-bit aligned -->
-		<name>FwStartAddr</name>         
+		<name>FwStartAddr</name>
 		<config>
 			<offset>0x78</offset>
 			<size>4</size>
@@ -56,14 +56,14 @@
 
 	<BinField>
 		<!-- Code size -->
-		<name>FwLength</name>         
+		<name>FwLength</name>
 		<config>
 			<offset>0x84</offset>
 			<size>4</size>
 		</config>
 		<content format='FileSize'>inputs/sa_arbel_tip_fw_L0.bin</content>	<!-- content the user should fill -->
 	</BinField>
-	
+
 	<BinField>
 		<name>KeyMask</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
@@ -74,7 +74,7 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyIndex</name>  
+		<name>KeyIndex</name>
 		<config>
 			<offset>0x8C</offset>
 			<size>4</size>
@@ -83,7 +83,7 @@
 	</BinField>
 
 	<BinField>
-		<name>OtpFwVersion</name>  
+		<name>OtpFwVersion</name>
 		<config>
 			<offset>0x98</offset>
 			<size>2</size>
@@ -92,7 +92,7 @@
 	</BinField>
 
 	<BinField>
-		<name>DME_challenge_offset</name>  
+		<name>DME_challenge_offset</name>
 		<config>
 			<offset>0xA8</offset>
 			<size>4</size>
@@ -101,14 +101,14 @@
 	</BinField>
 
 	<BinField>
-		<name>AesCbcIV</name>  
+		<name>AesCbcIV</name>
 		<config>
 			<offset>0xAC</offset>
 			<size>16</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-	
+
 	<!-- timestamp -->
 	<BinField>
 		<name>timestamp_reserved</name>
@@ -120,7 +120,7 @@
 	</BinField>
 
 	<BinField>
-		<name>TipFW</name>             
+		<name>TipFW</name>
 		<config>
 			<offset>0x100</offset>
 			<size format='FileSize'>inputs/sa_arbel_tip_fw_L0.bin</size>                 <!-- size in the header calculated by tool-->

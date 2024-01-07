@@ -1,0 +1,40 @@
+##############################################################################################
+# SPDX-License-Identifier: GPL-2.0                                                           #
+# Nuvoton IGPS: Image Generation And Programming Scripts For Arbel BMC                       #
+# Copyright (C) 2023 Nuvoton Technologies, All Rights Reserved                               #
+#                                                                                            #
+# External Register Table.                                                                   #
+#,                                                                                           #
+# Format:                                                                                    #
+#       Module index, Register, field, value_to_write, reset, delay_exp_us                   #
+#                                                                                            #
+# Table will be executed by TIP FW L1 after uboot loading                                    #
+# Regs and fields must match 'versions\npcm8xx.chip' registers file of NPCM8XX (same as DS). #
+#                                                                                            #
+# Reset match INTCR2 upper 9 bits. For PORST only execution write 0x100. For any reset 0x1FF.#
+# bit 8: PORST                                                                               #
+# bit 7: CORST                                                                               #
+# bit 6: WD0                                                                                 #
+# bit 5: SW1                                                                                 #
+# bit 4: SW2                                                                                 #
+# bit 3: SW3                                                                                 #
+# bit 2: SW4                                                                                 #
+# bit 1: WD1                                                                                 #
+# bit 0: WD2                                                                                 #
+#                                                                                            #
+# Examples: WD resets only: 0x43, SW resets only: 0x43, PORST only 0x100, CORST only: 0x80   #
+#                                                                                            #
+# delay[us] =>  (2 ^ delay - 1).                                                             #
+# All numbers are in hex format only, except delay.                                          #
+#                                                                                            #
+#                                                                                            #
+##############################################################################################
+# Module_ind,register,field,value,reset,delay
+0, TIP_SCR6,0, 0x6666, 0x1FF,0
+# 0, PECI_CTL_STS, DONE_EN,1, 0x1FF,0
+# 0, BUSTO, TOAHB1, 0x2, 0x1FF,1
+# 0, PLLCONG,0, 0x81228606, 0x1FF,2
+# 0, FIU_DRD_CFG,0, 0x0301100c, 0x1FF,3
+# 1, FIU_DRD_CFG,0, 0x0301100c, 0x1FF,8
+# 2, FIU_DRD_CFG,0, 0x0301100c, 0x1FF,10
+# 0, IPSRST3, GDMA1,1, 0x1FF,0

@@ -24,7 +24,7 @@ fuse_xml_source = os.path.join(ref_dir, "arbel_fuse_map_Z1.xml")
 
 TipFW_L0_bin_source = os.path.join(versions_dir, arbel_tip_fw_L0)
 TipFW_L0_xml_source = os.path.join(ref_dir, "TipFwAndHeader_L0_Z1.xml")
-
+TipFW_L0_UT_xml_source = os.path.join(ref_dir, "TipFwAndHeader_L0_UT_A1.xml")
 SA_TipFW_L0_bin_source = os.path.join(versions_dir, sa_arbel_tip_fw_L0)
 SA_TipFW_L0_xml_source = os.path.join(ref_dir, "SA_TipFwAndHeader_L0.xml")
 
@@ -72,7 +72,7 @@ try:
 
 	ImageGeneration.UpdateInputsBinaries.copy_fuse_files(fuse_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_kmt_files(kmt_xml_source, skmt_xml_source)
-	ImageGeneration.UpdateInputsBinaries.copy_tip_fw_files(TipFW_L0_bin_source, TipFW_L0_xml_source, SA_TipFW_L0_bin_source, SA_TipFW_L0_xml_source, TipFW_L1_bin_source, TipFW_L1_xml_source)
+	ImageGeneration.UpdateInputsBinaries.copy_tip_fw_files(TipFW_L0_bin_source, TipFW_L0_xml_source, SA_TipFW_L0_bin_source, SA_TipFW_L0_xml_source, TipFW_L1_bin_source, TipFW_L1_xml_source, TipFW_L0_UT_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_cp_fw_files(CpFW_bin_source, CpFW_xml_source)
 	ImageGeneration.UpdateInputsBinaries.copy_bootblock_no_tip(BootBlock_bin_no_tip_source, BBheader_xml_no_tip_source)
 	ImageGeneration.UpdateInputsBinaries.copy_bootblock_files(BootBlock_bin_source, BBheader_xml_source)
@@ -88,6 +88,9 @@ try:
 except (IOError) as e:
 	print(("Error Updating input Binaries (%s)" % (e.strerror)))
 except:
+	exc_type, exc_obj, exc_tb = sys.exc_info()
+	fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+	print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 	print("Error Updating input Binaries")
 finally:
 	os.chdir(currpath)

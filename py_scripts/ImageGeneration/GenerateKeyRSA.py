@@ -113,6 +113,9 @@ def GenerateKeyRSA_OpenSSL(keyFileName):
 		executeCMD(cmd)
 
 	except:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 		print(("Generate Key failed" % (keyFileName)))
 		raise
 	finally:
@@ -151,6 +154,9 @@ def GenerateKeyRSA_HSM(keyFileName, pinCode, idNum):
 
 
 	except:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 		print(("Generate Key HSM failed" % (keyFilePub)))
 		raise
 

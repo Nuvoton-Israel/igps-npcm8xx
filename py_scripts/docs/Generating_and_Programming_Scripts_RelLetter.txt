@@ -1,12 +1,12 @@
 -----------------------------------------------------------------------------
 Nuvoton Technology Corporation - Confidential
 NPCM8XX (Arbel) Image generation and programming scripts Release Letter
-Copyright (c) 2023 Nuvoton Technology Corporation. All Rights Reserved.
+Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  03.09.08
-Date:     Nov 2023
+Version:  04.00.00
+Date:     Jan 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -40,7 +40,7 @@ Install on Linux:
 Usage for Linux users:
 ----------------------
 - Run ImageGeneration/UpdateInputsBinaries_<chip_gen>_<board>.py to update image inputs of one of the available boards.
-  <chip_gen>: {A1,Z1}. 
+  <chip_gen>: {A1,Z1,A2}. 
   <board>: {"SVB", "EB"}
   This script needs to run only once. 
   After that user may update py_scrips/ImageGeneration/inputs/ folder with alternative versions to the default binaries.  
@@ -62,17 +62,17 @@ Usage for Windows users:
   Users can select between three signing options:
   * openssl: run localy.
   * HSM: use any pkcs11 compliant HSM locally. 
-  	To use an HSM need to install at /py_scripts/ImageGeneration/
-  	- pkcs11-tool.exe
-	- opensc.dll or any dll required for your spefic HSM HW.
+    To use an HSM need to install at /py_scripts/ImageGeneration/
+    - pkcs11-tool.exe
+    - opensc.dll or any dll required for your spefic HSM HW.
   * Remote HSM: users who use a standalone remote HSM need to port the binaries to the HSM
     and then copy back the signatures back to IGPS.
     The signatures are then embedded to the binaries by IGSP.
 
   Users can also replace a single component in a pre-signed version using ReplaceComponent.bat
 
-- For Dediprog:  Run ProgramAll_Basic_DediProg.bat  or  ProgramAll_Secure_DediProg.bat
-- For blue EVB:  Run ProgramAll_Basic_EVB.bat       or  ProgramAll_Secure_EVB.bat
+- For Dediprog:  Run ProgramAll_Secure_DediProg.bat
+- For blue EVB:  Run ProgramAll_Secure_EVB.bat
 - For Z1 devices only users can use FUP mode: ProgramAll_Basic_FUP.bat or ProgramAll_Secure_FUP.bat
 
 Signed version of IGPS
@@ -84,6 +84,15 @@ Nuvoton provides a pre-signed IGPS version for locked devices.
 Update* and Generate* are not possible, only programming.
 If user wishes to update uboot\bl31\bootblock they may still do so by replaceing
 the file in inputs folder and executing ReplaceComponent.bat
+
+Key selection
+-------------
+Users can select keys to sign by editing this file:
+https://github.com/Nuvoton-Israel/igps-npcm8xx/blob/main/py_scripts/ImageGeneration/key_setting_edit_me.py
+The key index selected on this file will be used both for signing the images,
+as well as directly written to the header as key_index and key_mask.
+key_mask field will be automtically written with (1<<key_index) on each image header.
+
 
 Signing options
 ----------------
@@ -135,6 +144,52 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 04.00.00              - Jan 4th     2024
+============
+- Add support for external hardening tables.
+- Add chip XML.
+- Add registers CSV files in inputs.
+- Add a folder output_binaries/tmp as staging area.
+  kmt_map.bin and skmt_map.bin will be created in tmp instead of inputs.
+- Add pointers to regisers tables in all FW headers.
+- Add file IGPS_common.py where all GenerateAll.run subroutines are located. 
+  This allows OpenBMC build to call these scripts directly.
+- Split combo 0 and combo 1 sign so that OpenBMC build can call only combo1 buildand take a signed image from tip repo as-is.
+- Fix ReplaceComponent.bat scripts, add register handleing and fix KMT and SKMT in-correct build.
+- uboot v2023.10-npcm8xx-20240103
+   https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20240103
+   * Fix PCI reset
+   * Fix PSPI clock divider
+   * Fix 4GB dram issue
+   * Fix reset driver bug
+- TIP_FW: 0.6.6 L0 0.5.5 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.6.6_L0_0.5.5_L1
+  * Support Hardening.
+  * Fix Coverity issues.
+  * Support BMC direct access commands: flash erase, program, read and FW update. (note: FW udpate in direct mode has a known issue with encrypted images).
+  * Direct mode: handle unknown interrupts - clean the correct notification.
+  * Support OTP key revokation.
+  * Init CDI to counter to allow devices in pre-production to boot to uboot.
+  * PA-RoT: component attestation enablement This PR includes all the features required for PA-RoT (component attestation).
+      1.  CFM workflow enablement
+      2.  PCD workflow enablement
+      3.  Configuration reset workflow enablement
+      4.  Attestation requester bring-up
+      5.  PCR/TCG log extension
+      Those features are under the control of compilation flags:
+               CMD_ENABLE_ISSUE_REQUEST
+               CERBERUS_ENABLE_COMPONENT_ATTESTATION
+               ATTESTATION_SUPPORT_SPDM
+               ATTESTATION_SUPPORT_DEVICE_DISCOVERY
+               CMD_ENABLE_RESET_CONFIG
+     * When disabling those flags, TIP acts as AC-RoT.
+     * Fix issue in malloc
+  * Bug fix: handle key store in the case of zero block.
+  * Add scripts for total_wipe and flash read.
+  * Remove Programing "Basic" mode. Always use the "Secure" version.
+  
+HISTORY
+-------
 IGPS 03.09.08              - Nov 29th     2023
 ============
 - Write key mask automatically by scripts. 
@@ -145,8 +200,6 @@ IGPS 03.09.08              - Nov 29th     2023
      * Print all values in MHz (instead of Hz).
 - XML mark the key_mask area as reserved.
 
-HISTORY
-------- 
 IGPS 03.09.07              - Nov 6     2023
 ============
 - Remove Google TIP_FW. SA FW replaces it.

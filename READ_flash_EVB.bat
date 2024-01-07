@@ -1,11 +1,11 @@
 rem  SPDX-License-Identifier: GPL-2.0
 rem 
-rem  Nuvoton IGPS: Image Generation And Programming Scripts For Arbel BMC
+rem  Nuvoton IGPS: Image Generation And Reading Scripts For Arbel BMC
 rem 
 rem  Copyright (C) 2022 Nuvoton Technologies, All Rights Reserved
 rem -------------------------------------------------------------------------
 
-:: Program Arbel EVB SPI0.CS0 flash. 
+:: Read Arbel EVB SPI0.CS0 flash. 
 :: This tool works with Arbel EVB PCB X01 (blue board) and above. 
 :: To use automation, make sure the following J2 header pins are populate with jumpers: 
 ::    > J2.3  & J2.4 : Port A.0; STRAP7 (BMC pins are at Hi-Z).  (** only on PCB version X01)
@@ -15,10 +15,12 @@ rem -------------------------------------------------------------------------
 
 @echo off
 
+set Timestamp=%time:~3,2%%time:~6,2%%time:~9,2%
+SET FILE_READ=.\FL_read_%Timestamp%.bin
 
-SET FILE_TO_PROGRAM=".\py_scripts\ImageGeneration\output_binaries\Basic\Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_Tee_uboot.bin"
+echo %FILE_READ%
 
-ECHO === PROGRAM  %FILE_TO_PROGRAM% =======
+ECHO === PROGRAM  %FILE_READ% =======
 
 SET PIN_HIGH=1 1 
 SET PIN_LOW=1 0
@@ -54,11 +56,14 @@ if NOT ERRORLEVEL 0 goto ERROR
 echo.
 echo.
 echo **************************************
-echo ****      Program the flash       ****
+echo ****      Read the flash          ****
 echo **************************************
 echo.
 ::Arbel_EVB_FlashProg.exe -list 
-.\py_scripts\ImageProgramming\Arbel_EVB_FlashProg.exe -open-desc "NPCM8mnx_Evaluation_Board B" -verify-on -pin-set 7 %PIN_LOW% -prog-file %FILE_TO_PROGRAM% 0 0 -1 -reset 
+.\py_scripts\ImageProgramming\Arbel_EVB_FlashProg.exe -open-desc "NPCM8mnx_Evaluation_Board B"  -pin-set 7 %PIN_LOW% -dump-file %FILE_READ% 0 -1 -reset
+
+rem FTDI_SPI_PROG %PROG_PORT% -pin-set 7 %PIN_LOW% -dump-file "dump_4MB_flash.bin" 0 0x400000 -reset 
+
 if NOT ERRORLEVEL 0 goto ERROR
 
 :: exit the EVB from tri-state 
@@ -83,7 +88,7 @@ rem color 4
 echo.
 echo.
 echo ************************************** 
-echo *** Flash Programming Failed  :-( ****
+echo *** Flash Reading Failed  :-( ****
 echo **************************************
 echo.
 echo.
@@ -94,11 +99,10 @@ timeout /T 100
 echo.
 echo.
 echo ************************************** 
-echo *** Flash Programming Passed :-)  ****
+echo *** Flash Reading Passed :-)  ****
 echo **************************************
 echo.
 echo.
-powershell.exe -ExecutionPolicy Bypass -File .\Open_All_Ports.ps1
 timeout /T 100
 
 

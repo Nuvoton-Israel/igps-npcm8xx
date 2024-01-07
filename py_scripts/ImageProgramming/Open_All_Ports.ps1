@@ -1,4 +1,5 @@
 
+Get-Process -Name ttermpro.exe | Stop-Process -Force
 Get-Process -Name ttermpro | Stop-Process -Force
 
 

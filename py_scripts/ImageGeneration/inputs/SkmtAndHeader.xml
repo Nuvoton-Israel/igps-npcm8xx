@@ -17,14 +17,14 @@
 
 	<BinField>
 		<!-- skmt tag (0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A) -->
-		<name>StartTag</name>       
+		<name>StartTag</name>
 		<config>
-			<offset>0</offset>           
-			<size>0x8</size>              
+			<offset>0</offset>
+			<size>0x8</size>
 		</config>
 		<content format='bytes'>0x73 0x6B 0x6D 0x74 0x50 0x08 0x0D 0x0A</content>
 	</BinField>
-	
+
 	<BinField>
 		<name>FWCrc</name>
 		<config>
@@ -33,7 +33,7 @@
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>     <!-- will be calculated by IGPS -->
 	</BinField>
-	
+
 	<BinField>
 		<name>KeyMask</name>    <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
@@ -44,14 +44,14 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyIndex</name>  
+		<name>KeyIndex</name>
 		<config>
 			<offset>0x8C</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
-	
+
 	<BinField>
 		<name>EncryptionControl</name>
 		<config>
@@ -60,16 +60,16 @@
 		</config>
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
-	
+
 	<BinField>
 		<name>SVN_Version</name>
 		<config>
 			<offset>0x98</offset>
 			<size>2</size>
 		</config>
-		<content format='bytes'>0x00 0x00</content>               
+		<content format='bytes'>0x00 0x00</content>
 	</BinField>
-	
+
 	<!-- timestamp -->
 	<BinField>
 		<name>timestamp_reserved</name>
@@ -83,31 +83,31 @@
 
 	<BinField>
 		<!-- Code destination address, 32-bit aligned -->
-		<name>DestAddr_skmt</name>       
+		<name>DestAddr_skmt</name>
 		<config>
-			<offset>0x1F8</offset>       
-			<size>0x4</size>              
+			<offset>0x1F8</offset>
+			<size>0x4</size>
 		</config>
-		<content format='32bit'>0x20000</content> 
-	</BinField>
-	
-	<BinField>
-		<!-- BootBlock or u-boot Code size -->
-		<name>CodeSize_skmt</name>       
-		<config>
-			<offset>0x1FC</offset>       
-			<size>0x4</size>              
-		</config>
-		<content format='FileSize'>inputs/skmt_map.bin</content>	
+		<content format='32bit'>0x20000</content>
 	</BinField>
 
 	<BinField>
-		<name>skmt_map</name>           
+		<!-- BootBlock or u-boot Code size -->
+		<name>CodeSize_skmt</name>
+		<config>
+			<offset>0x1FC</offset>
+			<size>0x4</size>
+		</config>
+		<content format='FileSize'>output_binaries/tmp/skmt_map.bin</content>
+	</BinField>
+
+	<BinField>
+		<name>skmt_map</name>
 		<config>
 			<offset>0x200</offset>
-			<size format='FileSize'>inputs/skmt_map.bin</size>                 <!-- size in the header calculated by tool-->
+			<size format='FileSize'>output_binaries/tmp/skmt_map.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/skmt_map.bin</content>  
+		<content format='FileContent'>output_binaries/tmp/skmt_map.bin</content>
 	</BinField>
 
 </Bin_Ecc_Map>

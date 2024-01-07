@@ -81,6 +81,10 @@ try:
 		ImageGeneration.GenerateImages.Run(TypeOfKey, pinCode, isPalladium)
 
 except Exception as e:
+	exc_type, exc_obj, exc_tb = sys.exc_info()
+	fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+	print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
+		
 	print("\n***************************************************")
 	print("*******                                      ******")
 	print("*******   ########     #      ###   #        ******")

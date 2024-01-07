@@ -97,7 +97,7 @@
 			<offset>132</offset>
 			<size>4</size>
 		</config>
-		<content format='FileSize'>inputs/kmt_map.bin</content>
+		<content format='FileSize'>output_binaries/tmp/kmt_map.bin</content>
 	</BinField>
 
 	<BinField>
@@ -126,7 +126,7 @@
 		</config>
 		<content format='32bit'>0</content>
 	</BinField>
-		
+
 	<BinField>
 		<name>EncryptionControl</name>
 		<config>
@@ -135,7 +135,7 @@
 		</config>
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
-	
+
 	<BinField>
 		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
 		<config>
@@ -144,8 +144,8 @@
 		</config>
 		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
 	</BinField>
-	
-	
+
+
 	<BinField>
 		<name>OtpFwVersion</name>
 		<config>
@@ -163,9 +163,9 @@
 		</config>
 		<content format='32bit'>0</content>               <!-- optional offset for L0 -->
 	</BinField>
-	
+
 	<BinField>
-		<name>AesCbcIV_reserved_do_not_change</name>  
+		<name>AesCbcIV_reserved_do_not_change</name>
 		<config>
 			<offset>0xAC</offset>
 			<size>16</size>
@@ -187,9 +187,9 @@
 		<name>kmt_map</name>
 		<config>
 			<offset>256</offset>
-			<size format='FileSize'>inputs/kmt_map.bin</size>                 <!-- size in the header calculated by tool-->
+			<size format='FileSize'>output_binaries/tmp/kmt_map.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/kmt_map.bin</content>
+		<content format='FileContent'>output_binaries/tmp/kmt_map.bin</content>
 	</BinField>
 
 </Bin_Ecc_Map>

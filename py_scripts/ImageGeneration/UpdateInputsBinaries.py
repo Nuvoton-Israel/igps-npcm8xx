@@ -27,6 +27,9 @@ def copy_files(src, dest, keys = 0):
 		print(("Copy %s to %s" % (src, dest_file)))
 		copyfile(src, dest_file)
 	except (Exception) as e:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
 		print("\n***************************************************")
 		print("*******                                      ******")
 		print("*******   ########     #      ###   #        ******")
@@ -90,10 +93,12 @@ def copy_fuse_files(fuse):
 		return
 
 
-def copy_tip_fw_files(tip_L0, tipheader_L0, sa_tip_L0, sa_tip_xml, tip_L1, tipheader_L1):
+def copy_tip_fw_files(tip_L0, tipheader_L0, sa_tip_L0, sa_tip_xml, tip_L1, tipheader_L1, L0_UT_xml):
 
 	copy_files(tip_L0, filename_Tip_FW_L0_file)
 	copy_files(tipheader_L0, filename_tip_L0_xml)
+	
+	copy_files(L0_UT_xml, filename_tip_L0_UT_xml)
 
 	copy_files(sa_tip_L0, filename_SA_Tip_FW_L0_file)
 	copy_files(sa_tip_xml, filename_sa_xml)

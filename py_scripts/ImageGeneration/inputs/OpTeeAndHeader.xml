@@ -11,14 +11,14 @@
 		<BinSize>0</BinSize>         <!-- If 0 the binary size will be calculated by the tool -->
 		<PadValue>0xFF</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
 	</ImageProperties>
-		
+
 	<BinField>
-		<!-- BootBlock tag (0x50 0x08 0x55 0xAA 0x54 0x4F 0x4F 0x42) or 
+		<!-- BootBlock tag (0x50 0x08 0x55 0xAA 0x54 0x4F 0x4F 0x42) or
 			     uboot tag (0x55 0x42 0x4F 0x4F 0x54 0x42 0x4C 0x4B) -->
-		<name>StartTag</name>         
+		<name>StartTag</name>
 		<config>
-			<offset>0</offset>           
-			<size>0x8</size> 
+			<offset>0</offset>
+			<size>0x8</size>
 		</config>
 		<content format='bytes'>0x0A 0x54 0x45 0x45 0x5F 0x4E 0x50 0x43</content>  <!-- content the user should fill -->
 	</BinField>
@@ -33,7 +33,7 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyIndex</name>  
+		<name>KeyIndex</name>
 		<config>
 			<offset>0x8C</offset>
 			<size>4</size>
@@ -42,12 +42,12 @@
 	</BinField>
 
 	<BinField>
-		<name>EncryptionControl</name> 
-		<config> 
-			<offset>0x94</offset> 
-			<size>1</size> 
-		</config> 
-		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->			
+		<name>EncryptionControl</name>
+		<config>
+			<offset>0x94</offset>
+			<size>1</size>
+		</config>
+		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
 
 	<!-- timestamp -->
@@ -61,33 +61,43 @@
 	</BinField>
 
 	<BinField>
-		<!-- BootBlock or u-boot Code size -->
-		<name>DestAddr</name>         
+		<!-- Offset of registers table. This field is written automatically by IGPS -->
+		<name>Regs_offset_do_not_edit</name>
 		<config>
-			<offset>0x1F8</offset>       
-			<size>0x4</size> 
+			<offset>0x1B4</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0xFFFFFFFF</content>     <!-- do not edit, IGPS auto fill this field -->
+	</BinField>
+
+	<BinField>
+		<!-- BootBlock or u-boot Code size -->
+		<name>DestAddr</name>
+		<config>
+			<offset>0x1F8</offset>
+			<size>0x4</size>
 		</config>
 		<content format='32bit'>0x020FFDE4</content>	<!-- optee is at 0x02100000. including a build in header of optee of 0x1C bytes +0x200 TIP header-->
 	</BinField>
-		
+
 	<BinField>
 		<!-- BootBlock or u-boot Code size -->
-		<name>CodeSize</name>         
+		<name>CodeSize</name>
 		<config>
-			<offset>0x1FC</offset>       
-			<size>0x4</size> 
+			<offset>0x1FC</offset>
+			<size>0x4</size>
 		</config>
-		<content format='FileSize'>inputs/tee.bin</content>	<!-- content the user should fill -->
+		<content format='FileSize'>output_binaries/tmp/tee.bin</content>	<!-- content the user should fill -->
 	</BinField>
-	
+
 	<BinField>
 		<!-- The BootBlock or u-boot binary file -->
-		<name>Code</name>             
+		<name>Code</name>
 		<config>
-			<offset>0x200</offset>       
-			<size format='FileSize'>inputs/tee.bin</size>                 <!-- size in the header calculated by tool-->
+			<offset>0x200</offset>
+			<size format='FileSize'>output_binaries/tmp/tee.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/tee.bin</content>  <!-- content the user should fill -->
+		<content format='FileContent'>output_binaries/tmp/tee.bin</content>  <!-- content the user should fill -->
 	</BinField>
-	
+
 </Bin_Ecc_Map>

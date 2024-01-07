@@ -13,12 +13,12 @@
 		<BinSize>0</BinSize>         <!-- If 0 the binary size will be calculated by the tool -->
 		<PadValue>0xFF</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
 	</ImageProperties>
-		
+
 	<BinField>
 		<!-- uboot tag (0x0A 0x55 0x42 0x4F 0x4F 0x54 0x42 0x4C) -->
-		<name>StartTag</name>         
+		<name>StartTag</name>
 		<config>
-			<offset>0</offset>    
+			<offset>0</offset>
 			<size>0x8</size>
 		</config>
 		<content format='bytes'>0x0A 0x55 0x42 0x4F 0x4F 0x54 0x42 0x4C</content>
@@ -34,14 +34,14 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyIndex</name>  
+		<name>KeyIndex</name>
 		<config>
 			<offset>0x8C</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
-		
+
 	<BinField>
 		<name>EncryptionControl</name>
 		<config>
@@ -50,17 +50,17 @@
 		</config>
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
-		
+
 	<!-- BMC optional fields -->
 	<BinField>
-		<name>AesCbcIV_reserved_do_not_change</name>  
+		<name>AesCbcIV_reserved_do_not_change</name>
 		<config>
 			<offset>0xAC</offset>
 			<size>16</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add IV to all binaries -->
 	</BinField>
-	
+
 	<!-- timestamp -->
 	<BinField>
 		<name>timestamp_reserved</name>
@@ -70,146 +70,146 @@
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
 	</BinField>
-	
+
 	<!-- ==============      Start UBOOT SPECIFIC PARAMETERS ================  -->
 	<!-- uboot only parameters placeholder, do not change. IGPS will embed the values during build -->
 	<BinField>
-		<name>tip_size_reserved</name>          
+		<name>tip_size_reserved</name>
 		<config>
 			<offset>0x1B8</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>tip_offset_reserved</name>          
+		<name>tip_offset_reserved</name>
 		<config>
 			<offset>0x1BC</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>bootblock_flash_offset_reserved</name>          
+		<name>bootblock_flash_offset_reserved</name>
 		<config>
 			<offset>0x1C0</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>bootblock_flash_size_reserved</name>          
+		<name>bootblock_flash_size_reserved</name>
 		<config>
 			<offset>0x1C4</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>bl31_size_reserved</name>          
+		<name>bl31_size_reserved</name>
 		<config>
 			<offset>0x1C8</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>bl31_offset_reserved</name>          
+		<name>bl31_offset_reserved</name>
 		<config>
 			<offset>0x1CC</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>optee_size_reserved</name>          
+		<name>optee_size_reserved</name>
 		<config>
 			<offset>0x1D0</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>optee_offset_reserved</name>          
+		<name>optee_offset_reserved</name>
 		<config>
 			<offset>0x1D4</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>uboot_size_reserved</name>          
+		<name>uboot_size_reserved</name>
 		<config>
 			<offset>0x1D8</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>uboot_offset_reserved</name>          
+		<name>uboot_offset_reserved</name>
 		<config>
 			<offset>0x1DC</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>linux_image_size_reserved</name>          
+		<name>linux_image_size_reserved</name>
 		<config>
 			<offset>0x1E0</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>linux_image_offset_reserved</name>          
+		<name>linux_image_offset_reserved</name>
 		<config>
 			<offset>0x1E4</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>dtb_size_reserved</name>          
+		<name>dtb_size_reserved</name>
 		<config>
 			<offset>0x1E8</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>dtb_offset_reserved</name>          
+		<name>dtb_offset_reserved</name>
 		<config>
 			<offset>0x1EC</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 		<BinField>
-		<name>linux_FS_size_reserved</name>          
+		<name>linux_FS_size_reserved</name>
 		<config>
 			<offset>0x1F0</offset>
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>
 	</BinField>
-	
+
 	<BinField>
-		<name>linux_FS_offset_reserved</name>          
+		<name>linux_FS_offset_reserved</name>
 		<config>
 			<offset>0x1F4</offset>
 			<size>0x4</size>
@@ -218,37 +218,47 @@
 	</BinField>
 
 	<!-- ==============      END UBOOT SPECIFIC PARAMETERS ================  -->
-	
+
+	<BinField>
+		<!-- Offset of registers table. This field is written automatically by IGPS -->
+		<name>Regs_offset_do_not_edit</name>
+		<config>
+			<offset>0x1B4</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0xFFFFFFFF</content>     <!-- do not edit, IGPS auto fill this field -->
+	</BinField>
+
 	<BinField>
 		<!-- Code destination address, 32-bit aligned -->
-		<name>DestAddr</name>         
+		<name>DestAddr</name>
 		<config>
 			<offset>0x1F8</offset>
 			<size>0x4</size>
 		</config>
 		<content format='32bit'>0x06207e00</content>  <!-- including uboot header. uboot image starts at 0x8000 -->
 	</BinField>
-	
+
 	<BinField>
 		<!-- BootBlock or u-boot Code size -->
-		<name>CodeSize</name>         
+		<name>CodeSize</name>
 		<config>
 			<offset>0x1FC</offset>
 			<size>0x4</size>
 		</config>
-		<content format='FileSize'>inputs/u-boot.bin</content>	<!-- content the user should fill -->
+		<content format='FileSize'>output_binaries/tmp/u-boot.bin</content>	<!-- content the user should fill -->
 	</BinField>
-	
+
 	<BinField>
 		<!-- The BootBlock or u-boot binary file -->
-		<name>Code</name>             
+		<name>Code</name>
 		<config>
 			<offset>0x200</offset>
-			<size format='FileSize'>inputs/u-boot.bin</size>                 <!-- size in the header calculated by tool-->
+			<size format='FileSize'>output_binaries/tmp/u-boot.bin</size>                 <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/u-boot.bin</content>  <!-- content the user should fill -->
-	</BinField>	
-	
-	
-	
+		<content format='FileContent'>output_binaries/tmp/u-boot.bin</content>  <!-- content the user should fill -->
+	</BinField>
+
+
+
 </Bin_Ecc_Map>

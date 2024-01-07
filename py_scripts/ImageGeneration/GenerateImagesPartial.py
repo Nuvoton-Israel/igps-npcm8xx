@@ -68,22 +68,36 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_secure_bin                           , Kmt_TipFwL0_Skmt_TipFwL1_bin)
 			shutil.copy(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_secure_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin)
 			
+			# parse chip MXL file:
+			registers = Register_file_chip_xml_parse(chip_xml)
+
 		# Sign Images (and a secure  image) according to the choice
 		if (choice == 1):
 			print("Replace KMT")
+			Generate_binary(kmt_map_xml, kmt_map_tmp_bin)
+			Pad_bin_file_inplace(  kmt_map_tmp_bin       ,  32)
+			Generate_binary(KmtAndHeader_xml             , KmtAndHeader_bin)
 			Replace_binary_single_byte(KmtAndHeader_bin,       140, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
 			Replace_binary_array(KmtAndHeader_bin,       0xBC, ticks, 4, True, "KMT       add timestamp")
-			Generate_binary(KmtAndHeader_xml      , KmtAndHeader_bin)
 			CRC32_binary(KmtAndHeader_bin        , 112    , 12     , KmtAndHeader_bin)
 			Sign_binary(KmtAndHeader_bin,       112, eval(otp_key_which_signs_kmt),       16, KmtAndHeader_secure_bin,       TypeOfKey, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]))
 			shutil.copy(KmtAndHeader_secure_bin,            KmtAndHeader_bin)
 			
 		elif (choice == 2):
 			print("Replace TIP_FW")
-			Pad_bin_file_inplace(  Tip_FW_L0_bin ,  32)
-			Pad_bin_file_inplace(  Tip_FW_L1_bin ,  32)
+			copyfile(Tip_FW_L0_bin, Tip_FW_L0_tmp_bin)
+			copyfile(Tip_FW_L1_bin, Tip_FW_L1_tmp_bin)
+			Pad_bin_file_inplace(  Tip_FW_L0_tmp_bin ,  32)
+			Pad_bin_file_inplace(  Tip_FW_L1_tmp_bin ,  32)
+			
+			Register_csv_file_handler(registers_L1           , bin_registers_L1        , registers)
+			offset_L1    = Build_single_image_with_regs(Tip_FW_L1_bin,  bin_registers_L1        )
 			Generate_binary(TipFwAndHeader_L0_xml    , TipFwAndHeader_L0_bin)
 			Generate_binary(TipFwAndHeader_L1_xml    , TipFwAndHeader_L1_bin)
+			
+			if (offset_L1 != 0xFFFFFFFF):
+				Replace_binary_array(TipFwAndHeader_L1_bin,  0x1B4, offset_L1             , 4, True, "TIP L1 reg offset")
+
 			Replace_binary_single_byte(TipFwAndHeader_L0_bin,  140, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))
 			Replace_binary_single_byte(TipFwAndHeader_L1_bin,  140, ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0'))
 			Replace_binary_array(TipFwAndHeader_L0_bin,  0xBC, ticks, 4, True, "L0        add timestamp")
@@ -97,8 +111,15 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 3):
 			print("Replace bootblock")
-			Pad_bin_file_inplace(  bb_bin         ,  32)
+
+			copyfile(bb_bin, bb_tmp_bin)
+			Pad_bin_file_inplace(  bb_tmp_bin         ,  32)
+			Register_csv_file_handler(registers_bootblock           , bin_registers_bootblock        , registers)
+			offset_bb    = Build_single_image_with_regs(bb_bin,         bin_registers_bootblock )
 			Generate_binary(BootBlockAndHeader_xml, BootBlockAndHeader_bin)
+			if (offset_bb != 0xFFFFFFFF):
+				Replace_binary_array(BootBlockAndHeader_bin, 0x1B4, offset_bb             , 4, True, "bootblock reg offset")
+			
 			Replace_binary_single_byte(BootBlockAndHeader_bin, 140, ord(skmt_key_which_signs_bootblock[-1]) - ord('0'))
 			Replace_binary_array(BootBlockAndHeader_bin, 0xBC, ticks, 4, True, "Bootblock add timestamp")
 			Sign_binary(BootBlockAndHeader_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_secure_bin, TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
@@ -106,18 +127,27 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 10):
 			print("Replace bootblock no tip")
-			Pad_bin_file_inplace(  bb_bin_no_tip         ,  32)
-			Generate_binary(BootBlockAndHeader_no_tip_xml, BootBlockAndHeader_bin)
+			copyfile(bb_bin_no_tip, bb_tmp_bin_no_tip)
+			Pad_bin_file_inplace(  bb_tmp_bin_no_tip         ,  32)
+			Generate_binary(BootBlockAndHeader_no_tip_xml, BootBlockAndHeader_no_tip_bin)
 			Replace_binary_array(BootBlockAndHeader_no_tip_bin, 0xBC, ticks, 4, True, "Bootblock add timestamp")
 			shutil.copy(BootBlockAndHeader_no_tip_basic_bin,            BootBlockAndHeader_no_tip_bin)
 		
 		elif (choice == 4):
 			print("Replace uboot")
-			Pad_bin_file_inplace(  uboot_bin      ,  32)
+			copyfile(uboot_bin, uboot_tmp_bin)
+			Pad_bin_file_inplace(  uboot_tmp_bin      ,  32)
+			
+			Register_csv_file_handler(registers_uboot           , bin_registers_uboot        , registers)
+			offset_uboot = Build_single_image_with_regs(uboot_tmp_bin,      bin_registers_uboot     )
+				
 			Generate_binary(UbootAndHeader_xml    , UbootAndHeader_bin)
 			Replace_binary_single_byte(UbootAndHeader_bin,     140, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
 			Replace_binary_array(UbootAndHeader_bin,     0xBC, ticks, 4, True, "UBOOT     add timestamp")
 			Uboot_header_embed_pointers_to_all_fw()
+			if (offset_uboot != 0xFFFFFFFF):
+				Replace_binary_array(UbootAndHeader_bin,     0x1B4, offset_uboot             , 4, True, "uboot reg offset")
+
 			Sign_binary(UbootAndHeader_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
 			shutil.copy(UbootAndHeader_secure_bin,            UbootAndHeader_bin)
 			
@@ -131,8 +161,16 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 7):
 			print("Replace BL31")
-			Pad_bin_file_inplace(  bl31_bin       ,  32)
+			copyfile(bl31_bin, bl31_tmp_bin)
+			Pad_bin_file_inplace(  bl31_tmp_bin       ,  32)
+			Register_csv_file_handler(registers_bl31           , bin_registers_bl31        , registers)
+			offset_bl31  = Build_single_image_with_regs(bl31_bin,       bin_registers_bl31      )
+			
 			Generate_binary(BL31_AndHeader_xml    , BL31_AndHeader_bin)
+			
+			if (offset_bl31 != 0xFFFFFFFF):
+				Replace_binary_array(BL31_AndHeader_bin,     0x1B4, offset_bl31             , 4, True, "bl31 reg offset")
+
 			Replace_binary_single_byte(BL31_AndHeader_bin,     140, ord(skmt_key_which_signs_BL31[-1]) - ord('0'))
 			Replace_binary_array(BL31_AndHeader_bin,     0xBC, ticks, 4, True, "BL31      add timestamp")
 			Sign_binary(BL31_AndHeader_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]))
@@ -140,8 +178,16 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 8):
 			print("Replace TEE")
-			Pad_bin_file_inplace(  tee_bin        ,  32)
+			copyfile(tee_bin, tee_tmp_bin)
+			Pad_bin_file_inplace(  tee_tmp_bin        ,  32)
+
+			Register_csv_file_handler(registers_optee           , bin_registers_optee       , registers)
+			offset_tee   = Build_single_image_with_regs(tee_bin,        bin_registers_optee     )
+				
 			Generate_binary(OpTeeAndHeader_xml    , OpTeeAndHeader_bin)
+			if (offset_tee != 0xFFFFFFFF):
+				Replace_binary_array(OpTeeAndHeader_bin,     0x1B4, offset_tee             , 4, True, "optee reg offset")
+
 			Replace_binary_single_byte(OpTeeAndHeader_bin,     140, ord(skmt_key_which_signs_OpTee[-1]) - ord('0'))
 			Replace_binary_array(OpTeeAndHeader_bin,     0xBC, ticks, 4, True, "OpTee     add timestamp")
 			Sign_binary(OpTeeAndHeader_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]))
@@ -149,9 +195,13 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 9):
 			print("Replace SKMT")
+
+			Generate_binary(skmt_map_xml, skmt_map_tmp_bin)
+			Pad_bin_file_inplace(  skmt_map_tmp_bin      ,  32)
+			Generate_binary(SkmtAndHeader_xml            , SkmtAndHeader_bin)
 			Replace_binary_single_byte(SkmtAndHeader_bin,       140, ord(kmt_key_which_signs_skmt[-1]) - ord('0'))
 			Replace_binary_array(SkmtAndHeader_bin,      0xBC, ticks, 4, True, "SKMT      add timestamp")
-			Generate_binary(SkmtAndHeader_xml      , SkmtAndHeader_bin)
+			
 			CRC32_binary(SkmtAndHeader_bin        , 112    , 12     , SkmtAndHeader_bin)
 			Sign_binary(SkmtAndHeader_bin,       112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_secure_bin,       TypeOfKey, pinCode, eval("id_skmt_key" + kmt_key_which_signs_skmt[-1]))
 			shutil.copy(SkmtAndHeader_secure_bin,            SkmtAndHeader_bin)
@@ -164,7 +214,10 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			MoveToFolder(isPalladium, secure_outputs_dir)
 
 	except (Exception) as e:
-		print(("\n GenerateImages.py: Error building binaries (%s)" % str(e)))
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
+		print(("\n GenerateImagesPartial.py: Error building binaries (%s)" % str(e)))
 		raise
 
 	finally:
