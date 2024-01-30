@@ -5,7 +5,7 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.00.00
+Version:  04.00.04
 Date:     Jan 2024
 
 This package is released under the terms of the Source Code License Agreement
@@ -144,6 +144,44 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 04.00.04              - Jan 28th     2024
+============
+- TIP_FW: 0.6.7 L0 0.5.6 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.6.7_L0_0.5.6_L1
+   * Disable attastation.
+   * Fix Macronix issue: if BMC change to wrong command set FIU_DRD_CFG RD_CMD back to a valid value.
+
+HISTORY
+-------
+IGPS 04.00.03              - Jan 22th     2024
+============
+- TIP_FW: 0.6.7 L0 0.5.6 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.6.7_L0_0.5.6_L1
+   * Move manifests to the end of the flash.
+   * format manifests when needed.
+   * Enhance logging during malloc\stack failure.
+   * Increase BMC_task stack.
+   * Limit SKMT to 10 keys (final number TBD). 
+   * Limit KMT to 4 keys (final number is TBD).
+   * Restore FIU_DRD_CFG (bug fix for Macronix flash).
+- Total wipe: enhance logging.
+- key_mask: instead of writing 1<<key_index to key_mask: IGPS sets the relevant bit without changing other bits in key_mask.
+
+IGPS 04.00.01              - Jan 4th     2024
+============
+- uboot v2023.10-npcm8xx-20240103
+   https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20240103
+   * Fix PCI reset
+   * Fix PSPI clock divider
+   * Fix 4GB dram issue
+   * Fix reset driver bug
+- TIP_FW: 0.6.6 L0 0.5.5 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.6.6_L0_0.5.5_L1
+   * Fix issue in malloc
+  * Bug fix: handle key store in the case of zero block.
+  * Add scripts for total_wipe and flash read.
+  * Remove Programing "Basic" mode. Always use the "Secure" version.
+
 IGPS 04.00.00              - Jan 4th     2024
 ============
 - Add support for external hardening tables.
@@ -187,9 +225,7 @@ IGPS 04.00.00              - Jan 4th     2024
   * Bug fix: handle key store in the case of zero block.
   * Add scripts for total_wipe and flash read.
   * Remove Programing "Basic" mode. Always use the "Secure" version.
-  
-HISTORY
--------
+
 IGPS 03.09.08              - Nov 29th     2023
 ============
 - Write key mask automatically by scripts. 

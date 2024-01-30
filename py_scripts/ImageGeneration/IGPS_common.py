@@ -216,17 +216,18 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 
 
 def Write_key_ind_and_key_mask_to_headers():
+	# print ("skip*************************************************************")
 	# Put the key mask number inside the header at offset 136
-	Replace_binary_single_byte(KmtAndHeader_bin,        136, 2**(ord(otp_key_which_signs_kmt[-1]) - ord('0')))
-	Replace_binary_single_byte(TipFwAndHeader_L0_bin,   136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')))
-	Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,   136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')))
-	Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')))        
-	Replace_binary_single_byte(SkmtAndHeader_bin,      136, 2**(ord(kmt_key_which_signs_skmt[-1]) - ord('0')))
-	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  136, 2**(ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0')))
-	Replace_binary_single_byte(BootBlockAndHeader_bin, 136, 2**(ord(skmt_key_which_signs_bootblock[-1]) - ord('0')))
-	Replace_binary_single_byte(BL31_AndHeader_bin,     136, 2**(ord(skmt_key_which_signs_BL31[-1]) - ord('0')))
-	Replace_binary_single_byte(OpTeeAndHeader_bin,     136, 2**(ord(skmt_key_which_signs_OpTee[-1]) - ord('0')))
-	Replace_binary_single_byte(UbootAndHeader_bin,     136, 2**(ord(skmt_key_which_signs_uboot[-1]) - ord('0')))
+	Replace_binary_single_byte(KmtAndHeader_bin,        136, 2**(ord(otp_key_which_signs_kmt[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(TipFwAndHeader_L0_bin,   136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,   136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(SkmtAndHeader_bin,      136, 2**(ord(kmt_key_which_signs_skmt[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  136, 2**(ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(BootBlockAndHeader_bin, 136, 2**(ord(skmt_key_which_signs_bootblock[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(BL31_AndHeader_bin,     136, 2**(ord(skmt_key_which_signs_BL31[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(OpTeeAndHeader_bin,     136, 2**(ord(skmt_key_which_signs_OpTee[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(UbootAndHeader_bin,     136, 2**(ord(skmt_key_which_signs_uboot[-1]) - ord('0')), 1)
 	
 	# Put the key index number inside the header at offset 140
 	Replace_binary_single_byte(KmtAndHeader_bin,       140, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
