@@ -40,7 +40,7 @@ All the files in this package are used for EB\SVB. For other vendors, please con
 python ./UpdateInputsBinaries_%Chip*_%Board%.py
 python ./GenerateAll.py
 ```
-Chip:  Z1\A1\A2 device.
+Chip:  A1\A2 device.  Note: Z1 support has been removed in IGPS 4.0.6.
 Board: SVB\EB\DC-SCM are currently supported. 
 
 Note: UpdateInputBinaries*.bat resets all the images and xml files inside py_scripts\ImageGeneration\inputs folder.
@@ -84,27 +84,45 @@ For all modes of signing:
    If other means of signing are required, please contact tali.perry@nuvoton.com
    Nuvoton recommends coordinating a bring-up test for customer HSM needs.
 
-### Image programming:
+### Image programming
 Connect a serial port (via COM port or USB to Serial) to Serial Interface 2
-Set strap9 to active low and issue power-on reset
+
 ```
 python ./Program%File%_%Security%_%Tool%.py
 ```
 
 File: 
-
 	All: All FWs except Linux: KMT, TFT, bootblock, BL31, OpTee, uboot. (most common use case).
-	Bootblock: All FW up to bootblock (KMT, TFT, bootblock)
-	1FF: One File Flash: all FW, including Linux. Require 32MB flash or higher.
+	NO_TIP: for users have an Arbel chip without TIP (no security features) should use the NO_TIP programming scripts.
 Security: 
-
 	Basic (none-secure device)
-	Secure (locked device)
+	Secure (locked device). Secure mode is backward compatible and recomended even for none secure devices.
 Tool: can be 
-
-	EVB: support blue\green EVB board only. Require automation jumpers. Windows only
+	EVB: support blue\green EVB board only. Require automation jumpers. Windows only.
 	DediProg: SVB has a headaer for external Flash Programmer DediProg.
 	FUP: using internal UART of the Arbel. This feature is only supported in Z1. Deprecated.
 
-
 For EVB and FUP: Disable all terminal apps before execution.
+
+### Flash format
+
+In order to format all flash use the script:
+```
+TOTAL_WIPE_DediProg.bat
+```
+
+or
+```
+TOTAL_WIPE_EVB.bat
+```
+
+It will load a dedicated TIP_FW that will erase all the flashes that are detected.
+Execution time depends on the amount and size of the flashes. typically takes a few minutes.
+
+### COM port utilites
+For Windows + TeraTerm users can use
+```
+Open_all_ports.bat
+```
+
+to automatically detect COM port numbers and open TeraTerm session for each port.

@@ -383,7 +383,7 @@ def Embed_external_sig(sig_der, input_file, output_file, embed_signature):
 def Replace_binary_single_byte(binfile, offset, value, read_modify_write = 0):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
-	print(("**** Insert %s offset %s value %s RMW %s****" % (binfile, hex(offset), hex(value), str(read_modify_write))))
+	print(("**** Insert %s offset %s value %s RMW %s****" % (binfile, hex(int(offset)), hex(int(value)), str(read_modify_write))))
 	try:
 		if (os.path.isfile(binfile) == False):
 			print(("currpath " +  os.getcwd()))

@@ -650,6 +650,28 @@
 	</BinField>
 
 	<BinField>
+		<!-- MC_MEM_TEST_GPIO_COMPLETE. 
+		     example GPIO 142 active high - 0x8E active low - 0x808E-->
+		<name>MC_MEM_TEST_GPIO_COMPLETE</name>
+		<config>
+			<offset>0x164</offset>
+			<size>0x2</size>
+		</config>
+		<content format='32bit'>0xFFFF</content>
+	</BinField>
+	
+	<BinField>
+		<!-- MC_MEM_TEST_GPIO_COMPLETE	
+		example GPIO 143 active high - 0x8F active low - 0x808F		-->
+		<name>MC_MEM_TEST_GPIO_PASS</name>
+		<config>
+			<offset>0x166</offset>
+			<size>0x2</size>
+		</config>
+		<content format='32bit'>0xFFFF</content>
+	</BinField>
+	
+	<BinField>
 		<!-- Offset of registers table. This field is written automatically by IGPS -->
 		<name>Regs_offset_do_not_edit</name>
 		<config>
@@ -666,7 +688,7 @@
 			<offset>0x1F8</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0xFFFD0000</content>     <!-- content the user should fill -->
+		<content format='32bit'>0xFFFB0000</content>     <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>

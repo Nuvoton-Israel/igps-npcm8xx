@@ -667,7 +667,7 @@
 			<offset>0x1F8</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0xFFFD0000</content>     <!-- content the user should fill -->
+		<content format='32bit'>0xFFFB0000</content>     <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>

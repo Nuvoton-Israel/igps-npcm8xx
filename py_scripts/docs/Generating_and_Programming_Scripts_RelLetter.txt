@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.00.04
-Date:     Jan 2024
+Version:  04.00.06
+Date:     Feb 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -144,15 +144,32 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 04.00.04              - Jan 28th     2024
+IGPS 04.00.06              - Feb 5th     2024
+============
+- Bootblock 0.4.1
+	* Set PCI and GFX core clock to PLL1.
+- Add bootblock XML for MS (with GPIO enabled).
+- Remove Z1 from signing flows. Add MS signing.
+
+HISTORY
+-------
+IGPS 04.00.05              - Feb 1st     2024
+============
+- Bootblock  0.4.0
+	- Bug fix: GMAC frequency always 125.
+	- PCI always 125MHZ, RC always 100MHz.
+	- If ECC enabled, force both CPU and MC to be the same frequency.
+	- Add two optional GPIO set after mtest, declared in the IGPS header.
+- XML: add new fields for GPIO for mtest.
+- Move bootblock to the start of RAM2 (0xFFFB0000).
+
+IGPS 04.00.04              - Jan 22th     2024
 ============
 - TIP_FW: 0.6.7 L0 0.5.6 L1
   https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.6.7_L0_0.5.6_L1
    * Disable attastation.
    * Fix Macronix issue: if BMC change to wrong command set FIU_DRD_CFG RD_CMD back to a valid value.
 
-HISTORY
--------
 IGPS 04.00.03              - Jan 22th     2024
 ============
 - TIP_FW: 0.6.7 L0 0.5.6 L1
