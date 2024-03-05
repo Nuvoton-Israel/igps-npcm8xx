@@ -27,7 +27,7 @@ tipS_L0       =   0xFFFFFFFF
 saTipS_L0     =   0xFFFFFFFF
 skmtS         =   0xFFFFFFFF
 tipS_L1       =   0xFFFFFFFF
-bbS           =   512*1024
+bbS           =   COMBO1_OFFSET
 bl31S         =   0xFFFFFFFF
 OpTeeS        =   0xFFFFFFFF
 ubootS        =   0xFFFFFFFF
@@ -102,7 +102,7 @@ def Uboot_header_embed_pointers_to_all_fw():
 		dtbS_size =      os.path.getsize(dtb_bin)
 		
 		
-		bbS =  512*1024
+		bbS =  COMBO1_OFFSET
 		bl31S  = bbS +    allign_to_sector(bbS_size    , 0x1000)
 		OpTeeS = bl31S +  allign_to_sector(bl31S_size  , 0x1000)
 		ubootS = OpTeeS + allign_to_sector(OpTeeS_size , 0x1000)
@@ -141,7 +141,7 @@ def Uboot_header_embed_pointers_to_all_fw():
 
 def MergeBinFilesAndPadAndPrint(isPalladium):
 	# Merge files
-	bbS = 512*1024
+	bbS = COMBO1_OFFSET
 	
 	tipS_L0 =      Merge_bin_files_and_pad(KmtAndHeader_bin            , TipFwAndHeader_L0_bin    , Kmt_TipFwL0_bin                       , 0x1000, 0x20)
 	sa_tipS_L0 =   Merge_bin_files_and_pad(KmtAndHeader_bin            , SA_TipFwAndHeader_L0_bin , SA_Kmt_TipFwL0_bin                    , 0x1000, 0x20)
@@ -151,7 +151,7 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	bbS =          Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin, BootBlockAndHeader_bin   , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin, bbS   , 0x20)
 	
 	# check that bootblock is still at 512KB offset
-	if (bbS != 512*1024):
+	if (bbS != COMBO1_OFFSET):
 		print("       =============   ERROR: TIP_FW overflow ======================")
 		
 	bl31S  =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                        , BL31_AndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                                , 0x1000     , 0x20)

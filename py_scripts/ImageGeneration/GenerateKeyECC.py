@@ -14,7 +14,7 @@ from .IGPS_files import *
 
 
 
-linux_prefix = " ./"
+linux_prefix = " "
 openssl = "openssl"
 mark = "\\"
 linux_Mark = "/"

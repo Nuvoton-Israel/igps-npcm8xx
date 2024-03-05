@@ -97,6 +97,7 @@ except Exception as e:
 	print("*******                                      ******")
 	print("***************************************************")
 	print(e)
+	exit(1)
 	pass
 finally:
 	os.chdir(currpath)

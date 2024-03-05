@@ -438,8 +438,8 @@
 					<FIELD bit_offset="21" bit_size="1" des="Function 10 Lock Bit" name="F10LK" type="RW1S" />
 					<FIELD bit_offset="22" bit_size="1" des="Function 11 Value Bit" name="F11V" type="RW" />
 					<FIELD bit_offset="23" bit_size="1" des="Function 11 Lock Bit" name="F11LK" type="RW1S" />
-					<FIELD bit_offset="24" bit_size="1" des="Function 12 Value Bit" name="F12V" type="RW" />
-					<FIELD bit_offset="25" bit_size="1" des="Function 12 Lock Bit" name="F12LK" type="RW1S" />
+					<FIELD bit_offset="24" bit_size="1" des="CRHEN (COP Reset Hold Enable)" name="CRHEN" type="RW" />
+					<FIELD bit_offset="25" bit_size="1" des="CRHEN Lock Bit" name="CRHENLK" type="RW1S" />
 					<FIELD bit_offset="26" bit_size="1" des="Function 13 Value Bit" name="F13V" type="RW" />
 					<FIELD bit_offset="27" bit_size="1" des="Function 13 Lock Bit" name="F13LK" type="RW1S" />
 					<FIELD bit_offset="28" bit_size="1" des="Function 14 Value Bit" name="F14V" type="RW" />
@@ -481,6 +481,575 @@
 					<FIELD bit_offset="30" bit_size="1" des="Function 15 Value Bit" name="F15V" type="RW" />
 					<FIELD bit_offset="31" bit_size="1" des="Function 15 Lock Bit" name="F15LK" type="RW1S" />
 				</REGISTER>
+
+				<REGISTER des="Watchdog 0 Reset Control Register Lock (WD0RCRLK)" name="WD0RCRLK" offset="0x400" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="Watchdog 1 Reset Control Register Lock (WD0RCRLK)" name="WD1RCRLK" offset="0x404" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+
+				<REGISTER des="Watchdog 2 Reset Control Register Lock (WD0RCRLK)" name="WD2RCRLK" offset="0x408" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="SW Reset 1 Reset Control Register Lock (SWRSTC1LK)" name="SWRSTC1LK" offset="0x40C" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="SW Reset 2 Reset Control Register Lock (SWRSTC2LK)" name="SWRSTC2LK" offset="0x410" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="SW Reset 3 Reset Control Register Lock (SWRSTC1LK)" name="SWRSTC3LK" offset="0x414" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+
+				<REGISTER des="TIP Reset Control Register Lock (TIPRSTCLK)" name="TIPRSTCLK" offset="0x418" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="Core Reset Control Register Lock (CORSTCLK)" name="CORSTCLK" offset="0x41C" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+				
+
+				<REGISTER des="Watchdog 0 Reset Control Register Lock (WD0RCRLK)" name="WD0RCRBLK" offset="0x420" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="Watchdog 1 Reset Control Register Lock (WD0RCRLK)" name="WD1RCRBLK" offset="0x424" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+
+				<REGISTER des="Watchdog 2 Reset Control Register Lock (WD0RCRLK)" name="WD2RCRBLK" offset="0x428" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="SW Reset 1 Reset Control Register Lock (SWRSTC1LK)" name="SWRSTC1BLK" offset="0x42C" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="SW Reset 2 Reset Control Register Lock (SWRSTC2LK)" name="SWRSTC2BLK" offset="0x430" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="SW Reset 3 Reset Control Register Lock (SWRSTC1LK)" name="SWRSTC3BLK" offset="0x434" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+
+				<REGISTER des="TIP Reset Control Register Lock (TIPRSTCLK)" name="TIPRSTCBLK" offset="0x438" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+
+				<REGISTER des="Core Reset Control Register Lock (CORSTCLK)" name="CORSTCBLK" offset="0x43C" reset_source="VSB Power_Up reset" reset_val="0x00000000" size="32" type="RW1S">
+					  <FIELD bit_offset="0" bit_size="1" des="Cortex A35 Cores Watchdog Reset Control Bit Lock" name="CA35CLK" type="RO" />
+					  <FIELD bit_offset="1" bit_size="1" des="BMC CPU Debugger (CoreSight" name="BMCDBGLK" type="RW1S" />
+					  <FIELD bit_offset="2" bit_size="1" des="Coprocessor 1 Watchdog Reset Control Bit Lock" name="CP1LK" type="RW1S" />
+					  <FIELD bit_offset="3" bit_size="1" des="Security Peripherals Watchdog Reset Control Bit Lock" name="SEC_REG_RSTLK" type="RW1S" />
+					  <FIELD bit_offset="4" bit_size="1" des="Remote Video Watchdog Reset Control Bit Lock" name="RVLK" type="RW1S" />
+					  <FIELD bit_offset="5" bit_size="1" des="DDR4 Memory Controller Watchdog Reset Control Bit Lock" name="MCLK" type="RW1S" />
+					  <FIELD bit_offset="6" bit_size="1" des="Clock Control Watchdog Reset Control Bit Lock" name="CLKSLK" type="RW1S" />
+					  <FIELD bit_offset="7" bit_size="1" des="Ethernet Controllers Watchdog Reset Control Bit Lock" name="ETHLK" type="RW1S" />
+					  <FIELD bit_offset="8" bit_size="1" des="USB Devices Watchdog Reset Control Bit Lock" name="USBDEVLK" type="RW1S" />
+					  <FIELD bit_offset="9" bit_size="1" des="USB Host 1 Watchdog Reset Control Bit Lock" name="USBH1LK" type="RW1S" />
+					  <FIELD bit_offset="10" bit_size="1" des="DMA Modules Watchdog Reset Control Bit Lock" name="DMALK" type="RW1S" />
+					  <FIELD bit_offset="11" bit_size="1" des="Multimedia Card Controller Watchdog Reset Control Bit Lock" name="MMCLK" type="RW1S" />
+					  <FIELD bit_offset="12" bit_size="1" des="TIP_Reset - Generates TIP Cold Reset" name="TIP_ResetLK" type="RW1S" />
+					  <FIELD bit_offset="13" bit_size="1" des="AHB-to-PCI Bridge Watchdog Reset Control Bit Lock" name="AHB2PCILK" type="RW1S" />
+					  <FIELD bit_offset="14" bit_size="1" des="PCI Mailbox Watchdog Reset Control Bit Lock" name="PCIMBXLK" type="RW1S" />
+					  <FIELD bit_offset="15" bit_size="1" des="Timer Modules Watchdog Reset Control Bit Lock" name="TIMERLK" type="RW1S" />
+					  <FIELD bit_offset="16" bit_size="1" des="GPIO Module 0 Watchdog Reset Control Bit Lock" name="GPIOM0LK" type="RW1S" />
+					  <FIELD bit_offset="17" bit_size="1" des="GPIO Module 1 Watchdog Reset Control Bit Lock" name="GPIOM1LK" type="RW1S" />
+					  <FIELD bit_offset="18" bit_size="1" des="GPIO Module 2 Watchdog Reset Control Bit Lock" name="GPIOM2LK" type="RW1S" />
+					  <FIELD bit_offset="19" bit_size="1" des="GPIO Module 3 Watchdog Reset Control Bit Lock" name="GPIOM3LK" type="RW1S" />
+					  <FIELD bit_offset="20" bit_size="1" des="GPIO Module 4 Watchdog Reset Control Bit Lock" name="GPIOM4LK" type="RW1S" />
+					  <FIELD bit_offset="21" bit_size="1" des="GPIO Module 5 Watchdog Reset Control Bit Lock" name="GPIOM5LK" type="RW1S" />
+					  <FIELD bit_offset="22" bit_size="1" des="GPIO Module 6 Watchdog Reset Control Bit Lock" name="GPIOM6LK" type="RW1S" />
+					  <FIELD bit_offset="23" bit_size="1" des="GPIO Module 7 Watchdog Reset Control Bit Lock" name="GPIOM7LK" type="RW1S" />
+					  <FIELD bit_offset="24" bit_size="1" des="Serial IO Expander 1 Watchdog Reset Control Bit Lock" name="SIOX1LK" type="RW1S" />
+					  <FIELD bit_offset="25" bit_size="1" des="Serial IO Expander 2 Watchdog Reset Control Bit Lock" name="SIOX2LK" type="RW1S" />
+					  <FIELD bit_offset="26" bit_size="1" des="BMC SPI interfaces Watchdog Reset Control Bit Lock" name="SPIBMCLK" type="RW1S" />
+					  <FIELD bit_offset="27" bit_size="1" des="Slow Peripherals Watchdog Reset Control Bit Lock" name="SPERLK" type="RW1S" />
+					  <FIELD bit_offset="28" bit_size="1" des="PWM Modules Watchdog Reset Control Bit Lock" name="PWMLK" type="RW1S" />
+					  <FIELD bit_offset="29" bit_size="1" des="SHM module Watchdog Reset Control Bit Lock" name="SHMLK" type="RW1S" />
+					  <FIELD bit_offset="30" bit_size="1" des="PCI Express Root Complex Watchdog Reset Control Bit Lock" name="PCIERCLK" type="RW1S" />
+					  <FIELD bit_offset="31" bit_size="1" des="ESPI Watchdog Reset Control Bit Lock" name="ESPILK" type="RW1S" />
+				</REGISTER>
+				
+
+
+
 				<REGISTER des="Drive Strength Control Register (DSCNT)" name="DSCNT" offset="0x078" reset_source="VSB Power_Up reset" reset_val="0x000000C0" size="32" type="RW">
 					<FIELD bit_offset="1" bit_size="1" des="Added bits 3_2 in Arbel" name="SPI0D" />
 					<FIELD bit_offset="2" bit_size="1" des="Drive Strength for SPI0CK" name="SPI0C" />
@@ -712,7 +1281,7 @@
 				</REGISTER>
 			</MODULE_CORE_MEM>
 			<MODULE_CORE_MEM base_address="0xF0800800" name="MCR" power_domain="VSB11" version="N/A">
-				<REGISTER des="Module Control Register (MCR_n)" name="MCR_n" offset="0x0-0x2F0" reset_val="0x00000000" size="32">
+				<REGISTER des="Module Control Register (MCR_n)" name="MCR_n" multiple="188" offset="0x0-0x2F0" reset_val="0x00000000" size="32">
 					<FIELD bit_offset="0" bit_size="1" des="Master Disable Slave Protection on BMC" name="MDSP_BMC" type="RW" />
 					<FIELD bit_offset="1" bit_size="1" des="Master Disable Slave Protection on COP" name="MDSP_COP1" type="RW" />
 					<FIELD bit_offset="2" bit_size="1" des="Master Disable Slave Protection on TIP" name="MDSP_TIP" type="RW" />
@@ -1130,18 +1699,6 @@
 		  <FIELD bit_offset="18" bit_size="3" des="Timeout for AXI15" name="TOAXI15" />
 		  <FIELD bit_offset="21" bit_size="3" des="Timeout for AXI16" name="TOAXI16" />
 		  <FIELD bit_offset="24" bit_size="3" des="Timeout for AHB9" name="TOAHB9" />
-		</REGISTER>
-		<REGISTER des="IPSRST1 Disable Register (IPSRSTDIS1)" name="IPSRSTDIS1" offset="0xA0" reset_source="TIP reset" reset_val="0x00000000" size="32" type="RW1S">
-		  <FIELD bit_offset="0" bit_size="32" des="IPSRST Register Bit Disable" name="IPSRSTDIS" />
-		</REGISTER>
-		<REGISTER des="IPSRST2 Disable Register (IPSRSTDIS2)" name="IPSRSTDIS2" offset="0xA4" reset_source="TIP reset" reset_val="0x00000000" size="32" type="RW1S">
-		  <FIELD bit_offset="0" bit_size="32" des="IPSRST Register Bit Disable" name="IPSRSTDIS" />
-		</REGISTER>
-		<REGISTER des="IPSRST3 Disable Register (IPSRSTDIS3)" name="IPSRSTDIS3" offset="0xA8" reset_source="TIP reset" reset_val="0x00000000" size="32" type="RW1S">
-		  <FIELD bit_offset="0" bit_size="32" des="IPSRST Register Bit Disable" name="IPSRSTDIS" />
-		</REGISTER>
-		<REGISTER des="IPSRST4 Disable Register (IPSRSTDIS4)" name="IPSRSTDIS4" offset="0xAC" reset_source="TIP reset" reset_val="0x00000000" size="32" type="RW1S">
-		  <FIELD bit_offset="0" bit_size="32" des="IPSRST Register Bit Disable" name="IPSRSTDIS" />
 		</REGISTER>
 		<REGISTER des="CPU Throttling Control Register (THRTL_CNT)" name="THRTL_CNT" offset="0x0C0" reset_source="VSB Power-Up reset" reset_val="0x00000000" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="2" des="Throttling Divider" name="TH_DIV" />
@@ -1720,7 +2277,33 @@
 		  <FIELD bit_offset="24" bit_size="3" des="Timeout for AHB9" name="TOAHB9" />
 		</REGISTER>
 		<REGISTER des="IPSRST1 Disable Register (IPSRSTDIS1)" name="IPSRSTDIS1" offset="0xA0" reset_source="TIP reset" reset_val="0x00000000" size="32" type="RW1S">
-		  <FIELD bit_offset="0" bit_size="32" des="IPSRST Register Bit Disable" name="IPSRSTDIS" />
+		  <FIELD bit_offset="0" bit_size="32" des="IPSRST Register Bit Disable" name="IPSRSTDISLK" />
+		  <FIELD bit_offset="3" bit_size="1" des="GDMA0 Software Reset Control Bit" name="GDMA0LK" />
+		  <FIELD bit_offset="5" bit_size="1" des="USB Device 1 Controller Software Reset Control Bit" name="USBDEV1LK" />
+		  <FIELD bit_offset="6" bit_size="1" des="GMAC3 Software Reset Control Bit" name="GMAC3LK" />
+		  <FIELD bit_offset="7" bit_size="1" des="UART 2 and UART 3 Software Reset Control Bit" name="UART23LK" />
+		  <FIELD bit_offset="8" bit_size="1" des="USB Device 2 Controller Software Reset Control Bit" name="USBDEV2LK" />
+		  <FIELD bit_offset="9" bit_size="1" des="PECI Module Software Reset Control Bit" name="PECILK" />
+		  <FIELD bit_offset="10" bit_size="1" des="AES Module Software Reset Control Bit" name="AESLK" />
+		  <FIELD bit_offset="11" bit_size="1" des="UARTs 0 and 1 Software Reset Control Bit" name="UART01LK" />
+		  <FIELD bit_offset="12" bit_size="1" des="DDR4 Memory Controller Software Reset Control Bit" name="MCLK" />
+		  <FIELD bit_offset="13" bit_size="1" des="SMBus2 Interface Software Reset Control Bit" name="SMB2LK" />
+		  <FIELD bit_offset="14" bit_size="1" des="SMBus3 Interface Software Reset Control Bit" name="SMB3LK" />
+		  <FIELD bit_offset="15" bit_size="1" des="SMBus4 Interface Software Reset Control Bit" name="SMB4LK" />
+		  <FIELD bit_offset="16" bit_size="1" des="SMBus5 Interface Software Reset Control Bit" name="SMB5LK" />
+		  <FIELD bit_offset="18" bit_size="1" des="PWM Module 0 Software Reset Control Bit" name="PWMM0LK" />
+		  <FIELD bit_offset="19" bit_size="1" des="Timer 0-4 and Watchdog 0 (Timer module 0" name="TIM0-4LK" />
+		  <FIELD bit_offset="20" bit_size="1" des="Timer 5-9 and Watchdog 1 (Timer module 1" name="TIM5-9LK" />
+		  <FIELD bit_offset="21" bit_size="1" des="GMAC4 Software Reset Control Bit" name="GMAC4" />
+		  <FIELD bit_offset="22" bit_size="1" des="USB Device 4 Controller Software Reset Control Bit" name="USBDEV4LK" />
+		  <FIELD bit_offset="23" bit_size="1" des="USB Device 5 Controller Software Reset Control Bit" name="USBDEV5LK" />
+		  <FIELD bit_offset="24" bit_size="1" des="USB Device 6 Controller Software Reset Control Bit" name="USBDEV6LK" />
+		  <FIELD bit_offset="25" bit_size="1" des="USB Device 3 Controller Software Reset Control Bit" name="USBDEV3LK" />
+		  <FIELD bit_offset="27" bit_size="1" des="ADC Software Reset Control Bit" name="ADCLK" />
+		  <FIELD bit_offset="28" bit_size="1" des="SMBuS6 Interface Software Reset Control Bit" name="SMB6LK" />
+		  <FIELD bit_offset="29" bit_size="1" des="SMBus7 Interface Software Reset Control Bit" name="SMB7LK" />
+		  <FIELD bit_offset="30" bit_size="1" des="SMBus0 Interface Software Reset Control Bit" name="SMB0Lk" />
+		  <FIELD bit_offset="31" bit_size="1" des="SMBus1 Interface Software Reset Control Bit" name="SMB1LK" />
 		</REGISTER>
 		<REGISTER des="IPSRST2 Disable Register (IPSRSTDIS2)" name="IPSRSTDIS2" offset="0xA4" reset_source="TIP reset" reset_val="0x00000000" size="32" type="RW1S">
 		  <FIELD bit_offset="0" bit_size="32" des="IPSRST Register Bit Disable" name="IPSRSTDIS" />
@@ -16496,21 +17079,21 @@
 		  <FIELD bit_offset="0" bit_size="4" des="Translation ID" name="TRSL_ID" />
 		  <FIELD bit_offset="16" bit_size="12" des="Transfer Parameter" name="TRSF_PARAM" />
 		</REGISTER>
-		<REGISTER des="PCIERC AXI-to-PCIE WINn Source Address Low Register, n=1-5 (RCAPnSAL) " multiple="2" name="RCAPnSAL" offset="0x820, 0x840, 0x860, 0x880, 0x8A0" reset_val="0x00000017" size="32" type="RW">
+		<REGISTER des="PCIERC AXI-to-PCIE WINn Source Address Low Register, n=1-5 (RCAPnSAL) " multiple="5" name="RCAPnSAL" offset="0x820, 0x840, 0x860, 0x880, 0x8A0" reset_val="0x00000017" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="1" des="Translation Table Implemented" name="TE" type="RO" />
 		  <FIELD bit_offset="1" bit_size="6" des="Translation Size" name="ATR_SIZE" />
 		  <FIELD bit_offset="12" bit_size="20" des="Source Address Low" name="SRCAL" />
 		</REGISTER>
-		<REGISTER des="PCIERC AXI-to-PCIE WINn Source Address High Register, n=1-5 (RCAPnSAH) " multiple="2" name="RCAPnSAH" offset="0x824, 0x844, 0x864, 0x884, 0x8A4" reset_val="0x00000000" size="32" type="RW">
+		<REGISTER des="PCIERC AXI-to-PCIE WINn Source Address High Register, n=1-5 (RCAPnSAH) " multiple="5" name="RCAPnSAH" offset="0x824, 0x844, 0x864, 0x884, 0x8A4" reset_val="0x00000000" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="32" des="Source Address High" name="SRCAH" />
 		</REGISTER>
-		<REGISTER des="PCIERC AXI-to-PCIE WINn Translation Address Low Register, n=1-5 (RCAPnTAL) " multiple="2" name="RCAPnTAL" offset="0x828, 0x848, 0x868, 0x888, 0x8A8" reset_val="0x00000000" size="32" type="RW">
+		<REGISTER des="PCIERC AXI-to-PCIE WINn Translation Address Low Register, n=1-5 (RCAPnTAL) " multiple="5" name="RCAPnTAL" offset="0x828, 0x848, 0x868, 0x888, 0x8A8" reset_val="0x00000000" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="32" des="Translation Address Low" name="TRAAL" />
 		</REGISTER>
-		<REGISTER des="PCIERC AXI-to-PCIE WINn Translation Address High Register, n=1-5 (RCAPnTAH) " multiple="2" name="RCAPnTAH" offset="0x82C, 0x84C, 0x86C, 0x88C, 0x8AC" reset_val="0x00000000" size="32" type="RW">
+		<REGISTER des="PCIERC AXI-to-PCIE WINn Translation Address High Register, n=1-5 (RCAPnTAH) " multiple="5" name="RCAPnTAH" offset="0x82C, 0x84C, 0x86C, 0x88C, 0x8AC" reset_val="0x00000000" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="32" des="Translation Address High" name="TRAAH" />
 		</REGISTER>
-		<REGISTER des="PCIERC AXI-to-PCIE WINn Translations Parameters Register, n=1-5 (RCAPnTP) " multiple="2" name="RCAPnTP" offset="0x830, 0x850, 0x870, 0x890, 0x8B0" reset_val="0x00000000" size="32" type="RW">
+		<REGISTER des="PCIERC AXI-to-PCIE WINn Translations Parameters Register, n=1-5 (RCAPnTP) " multiple="5" name="RCAPnTP" offset="0x830, 0x850, 0x870, 0x890, 0x8B0" reset_val="0x00000000" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="4" des="Translation ID" name="TRSL_ID" />
 		  <FIELD bit_offset="16" bit_size="12" des="Transfer Parameter" name="TRSF_PARAM" />
 		</REGISTER>
@@ -17676,19 +18259,19 @@
 		  <FIELD bit_offset="25" bit_size="4" des="Version" name="VERSION" />
 		  <FIELD bit_offset="29" bit_size="3" des="CI Version" name="CIVERSION" />
 		</REGISTER>
-		<REGISTER des="General_Purpose Timer 0/1 Load Register (GPTIMER0LD/GPTIMER1LD)" multiple="2" name="GPTIMER0LD" offset="0x80, 0x88" reset_val="0x00000000" size="32" type="RW">
+		<REGISTER des="General_Purpose Timer 0/1 Load Register (GPTIMER0LD/GPTIMER1LD)" multiple="2" name="GPTIMER0LD0_1" offset="0x80, 0x88" reset_val="0x00000000" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="24" des="General_Purpose Timer Load Value" name="GPTLD" />
 		</REGISTER>
-		<REGISTER des="General_Purpose Timer 0/1 Load Register (GPTIMER0LD/GPTIMER1LD)" multiple="2" name="GPTIMER1LD" offset="0x80, 0x88" reset_val="0x00000000" size="32" type="RW">
+		<REGISTER des="General_Purpose Timer 0/1 Load Register (GPTIMER0LD/GPTIMER1LD)" multiple="2" name="GPTIMER1LD0_1" offset="0x80, 0x88" reset_val="0x00000000" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="24" des="General_Purpose Timer Load Value" name="GPTLD" />
 		</REGISTER>
-		<REGISTER des="General_Purpose Timer 0/1 Control Register (GPTIMER0CTRL/GPTIMER1CTRL)" multiple="2" name="GPTIMER0CTRL" offset="0x84, 0x8C" reset_val="0x00000000" size="32">
+		<REGISTER des="General_Purpose Timer 0/1 Control Register (GPTIMER0CTRL/GPTIMER1CTRL)" multiple="2" name="GPTIMER0CTRL0_1" offset="0x84, 0x8C" reset_val="0x00000000" size="32">
 		  <FIELD bit_offset="0" bit_size="24" des="General_Purpose Timer Counter" name="GPTCNT" type="RO" />
 		  <FIELD bit_offset="24" bit_size="1" des="General_Purpose Timer Mode" name="GPTMODE" type="RW" />
 		  <FIELD bit_offset="30" bit_size="1" des="General_Purpose Timer Reset" name="GPTRST" type="WO" />
 		  <FIELD bit_offset="31" bit_size="1" des="General_Purpose Timer Run" name="GPTRUN" type="RW" />
 		</REGISTER>
-		<REGISTER des="General_Purpose Timer 0/1 Control Register (GPTIMER0CTRL/GPTIMER1CTRL)" multiple="2" name="GPTIMER1CTRL" offset="0x84, 0x8C" reset_val="0x00000000" size="32">
+		<REGISTER des="General_Purpose Timer 0/1 Control Register (GPTIMER0CTRL/GPTIMER1CTRL)" multiple="2" name="GPTIMER1CTRL0_1" offset="0x84, 0x8C" reset_val="0x00000000" size="32">
 		  <FIELD bit_offset="0" bit_size="24" des="General_Purpose Timer Counter" name="GPTCNT" type="RO" />
 		  <FIELD bit_offset="24" bit_size="1" des="General_Purpose Timer Mode" name="GPTMODE" type="RW" />
 		  <FIELD bit_offset="30" bit_size="1" des="General_Purpose Timer Reset" name="GPTRST" type="WO" />
@@ -17830,7 +18413,7 @@
 		<CORE arch="ARM" core="Cortex_A35" data_cache="" family="RISC_ARM" instruction_cache="" max_clock="800000000" />
  <MODULES>
 	  <MODULE_CORE_MEM base_address="0xF0810000" name="VCD" power_domain="VSB11" reset_source="VSB Power_Up reset | Core Domain reset" version="0x4">
-		<REGISTER des="Difference Table (DIFF_TBL)" name="DIFF_TBL" offset="0x0 - 0x7FFF" reset_val="Undefined" size="32" type="RW">
+		<REGISTER des="Difference Table (DIFF_TBL)" name="DIFF_TBL" multiple="8191" offset="0x0 - 0x7FFF" reset_val="Undefined" size="32" type="RW">
 		  <FIELD bit_offset="0" bit_size="32" des="Tile Difference Status" name="TDIFF_STAT" />
 		</REGISTER>
 		<REGISTER des="Frame Buffer A Base Address Register (FBA_ADR)" name="FBA_ADR" offset="0x8000" reset_val="0x00000000" size="32" type="RW">

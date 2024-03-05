@@ -24,4 +24,6 @@ skmt_key_which_signs_OpTee       = "skmt_key1"
 
 skmt_key_which_signs_uboot       = "skmt_key1"
 
-
+# to put manifests after L1: select 2048*1024.
+# to put manifests at the end of flash: select 512*1024.
+COMBO1_OFFSET  = 512*1024

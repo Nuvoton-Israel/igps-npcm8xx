@@ -11,6 +11,7 @@ import time
 import struct
 import csv
 import re
+import math
 
 from shutil import copy
 from shutil import move
@@ -87,6 +88,79 @@ def hex_to_int(hex_str):
 	return int(hex_str, 16)
 
 
+# Future optional enhancement: parse register where the index is part of the name
+
+# def get_register_index_range(reg_name_str, offset):
+# 
+# 	try:
+# 		# Define a regular expression pattern to match any digit sequence or digit range separated by underscore
+# 		pattern = r'([^\d_]+)(\d+)(?:_(\d+))?$'
+# 
+# 		# Reverse the string and use re.search() to find the first match from the end
+# 		match = re.search(pattern, reg_name_str)
+# 		
+# 		if match:
+# 			# Extract the start and end of the range (if available)
+# 			print("get_register_index_range a")
+# 
+# 			num_groups = len(match.groups())
+# 
+# 			end = (match.group(num_groups)) if match.group(num_groups) else 0
+# 			start = (match.group(num_groups-1)) if match.group(num_groups-1) else 0
+# 
+# 			# Extract the prefix string
+# 			prefix = reg_name_str[0:(len(reg_name_str)- len(str(start)) - len(str(end)) -1)]
+# 			
+# 			# Generate an array of strings based on the range
+# 			return [prefix, int(start), int(end)]
+# 			
+# 			
+# 		pattern = r'([0-9A-Z_]+)(\d+)(?:_(\d+))?'
+# 		
+# 		# Use re.search() to find the first match in the string
+# 		match = re.search(pattern, reg_name_str)
+# 		
+# 		# Handle straing like GPTIMER0LD0_1  (when there is a number in the middle of the name):
+# 		if match:
+# 			print("get_register_index_range b")
+# 			groups = match.groups()
+# 			# Convert the numeric groups to integers
+# 			
+# 			if (len(groups) >= 2):
+# 				result = [groups[0]] + [int(num) for num in groups[1:] if num is not None]
+# 				print(result)
+# 				return result
+# 
+# 		# Handle straings like MCR_n
+# 		if 'n' in reg_name_str:
+# 			print("get_register_index_range c")
+# 			print("string with n")
+# 			
+# 			replaced_string = reg_name_str.replace('n', '')
+# 
+# 			# Find the indices of 'n' 
+# 			n_location = [i for i, char in enumerate(reg_name_str) if char == 'n']
+# 			
+# 			if (n_location != (len(reg_name_str) - 1)):
+# 				prefix = reg_name_str[0:n_location] + reg_name_str[n_location+1:]
+# 			return[prefix, 0, len(offset)-1]
+# 			
+# 			
+# 			# Use re.search() to find the first match in the string
+# 			# match = re.search(pattern, reg_name_str)
+# 		
+# 		return [reg_name_str, 0, 1]
+# 		
+# 	except (Exception) as e:
+# 		exc_type, exc_obj, exc_tb = sys.exc_info()
+# 		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+# 		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
+# 		print("\n py_scripts\\ImageGeneration\\Register_csv_parse.py: get_register_index_range (%s)" % str(e))
+# 		raise
+
+
+
+
 def Register_file_chip_xml_parse(chip_xml):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -118,18 +192,53 @@ def Register_file_chip_xml_parse(chip_xml):
 				# Extract information from the REGISTER element
 				register_name = register.get('name')
 				offset_hex = register.get('offset')
-				if '-' in offset_hex:
-					print_dbg(offset_hex)
-					offset_hex = offset_hex.split('-')[0].strip()
-				elif ',' in offset_hex:
-					print_dbg(offset_hex)
-					offset_hex = offset_hex.split(',')[0].strip()
-				
-				offset = int(offset_hex, 16)
 				size = int(register.get('size'),16)
-				
 				# sometimes there are errors in size, round it up:
 				size = min([8, 16, 32], key=lambda x: abs(x - size))
+				size_byte_count = int(size) / 8
+				
+				# create an array of one or more offsets per register:
+				offset_start = 0
+				offset_end = 0
+				offset = []
+				# offset can be X-Y:
+				if '-' in offset_hex:
+					offset_start = int(offset_hex.split('-')[0].strip(), 16)
+					offset_end = int(offset_hex.split('-')[1].strip(), 16)
+					for ind in range(int((offset_end - offset_start)/(size_byte_count))):
+						offset.append(int(offset_start + (size_byte_count) * ind))
+				
+				# offset can be comma seperated:
+				elif ',' in offset_hex:
+					offset_array = offset_hex.split(',')
+					for ind in range(len(offset_array)):
+						offset.append(int(offset_array[ind].strip(), 16))
+				else:
+					offset.append(int(offset_hex, 16))
+				
+				# cehck if register has multiple property in the XML:
+				reg_multiple = register.get('multiple') 
+				if reg_multiple is None:
+					reg_multiple = 1
+				else:
+					reg_multiple = int(reg_multiple)
+
+
+				if isinstance(offset, int):
+					len_offset = 1
+				elif isinstance(offset, list):
+					len_offset =  len(offset)
+				else:
+					len_offset =  0
+
+				if len_offset != reg_multiple :
+					print("size mismatch error in reg " + register_name + " multiple " + str(reg_multiple) + " offsets " + str(len_offset))
+					len_offset = max(len_offset, reg_multiple)
+					reg_multiple = len_offset
+					
+				# optional: parse string nicely:
+				#  if len_offset > 1:
+				#  	print(get_register_index_range(register_name, offset)) 	
 				
 				# Extract fields from the REGISTER element
 				fields = []
@@ -146,20 +255,20 @@ def Register_file_chip_xml_parse(chip_xml):
 
 				# Append the information to the registers list
 				registers.append({
-					'module': module,
-					'name': register_name,
-					'offset': offset,
-					'size': size,
-					'fields': fields
-				})
-				
-				
+						'module': module,
+						'name': register_name,
+						'offset': offset,
+						'size': math.log2(int(size_byte_count)),
+						'fields': fields,
+						'Multi' : reg_multiple
+					})
+
 
 		# Print the list of registers
 		for register in registers:
 			print_dbg(f"Register Name: {register['module'].get('name')} : {register['name']}, Offset: {register['offset']}, Size: {register['size']}")
 			#for field in register['fields']:
-			#	print(f"    Field Name: {field['name']}, Bitwise Mask: 0x{field['bitwise_mask']:X}")
+			#	print(f"	Field Name: {field['name']}, Bitwise Mask: 0x{field['bitwise_mask']:X}")
 		return registers
 		
 	except (Exception) as e:
@@ -203,38 +312,49 @@ def Register_csv_file_handler(input_file_path, output_file_path, registers):
 					# Skip lines starting with '#' (considered as comments)
 					if row and row[0].startswith('#'):
 						continue
-					if ((len(row) == 6) or (len(row) == 5)):
+					if ((len(row) == 6) or (len(row) == 7)):
 						stripped_row = [field.strip() for field in row]
-						module, register_name, field_name, value_hex, reset_hex, *delay = stripped_row
+						register_name, module, index, field_name, value_hex, reset_hex, *delay = stripped_row
 						delay = delay[0] if delay else 0
 						value = hex_to_int(value_hex)
 						reset = hex_to_int(reset_hex)
 						module_index = int(module)
-
-						print_dbg("\n")
-						
-						print_dbg(row)
-						
+						reg_index = int(index)
 						result = [register for register in registers if register_name == register['name']]
 						print_dbg(result)
 						if not result:
-							print_dbg ("Reg " + register_name + " not found in chip file")
+							print ("Reg " + register_name + " not found in chip file")
 							continue
 						reg = result[0]
 						reg_name = reg.get('name')
 						print_dbg(reg_name)
-						Size = reg['size']
+						Size = int(reg['size'])
 						bit_offset_num = 0
 
 						mask = 0
+						field_found = 0
 						if (field_name == '0'):
 							mask = 0xFFFFFFFF
+							field_found = 1
 						else:
 							for f in reg.get("fields"):
 								if (field_name == f.get("name")):
+									field_found = 1
 									mask = f.get("bitwise_mask")
 									bit_offset_num = f.get("bit_offset")
-						
+							if (field_found == 0):
+								# blind search of field in other registers
+								for register in registers:
+									for f in register.get("fields"):
+										if (field_name == f.get("name")):
+											print ("Found field ", field_name ," in other register ", f.get("name"))
+											field_found = 1
+											mask = f.get("bitwise_mask")
+											bit_offset_num = f.get("bit_offset")
+
+						if (field_found == 0):
+							print("Field ", field_name, " in register ", register_name, " not found")
+							continue
 						module_element = reg.get("module")
 						value = value << bit_offset_num
 
@@ -244,7 +364,7 @@ def Register_csv_file_handler(input_file_path, output_file_path, registers):
 							multiple_name_index = int(module_element.get("multiple_name_index", 1))
 							module_name_pattern = module_element.get("multiple_name_pattern", "[NAME][INDEX]")
 							
-							print_dbg(f"Module: {reg['module'].get('name')} reg: {reg['name']}, addr: {hex(int(reg['offset']))}, Size: {reg['size']}")
+							#print_dbg(f"Module: {reg['module'].get('name')} reg: {reg['name']}, addr: {hex(int(reg['offset'][reg_index]))}, Size: {reg['size']}")
 
 							if base_addresses_str  is not None:
 								addr = []
@@ -257,17 +377,25 @@ def Register_csv_file_handler(input_file_path, output_file_path, registers):
 									addr.append(hex_to_int(base_addresses_str))
 								
 								# Iterate over generated addresses and write binary data
-								print("{0:#0{1}x}".format((addr[module_index] + int(reg.get('offset'))),10) , "{0:#0{1}x}".format(mask, 10), "{0:#0{1}x}".format(value, 10), "{0:#0{1}x}".format(reset, 5), delay, Size)
+								offsets_array = reg.get('offset')
+								if type(offsets_array) == list:
+									if reg_index < len(offsets_array):
+										offset_val = offsets_array[reg_index]
+								else:
+									offset_val = offsets_array
+
+								print("{0:#0{1}x}".format(addr[module_index] + offset_val, 10) , "{0:#0{1}x}".format(mask, 10), "{0:#0{1}x}".format(value, 10), 
+									"{0:#0{1}x}".format(reset, 5), delay, Size, stripped_row)
 								
 								# pack the values in a packed binary for the TIP_FW to parse:
-								binary_data = struct.pack('<IIIBBH', addr[module_index] + int(reg.get('offset')), int(value), int(mask), int(Size)>>4, int(delay), int(reset))
+								binary_data = struct.pack('<IIIBBH', addr[module_index] + offset_val, int(value), int(mask), int(Size), int(delay), int(reset))
 
 								binary_file.write(binary_data)
 							else:
 								print(f"base '{register_name}' is missing base_address or multiple attribute. Skipping row.")
 
 					else:
-						print("Invalid row format. Each row should contain register_name, value, and reset.")
+						print("Invalid row format.", row)
 			
 				# Get the current position within the file
 				current_position = binary_file.tell()

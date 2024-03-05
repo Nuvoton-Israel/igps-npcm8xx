@@ -11,7 +11,7 @@ import io
 
 
 bingo = "bingo"
-linux_prefix = " ./"
+linux_prefix = " "
 
 
 class BingoError(Exception):

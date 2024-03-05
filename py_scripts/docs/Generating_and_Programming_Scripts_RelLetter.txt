@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.00.06
-Date:     Feb 2024
+Version:  04.00.07
+Date:     Mar 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -144,6 +144,22 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 04.00.07              - Mar 4th     2024
+============
+- Bootblock 0.4.3
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.4.3
+    * Bug fix: set cntfrq_el0 according to CPU frequancy. Previously it was hard-coded to 250000000.
+- Uboot
+  https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20240301
+    * Use ARM timer as system tick
+- Hardening: update CSV parsing, update chip xml and update the tables - but leave them disable for now.
+  Users may comment out the tables and test.
+- Relocate combo 1 offset to key_settings_edit_me.py. Default is 512KB.
+- Fix all linux path.
+- exit(1) in case of failure in GenerateAll.py
+
+HISTORY
+-------
 IGPS 04.00.06              - Feb 5th     2024
 ============
 - Bootblock 0.4.1
@@ -151,8 +167,6 @@ IGPS 04.00.06              - Feb 5th     2024
 - Add bootblock XML for MS (with GPIO enabled).
 - Remove Z1 from signing flows. Add MS signing.
 
-HISTORY
--------
 IGPS 04.00.05              - Feb 1st     2024
 ============
 - Bootblock  0.4.0
