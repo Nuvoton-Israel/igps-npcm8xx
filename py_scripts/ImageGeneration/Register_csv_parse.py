@@ -306,6 +306,7 @@ def Register_csv_file_handler(input_file_path, output_file_path, registers):
 			csv_reader = csv.reader(csv_file)
 			
 			# Open binary file for writing
+			current_position = 0
 			with open(output_file_path, 'wb') as binary_file:
 				# Iterate through each line in the CSV file
 				for row in csv_reader:
@@ -400,14 +401,14 @@ def Register_csv_file_handler(input_file_path, output_file_path, registers):
 				# Get the current position within the file
 				current_position = binary_file.tell()
 
-				# Check if no data has been written
-				if current_position == 0:
-					print("No data was written.")
-					binary_file.close()
-					os.remove(output_file_path)
-				else:
-					print(f"{current_position} bytes were written.")
-					print(f"Binary file '{output_file_path}' has been created.")
+			# Check if no data has been written
+			if current_position == 0:
+				print("No data was written.")
+				os.remove(output_file_path)
+			else:
+				print(f"{current_position} bytes were written.")
+				print(f"Binary file '{output_file_path}' has been created.")
+				binary_file.close()
 
 	except (Exception) as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()

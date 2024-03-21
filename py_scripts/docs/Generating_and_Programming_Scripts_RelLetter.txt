@@ -5,7 +5,7 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.00.07
+Version:  04.00.08
 Date:     Mar 2024
 
 This package is released under the terms of the Source Code License Agreement
@@ -144,6 +144,38 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 04.00.08              - Mar 19th     2024
+============
+- bl31 
+    https://github.com/Nuvoton-Israel/arm-trusted-firmware/releases/tag/v2.9.1
+	* remove change clock frequency
+- TIP_FW: 0.6.8 L0 0.5.7 L1
+    * Optimize flash read. Include QUAD support code but currently disabled by default. 
+    * Move TIP FW build version into a separate header file to avoid conflict with internal build versions.
+    * Add missing header file include in the uart_if.h to avoid order dependency.
+    * Support flash encryption (after code review).
+    * Update TIP EID back to 0x0B.
+    * Change version, delay for flush task and PRE_PRODUCTION.
+    * Put all manifests at the end of flash.
+    * Check stack overflow.
+    * Support hardening.
+    * Support BMC direct access.
+    * Support bootblock at offset 512KB or 2MB.
+    * Bug fix: touch WD during recovery delay.
+    * Bug fix: ENC header field must be 0x03 to start encryption.
+    * Support CFM. 
+    * WD0RCRB.BMCBUS should be zero.
+    * Bug fix in handling SW and WD reset (avoid TIP reset).
+	
+- Scripts: fix ReplaceComponent.bat.
+- Update comments in bootblock XMLs.
+- bootblock 0.4.6
+     https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.4.6
+     * MC: Increase ECE priority to match VCD priority. Set ECE priority to 2.
+     * Fix errata: Errata fix: "1.7 eSPI FATAL_ERROR response"
+
+HISTORY
+-------
 IGPS 04.00.07              - Mar 4th     2024
 ============
 - Bootblock 0.4.3
@@ -158,8 +190,6 @@ IGPS 04.00.07              - Mar 4th     2024
 - Fix all linux path.
 - exit(1) in case of failure in GenerateAll.py
 
-HISTORY
--------
 IGPS 04.00.06              - Feb 5th     2024
 ============
 - Bootblock 0.4.1

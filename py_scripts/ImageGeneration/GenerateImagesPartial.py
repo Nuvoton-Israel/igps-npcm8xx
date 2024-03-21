@@ -33,6 +33,9 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 	
 	ticks = int(time.time()) % 0xFFFFFFFF
 
+	if not os.path.exists(registers_outputs_dir):
+		os.mkdir(registers_outputs_dir)
+
 	try:
 		if TypeOfKey == "HSM":
 			if (os.path.isfile("pkcs11-tool.exe") == False):
@@ -85,10 +88,8 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 2):
 			print("Replace TIP_FW")
-			copyfile(Tip_FW_L0_bin, Tip_FW_L0_tmp_bin)
-			copyfile(Tip_FW_L1_bin, Tip_FW_L1_tmp_bin)
-			Pad_bin_file_inplace(  Tip_FW_L0_tmp_bin ,  32)
-			Pad_bin_file_inplace(  Tip_FW_L1_tmp_bin ,  32)
+			Pad_bin_file_inplace(  Tip_FW_L0_bin ,  32)
+			Pad_bin_file_inplace(  Tip_FW_L1_bin ,  32)
 			
 			Register_csv_file_handler(registers_L1           , bin_registers_L1        , registers)
 			offset_L1    = Build_single_image_with_regs(Tip_FW_L1_bin,  bin_registers_L1        )
@@ -111,9 +112,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 3):
 			print("Replace bootblock")
-
-			copyfile(bb_bin, bb_tmp_bin)
-			Pad_bin_file_inplace(  bb_tmp_bin         ,  32)
+			Pad_bin_file_inplace(  bb_bin         ,  32)
 			Register_csv_file_handler(registers_bootblock           , bin_registers_bootblock        , registers)
 			offset_bb    = Build_single_image_with_regs(bb_bin,         bin_registers_bootblock )
 			Generate_binary(BootBlockAndHeader_xml, BootBlockAndHeader_bin)
@@ -127,19 +126,18 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 10):
 			print("Replace bootblock no tip")
+			Pad_bin_file_inplace(  bb_bin_no_tip         ,  32)
 			copyfile(bb_bin_no_tip, bb_tmp_bin_no_tip)
-			Pad_bin_file_inplace(  bb_tmp_bin_no_tip         ,  32)
 			Generate_binary(BootBlockAndHeader_no_tip_xml, BootBlockAndHeader_no_tip_bin)
 			Replace_binary_array(BootBlockAndHeader_no_tip_bin, 0xBC, ticks, 4, True, "Bootblock add timestamp")
 			shutil.copy(BootBlockAndHeader_no_tip_basic_bin,            BootBlockAndHeader_no_tip_bin)
 		
 		elif (choice == 4):
 			print("Replace uboot")
-			copyfile(uboot_bin, uboot_tmp_bin)
-			Pad_bin_file_inplace(  uboot_tmp_bin      ,  32)
-			
+			Pad_bin_file_inplace(  uboot_bin      ,  32)
+
 			Register_csv_file_handler(registers_uboot           , bin_registers_uboot        , registers)
-			offset_uboot = Build_single_image_with_regs(uboot_tmp_bin,      bin_registers_uboot     )
+			offset_uboot = Build_single_image_with_regs(uboot_bin,      bin_registers_uboot     )
 				
 			Generate_binary(UbootAndHeader_xml    , UbootAndHeader_bin)
 			Replace_binary_single_byte(UbootAndHeader_bin,     140, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
@@ -161,8 +159,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 7):
 			print("Replace BL31")
-			copyfile(bl31_bin, bl31_tmp_bin)
-			Pad_bin_file_inplace(  bl31_tmp_bin       ,  32)
+			Pad_bin_file_inplace(  bl31_bin       ,  32)
 			Register_csv_file_handler(registers_bl31           , bin_registers_bl31        , registers)
 			offset_bl31  = Build_single_image_with_regs(bl31_bin,       bin_registers_bl31      )
 			
@@ -178,8 +175,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 8):
 			print("Replace TEE")
-			copyfile(tee_bin, tee_tmp_bin)
-			Pad_bin_file_inplace(  tee_tmp_bin        ,  32)
+			Pad_bin_file_inplace(  tee_bin        ,  32)
 
 			Register_csv_file_handler(registers_optee           , bin_registers_optee       , registers)
 			offset_tee   = Build_single_image_with_regs(tee_bin,        bin_registers_optee     )

@@ -174,7 +174,7 @@
 
 	<BinField>
 		<!--  -->
-		<name>NoECC_Region_0_Start</name>
+		<name>NoECC_Region_0_Start</name>    <!-- 1MB resolution -->
 		<config>
 			<offset>0x120</offset>
 			<size>0x4</size>
@@ -185,7 +185,7 @@
 
 	<BinField>
 		<!--  -->
-		<name>NoECC_Region_0_End</name>
+		<name>NoECC_Region_0_End</name>    <!-- 1MB resolution -->
 		<config>
 			<offset>0x124</offset>
 			<size>0x4</size>
@@ -196,7 +196,7 @@
 
 	<BinField>
 		<!--  -->
-		<name>NoECC_Region_1_Start</name>
+		<name>NoECC_Region_1_Start</name>    <!-- 1MB resolution -->
 		<config>
 			<offset>0x128</offset>
 			<size>0x4</size>
@@ -207,7 +207,7 @@
 
 	<BinField>
 		<!--  -->
-		<name>NoECC_Region_1_End</name>
+		<name>NoECC_Region_1_End</name>    <!-- 1MB resolution -->
 		<config>
 			<offset>0x12C</offset>
 			<size>0x4</size>
@@ -682,7 +682,7 @@
 	</BinField>
 
 	<BinField>
-		<!-- Code destination address, 32-bit aligned: for BootBlock should be 0xFFFD0000 so code will run in 0xFFFB0200 as linked for -->
+		<!-- Code destination address, 32-bit aligned: for BootBlock should be 0xFFFB0000 so code will run in 0xFFFB0200 as linked for -->
 		<name>DestAddr</name>
 		<config>
 			<offset>0x1F8</offset>

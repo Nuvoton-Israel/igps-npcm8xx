@@ -7,7 +7,7 @@
 ----------------------------------------------------------------------
 
 # NPCM8XX bootBlock Package Release Letter
-Version: 00.04.03
+Version: 00.04.06
 Date:    Mar 2024
 
 
@@ -56,12 +56,27 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
-version 0.4.3     - Mar 4th 2024
+version 0.4.6     - Mar 20th 2024
 =============
-- Bug fix: set cntfrq_el0 according to CPU frequancy. Previously it was hard-coded to 250000000.
+- MC: Increase ECE priority to match VCD priority. Set ECE priority to 2.
+- Fix errata: Errata fix: "1.7 eSPI FATAL_ERROR response"
 
 # HISTORY
 ----------------
+version 0.4.5     - Mar 6th 2024
+=============
+- Bug fix: PLL modifying was done also in a secondary reset also version 0.3.9 should have fixed it since it looked at
+  RESSR instead of INTCR2.MC_INIT.
+
+version 0.4.4     - Mar 5th 2024
+=============
+- Bug fix: issue 1071: if FIU_DRD_CFG is not to be changed than don't access it since hardening might block FIU access.
+- Change cntfrq_el0 only if CPU clock has really changed and not only if CPU changed in header.
+
+version 0.4.3     - Mar 4th 2024
+=============
+- Bug fix: set cntfrq_el0 according to CPU frequency. Previously it was hard-coded to 250000000.
+
 version 0.4.2     - Feb 28th 2024
 =============
 - MC: modified default priority setting.
@@ -82,7 +97,7 @@ version 0.4.0     - Feb 1st 2024
 
 version 0.3.9     - Nov 29th 2023 
 =============
-- block PLL reseting in secondary boot. PLLs are set only after PORST.
+- block PLL resetting in secondary boot. PLLs are set only after PORST.
   (PLLs only, other dividers like FIU are set on any reset, as requested by customers.
 - Change print of DRAM type.
 - Print all values in MHz (instead of Hz).
