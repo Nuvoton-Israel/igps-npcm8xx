@@ -1,0 +1,7 @@
+{
+    "BootBlockAndHeader.xml":
+    {
+        "MC_CONFIG": "0x05",
+        "FIU1_CLK_DIVIDER": "7"
+    }
+}
