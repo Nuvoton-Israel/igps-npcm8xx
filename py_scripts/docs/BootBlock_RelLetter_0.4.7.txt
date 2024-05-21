@@ -7,8 +7,8 @@
 ----------------------------------------------------------------------
 
 # NPCM8XX bootBlock Package Release Letter
-Version: 00.04.06
-Date:    Mar 2024
+Version: 00.04.07
+Date:    May 2024
 
 
 # PACKAGE CONTENTS
@@ -56,13 +56,28 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
+version 0.4.7     - May 6th 2024
+============
+- Fix DDP\SDP type print.
+- Cleanup code for upstream.
+- Fix print of reset type for TIP reset case.
+- Bug fix: when using dlls_trim_clk override from header option INCR bit value is set to bit 7 instead of 6. Fixed to 6.
+- Add mode non-ECC ranges (8 total).
+- Fix build on Linux (change "Apps" folder to "apps").
+- Upgrade compiler and compile by default with dwarf-3 (allow debugging with Lauterbach, for GDB switch to -ggdb).
+- Compile optimization for speed.
+- Fix coverity issues.
+- Cleanup makefile.
+- Add bit (over scrachpad bits): INTCR2.HOST_INIT  (bit 11). This bit indicates host is initailiezed by bootblock.
+  After host is set bit is set to prevent re-init.
+ 
+# HISTORY
+----------------
 version 0.4.6     - Mar 20th 2024
 =============
 - MC: Increase ECE priority to match VCD priority. Set ECE priority to 2.
 - Fix errata: Errata fix: "1.7 eSPI FATAL_ERROR response"
 
-# HISTORY
-----------------
 version 0.4.5     - Mar 6th 2024
 =============
 - Bug fix: PLL modifying was done also in a secondary reset also version 0.3.9 should have fixed it since it looked at

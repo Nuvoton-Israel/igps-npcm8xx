@@ -24,7 +24,7 @@ from .IGPS_common import *
 from .Register_csv_parse import *
 
 
-def Run(TypeOfKey, pinCode,isPalladium):
+def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 	
@@ -76,7 +76,7 @@ def Run(TypeOfKey, pinCode,isPalladium):
 			Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP, TypeOfKey_BMC)
 			Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP, TypeOfKey_BMC)
 			
-		Merge_signed_files(isPalladium)
+		Merge_signed_files(isPalladium, useSignedCombo0)
 
 	except (Exception) as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()

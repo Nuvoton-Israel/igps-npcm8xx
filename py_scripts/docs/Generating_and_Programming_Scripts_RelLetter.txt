@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.00.08
-Date:     Mar 2024
+Version:  04.01.00
+Date:     May 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -144,6 +144,41 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 04.01.00              - May 20th     2024
+============
+- skmt_map.xml: remove RSA key and add add ECC DER Key instead. This key should be manifest root key.
+- TIP_FW 0.6.9 L0 0.5.8 L1:
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.6.9_L0_0.5.8_L1
+     * Disable CFM.
+     * Bug fix: if bootblock is at offset 2MB recovery image is not fully created. Fix the size of image measurement with the additional gap.
+     * Manifest root key is the last key in SKMT. Format is ECC DER.
+     * Hardening: limit up to 100 lines. check return status of hardening.
+     * In case of assert write to debug log.
+     * Bug fix: in BMC reset, if the reloading fails BMC will go to recovery flow.
+- Remove MCR 180 from hardening register table.
+- Apply patch one_igps in order to support yocto build with pre-signed image:
+	https://github.com/minimada/openbmc/commit/c683d95987e8651118633aff11f31230f58b760c?diff=unified&w=0
+
+HISTORY
+-------
+IGPS 04.00.09              - May 7th     2024
+============
+- Update all bootblocks XML with none-ECC regions (up to 8). Also fix tabs and spaces on all files. 
+- bootblock 0.4.7
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.4.7
+    * Fix DDP\SDP type print.
+    * Cleanup code for upstream.
+    * Fix print of reset type for TIP reset case.
+    * Bug fix: when using dlls_trim_clk override from header option INCR bit value is set to bit 7 instead of 6. Fixed to 6.
+    * Add mode non-ECC ranges (8 total).
+    * Fix build on Linux (change "Apps" folder to "apps").
+    * Upgrade compiler and compile by default with dwarf-3 (allow debugging with Lauterbach, for GDB switch to -ggdb).
+    * Compile optimization for speed.
+    * Fix Coverity issues.
+    * Cleanup makefile.
+    * Add bit (over scratchpad bits): INTCR2.HOST_INIT  (bit 11). This bit indicates host is initialized by bootblock. After host is set bit is set to prevent re-init.
+    * Bug fix: cntfrq_el0 was set back to 25000000 after warm boot, regardless of CPU frequency.
+
 IGPS 04.00.08              - Mar 19th     2024
 ============
 - bl31 
@@ -174,8 +209,6 @@ IGPS 04.00.08              - Mar 19th     2024
      * MC: Increase ECE priority to match VCD priority. Set ECE priority to 2.
      * Fix errata: Errata fix: "1.7 eSPI FATAL_ERROR response"
 
-HISTORY
--------
 IGPS 04.00.07              - Mar 4th     2024
 ============
 - Bootblock 0.4.3

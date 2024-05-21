@@ -25,12 +25,12 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyMask</name>    <!-- If value is none zero, check the mask to try several keys -->
+		<name>KeyMask</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
 			<offset>0x88</offset>
 			<size>4</size>
 		</config>
-		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
+		<content format='32bit'>0x00</content>    <!-- key index, bitwise -->
 	</BinField>
 
 	<BinField>
@@ -39,7 +39,7 @@
 			<offset>0x8C</offset>
 			<size>4</size>
 		</config>
-		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
+		<content format='32bit'>0x0</content>    <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
 
 	<BinField>
@@ -48,7 +48,7 @@
 			<offset>0x96</offset>
 			<size>2</size>
 		</config>
-		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+		<content format='bytes'>0x00 0x00</content>    <!-- content the user should fill -->
 	</BinField>
 
 
@@ -59,7 +59,7 @@
 			<offset>0x98</offset>
 			<size>0x2</size>
 		</config>
-		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+		<content format='bytes'>0x00 0x00</content>    <!-- content the user should fill -->
 	</BinField>
 
 		<!-- timestamp -->
@@ -69,7 +69,7 @@
 			<offset>0xBC</offset>
 			<size>0x4</size>
 		</config>
-		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
+		<content format='bytes'>0x00 0x00 0x00 0x00</content>    <!-- do not change, IGPS will add timestamp to all binaries -->
 	</BinField>
 
 
@@ -80,7 +80,7 @@
 			<offset>0x104</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>1</content>                              <!--Board_manufacturer: Nuvoton-->
+		<content format='32bit'>1</content>    <!--Board_manufacturer: Nuvoton-->
 	</BinField>
 	<BinField>
 		<!-- Board type ( DRB = 0, SVB = 1, EB = 2 RunBMC = 10) -->
@@ -90,7 +90,7 @@
 			<offset>0x108</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0x02</content>                                   <!--Board_type: SVB-->
+		<content format='32bit'>0x02</content>    <!--Board_type: SVB-->
 	</BinField>
 
 	<BinField>
@@ -121,7 +121,7 @@
 			<offset>0x110</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>48</content>     <!-- content the user should fill -->
+		<content format='32bit'>48</content>    <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -131,7 +131,7 @@
 			<offset>0x114</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>48</content>     <!-- content the user should fill -->
+		<content format='32bit'>48</content>    <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -141,7 +141,7 @@
 			<offset>0x118</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>48</content>     <!-- content the user should fill -->
+		<content format='32bit'>48</content>    <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -151,7 +151,7 @@
 			<offset>0x11C</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>48</content>     <!-- content the user should fill -->
+		<content format='32bit'>48</content>    <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -161,7 +161,7 @@
 			<offset>0x120</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0</content>     <!-- content the user should fill -->
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
 	</BinField>
 
 
@@ -172,7 +172,7 @@
 			<offset>0x124</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0</content>     <!-- content the user should fill -->
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
 	</BinField>
 
 
@@ -183,7 +183,7 @@
 			<offset>0x128</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0</content>     <!-- content the user should fill -->
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
 	</BinField>
 
 
@@ -194,17 +194,145 @@
 			<offset>0x12C</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0</content>     <!-- content the user should fill -->
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
 	</BinField>
+	
+		
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_2_Start</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x168</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+
 
 	<BinField>
 		<!--  -->
+		<name>NoECC_Region_2_End</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x16C</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+	
+		<BinField>
+		<!--  -->
+		<name>NoECC_Region_3_Start</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x170</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+
+
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_3_End</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x174</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+	
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_4_Start</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x178</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+
+
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_4_End</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x17C</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+	
+		<BinField>
+		<!--  -->
+		<name>NoECC_Region_5_Start</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x180</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+
+
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_5_End</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x184</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+	
+		<BinField>
+		<!--  -->
+		<name>NoECC_Region_6_Start</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x188</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+
+
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_6_End</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x18C</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+	
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_7_Start</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x190</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+
+
+	<BinField>
+		<!--  -->
+		<name>NoECC_Region_7_End</name>    <!-- 1MB granularity -->
+		<config>
+			<offset>0x194</offset>
+			<size>0x4</size>
+		</config>
+		<content format='32bit'>0</content>    <!-- content the user should fill -->
+	</BinField>
+
+	<BinField>
+		<!-- This field allows limiting the size of the DRAM. FFFFFFFF - no SW limiting
+			For any other value which is smaller the actual DRAM size then DRAM will be configured according the lowest value of max and DRAM size -->
 		<name>dram_max_size</name>
 		<config>
 			<offset>0x130</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0xFFFFFFFF</content>     <!-- content the user should fill -->
+		<content format='32bit'>0xFFFFFFFF</content>    <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -217,13 +345,13 @@
 			Bit 4: enable debug sweeps (in addition to sweep_debug)
 			Bit 5: enable prints during MC training
 			Bit 6: DRAM is DDP device (default is SDP)
-			 -->
+			-->
 		<name>MC_CONFIG</name>
 		<config>
 			<offset>0x134</offset>
 			<size>0x1</size>
 		</config>
-		<content format='32bit'>0x04</content>
+		<content format='32bit'>0x05</content>
 	</BinField>
 
 
@@ -246,8 +374,9 @@
 
 
 	<BinField>
-		<!-- bit 7 : pos\neg
-             bits [6:0] DQS0 in value		-->
+		<!-- Override for debug only:
+			bit 7 : pos\neg
+			bits [6:0] DQS0 in value -->
 		<name>MC_DQS_IN_LANE0</name>
 		<config>
 			<offset>0x136</offset>
@@ -257,8 +386,9 @@
 	</BinField>
 
 	<BinField>
-		<!-- bit 7 : pos\neg
-             bits [6:0] DQS1 in value		-->
+		<!-- Override for debug only:
+			bit 7 : pos\neg
+			bits [6:0] DQS1 in value -->
 		<name>MC_DQS_IN_LANE1</name>
 		<config>
 			<offset>0x137</offset>
@@ -269,8 +399,9 @@
 
 
 	<BinField>
-		<!-- bit 7 : pos\neg
-             bits [6:0] DQS0 out value		-->
+		<!-- Override for debug only:
+			bit 7 : pos\neg
+			bits [6:0] DQS0 out value -->
 		<name>MC_DQS_OUT_LANE0</name>
 		<config>
 			<offset>0x138</offset>
@@ -280,8 +411,9 @@
 	</BinField>
 
 	<BinField>
-		<!-- bit 7 : pos\neg
-             bits [6:0] DQS1 out value		-->
+		<!-- Override for debug only:
+			bit 7 : pos\neg
+			bits [6:0] DQS1 out value -->
 		<name>MC_DQS_OUT_LANE1</name>
 		<config>
 			<offset>0x139</offset>
@@ -291,8 +423,9 @@
 	</BinField>
 
 	<BinField>
-		<!-- bit 6 : incr\dec
-             bits [5:0] TRIM value		-->
+		<!-- Override for debug only:
+			bit 6 : incr\dec
+			bits [5:0] TRIM value -->
 		<name>MC_DLLS_TRIM_ADRCTL</name>
 		<config>
 			<offset>0x13A</offset>
@@ -303,8 +436,9 @@
 
 
 	<BinField>
-		<!-- bit 6 : incr\dec
-             bits [5:0] TRIM value		-->
+		<!-- Override for debug only:
+			 bit 6 : incr\dec
+			bits [5:0] TRIM value -->
 		<name>MC_DLLS_TRIM_ADRCTRL_MA</name>
 		<config>
 			<offset>0x13B</offset>
@@ -314,8 +448,9 @@
 	</BinField>
 
 	<BinField>
-		<!-- bit 6 : incr\dec
-             bits [5:0] TRIM value		-->
+		<!-- Override for debug only:
+			bit 6 : incr\dec
+			bits [5:0] TRIM value -->
 		<name>MC_DLLS_TRIM_CLK</name>
 		<config>
 			<offset>0x13C</offset>
@@ -327,7 +462,8 @@
 
 
 	<BinField>
-		<!-- mc_dlls_trim_clk_sqew: not implemented -->
+		<!-- Override for debug only:
+			mc_dlls_trim_clk_sqew: not implemented -->
 		<name>mc_dlls_trim_clk_sqew</name>
 		<config>
 			<offset>0x13D</offset>
@@ -337,7 +473,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- PHASE1 lane 0 -->
+		<!-- Override for debug only:
+			PHASE1 lane 0 -->
 		<name>PHASE1_LANE0</name>
 		<config>
 			<offset>0x13E</offset>
@@ -347,7 +484,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- PHASE1 lane 1 -->
+		<!-- Override for debug only:
+			PHASE1 lane 1 -->
 		<name>PHASE1_LANE1</name>
 		<config>
 			<offset>0x13F</offset>
@@ -357,7 +495,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- PHASE2 lane 0 -->
+		<!-- Override for debug only:
+			PHASE2 lane 0 -->
 		<name>PHASE2_LANE0</name>
 		<config>
 			<offset>0x140</offset>
@@ -367,7 +506,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- PHASE2 lane 1 -->
+		<!-- Override for debug only:
+			PHASE2 lane 1 -->
 		<name>PHASE2_LANE1</name>
 		<config>
 			<offset>0x141</offset>
@@ -379,7 +519,9 @@
 
 
 	<BinField>
-		<!-- DLLS_TRIM_1 lane 0 -->
+		<!-- Override for debug only:
+			DLLS_TRIM_1 lane 0 
+			bit 7 : inc\dec  -->
 		<name>DLLS_TRIM_1_LANE0</name>
 		<config>
 			<offset>0x142</offset>
@@ -389,7 +531,9 @@
 	</BinField>
 
 	<BinField>
-		<!-- DLLS_TRIM_1 lane 1 -->
+		<!-- Override for debug only:
+			DLLS_TRIM_1 lane 1 
+			bit 7 : inc\dec  -->
 		<name>DLLS_TRIM_1_LANE1</name>
 		<config>
 			<offset>0x143</offset>
@@ -401,7 +545,8 @@
 
 
 	<BinField>
-		<!-- DLLS_TRIM_2 lane 0 -->
+		<!-- Override for debug only:
+			DLLS_TRIM_2 lane 0 -->
 		<name>DLLS_TRIM_2_LANE0</name>
 		<config>
 			<offset>0x144</offset>
@@ -411,7 +556,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- DLLS_TRIM_2 lane 1 -->
+		<!-- Override for debug only:
+			DLLS_TRIM_2 lane 1 -->
 		<name>DLLS_TRIM_2_LANE1</name>
 		<config>
 			<offset>0x145</offset>
@@ -422,7 +568,9 @@
 
 
 	<BinField>
-		<!-- DLLS_TRIM_3 lane 0 -->
+		<!-- Override for debug only:
+			DLLS_TRIM_3 lane 0 
+			bit 7 : inc\dec  -->
 		<name>DLLS_TRIM_3_LANE0</name>
 		<config>
 			<offset>0x146</offset>
@@ -432,7 +580,9 @@
 	</BinField>
 
 	<BinField>
-		<!-- DLLS_TRIM_3 lane 1 -->
+		<!-- Override for debug only:
+			DLLS_TRIM_3 lane 1 
+			bit 7 : inc\dec  -->
 		<name>DLLS_TRIM_3_LANE1</name>
 		<config>
 			<offset>0x147</offset>
@@ -444,10 +594,11 @@
 
 
 	<BinField>
-		<!-- DLLS_TRIM_2 OFFSET lane 0
+		<!-- Override for debug only:
+			DLLS_TRIM_2 OFFSET lane 0
 			msb: 1 incr, 0 decr
 			[1:7] offset value added\decremented to trim2 after SCL.
-		-->
+			-->
 		<name>DLLS_TRIM_2_OFFSET_LANE0</name>
 		<config>
 			<offset>0x148</offset>
@@ -457,10 +608,11 @@
 	</BinField>
 
 	<BinField>
-		<!-- DLLS_TRIM_2 OFFSET lane 1
+		<!-- Override for debug only:
+			DLLS_TRIM_2 OFFSET lane 1
 			msb: 1 incr, 0 decr
 			[1:7] offset value added\decremented to trim2 after SCL.
-		-->
+			-->
 		<name>DLLS_TRIM_2_OFFSET_LANE1</name>
 		<config>
 			<offset>0x149</offset>
@@ -471,7 +623,8 @@
 
 
 	<BinField>
-		<!-- VREF_SOC lane 0 -->
+		<!-- Override for debug only:
+			VREF_SOC lane 0 -->
 		<name>VREF_SOC_LANE0</name>
 		<config>
 			<offset>0x14A</offset>
@@ -481,7 +634,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- VREF_SOC lane 1 -->
+		<!-- Override for debug only:
+			VREF_SOC lane 1 -->
 		<name>VREF_SOC_LANE1</name>
 		<config>
 			<offset>0x14B</offset>
@@ -493,7 +647,8 @@
 
 
 	<BinField>
-		<!-- VREF_DRAM -->
+		<!-- Override for debug only:
+			VREF_DRAM -->
 		<name>VREF_DRAM</name>
 		<config>
 			<offset>0x14C</offset>
@@ -513,7 +668,7 @@
 				DRAM_SWEEP            BIT(5)
 				OP_DQS_SWEEP          BIT(6)
 				IP_DQS_SWEEP          BIT(7)
-		-->
+			-->
 		<name>SWEEP_DEBUG</name>
 		<config>
 			<offset>0x14D</offset>
@@ -530,7 +685,7 @@
 				SWEEP_OUT_DQS   BIT(3)      // ber lane param; positive
 				SWEEP_IN_DQS    BIT(4)      // ber lane param; positive
 				SWEEP_OUT_LANE  BIT(5)      // ber lane param (TRIM2); positive
-		-->
+			-->
 		<name>SWEEP_MAIN_FLOW</name>
 		<config>
 			<offset>0x14E</offset>
@@ -570,7 +725,8 @@
 	</BinField>
 
 	<BinField>
-		<!-- GMMAP
+		<!-- GMMAP override. By deafult GFX is at address 0.
+			For debug only: can override GMMAP externaly.
 			GMMAP sets GFX area 16MB possible values:
 			 0h: 0 to 0x01000000
 			1Fh: 1F00_0000h to 1FFF_FFFFh
@@ -579,6 +735,7 @@
 			37h: 3700_0000h to 37FF_FFFFh
 			7Fh: 7F00_0000h to 7FFF_FFFFh
 			6Fh: 6F00_0000h to 6FFF_FFFFh
+			FFh: end of DRAM.
 			-->
 		<name>GMMAP</name>
 		<config>
@@ -602,7 +759,7 @@
 	</BinField>
 
 	<BinField>
-		<!-- FIU_DRD_CFG0_Set		-->
+		<!-- FIU_DRD_CFG0_Set -->
 		<name>FIU_DRD_CFG_0_Set</name>
 		<config>
 			<offset>0x158</offset>
@@ -612,7 +769,7 @@
 	</BinField>
 
 	<BinField>
-		<!-- FIU_DRD_CFG1_Set		-->
+		<!-- FIU_DRD_CFG1_Set -->
 		<name>FIU_DRD_CFG_1_Set</name>
 		<config>
 			<offset>0x15C</offset>
@@ -622,7 +779,7 @@
 	</BinField>
 
 	<BinField>
-		<!-- FIU_DRD_CFG3_Set		-->
+		<!-- FIU_DRD_CFG3_Set -->
 		<name>FIU_DRD_CFG_3_Set</name>
 		<config>
 			<offset>0x160</offset>
@@ -630,6 +787,7 @@
 		</config>
 		<content format='32bit'>0xFFFFFFFF</content>
 	</BinField>
+
 	<BinField>
 		<!-- MC_MEM_TEST_GPIO_COMPLETE. 
 		     example GPIO 142 active high - 0x8E active low - 0x808E-->
@@ -643,7 +801,7 @@
 	
 	<BinField>
 		<!-- MC_MEM_TEST_GPIO_COMPLETE	
-		example GPIO 143 active high - 0x8F active low - 0x808F		-->
+		example GPIO 143 active high - 0x8F active low - 0x808F -->
 		<name>MC_MEM_TEST_GPIO_PASS</name>
 		<config>
 			<offset>0x166</offset>
@@ -651,7 +809,7 @@
 		</config>
 		<content format='32bit'>0xFFFF</content>
 	</BinField>
-	
+
 	<BinField>
 		<!-- Offset of registers table. This field is written automatically by IGPS -->
 		<name>Regs_offset_do_not_edit</name>
@@ -659,7 +817,7 @@
 			<offset>0x1B4</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0xFFFFFFFF</content>     <!-- do not edit, IGPS auto fill this field -->
+		<content format='32bit'>0xFFFFFFFF</content>    <!-- do not edit, IGPS auto fill this field -->
 	</BinField>
 
 	<BinField>
@@ -669,7 +827,7 @@
 			<offset>0x1F8</offset>
 			<size>0x4</size>
 		</config>
-		<content format='32bit'>0xFFFB0000</content>     <!-- content the user should fill -->
+		<content format='32bit'>0xFFFB0000</content>    <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -679,7 +837,7 @@
 			<offset>0x1FC</offset>
 			<size>0x4</size>
 		</config>
-		<content format='FileSize'>output_binaries/tmp/arbel_a35_bootblock_no_tip.bin</content>	<!-- content the user should fill -->
+		<content format='FileSize'>output_binaries/tmp/arbel_a35_bootblock_no_tip.bin</content>    <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
@@ -687,9 +845,9 @@
 		<name>Code</name>
 		<config>
 			<offset>0x200</offset>
-			<size format='FileSize'>output_binaries/tmp/arbel_a35_bootblock_no_tip.bin</size>                 <!-- size in the header calculated by tool-->
+			<size format='FileSize'>output_binaries/tmp/arbel_a35_bootblock_no_tip.bin</size>    <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>output_binaries/tmp/arbel_a35_bootblock_no_tip.bin</content>  <!-- content the user should fill -->
+		<content format='FileContent'>output_binaries/tmp/arbel_a35_bootblock_no_tip.bin</content>    <!-- content the user should fill -->
 	</BinField>
 
 </Bin_Ecc_Map>

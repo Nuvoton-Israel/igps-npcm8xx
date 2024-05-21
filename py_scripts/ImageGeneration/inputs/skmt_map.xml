@@ -146,7 +146,7 @@
 		<content format='FileContent'>inputs/key_input/skmt_ecc_key_3_pub.bin</content> 
 	</BinField>
 	
-<!--********************************************************************* -->
+<!--************ LAST KEY IS USED FOR MANIFEST ROOT KEY ***************** -->
 	<BinField>
 		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x41("\nA"): AES  , 0x0A-0x43 ("\nC") Certificate-->
 		<name>SKMT_Key_Type_4</name>
@@ -165,7 +165,7 @@
 			<offset>402</offset> 
 			<size>2</size>    
 		</config>
-		<content format='FileSize'>inputs/key_input/skmt_ecc_key_4_pub.bin</content>  
+		<content format='FileSize'>inputs/key_input/skmt_ecc_key_4_pub.der</content>  
 	</BinField>
 	<BinField>
 		<!-- SKMT ECC Key  -->
@@ -173,14 +173,14 @@
 		<config>
 			<ecc>none</ecc>  
 			<offset>404</offset> 
-			<size format='FileSize'>inputs/key_input/skmt_ecc_key_4_pub.bin</size> 
+			<size format='FileSize'>inputs/key_input/skmt_ecc_key_4_pub.der</size> 
 		</config>
-		<content format='FileContent'>inputs/key_input/skmt_ecc_key_4_pub.bin</content> 
+		<content format='FileContent'>inputs/key_input/skmt_ecc_key_4_pub.der</content> 
 	</BinField>
 	
-<!--********************************************************************* -->
+<!--********************************************************************* 
+		OPTIONAL: Add RSA key:
 	<BinField>
-		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x41("\nA"): AES  , 0x0A-0x43 ("\nC") Certificate-->
 		<name>SKMT_Key_Type_5_RSA</name>
 		<config>
 			<ecc>none</ecc>  
@@ -190,7 +190,6 @@
 		<content format='bytes'>0x0A 0x52</content>  
 	</BinField>	
 	<BinField>
-		<!-- SKMT Key size-->
 		<name>SKMT_Key_Size_5_RSA</name>
 		<config>
 			<ecc>none</ecc>  
@@ -199,8 +198,6 @@
 		</config>
 		<content format='FileSize'>inputs/key_input/rsa_key_0_pub.der</content>  
 	</BinField>
-	<BinField>
-		<!-- SKMT ECC Key  -->
 		<name>SKMT_Key_5_RSA</name>
 		<config>
 			<ecc>none</ecc>  
@@ -210,5 +207,6 @@
 		<content format='FileContent'>inputs/key_input/rsa_key_0_pub.der</content> 
 	</BinField>
 	
+-->
 
 </Bin_Ecc_Map>

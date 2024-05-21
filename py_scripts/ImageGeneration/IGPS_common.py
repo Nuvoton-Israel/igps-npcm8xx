@@ -139,21 +139,35 @@ def Uboot_header_embed_pointers_to_all_fw():
 		# Replace_binary_array(UbootAndHeader_bin, 0x1BC, [0xAA, 0xBB, 0xCC, 0xDD], 4, False)
 
 
-def MergeBinFilesAndPadAndPrint(isPalladium):
+def MergeBinFilesAndPadAndPrint(isPalladium, useSignedCombo0: str = None):
 	# Merge files
 	bbS = COMBO1_OFFSET
 	
-	tipS_L0 =      Merge_bin_files_and_pad(KmtAndHeader_bin            , TipFwAndHeader_L0_bin    , Kmt_TipFwL0_bin                       , 0x1000, 0x20)
-	sa_tipS_L0 =   Merge_bin_files_and_pad(KmtAndHeader_bin            , SA_TipFwAndHeader_L0_bin , SA_Kmt_TipFwL0_bin                    , 0x1000, 0x20)
-	tipS_L0_UT =   Merge_bin_files_and_pad(KmtAndHeader_bin            , TipFwAndHeader_L0_UT_bin , Kmt_TipFwL0_UT_bin                    , 0x1000, 0x20)
-	skmtS  =       Merge_bin_files_and_pad(Kmt_TipFwL0_bin             , SkmtAndHeader_bin        , Kmt_TipFwL0_Skmt_bin                  , 0x1000, 0x20)
-	tipS_L1 =      Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_bin        , TipFwAndHeader_L1_bin    , Kmt_TipFwL0_Skmt_TipFwL1_bin          , 0x1000, 0x20)
-	bbS =          Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin, BootBlockAndHeader_bin   , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin, bbS   , 0x20)
-	
+	if useSignedCombo0 is None:
+		tipS_L0 =      Merge_bin_files_and_pad(KmtAndHeader_bin            , TipFwAndHeader_L0_bin    , Kmt_TipFwL0_bin                       , 0x1000, 0x20)
+		sa_tipS_L0 =   Merge_bin_files_and_pad(KmtAndHeader_bin            , SA_TipFwAndHeader_L0_bin , SA_Kmt_TipFwL0_bin                    , 0x1000, 0x20)
+		tipS_L0_UT =   Merge_bin_files_and_pad(KmtAndHeader_bin            , TipFwAndHeader_L0_UT_bin , Kmt_TipFwL0_UT_bin                    , 0x1000, 0x20)
+		skmtS  =       Merge_bin_files_and_pad(Kmt_TipFwL0_bin             , SkmtAndHeader_bin        , Kmt_TipFwL0_Skmt_bin                  , 0x1000, 0x20)
+		tipS_L1 =      Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_bin        , TipFwAndHeader_L1_bin    , Kmt_TipFwL0_Skmt_TipFwL1_bin          , 0x1000, 0x20)
+	else:
+		# use a pre-signed image from TIP_FW repository. image should include KMT, L0, SKMT, L1:
+		try:
+			print(f"Copying signed combo0 {useSignedCombo0} to {Kmt_TipFwL0_Skmt_TipFwL1_bin}")
+			copyfile(useSignedCombo0, Kmt_TipFwL0_Skmt_TipFwL1_bin)
+		except Exception as e:
+			print(f"current path: {os.getcwd()}")
+			print("Failed to copy file: ", e)
+			raise
+		tipS_L0 = 0
+		skmtS = 0
+		tipS_L1 = 0
+
+	bbS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_bin, BootBlockAndHeader_bin   , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin, bbS   , 0x20)
+
 	# check that bootblock is still at 512KB offset
 	if (bbS != COMBO1_OFFSET):
 		print("       =============   ERROR: TIP_FW overflow ======================")
-		
+
 	bl31S  =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                        , BL31_AndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                                , 0x1000     , 0x20)
 	OpTeeS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                   , OpTeeAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin                          , 0x1000     , 0x20)
 	ubootS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin             , UbootAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin                    , 0x1000     , 0x20)
@@ -173,7 +187,8 @@ def MergeBinFilesAndPadAndPrint(isPalladium):
 	
 	# os.remove(tmp_bin)
 	# os.remove(Kmt_TipFwL0_bin)
-	os.remove(Kmt_TipFwL0_Skmt_bin)
+	if useSignedCombo0 is None:
+		os.remove(Kmt_TipFwL0_Skmt_bin)
 	os.remove(BootBlock_BL31_bin)
 	os.remove(BootBlock_BL31_OpTee_bin)
 	os.remove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin)
@@ -560,13 +575,13 @@ def Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 
 
 
-def Merge_signed_files(isPalladium):
+def Merge_signed_files(isPalladium, useSignedCombo0):
 
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 	try:
-		MergeBinFilesAndPadAndPrint(isPalladium)
+		MergeBinFilesAndPadAndPrint(isPalladium, useSignedCombo0)
 		# Move Secure images to Secure Directory
 		MoveToFolder(isPalladium, secure_outputs_dir)
 		# need to remove the no tip secure bin that was created in last operation of moving all from basic to secure

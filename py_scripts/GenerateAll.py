@@ -21,6 +21,7 @@ try:
 	runPartial = False
 	isPalladium = False
 	TypeOfKey = "openssl"
+	useSignedCombo0 = None
 
 
 	index = 1
@@ -67,6 +68,7 @@ try:
 		#option 1) .\py_scripts\GenerateAll.py openssl\HSM  0 partial
 		#option 2) .\py_scripts\GenerateAll.py openssl\HSM  0 palladium
 		#option 3) .\py_scripts\GenerateAll.py openssl\HSM  0 partial palladium
+		#option 4) .\py_scripts\GenerateAll.py openssl\HSM [pre-signed Combo0 path]
 
 
 	if (runPartial):
@@ -78,7 +80,9 @@ try:
 		print("==========================================================")
 		print("== Generate All Images")
 		print("==========================================================")
-		ImageGeneration.GenerateImages.Run(TypeOfKey, pinCode, isPalladium)
+		if component_num != "0":
+			useSignedCombo0 = component_num
+		ImageGeneration.GenerateImages.Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0)
 
 except Exception as e:
 	exc_type, exc_obj, exc_tb = sys.exc_info()
