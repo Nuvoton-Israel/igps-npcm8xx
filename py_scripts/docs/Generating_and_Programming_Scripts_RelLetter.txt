@@ -5,7 +5,7 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.01.00
+Version:  04.01.01
 Date:     May 2024
 
 This package is released under the terms of the Source Code License Agreement
@@ -144,6 +144,14 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 04.01.01              - May 26th     2024
+============
+- bootblock 0.4.8
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.4.8
+    * set cntfrq_el0 should be after calling serial_printf_init.
+
+HISTORY
+-------
 IGPS 04.01.00              - May 20th     2024
 ============
 - skmt_map.xml: remove RSA key and add add ECC DER Key instead. This key should be manifest root key.
@@ -159,8 +167,6 @@ IGPS 04.01.00              - May 20th     2024
 - Apply patch one_igps in order to support yocto build with pre-signed image:
 	https://github.com/minimada/openbmc/commit/c683d95987e8651118633aff11f31230f58b760c?diff=unified&w=0
 
-HISTORY
--------
 IGPS 04.00.09              - May 7th     2024
 ============
 - Update all bootblocks XML with none-ECC regions (up to 8). Also fix tabs and spaces on all files. 
