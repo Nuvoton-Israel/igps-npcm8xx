@@ -2,7 +2,7 @@
 #
 # Nuvoton IGPS: Image Generation And Programming Scripts For Arbel BMC
 #
-# Copyright (C) 2022 Nuvoton Technologies, All Rights Reserved
+# Copyright (C) 2024 Nuvoton Technologies, All Rights Reserved
 #-------------------------------------------------------------------------
 
 """
