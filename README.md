@@ -93,7 +93,7 @@ python ./Program%File%_%Security%_%Tool%.py
 
 File: 
 	All: All FWs except Linux: KMT, TFT, bootblock, BL31, OpTee, uboot. (most common use case).
-	NO_TIP: for users have an Arbel chip without TIP (no security features) should use the NO_TIP programming scripts.
+	NO_TIP: Users who have an Arbel chip without TIP (no security features) should use the NO_TIP programming scripts.
 Security: 
 	Basic (none-secure device)
 	Secure (locked device). Secure mode is backward compatible and recomended even for none secure devices.

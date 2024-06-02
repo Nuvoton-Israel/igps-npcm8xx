@@ -28,23 +28,23 @@
 # All numbers are in hex format only except delay. 
 ############################################################################################# 
 # Register  , Module index, Register index, field   , value_to_write, reset, delay_exp_us
-# RLOCKR1     ,0            ,0              ,PLL0LK   ,1              ,0x1FF ,0
-# RLOCKR1     ,0            ,0              ,PLL1LK   ,1              ,0x1FF ,0
-# RLOCKR1     ,0            ,0              ,PLL2LK   ,1              ,0x1FF ,0
-# WD0RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# WD1RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# WD2RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# SWRSTC1LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# SWRSTC2LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# SWRSTC3LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# CORSTCLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# IPSRSTDIS1  ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-# FLOCKR1     ,0            ,0              ,LKGPO2SLK,1              ,0x1FF ,0
-# FLOCKR2    ,0            ,0              ,CRHEN    ,1              ,0x100 ,0
-# FLOCKR2    ,0            ,0              ,CRHENLK  ,1              ,0x1FF ,0
-# FLOCKR2     ,0            ,0              ,S0CSELK  ,1              ,0x1FF ,0
-# FLOCKR2     ,0            ,0              ,S3CSELK  ,1              ,0x1FF ,0
-# FLOCKR2     ,0            ,0              ,S1CSELK  ,1              ,0x1FF ,0
-# RLOCKR1     ,0            ,0              ,0        ,0x0008C204     ,0x1FF ,0
+RLOCKR1     ,0            ,0              ,PLL0LK   ,1              ,0x1FF ,0
+RLOCKR1     ,0            ,0              ,PLL1LK   ,1              ,0x1FF ,0
+RLOCKR1     ,0            ,0              ,PLL2LK   ,1              ,0x1FF ,0
+WD0RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+WD1RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+WD2RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+SWRSTC1LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+SWRSTC2LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+SWRSTC3LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+CORSTCLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+IPSRSTDIS1  ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+FLOCKR1     ,0            ,0              ,LKGPO2SLK,1              ,0x1FF ,0
+FLOCKR2    ,0            ,0              ,CRHEN    ,1              ,0x100 ,0
+FLOCKR2    ,0            ,0              ,CRHENLK  ,1              ,0x1FF ,0
+FLOCKR2     ,0            ,0              ,S0CSELK  ,1              ,0x1FF ,0
+FLOCKR2     ,0            ,0              ,S3CSELK  ,1              ,0x1FF ,0
+FLOCKR2     ,0            ,0              ,S1CSELK  ,1              ,0x1FF ,0
+RLOCKR1     ,0            ,0              ,0        ,0x0008C204     ,0x1FF ,0

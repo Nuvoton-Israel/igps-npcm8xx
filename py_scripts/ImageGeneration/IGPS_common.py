@@ -150,10 +150,14 @@ def MergeBinFilesAndPadAndPrint(isPalladium, useSignedCombo0: str = None):
 		skmtS  =       Merge_bin_files_and_pad(Kmt_TipFwL0_bin             , SkmtAndHeader_bin        , Kmt_TipFwL0_Skmt_bin                  , 0x1000, 0x20)
 		tipS_L1 =      Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_bin        , TipFwAndHeader_L1_bin    , Kmt_TipFwL0_Skmt_TipFwL1_bin          , 0x1000, 0x20)
 	else:
-		# use a pre-signed image from TIP_FW repository. image should include KMT, L0, SKMT, L1:
+		# Use a pre-signed image from TIP_FW repository, include SA TIP and normal TIP FW:
+		signed_TIP = os.path.join(useSignedCombo0, "Kmt_TipFwL0_Skmt_TipFwL1.bin")
+		signed_SA_TIP = os.path.join(useSignedCombo0, "SA_Kmt_TipFwL0.bin")
 		try:
-			print(f"Copying signed combo0 {useSignedCombo0} to {Kmt_TipFwL0_Skmt_TipFwL1_bin}")
-			copyfile(useSignedCombo0, Kmt_TipFwL0_Skmt_TipFwL1_bin)
+			print(f"Copying signed combo0 {signed_TIP} to {Kmt_TipFwL0_Skmt_TipFwL1_bin}")
+			copyfile(signed_TIP, Kmt_TipFwL0_Skmt_TipFwL1_bin)
+			print(f"Copying signed combo0 {signed_SA_TIP} to {SA_Kmt_TipFwL0_bin}")
+			copyfile(signed_SA_TIP, SA_Kmt_TipFwL0_bin)
 		except Exception as e:
 			print(f"current path: {os.getcwd()}")
 			print("Failed to copy file: ", e)

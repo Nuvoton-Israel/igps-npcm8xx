@@ -5,7 +5,7 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.01.01
+Version:  04.01.03
 Date:     May 2024
 
 This package is released under the terms of the Source Code License Agreement
@@ -144,14 +144,35 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 04.01.01              - May 26th     2024
+IGPS 04.01.03              - May 29th     2024
+============
+- TIP_FW 0.7.1 L0 0.6.0 L1:
+    https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.1_L0_0.6.0_L1
+      * Add flash protection on recovery image. Recovery region is now read-only.
+- Enable hardening tables:
+    * .\py_scripts\ImageGeneration\inputs\registers\registers_bootblock.csv
+    * .\py_scripts\ImageGeneration\inputs\registers\registers_bl31.csv
+- Uboot:
+    https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20240411
+    * Fix IPv6 PXE boot
+- yocto build :
+    Updated script for SA pre-signed combo0 support, just like TIP FW pre-signed combo0.
+    Add comment support for settings.
+
+HISTORY
+-------
+IGPS 04.01.02              - May 26th     2024
+============
+- TIP_FW 0.7.0 L0 0.5.9 L1:
+    https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.0_L0_0.5.9_L1
+      * Do UMA reads instead of direct.
+
+IGPS 04.01.01              - May 23th     2024
 ============
 - bootblock 0.4.8
     https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.4.8
     * set cntfrq_el0 should be after calling serial_printf_init.
 
-HISTORY
--------
 IGPS 04.01.00              - May 20th     2024
 ============
 - skmt_map.xml: remove RSA key and add add ECC DER Key instead. This key should be manifest root key.
