@@ -62,10 +62,22 @@ def load_settings(file: str = SETTING_FILE) -> dict[str, dict[str, str]]:
         data = f.read().strip()
         if len(data) > 0:
             settings = json.loads(data)
+    # remove comments
+    def remove_comment(d: dict):
+        if "//" in d:
+            del d["//"]
+        if "comment" in d:
+            del d["comment"]
+    remove_comment(settings)
     # check settings format
-    for config, values in settings.items():
+    for config in list(settings.keys()):
+        values = settings[config]
         if not isinstance(values, dict):
             raise ValueError(f"Error: Invalid format in settings file for {config}")
+        remove_comment(settings[config])
+        if len(settings[config]) == 0:
+            del settings[config]
+            continue
         for key, value in values.items():
             if not isinstance(key, str) or not isinstance(value, str):
                 raise ValueError(f"Error: Invalid format in settings file for {config}")
@@ -108,7 +120,7 @@ def replace_value_in_xml(xml_file: str, dict: dict[str, str], target_xml: str = 
             else:
                 search_count += 1
         if search_count == len(elements):
-            raise ValueError(f"Error: {tag} not found in the xml file")
+            raise ValueError(f"Error: TAG \"{tag}\" not found in the xml file")
     # write the xml file
     if target_xml is not None:
         tree.write(target_xml)
