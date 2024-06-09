@@ -27,8 +27,18 @@ class ConfigReplacerTestCase(unittest.TestCase):
     def test_load_settings(self):
         # Create a test settings file
         settings = {
+            "//": "this is a comment",
             "BootBlockAndHeader.xml": {
                 "//": "this is a comment",
+                "MC_CONFIG": "0x05"
+            },
+            "key_setting_edit_me.py":
+            {
+                "comment": "this is a comment",
+            }
+        }
+        settings_without_comment = {
+            "BootBlockAndHeader.xml": {
                 "MC_CONFIG": "0x05"
             }
         }
@@ -37,7 +47,7 @@ class ConfigReplacerTestCase(unittest.TestCase):
 
         # Test loading the settings file
         loaded_settings = load_settings(self.settings_file)
-        self.assertEqual(loaded_settings, settings)
+        self.assertEqual(loaded_settings, settings_without_comment)
         # test invalid file
         self.assertRaises(FileNotFoundError, load_settings, "invalid_file.json")
         # test empty file
@@ -72,8 +82,6 @@ class ConfigReplacerTestCase(unittest.TestCase):
         # Define the replacement dictionary
         replacements = {
             "MC_CONFIG": "0x05",
-            "comment": "this is a comment",
-            "//": "this is a comment"
         }
         not_exist_replacement = {
             "MC_CONFIG1": "0x05"
