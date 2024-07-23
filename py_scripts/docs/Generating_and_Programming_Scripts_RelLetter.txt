@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.01.03
-Date:     May 2024
+Version:  04.01.04
+Date:     Jul 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -144,6 +144,22 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 04.01.04              - Jul 22th     2024
+============
+- TIP_FW 0.7.2 L0 0.6.1 L1:
+    https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.2_L0_0.6.1_L1
+      * Bug fix flash protection: wrong settings for dual and quad read (should be on the white list).
+- uboot v2023.10-npcm8xx-20240719
+    * Remove System Counter register access
+    * Add sgpio driver
+    * Support SHA 512 hw acceleration
+    * Fix dm_i2c_read/write error
+- bootblock 0.5.0
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.0
+    * Fix TRIM2 debug sweep.
+
+HISTORY
+-------
 IGPS 04.01.03              - May 29th     2024
 ============
 - TIP_FW 0.7.1 L0 0.6.0 L1:
@@ -159,8 +175,6 @@ IGPS 04.01.03              - May 29th     2024
     Updated script for SA pre-signed combo0 support, just like TIP FW pre-signed combo0.
     Add comment support for settings.
 
-HISTORY
--------
 IGPS 04.01.02              - May 26th     2024
 ============
 - TIP_FW 0.7.0 L0 0.5.9 L1:

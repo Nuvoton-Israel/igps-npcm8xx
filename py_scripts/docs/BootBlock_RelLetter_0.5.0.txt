@@ -7,8 +7,8 @@
 ----------------------------------------------------------------------
 
 # NPCM8XX bootBlock Package Release Letter
-Version: 00.04.08
-Date:    May 2024
+Version: 00.05.00
+Date:    Jul 2024
 
 
 # PACKAGE CONTENTS
@@ -56,12 +56,23 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
+version 0.5.0     - Jul 7th 2024
+============
+- Bug fix in debug sweep of TRIM2. Change does not impact standard boot.
+- Cleanup mc_drv_sweeps.c file.
+
+# HISTORY
+---------------
+version 0.4.9     - Jun 18th 2024
+============
+- Set WRLEN to 0 on AHB6 and AHB13. (note: RDLEN is zero since version 0.3.7).
+- Change GFX0, MC port2 to 2 (was 4).
+- Change PRTY_REL_AXI7_GMAC1, PRTY_REL_AXI8_GMAC2 to 2 (was 1).
+
 version 0.4.8     - May 12th 2024
 ============
 - set cntfrq_el0 should be after calling serial_printf_init.
 
-# HISTORY
----------------
 version 0.4.7     - May 6th 2024
 ============
 - Fix DDP\SDP type print.
