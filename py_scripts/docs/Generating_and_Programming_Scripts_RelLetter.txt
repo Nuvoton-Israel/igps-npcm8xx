@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.01.04
-Date:     Jul 2024
+Version:  04.01.05
+Date:     Aug 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -144,19 +144,25 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 04.01.04              - Jul 22th     2024
+IGPS 04.01.05              - Aug 1st     2024
 ============
-- TIP_FW 0.7.2 L0 0.6.1 L1:
-    https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.2_L0_0.6.1_L1
-      * Bug fix flash protection: wrong settings for dual and quad read (should be on the white list).
-- uboot v2023.10-npcm8xx-20240719
-    * Remove System Counter register access
-    * Add sgpio driver
-    * Support SHA 512 hw acceleration
-    * Fix dm_i2c_read/write error
-- bootblock 0.5.0
-    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.0
-    * Fix TRIM2 debug sweep.
+- TIP_FW 0.7.3 L0 0.6.2 L1:
+    https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.3_L0_0.6.2_L1
+	- BMC_DIRECT: return status and notification.
+	- Add triple WD1 reset handling (going to recovery if 3 times under 10 minutes).
+	- WD1 init before uboot: currently disabled till uboot upgrade.
+	- WD1 init before bootblock run.
+	- When BMC reset - reload same FW (and not active image).
+	- Temp: disable flash protection.
+	- Temp: disable WD1 till uboot is ready.
+
+- bootblock 0.5.1
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.1
+	- Improve boot speed. 1.8 sec 1GB no ECC, 2 sec with ECC.
+	- NOTIP only: Reset slow periphrals on every reset (including UART, I2C etc.).
+	- NOTIP only: don't reset PCIMBX, CP1 and BMCBUS.
+	- Disable WDT in case of debug sweeps.
+	- Remove some prints and normalize line endings in log. 
 
 HISTORY
 -------

@@ -7,8 +7,8 @@
 ----------------------------------------------------------------------
 
 # NPCM8XX bootBlock Package Release Letter
-Version: 00.05.00
-Date:    Jul 2024
+Version: 00.05.01
+Date:    Aug 2024
 
 
 # PACKAGE CONTENTS
@@ -56,13 +56,21 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
+version 0.5.1     - Aug 1st 2024
+============
+- Improve boot speed. 1.8 sec 1GB no ECC, 2 sec with ECC.
+- NOTIP only: Reset slow periphrals on every reset (including UART, I2C etc.).
+- NOTIP only: don't reset PCIMBX, CP1 and BMCBUS.
+- Disable WDT in case of debug sweeps.
+- Remove some prints and normalize line endings in log.
+
+# HISTORY
+---------------
 version 0.5.0     - Jul 7th 2024
 ============
 - Bug fix in debug sweep of TRIM2. Change does not impact standard boot.
 - Cleanup mc_drv_sweeps.c file.
 
-# HISTORY
----------------
 version 0.4.9     - Jun 18th 2024
 ============
 - Set WRLEN to 0 on AHB6 and AHB13. (note: RDLEN is zero since version 0.3.7).

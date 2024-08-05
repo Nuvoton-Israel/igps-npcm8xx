@@ -689,7 +689,7 @@
 			<offset>0x14E</offset>
 			<size>0x1</size>
 		</config>
-		<content format='32bit'>0x37</content>
+		<content format='32bit'>0x07</content>
 	</BinField>
 
 	<BinField>
