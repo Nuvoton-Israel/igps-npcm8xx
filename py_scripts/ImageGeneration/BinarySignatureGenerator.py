@@ -8,7 +8,7 @@
 import sys
 import os
 import hashlib
-
+import pickle
 # This file was downloaded from :https://github.com/andrivet/python-asn1/blob/master/src/asn1.py with MIT license:
 try:
 	from . import asn1
@@ -183,7 +183,7 @@ def extract_bin_file_to_sign(bin_filename, begin_offset):
 	bin_file.write(input[begin_offset::])
 	bin_file.close()
 
-def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature, output_filename , TypeOfKey, pinCode, idNum):
+def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature, output_filename , TypeOfKey, pinCode, idNum, isECC, isLMS ,lms_key):
 	_openssl = openssl
 	_pkcs_tool = "pkcs11-tool.exe"
 	if os.name != "nt":
@@ -217,64 +217,105 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 		bin_file = open(bin_file_to_sign , "wb")
 		bin_file.write(input[begin_offset::])
 		bin_file.close()
-		pub_key_der = key.replace(".der", "_pub.der", 1)
-		if (TypeOfKey == "openssl"):
+		if (isECC == True):
+			pub_key_der = key.replace(".der", "_pub.der", 1)
+			if (TypeOfKey == "openssl"):
 			################################################################################
-			sig_der = output_filename.replace(".bin", "_sig.der")
+				sig_der = output_filename.replace(".bin", "_sig.der")
 			# call openssl to generate a signature
-			cmd = "%s dgst -sha512 -keyform der -sign \"%s\" \"%s\" > \"%s\"" \
-			% (_openssl, key, bin_file_to_sign, sig_der)
+				cmd = "%s dgst -sha512 -keyform der -sign \"%s\" \"%s\" > \"%s\"" \
+				% (_openssl, key, bin_file_to_sign, sig_der)
 			
-			if (os.path.isfile(key) == False):
-				print(("currpath " +  os.getcwd()))
-				print(("\033[91m" + "Sign_binary   Error: " +  key + " key file is missing\n\n" + "\033[97m"))
-				return -1
+				if (os.path.isfile(key) == False):
+					print(("currpath " +  os.getcwd()))
+					print(("\033[91m" + "Sign_binary   Error: " +  key + " key file is missing\n\n" + "\033[97m"))
+					return -1
 				
-			if (os.path.isfile(bin_file_to_sign) == False):
-				print(("currpath " +  os.getcwd()))
-				print(("\033[91m" + "Sign_binary   Error: " +  bin_file_to_sign + " file is missing\n\n" + "\033[97m"))
-				return -1
+				if (os.path.isfile(bin_file_to_sign) == False):
+					print(("currpath " +  os.getcwd()))
+					print(("\033[91m" + "Sign_binary   Error: " +  bin_file_to_sign + " file is missing\n\n" + "\033[97m"))
+					return -1
 				
-			executeCMD(cmd)
+				executeCMD(cmd)
 			
 
-			print("verify:")
-			cmd = "%s dgst -sha512 -keyform der -verify \"%s\" -signature \"%s\" \"%s\" " \
-				  % (_openssl, pub_key_der, sig_der, bin_file_to_sign)
-			executeCMD(cmd)
+				print("verify:")
+				cmd = "%s dgst -sha512 -keyform der -verify \"%s\" -signature \"%s\" \"%s\" " \
+					  % (_openssl, pub_key_der, sig_der, bin_file_to_sign)
+				executeCMD(cmd)
 
-		else: #HSM
+			else: #HSM
 
-			sig_der = output_filename.replace(".bin", "_HSM.sig")
+				sig_der = output_filename.replace(".bin", "_HSM.sig")
 			#hash the big data first
-			bin_file_to_sign_hashed = bin_file_to_sign.replace(".bin", "_hashed.bin")
-			print(("bin_file_to_sign_hashed is:"+bin_file_to_sign_hashed))
+				bin_file_to_sign_hashed = bin_file_to_sign.replace(".bin", "_hashed.bin")
+				print(("bin_file_to_sign_hashed is:"+bin_file_to_sign_hashed))
 
-			cmd = _pkcs_tool + " --id " + idNum + " --hash -m SHA512  -p " + pinCode + " -i " + bin_file_to_sign + " --output-file " + bin_file_to_sign_hashed
-			executeCMD(cmd)
+				cmd = _pkcs_tool + " --id " + idNum + " --hash -m SHA512  -p " + pinCode + " -i " + bin_file_to_sign + " --output-file " + bin_file_to_sign_hashed
+				executeCMD(cmd)
 
-			cmd = _pkcs_tool + " --id " + idNum + " -s -p " + pinCode + " -m ECDSA --signature-format openssl -i " + bin_file_to_sign_hashed + " --output-file " + sig_der
-			executeCMD(cmd)
+				cmd = _pkcs_tool + " --id " + idNum + " -s -p " + pinCode + " -m ECDSA --signature-format openssl -i " + bin_file_to_sign_hashed + " --output-file " + sig_der
+				executeCMD(cmd)
 
-			print("verify:")
-			cmd = "%s dgst -sha512 -keyform der -verify %s -signature %s %s " \
-				  % (_openssl, pub_key_der, sig_der, bin_file_to_sign)
-			executeCMD(cmd)
+				print("verify:")
+				cmd = "%s dgst -sha512 -keyform der -verify %s -signature %s %s " \
+					  % (_openssl, pub_key_der, sig_der, bin_file_to_sign)
+				executeCMD(cmd)
 
 
 		#joined code for open SSL and HSM
-		s = 0
-		r = 0
-		signature = [r, s]
-		print(("sig_der is: " + sig_der))
-		Asn1_get_bins_from_DER(sig_der, signature)
-		print ("\nSignature.r:")
-		arr_r = BigNum_2_Array(signature[0], key_size, True)
-		print ("\nSignature.s:")
-		arr_s = BigNum_2_Array(signature[1], key_size, True)
+			s = 0
+			r = 0
+			signature = [r, s]
+			print(("sig_der is: " + sig_der))
+			Asn1_get_bins_from_DER(sig_der, signature)
+			print ("\nSignature.r:")
+			arr_r = BigNum_2_Array(signature[0], key_size, True)
+			print ("\nSignature.s:")
+			arr_s = BigNum_2_Array(signature[1], key_size, True)
 
-		embed_signature = int(embed_signature)
-		output = input[:embed_signature] + arr_r + arr_s + input[(embed_signature + key_size*2):]
+			embed_signature = int(embed_signature)
+			output = input[:embed_signature] + arr_r + arr_s + input[(embed_signature + key_size*2):]
+
+		if (isLMS == True):
+			if (TypeOfKey == "openssl"):
+				print("\033[95m" + "bin_file_to_sign is " + bin_file_to_sign)
+				sig_binary = output_filename.replace(".bin", "_sig.bin")
+				public_pickled_bin_file = lms_key.replace(".bin" , "_pickled_pub.bin")
+				private_pickled_bin_file = lms_key.replace(".bin", "_pickled_priv.bin")
+				print("private_pickled_bin_file is " + private_pickled_bin_file)
+				print("public_pickled_bin_file is " + public_pickled_bin_file)
+			
+				# Deserialize the updated private key + public key from file
+				with open(private_pickled_bin_file, 'rb') as f:
+					priv_key_loaded = pickle.load(f)
+				with open(public_pickled_bin_file, 'rb') as f:
+					pub_key_loaded = pickle.load(f)
+					
+				with open(bin_file_to_sign, "rb") as file:
+					buffer = file.read()
+				# private key is signing the bin_file_to_sign
+				signature = priv_key_loaded.sign(buffer)
+				
+				# verify the signature, if invalid an exception will be raised
+				try:
+					pub_key_loaded.verify(buffer, signature)
+					print("LMS Signature is valid. "+"\x1b[0m")
+
+				except Exception as e:
+					print(f"LMS sig verification failed: {e}")
+					print("Exception details:", e)
+				
+				output_file = open(sig_binary, "w+b")
+				output_file.write(signature)
+				output_file.close()
+				
+			#else: #HSM ---TODO --
+			#concatante the signature to the footer of the output image	
+			output = output + signature	
+		#
+		# shared code for ECC and LMS:
+		#
 		# write the input with the embedded signature to the output file
 		print(("write to output file " + output_filename))
 		output_file = open(output_filename, "w+b")
@@ -468,14 +509,14 @@ def Replace_binary_array(input_file, offset, num, size, bArray, title):
 	os.chdir(currpath)
 
 	
-def Sign_binary(binfile, begin_offset, key, embed_signature, outputFile, TypeOfKey, pinCode , idNum):
+def Sign_binary(binfile, begin_offset, key, embed_signature, outputFile, TypeOfKey, pinCode , idNum ,isECC, isLMS, lms_key):
 
 	
 	print(("\033[93m" + "=========================================================="))
 	print(("== Signing %s  using %s  id %s " % (binfile, key, idNum)))
 	print(("==========================================================" + "\x1b[0m"))
 
-	Sign_binary_openssl_or_HSM(binfile, begin_offset, key, embed_signature, outputFile, TypeOfKey, pinCode,idNum)
+	Sign_binary_openssl_or_HSM(binfile, begin_offset, key, embed_signature, outputFile, TypeOfKey, pinCode,idNum ,isECC, isLMS , lms_key)
 	
 
 if __name__ == "__main__":

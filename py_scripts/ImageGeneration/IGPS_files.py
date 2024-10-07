@@ -133,6 +133,7 @@ kmt_map_xml                           = os.path.join(inputs_dir        , "kmt_ma
 kmt_map_bin                           = os.path.join(tmp_outputs_dir,    "kmt_map.bin")
 
 skmt_map_xml                           = os.path.join(inputs_dir       , "skmt_map.xml")
+skmt_map_lms_xml                       = os.path.join(inputs_dir       , "skmt_map_lms.xml")
 skmt_map_bin                           = os.path.join(tmp_outputs_dir,   "skmt_map.bin")
 
 rsa_key0                               = os.path.join(input_key_dir    , "rsa_key_0.der")
@@ -311,6 +312,15 @@ skmt_key3                              = os.path.join(input_key_dir        , "sk
 id_skmt_key3 = "13"
 skmt_key4                              = os.path.join(input_key_dir        , "skmt_ecc_key_4.der")
 id_skmt_key4 = "14"
+
+skmt_lms_key0                           = os.path.join(input_key_dir    , "lms_key_0.bin")
+id_lms_key0 = "15"
+
+skmt_lms_key1                           = os.path.join(input_key_dir    , "lms_key_1.bin")
+id_lms_key1 = "16"
+
+skmt_lms_key2                           = os.path.join(input_key_dir    , "lms_key_2.bin")
+id_lms_key2 = "17"
 
 # versions_dir                          = os.path.join("ImageGeneration", "versions")
 chip_xml                = os.path.join("versions", "npcm8xx.chip")

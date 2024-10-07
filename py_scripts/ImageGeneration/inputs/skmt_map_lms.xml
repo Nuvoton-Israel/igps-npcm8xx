@@ -1,0 +1,212 @@
+<!-- SPDX-License-Identifier: GPL-2.0
+#
+# Nuvoton IGPS: Image Generation And Programming Scripts For Arbel BMC
+#
+# Copyright (C) 2022 Nuvoton Technologies, All Rights Reserved
+#--------------------------------------------------------------------------->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Bin_Ecc_Map>
+
+
+	<ImageProperties>
+		<BinSize>0</BinSize> <!-- If 0 the binary size will be calculated by the tool -->
+		<PadValue>0</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
+	</ImageProperties>
+	
+<!--********************************************************************* -->
+	<BinField>
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
+		<name>SKMT_Key_Type_0</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>0</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x45</content>  
+	</BinField>	
+	<BinField>
+		<!-- SKMT Key size-->
+		<name>SKMT_Key_Size_0</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>2</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/skmt_ecc_key_0_pub.bin</content>  
+	</BinField>
+	<BinField>
+		<!-- SKMT ECC Key  -->
+		<name>SKMT_Key_0</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>4</offset> 
+			<size format='FileSize'>inputs/key_input/skmt_ecc_key_0_pub.bin</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/skmt_ecc_key_0_pub.bin</content> 
+	</BinField>
+
+
+<!--********************************************************************* -->
+	<BinField>
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
+		<name>SKMT_Key_Type_1</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>100</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x45</content>  
+	</BinField>	
+	<BinField>
+		<!-- SKMT Key size-->
+		<name>SKMT_Key_Size_1</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>102</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/skmt_ecc_key_1_pub.bin</content>  
+	</BinField>
+	<BinField>
+		<!-- SKMT ECC Key  -->
+		<name>SKMT_Key_1</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>104</offset> 
+			<size format='FileSize'>inputs/key_input/skmt_ecc_key_1_pub.bin</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/skmt_ecc_key_1_pub.bin</content> 
+	</BinField>
+	
+	
+<!--********************************************************************* -->
+	<BinField>
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES  , 0x0A-0x6C("\nL") : LMS -->
+		<name>SKMT_Key_Type_2</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>200</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x6c</content>  
+	</BinField>	
+	<BinField>
+		<!-- SKMT Key size-->
+		<name>SKMT_Key_Size_2</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>202</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/lms_key_2_pub.bin</content>  
+	</BinField>
+	<BinField>
+		<!-- SKMT LMS Key  -->
+		<name>SKMT_Key_2</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>204</offset> 
+			<size format='FileSize'>inputs/key_input/lms_key_2_pub.bin</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/lms_key_2_pub.bin</content> 
+	</BinField>
+	
+	
+<!--********************************************************************* -->
+	<BinField>
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
+		<name>SKMT_Key_Type_3</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>300</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x45</content>  
+	</BinField>	
+	<BinField>
+		<!-- SKMT Key size-->
+		<name>SKMT_Key_Size_3</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>302</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/skmt_ecc_key_3_pub.bin</content>  
+	</BinField>
+	<BinField>
+		<!-- SKMT ECC Key  -->
+		<name>SKMT_Key_3</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>304</offset> 
+			<size format='FileSize'>inputs/key_input/skmt_ecc_key_3_pub.bin</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/skmt_ecc_key_3_pub.bin</content> 
+	</BinField>
+	
+<!--************ LAST KEY IS USED FOR MANIFEST ROOT KEY ***************** -->
+	<BinField>
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x41("\nA"): AES  , 0x0A-0x43 ("\nC") Certificate-->
+		<name>SKMT_Key_Type_4</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>400</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x45</content>  
+	</BinField>	
+	<BinField>
+		<!-- SKMT Key size-->
+		<name>SKMT_Key_Size_4</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>402</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/skmt_ecc_key_4_pub.der</content>  
+	</BinField>
+	<BinField>
+		<!-- SKMT ECC Key  -->
+		<name>SKMT_Key_4</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>404</offset> 
+			<size format='FileSize'>inputs/key_input/skmt_ecc_key_4_pub.der</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/skmt_ecc_key_4_pub.der</content> 
+	</BinField>
+	
+<!--********************************************************************* 
+		OPTIONAL: Add RSA key:
+	<BinField>
+		<name>SKMT_Key_Type_5_RSA</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>500</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x52</content>  
+	</BinField>	
+	<BinField>
+		<name>SKMT_Key_Size_5_RSA</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>502</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/rsa_key_0_pub.der</content>  
+	</BinField>
+		<name>SKMT_Key_5_RSA</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>504</offset> 
+			<size format='FileSize'>inputs/key_input/rsa_key_0_pub.der</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/rsa_key_0_pub.der</content> 
+	</BinField>
+	
+-->
+
+</Bin_Ecc_Map>

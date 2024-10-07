@@ -16,6 +16,9 @@ from shutil import rmtree
 from .BinarySignatureGenerator import *
 from .GenerateKeyECC import *
 from .GenerateKeyRSA import *
+from  .key_setting_edit_me import *
+if is_LMS_Keys_Generate:
+	from .GenerateKeyLMS import *
 from .BinaryGenerator import *
 from .CRC32_Generator import *
 
@@ -259,6 +262,25 @@ def Write_key_ind_and_key_mask_to_headers():
 	Replace_binary_single_byte(BL31_AndHeader_bin,     140, ord(skmt_key_which_signs_BL31[-1]) - ord('0'))
 	Replace_binary_single_byte(OpTeeAndHeader_bin,     140, ord(skmt_key_which_signs_OpTee[-1]) - ord('0'))
 	Replace_binary_single_byte(UbootAndHeader_bin,     140, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
+	
+def Write_LMS_flags_to_headers():
+	LMS_kmt = 0x1 if is_LMS_kmt else 0x0
+	LMS_skmt = 0x1 if is_LMS_skmt else 0x0
+	LMS_tip_fw_L0 = 0x1 if is_LMS_tip_fw_L0 else 0x0
+	LMS_tip_fw_L1 = 0x1 if is_LMS_tip_fw_L1 else 0x0
+	LMS_bootblock = 0x1 if is_LMS_bootblock else 0x0
+	LMS_BL31 = 0x1 if is_LMS_BL31 else 0x0
+	LMS_OpTee = 0x1 if is_LMS_OpTee else 0x0
+	LMS_uboot = 0x1 if is_LMS_uboot else 0x0
+
+	Replace_binary_single_byte(KmtAndHeader_bin,       149, LMS_kmt, 0)
+	Replace_binary_single_byte(SkmtAndHeader_bin,      149, LMS_skmt , 0)
+	Replace_binary_single_byte(TipFwAndHeader_L0_bin,  149, LMS_tip_fw_L0, 0)
+	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  149, LMS_tip_fw_L1,0)
+	Replace_binary_single_byte(BootBlockAndHeader_bin, 149, LMS_bootblock, 0)
+	Replace_binary_single_byte(BL31_AndHeader_bin,     149, LMS_BL31, 0)
+	Replace_binary_single_byte(OpTeeAndHeader_bin,     149, LMS_OpTee , 0)
+	Replace_binary_single_byte(UbootAndHeader_bin,     149, LMS_uboot, 0)
 
 
 def Write_timestamp_and_IV_to_headers():
@@ -329,6 +351,10 @@ def MoveToFolder(isPalladium, dstFolder):
 
 def Generate_Or_Load_Keys(TypeOfKey, TypeOfKey_TIP, TypeOfKey_BMC, pinCode):
 	if TypeOfKey != "RemoteHSM":
+		if is_LMS_Keys_Generate:
+			print("Generate SKMT LMS keys")
+			GenerateKeyLMS(skmt_lms_key2, TypeOfKey, pinCode, id_lms_key0)
+
 		print("Generate Manifest RSA keys")
 		GenerateKeyRSA(rsa_key0, TypeOfKey, pinCode, id_rsa_key0)
 		
@@ -352,12 +378,12 @@ def Generate_Or_Load_Keys(TypeOfKey, TypeOfKey_TIP, TypeOfKey_BMC, pinCode):
 	# Generate Key Manifest
 
 	if TypeOfKey != "RemoteHSM":
-		print("Generate KMT keys")
+		print("Generate KMT ECC keys")
 		GenerateKeyECC(kmt_key0, TypeOfKey_TIP, pinCode, id_kmt_key0)
 		GenerateKeyECC(kmt_key1, TypeOfKey_TIP, pinCode, id_kmt_key1)
 	
 	if TypeOfKey != "RemoteHSM":
-		print("Generate SKMT keys")
+		print("Generate SKMT ECC keys")
 		GenerateKeyECC(skmt_key0, TypeOfKey_TIP, pinCode, id_skmt_key0)
 		GenerateKeyECC(skmt_key1, TypeOfKey_BMC, pinCode, id_skmt_key1)
 		GenerateKeyECC(skmt_key2, TypeOfKey_BMC, pinCode, id_skmt_key2)
@@ -439,7 +465,10 @@ def Build_basic_images():
 
 		# Generate kmt and skmt map files (no headers)
 		Generate_binary(kmt_map_xml, kmt_map_tmp_bin)
-		Generate_binary(skmt_map_xml, skmt_map_tmp_bin)
+		if is_LMS_Keys_Generate:
+			Generate_binary(skmt_map_lms_xml, skmt_map_tmp_bin)
+		else:
+			Generate_binary(skmt_map_xml, skmt_map_tmp_bin)
 		
 		Pad_bin_file_inplace(  kmt_map_tmp_bin       ,  32)
 		Pad_bin_file_inplace(  skmt_map_tmp_bin      ,  32)
@@ -518,12 +547,12 @@ def Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16)
 		else:
 			# Sign Images of TIP
-			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]))
-			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
-			Sign_binary(SA_TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, SA_TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
-			Sign_binary(TipFwAndHeader_L0_UT_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_UT_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
-			Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]))
-			Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]))
+			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, is_LMS_kmt, eval(lms_key_which_signs_kmt))
+			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, is_LMS_tip_fw_L0, eval(lms_key_which_signs_tip_fw_L0))
+			Sign_binary(SA_TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, SA_TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
+			Sign_binary(TipFwAndHeader_L0_UT_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_UT_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
+			Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]), isECC, is_LMS_skmt, eval(lms_key_which_signs_skmt))
+			Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]), isECC, is_LMS_tip_fw_L1, eval(lms_key_which_signs_tip_fw_L1))
 			
 			# remove CRC
 			# Note: secure image will hold both CRC and signature, so that same
@@ -562,10 +591,10 @@ def Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 
 		else:
 			# Sign Images of BMC
-			Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
-			Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
-			Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]))
-			Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]))
+			Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]),isECC, is_LMS_bootblock, eval(lms_key_which_signs_bootblock))
+			Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]),isECC, is_LMS_uboot, eval(lms_key_which_signs_uboot))
+			Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]),isECC, is_LMS_OpTee, eval(lms_key_which_signs_OpTee))
+			Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]),isECC, is_LMS_BL31, eval(lms_key_which_signs_BL31))
 
 	except (Exception) as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()

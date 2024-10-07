@@ -83,7 +83,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			Replace_binary_single_byte(KmtAndHeader_bin,       140, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
 			Replace_binary_array(KmtAndHeader_bin,       0xBC, ticks, 4, True, "KMT       add timestamp")
 			CRC32_binary(KmtAndHeader_bin        , 112    , 12     , KmtAndHeader_bin)
-			Sign_binary(KmtAndHeader_bin,       112, eval(otp_key_which_signs_kmt),       16, KmtAndHeader_secure_bin,       TypeOfKey, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]))
+			Sign_binary(KmtAndHeader_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_secure_bin,       TypeOfKey, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, is_LMS_kmt, eval(lms_key_which_signs_kmt[-1]))
 			shutil.copy(KmtAndHeader_secure_bin,            KmtAndHeader_bin)
 			
 		elif (choice == 2):
@@ -105,8 +105,8 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			Replace_binary_array(TipFwAndHeader_L1_bin,  0xBC, ticks, 4, True, "L1        add timestamp")
 			CRC32_binary(TipFwAndHeader_L0_bin      , 112    , 12     , TipFwAndHeader_L0_bin)
 			CRC32_binary(TipFwAndHeader_L1_bin      , 112    , 12     , TipFwAndHeader_L1_bin)
-			Sign_binary(TipFwAndHeader_L0_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_secure_bin,  TypeOfKey, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]))
-			Sign_binary(TipFwAndHeader_L1_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_secure_bin,  TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]))
+			Sign_binary(TipFwAndHeader_L0_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_secure_bin,  TypeOfKey, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]) , isECC, is_LMS_tip_fw_L0, eval(lms_key_which_signs_tip_fw_L0[-1]))
+			Sign_binary(TipFwAndHeader_L1_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_secure_bin,  TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]), isECC, is_LMS_tip_fw_L1, eval(lms_key_which_signs_tip_fw_L1[-1]))
 			shutil.copy(TipFwAndHeader_L0_secure_bin,            TipFwAndHeader_L0_bin)
 			shutil.copy(TipFwAndHeader_L1_secure_bin,            TipFwAndHeader_L1_bin)
 			
@@ -121,7 +121,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 			Replace_binary_single_byte(BootBlockAndHeader_bin, 140, ord(skmt_key_which_signs_bootblock[-1]) - ord('0'))
 			Replace_binary_array(BootBlockAndHeader_bin, 0xBC, ticks, 4, True, "Bootblock add timestamp")
-			Sign_binary(BootBlockAndHeader_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_secure_bin, TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]))
+			Sign_binary(BootBlockAndHeader_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_secure_bin, TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]), isECC, is_LMS_bootblock, eval(lms_key_which_signs_bootblock[-1]))
 			shutil.copy(BootBlockAndHeader_secure_bin,            BootBlockAndHeader_bin)
 			
 		elif (choice == 10):
@@ -146,7 +146,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			if (offset_uboot != 0xFFFFFFFF):
 				Replace_binary_array(UbootAndHeader_bin,     0x1B4, offset_uboot             , 4, True, "uboot reg offset")
 
-			Sign_binary(UbootAndHeader_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]))
+			Sign_binary(UbootAndHeader_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]), isECC, is_LMS_uboot, eval(lms_key_which_signs_uboot[-1]))
 			shutil.copy(UbootAndHeader_secure_bin,            UbootAndHeader_bin)
 			
 		elif (choice == 5):
@@ -170,7 +170,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 
 			Replace_binary_single_byte(BL31_AndHeader_bin,     140, ord(skmt_key_which_signs_BL31[-1]) - ord('0'))
 			Replace_binary_array(BL31_AndHeader_bin,     0xBC, ticks, 4, True, "BL31      add timestamp")
-			Sign_binary(BL31_AndHeader_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]))
+			Sign_binary(BL31_AndHeader_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]), isECC, is_LMS_BL31, eval(lms_key_which_signs_BL31[-1]))
 			shutil.copy(BL31_AndHeader_secure_bin,            BL31_AndHeader_bin)
 			
 		elif (choice == 8):
@@ -186,7 +186,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 
 			Replace_binary_single_byte(OpTeeAndHeader_bin,     140, ord(skmt_key_which_signs_OpTee[-1]) - ord('0'))
 			Replace_binary_array(OpTeeAndHeader_bin,     0xBC, ticks, 4, True, "OpTee     add timestamp")
-			Sign_binary(OpTeeAndHeader_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]))
+			Sign_binary(OpTeeAndHeader_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_secure_bin,     TypeOfKey, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]), isECC, is_LMS_OpTee, eval(lms_key_which_signs_OpTee[-1]))
 			shutil.copy(OpTeeAndHeader_secure_bin,            OpTeeAndHeader_bin)
 			
 		elif (choice == 9):
@@ -199,7 +199,7 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			Replace_binary_array(SkmtAndHeader_bin,      0xBC, ticks, 4, True, "SKMT      add timestamp")
 			
 			CRC32_binary(SkmtAndHeader_bin        , 112    , 12     , SkmtAndHeader_bin)
-			Sign_binary(SkmtAndHeader_bin,       112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_secure_bin,       TypeOfKey, pinCode, eval("id_skmt_key" + kmt_key_which_signs_skmt[-1]))
+			Sign_binary(SkmtAndHeader_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_secure_bin,      TypeOfKey, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]), isECC, is_LMS_skmt, eval(lms_key_which_signs_skmt[-1]))
 			shutil.copy(SkmtAndHeader_secure_bin,            SkmtAndHeader_bin)
 			
 		if (choice != 6):

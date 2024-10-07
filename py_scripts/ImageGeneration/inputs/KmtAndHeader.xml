@@ -135,7 +135,16 @@
 		</config>
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
 	</BinField>
-
+	
+	<BinField>
+		<name>EnableLMS</name> <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<config>
+			<offset>0x95</offset>
+			<size>1</size>
+		</config>
+		<content format='bytes'>0x00</content>     
+	</BinField>
+	
 	<BinField>
 		<name>OtpRevocationVersion</name>   <!--is small or equal to OtpFwVersion , also reffered as NEXT_MINIMAL_OTP_VERSION -->
 		<config>

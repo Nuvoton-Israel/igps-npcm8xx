@@ -22,12 +22,11 @@ from .CRC32_Generator import *
 from .IGPS_files import *
 from .IGPS_common import *
 from .Register_csv_parse import *
-
+from  .key_setting_edit_me import *
 
 def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
-	
 	# in case user wants to use HSM only TIP side images will be signed with HSM. The other images are build with yocto+openssl
 	TypeOfKey_TIP = "HSM"
 	TypeOfKey_BMC = "openssl"
@@ -50,7 +49,9 @@ def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0):
 		Build_basic_images()
 		
 		Write_key_ind_and_key_mask_to_headers()
-
+		
+		Write_LMS_flags_to_headers()
+		
 		Write_timestamp_and_IV_to_headers()
 
 		Uboot_header_embed_pointers_to_all_fw()
@@ -73,7 +74,7 @@ def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0):
 			extract_bin_file_to_sign(UbootAndHeader_basic_bin    , 112)
 
 		else: # all other typeofkey continue to signing
-			Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP, TypeOfKey_BMC)
+			Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP, TypeOfKey_BMC,)
 			Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP, TypeOfKey_BMC)
 			
 		Merge_signed_files(isPalladium, useSignedCombo0)

@@ -107,7 +107,7 @@
 			<offset>0x98</offset>
 			<size>2</size>
 		</config>
-		<content format='bytes'>0x00 0x00</content>               <!-- content the user should fill -->
+		<content format='bytes'>0x01 0x00</content>               <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
