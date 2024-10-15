@@ -62,7 +62,7 @@
 	</BinField>
 	
 	<BinField>
-		<name>EnableLMS</name> <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<name>EnableLMS</name><!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
 			<offset>0x95</offset>
 			<size>1</size>
@@ -105,6 +105,24 @@
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
+	</BinField>
+
+	<BinField>
+		<name>KeyMask_LMS</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<config>
+			<offset>192</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
+	</BinField>
+
+	<BinField>
+		<name>KeyIndex_LMS</name>
+		<config>
+			<offset>196</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
 
 	<BinField>

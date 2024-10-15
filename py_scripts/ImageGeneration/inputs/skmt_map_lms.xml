@@ -83,14 +83,14 @@
 	
 <!--********************************************************************* -->
 	<BinField>
-		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES  , 0x0A-0x6C("\nL") : LMS -->
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
 		<name>SKMT_Key_Type_2</name>
 		<config>
 			<ecc>none</ecc>  
 			<offset>200</offset> 
 			<size>2</size>    
 		</config>
-		<content format='bytes'>0x0A 0x6c</content>  
+		<content format='bytes'>0x0A 0x45</content>  
 	</BinField>	
 	<BinField>
 		<!-- SKMT Key size-->
@@ -100,17 +100,17 @@
 			<offset>202</offset> 
 			<size>2</size>    
 		</config>
-		<content format='FileSize'>inputs/key_input/lms_key_2_pub.bin</content>  
+		<content format='FileSize'>inputs/key_input/skmt_ecc_key_2_pub.bin</content>  
 	</BinField>
 	<BinField>
-		<!-- SKMT LMS Key  -->
+		<!-- SKMT ECC Key  -->
 		<name>SKMT_Key_2</name>
 		<config>
 			<ecc>none</ecc>  
 			<offset>204</offset> 
-			<size format='FileSize'>inputs/key_input/lms_key_2_pub.bin</size> 
+			<size format='FileSize'>inputs/key_input/skmt_ecc_key_2_pub.bin</size> 
 		</config>
-		<content format='FileContent'>inputs/key_input/lms_key_2_pub.bin</content> 
+		<content format='FileContent'>inputs/key_input/skmt_ecc_key_2_pub.bin</content> 
 	</BinField>
 	
 	
@@ -208,5 +208,77 @@
 	</BinField>
 	
 -->
+
+
+
+<!--********************************************************************* -->
+	<BinField>
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): lms   ,   0x0A-0x45("\nA"): AES  , 0x0A-0x6C("\nL") : LMS -->
+		<name>SKMT_Key_Type_5</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>524</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x6c</content>  
+	</BinField>	
+	<BinField>
+		<!-- SKMT Key size-->
+		<name>SKMT_Key_Size_5</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>526</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/skmt_lms_key_5_pub.bin</content>  
+	</BinField>
+	<BinField>
+		<!-- SKMT lms Key  -->
+		<name>SKMT_Key_5</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>528</offset> 
+			<size format='FileSize'>inputs/key_input/skmt_lms_key_5_pub.bin</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/skmt_lms_key_5_pub.bin</content> 
+	</BinField>
+
+
+<!--********************************************************************* -->
+	<BinField>
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): lms   ,   0x0A-0x45("\nA"): AES , 0x0A-0x6C("\nL") : LMS -->
+		<name>SKMT_Key_Type_6</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>584</offset> 
+			<size>2</size>    
+		</config>
+		<content format='bytes'>0x0A 0x6c</content>  
+	</BinField>	
+	<BinField>
+		<!-- SKMT Key size-->
+		<name>SKMT_Key_Size_6</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>586</offset> 
+			<size>2</size>    
+		</config>
+		<content format='FileSize'>inputs/key_input/skmt_lms_key_6_pub.bin</content>  
+	</BinField>
+	<BinField>
+		<!-- SKMT lms Key  -->
+		<name>SKMT_Key_6</name>
+		<config>
+			<ecc>none</ecc>  
+			<offset>588</offset> 
+			<size format='FileSize'>inputs/key_input/skmt_lms_key_6_pub.bin</size> 
+		</config>
+		<content format='FileContent'>inputs/key_input/skmt_lms_key_6_pub.bin</content> 
+	</BinField>
+	
+	
+<!--********************************************************************* -->
+
+	
 
 </Bin_Ecc_Map>

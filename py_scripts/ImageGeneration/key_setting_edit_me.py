@@ -42,24 +42,21 @@ is_LMS_uboot = False
 # is_LMS_Keys_Generate can be true, even when is_LMS_<image> is false. However if is_LMS_<image> is true, is_LMS_Keys_Generate must be true as well , since it's not possible to verify with LMS key without creating the key (vice versa is allowed)
 is_LMS_Keys_Generate = False
 
-#
-# Currently key selection is hard coded to key2 in TIP_FW
-#
-lms_key_which_signs_kmt         = "skmt_lms_key2"
+lms_key_which_signs_kmt         = "otp_lms_key2"
 
-lms_key_which_signs_tip_fw_L0   = "skmt_lms_key2"
+lms_key_which_signs_tip_fw_L0   = "kmt_lms_key2"
 
-lms_key_which_signs_skmt        = "skmt_lms_key2"
+lms_key_which_signs_skmt        = "kmt_lms_key3"
 
-lms_key_which_signs_tip_fw_L1   = "skmt_lms_key2"
+lms_key_which_signs_tip_fw_L1   = "skmt_lms_key5"
 
-lms_key_which_signs_bootblock   = "skmt_lms_key2"
+lms_key_which_signs_bootblock   = "skmt_lms_key6"
 
-lms_key_which_signs_BL31        = "skmt_lms_key2"
+lms_key_which_signs_BL31        = "skmt_lms_key6"
 
-lms_key_which_signs_OpTee       = "skmt_lms_key2"
+lms_key_which_signs_OpTee       = "skmt_lms_key6"
 
-lms_key_which_signs_uboot       = "skmt_lms_key2"
+lms_key_which_signs_uboot       = "skmt_lms_key6"
 
 # to put manifests after L1: select 2048*1024.
 # to put manifests at the end of flash: select 512*1024.

@@ -25,7 +25,7 @@
 	</BinField>
 
 	<BinField>
-		<name>KeyMask</name>    <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<name>KeyMask</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
 			<offset>0x88</offset>
 			<size>4</size>
@@ -77,6 +77,26 @@
 			<size>0x4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content> <!-- do not change, IGPS will add timestamp to all binaries -->
+	</BinField>
+
+	<!-- ==============      Start UBOOT SPECIFIC PARAMETERS ================  -->
+	<!-- uboot only parameters placeholder, do not change. IGPS will embed the values during build -->
+	<BinField>
+		<name>KeyMask_LMS</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<config>
+			<offset>192</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
+	</BinField>
+
+	<BinField>
+		<name>KeyIndex_LMS</name>
+		<config>
+			<offset>196</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
 
 	<!-- ==============      Start UBOOT SPECIFIC PARAMETERS ================  -->

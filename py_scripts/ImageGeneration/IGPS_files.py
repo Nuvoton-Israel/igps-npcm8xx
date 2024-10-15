@@ -130,6 +130,7 @@ UbootAndHeader_basic_bin              = os.path.join(basic_outputs_dir , "UbootA
 UbootAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "UbootAndHeader.bin")
 
 kmt_map_xml                           = os.path.join(inputs_dir        , "kmt_map.xml")
+kmt_map_lms_xml                       = os.path.join(inputs_dir        , "kmt_map_lms.xml")
 kmt_map_bin                           = os.path.join(tmp_outputs_dir,    "kmt_map.bin")
 
 skmt_map_xml                           = os.path.join(inputs_dir       , "skmt_map.xml")
@@ -297,10 +298,21 @@ id_otp_key7 = "7"
 otp_key8  = os.path.join(input_key_dir, "otp_ecc_key_8.der")
 id_otp_key8 = "15"
 
+otp_lms_key1  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
+id_otp_key1 = "22"
+
+otp_lms_key2  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
+id_otp_key2 = "23"
+
 kmt_key0                              = os.path.join(input_key_dir        , "kmt_ecc_key_0.der")
 id_kmt_key0 = "8"
 kmt_key1                              = os.path.join(input_key_dir        , "kmt_ecc_key_1.der")
 id_kmt_key1 = "9"
+
+kmt_lms_key2                              = os.path.join(input_key_dir        , "kmt_lms_key_2.bin")
+id_lms_kmt_key0 = "20"
+kmt_lms_key3                             = os.path.join(input_key_dir        , "kmt_lms_key_3.bin")
+id_lms_kmt_key1 = "21"
 
 skmt_key0                              = os.path.join(input_key_dir        , "skmt_ecc_key_0.der")
 id_skmt_key0 = "10"
@@ -313,14 +325,12 @@ id_skmt_key3 = "13"
 skmt_key4                              = os.path.join(input_key_dir        , "skmt_ecc_key_4.der")
 id_skmt_key4 = "14"
 
-skmt_lms_key0                           = os.path.join(input_key_dir    , "lms_key_0.bin")
-id_lms_key0 = "15"
+skmt_lms_key5                           = os.path.join(input_key_dir    , "skmt_lms_key_5.bin")
+id_skmt_lms_key0 = "15"
 
-skmt_lms_key1                           = os.path.join(input_key_dir    , "lms_key_1.bin")
-id_lms_key1 = "16"
+skmt_lms_key6                           = os.path.join(input_key_dir    , "skmt_lms_key_6.bin")
+id_skmt_lms_key1 = "16"
 
-skmt_lms_key2                           = os.path.join(input_key_dir    , "lms_key_2.bin")
-id_lms_key2 = "17"
 
 # versions_dir                          = os.path.join("ImageGeneration", "versions")
 chip_xml                = os.path.join("versions", "npcm8xx.chip")

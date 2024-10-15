@@ -70,6 +70,24 @@
 	</BinField>
 
 	<BinField>
+		<name>KeyMask_LMS</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<config>
+			<offset>192</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
+	</BinField>
+
+	<BinField>
+		<name>KeyIndex_LMS</name>
+		<config>
+			<offset>196</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
+	</BinField>
+
+	<BinField>
 		<!-- Offset of registers table. This field is written automatically by IGPS -->
 		<name>Regs_offset_do_not_edit</name>
 		<config>
