@@ -299,10 +299,10 @@ otp_key8  = os.path.join(input_key_dir, "otp_ecc_key_8.der")
 id_otp_key8 = "15"
 
 otp_lms_key1  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
-id_otp_key1 = "22"
+id_lms_otp_key1 = "22"
 
 otp_lms_key2  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
-id_otp_key2 = "23"
+id_lms_otp_key2 = "23"
 
 kmt_key0                              = os.path.join(input_key_dir        , "kmt_ecc_key_0.der")
 id_kmt_key0 = "8"
