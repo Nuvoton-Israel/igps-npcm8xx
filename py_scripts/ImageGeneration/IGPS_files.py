@@ -298,10 +298,10 @@ id_otp_key7 = "7"
 otp_key8  = os.path.join(input_key_dir, "otp_ecc_key_8.der")
 id_otp_key8 = "15"
 
-otp_lms_key1  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
+otp_lms_key0  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
 id_lms_otp_key1 = "22"
 
-otp_lms_key2  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
+otp_lms_key1  = os.path.join(input_key_dir, "otp_lms_key_1.bin")
 id_lms_otp_key2 = "23"
 
 kmt_key0                              = os.path.join(input_key_dir        , "kmt_ecc_key_0.der")
@@ -309,9 +309,9 @@ id_kmt_key0 = "8"
 kmt_key1                              = os.path.join(input_key_dir        , "kmt_ecc_key_1.der")
 id_kmt_key1 = "9"
 
-kmt_lms_key2                              = os.path.join(input_key_dir        , "kmt_lms_key_2.bin")
+kmt_lms_key0                              = os.path.join(input_key_dir        , "kmt_lms_key_0.bin")
 id_lms_kmt_key0 = "20"
-kmt_lms_key3                             = os.path.join(input_key_dir        , "kmt_lms_key_3.bin")
+kmt_lms_key1                             = os.path.join(input_key_dir        , "kmt_lms_key_1.bin")
 id_lms_kmt_key1 = "21"
 
 skmt_key0                              = os.path.join(input_key_dir        , "skmt_ecc_key_0.der")

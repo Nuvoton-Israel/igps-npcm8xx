@@ -59,18 +59,18 @@
 
 	<BinField>
 		<!-- LMS Key  -->
-		<name>LMS_Key_2</name>         <!-- name of field -->
+		<name>LMS_Key_0</name>         <!-- name of field -->
 		<config>
 			<ecc>secded</ecc>           <!-- ECC method: majority, nibble, 10_bits_majority, none -->
 			<offset>256</offset>            <!-- offset in the bin array -->
 			<size>56</size>                <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/key_input/kmt_lms_key_2_pub.bin</content>                <!-- content the user should fill -->
+		<content format='FileContent'>inputs/key_input/kmt_lms_key_0_pub.bin</content>                <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
 		<!-- LMS Key valid\invalid\unused  (0xAA - Key Valid,  -->
-		<name>LMS_Key_2_valid</name>         <!-- name of field -->
+		<name>LMS_Key_0_valid</name>         <!-- name of field -->
 		<config>
 			<ecc>nibble</ecc>           <!-- ECC method: majority, nibble, 10_bits_majority, none -->
 			<offset>334</offset>            <!-- offset in the bin array -->
@@ -81,18 +81,18 @@
 
 	<BinField>
 		<!-- LMS Key  -->
-		<name>LMS_Key_3</name>         <!-- name of field -->
+		<name>LMS_Key_1</name>         <!-- name of field -->
 		<config>
 			<ecc>secded</ecc>           <!-- ECC method: majority, nibble, 10_bits_majority, none -->
 			<offset>336</offset>            <!-- offset in the bin array -->
 			<size>56</size>                <!-- size in the header calculated by tool-->
 		</config>
-		<content format='FileContent'>inputs/key_input/kmt_lms_key_3_pub.bin</content>                <!-- content the user should fill -->
+		<content format='FileContent'>inputs/key_input/kmt_lms_key_1_pub.bin</content>                <!-- content the user should fill -->
 	</BinField>
 
 	<BinField>
 		<!-- LMS Key valid\invalid\unused  (0xAA - Key Valid,  -->
-		<name>LMS_Key_3_valid</name>         <!-- name of field -->
+		<name>LMS_Key_1_valid</name>         <!-- name of field -->
 		<config>
 			<ecc>nibble</ecc>           <!-- ECC method: majority, nibble, 10_bits_majority, none -->
 			<offset>414</offset>            <!-- offset in the bin array -->

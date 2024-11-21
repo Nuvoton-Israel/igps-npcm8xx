@@ -7,7 +7,7 @@
 ----------------------------------------------------------------------
 
 # NPCM8XX bootBlock Package Release Letter
-Version: 00.05.02
+Version: 00.05.03
 Date:    Sep 2024
 
 
@@ -56,6 +56,18 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
+version 0.5.3     - Nov 11th 2024
+============
+- Fix MC trim override options.
+- Reduce stack to leave TIP_FW some memory.
+- Define region for hardening table.
+- MC: optimize register print function.
+- Zero the stack.
+- Add an option stack profiler (compilation flag).
+- Add an optional compilation flag for SORT. If it's set then fail boot if sweep fails (eye_size smaller then 12) 
+
+# HISTORY
+---------------
 version 0.5.2     - Sep 15th 2024
 ============
 - Bug fix: Errata fix: 1.7 eSPI FATAL_ERROR: Set ESPI_ESPI_ENG to 0x40 (remove RMW to set bit 6).
@@ -63,8 +75,6 @@ version 0.5.2     - Sep 15th 2024
 - In case of traps and unexpected IRQs and FIQ: clear GIC registers.
 - In case of TRAP: notify TIP (TIP mode), or FSW (NO_TIP mode).
 
-# HISTORY
----------------
 version 0.5.1     - Aug 1st 2024
 ============
 - Improve boot speed. 1.8 sec 1GB no ECC, 2 sec with ECC.

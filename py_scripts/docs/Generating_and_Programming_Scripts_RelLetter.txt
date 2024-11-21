@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.02.04
-Date:     Oct 2024
+Version:  04.02.06
+Date:     Nov 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,38 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.2.6                 - Nov 12      2024
+============
+- bootblock 0.5.3
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.3
+    * MC: enforce requirement for sweep eye size must be greater then 13 steps. Otherwise training will fail.
+    * Fix MC trim override options.
+    * Add compilation flag for SORT. If it's set then fail boot if sweep fails (eye_size smaller then 12)
+    * Reduce stack to leave TIP_FW some memory.
+    * Define region for hardening table.
+    * Clear stack.
+    * Add an option stack profiler (compilation flag).
+
+- Bootblock XML: enable by default IN DQS sweep (SWEEP_MAIN_FLOW = 0x17)
+- Bootblock XML: MC_DLLS_TRIM_CLK description fix: bit 7 is inc\dec
+- Bootblock XML: for SVB: reduce speed for MC to 800MHz.
+- Bug fix: for HSM sign with ECC key, not LMS (id_otp_key1 was override).
+- TIP_FW 0.7.6 L0 0.6.5 L1
+     https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.6_L0_0.6.5_L1
+    * Enable LMS.
+    * LMS: use keys with W4, rather than W8.
+    * Increase stack for bmc_task.
+    * notifications: remove retry (legacy from Poleg).
+    * L1 signed with key 0 only.
+    * Bug fix: export function for combo 1 measurements.
+
+- LMS scripts:
+    * Create keys with W4, rather than W8.
+    * "is_LMS_Keys_Generate"- changed its name to "isLMS", since it does more than just creating the keys, it is an enable flag for lms.
+    * Updated OTP and KMT keys indices to be the same as ECC, and not the sequent. 
+
+HISTORY
+-------
 IGPS 4.2.4                 - Oct 15      2024
 ============
 - LMS:
@@ -161,8 +193,6 @@ IGPS 4.2.4                 - Oct 15      2024
     * Bug fix: after 3 WD1 resets (not 2) in under 10 minutes go to recovery.
     * Bug fix: L0 measurements and attestation hash recalc.
 
-HISTORY
--------
 IGPS 04.02.03              - Oct 6th     2024
 ============
 - 0.7.4 L0 0.6.3 L1

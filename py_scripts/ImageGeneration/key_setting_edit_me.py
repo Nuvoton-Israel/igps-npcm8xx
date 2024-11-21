@@ -26,9 +26,6 @@ skmt_key_which_signs_uboot       = "skmt_key1"
 
 isECC = True
 
-# 
-# LMS on combo 0 is currently not supported
-#
 is_LMS_kmt = False
 is_LMS_tip_fw_L0 = False
 is_LMS_skmt = False
@@ -39,14 +36,14 @@ is_LMS_BL31 = False
 is_LMS_OpTee = False
 is_LMS_uboot = False
 
-# is_LMS_Keys_Generate can be true, even when is_LMS_<image> is false. However if is_LMS_<image> is true, is_LMS_Keys_Generate must be true as well , since it's not possible to verify with LMS key without creating the key (vice versa is allowed)
-is_LMS_Keys_Generate = False
+# isLMS can be true, even when is_LMS_<image> is false. However if is_LMS_<image> is true, isLMS must be true as well , since it's not possible to verify with LMS key without creating the key (vice versa is allowed)
+isLMS = False
 
-lms_key_which_signs_kmt         = "otp_lms_key2"
+lms_key_which_signs_kmt         = "otp_lms_key1"
 
-lms_key_which_signs_tip_fw_L0   = "kmt_lms_key2"
+lms_key_which_signs_tip_fw_L0   = "kmt_lms_key0"
 
-lms_key_which_signs_skmt        = "kmt_lms_key3"
+lms_key_which_signs_skmt        = "kmt_lms_key1"
 
 lms_key_which_signs_tip_fw_L1   = "skmt_lms_key5"
 

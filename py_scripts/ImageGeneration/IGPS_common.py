@@ -17,7 +17,7 @@ from .BinarySignatureGenerator import *
 from .GenerateKeyECC import *
 from .GenerateKeyRSA import *
 from  .key_setting_edit_me import *
-if is_LMS_Keys_Generate:
+if isLMS:
 	from .GenerateKeyLMS import *
 from .BinaryGenerator import *
 from .CRC32_Generator import *
@@ -306,7 +306,7 @@ def Write_key_ind_and_key_mask_to_headers():
 
 def Write_LMS_flags_to_headers():
 
-	if is_LMS_Keys_Generate:
+	if isLMS:
 		#LMS_KMO - the place in kmt header, address 128-129, in which the content should be 128* num of ECC keys, which is the offset of the first LMS KMT key in kmt LMS map xml 
 		file_size = os.stat(kmt_map_tmp_bin).st_size #file_size =  128 * X + 80* X = (128+80) * X = 208 * X
 		num_of_keys =  file_size // 208 
@@ -406,14 +406,14 @@ def MoveToFolder(isPalladium, dstFolder):
 
 def Generate_Or_Load_Keys(TypeOfKey, TypeOfKey_TIP, TypeOfKey_BMC, pinCode):
 	if TypeOfKey != "RemoteHSM":
-		if is_LMS_Keys_Generate:
+		if isLMS:
 			print("Generate SKMT LMS keys")
-			GenerateKeyLMS(otp_lms_key2,  TypeOfKey_TIP, pinCode, id_otp_key2)
+			GenerateKeyLMS(otp_lms_key1,  TypeOfKey_TIP, pinCode, id_otp_key2)
 			GenerateKeyLMS(skmt_lms_key5, TypeOfKey_TIP, pinCode, id_skmt_lms_key0)
 			GenerateKeyLMS(skmt_lms_key6, TypeOfKey_BMC, pinCode, id_skmt_lms_key1)
 			print("Generate KMT LMS keys")
-			GenerateKeyLMS(kmt_lms_key2, TypeOfKey_TIP, pinCode, id_kmt_key0)
-			GenerateKeyLMS(kmt_lms_key3, TypeOfKey_TIP, pinCode, id_kmt_key1)
+			GenerateKeyLMS(kmt_lms_key0, TypeOfKey_TIP, pinCode, id_kmt_key0)
+			GenerateKeyLMS(kmt_lms_key1, TypeOfKey_TIP, pinCode, id_kmt_key1)
 	
 		print("Generate Manifest RSA keys")
 		GenerateKeyRSA(rsa_key0, TypeOfKey, pinCode, id_rsa_key0)
@@ -524,7 +524,7 @@ def Build_basic_images():
 		Pad_bin_file_inplace(  CP_FW_bin      ,  32)
 
 		# Generate kmt and skmt map files (no headers)		
-		if is_LMS_Keys_Generate:
+		if isLMS:
 			Generate_binary(kmt_map_lms_xml, kmt_map_tmp_bin)
 			Generate_binary(skmt_map_lms_xml, skmt_map_tmp_bin)
 		else:
@@ -608,12 +608,12 @@ def Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16)
 		else:
 			# Sign Images of TIP
-			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, is_LMS_Keys_Generate, eval(lms_key_which_signs_kmt))
-			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, is_LMS_Keys_Generate, eval(lms_key_which_signs_tip_fw_L0))
+			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, isLMS, eval(lms_key_which_signs_kmt))
+			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, isLMS, eval(lms_key_which_signs_tip_fw_L0))
 			Sign_binary(SA_TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, SA_TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
 			Sign_binary(TipFwAndHeader_L0_UT_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_UT_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
-			Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]), isECC, is_LMS_Keys_Generate, eval(lms_key_which_signs_skmt))
-			Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]), isECC, is_LMS_Keys_Generate, eval(lms_key_which_signs_tip_fw_L1))
+			Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]), isECC, isLMS, eval(lms_key_which_signs_skmt))
+			Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]), isECC, isLMS, eval(lms_key_which_signs_tip_fw_L1))
 			
 			# remove CRC
 			# Note: secure image will hold both CRC and signature, so that same

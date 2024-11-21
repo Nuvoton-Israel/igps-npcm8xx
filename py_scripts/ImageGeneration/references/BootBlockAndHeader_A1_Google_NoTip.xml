@@ -449,8 +449,8 @@
 
 	<BinField>
 		<!-- Override for debug only:
-			bit 6 : incr\dec
-			bits [5:0] TRIM value -->
+			bit 7 : incr\dec
+			bits [6:0] TRIM value -->
 		<name>MC_DLLS_TRIM_CLK</name>
 		<config>
 			<offset>0x13C</offset>
@@ -691,7 +691,7 @@
 			<offset>0x14E</offset>
 			<size>0x1</size>
 		</config>
-		<content format='32bit'>0x07</content>
+		<content format='32bit'>0x17</content>
 	</BinField>
 
 	<BinField>
