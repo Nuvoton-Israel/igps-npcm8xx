@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.02.06
-Date:     Nov 2024
+Version:  04.02.07
+Date:     Dec 2024
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,21 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.2.7                 - Dec 10      2024
+============
+- bootblock 0.5.4
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.4
+    * Add two new header fields:
+      - pll0_override: can be used to set pll0, unless CPU != MC frequency. In this case override would fail.
+      - i3c divider. once it's set PCI root complex will not function anymore. Recommendation for I3C users: set CPU = MC = 1000, pll0_override = 625, i3c_div = 13. For RC users: pll0_override = 0, i3c_div = 0xFF.
+    * Add MC support for 300MHz.
+    * Add CPU support for 325MHz, 625MHz.
+- XML: add field for pll0_override and i3c_div. BootBlockAndHeader_A1_MS.xml will set I3C at 48MHz. 
+  All other XMLs set to 100MHz needed for Root Complex.
+- Put all LMS keys as place-holder, both in the fuse XML and in the folder.
+
+HISTORY
+-------
 IGPS 4.2.6                 - Nov 12      2024
 ============
 - bootblock 0.5.3
@@ -178,8 +193,6 @@ IGPS 4.2.6                 - Nov 12      2024
     * "is_LMS_Keys_Generate"- changed its name to "isLMS", since it does more than just creating the keys, it is an enable flag for lms.
     * Updated OTP and KMT keys indices to be the same as ECC, and not the sequent. 
 
-HISTORY
--------
 IGPS 4.2.4                 - Oct 15      2024
 ============
 - LMS:

@@ -3,7 +3,7 @@
 #
 # Nuvoton IGPS: Image Generation And Programming Scripts For Arbel BMC
 #
-# Copyright (C) 2022 Nuvoton Technologies, All Rights Reserved
+# Copyright (C) 2024 Nuvoton Technologies, All Rights Reserved
 #======================================== -->
 
 
@@ -149,7 +149,7 @@
 		<content format='32bit'>800</content>
 	</BinField>
 	<BinField>
-		<!-- supporeted values: 333,500,600,666,700,720,750,800,825,850,900,950,1000.
+		<!-- supporeted values: 325,333,500,600,625,666,700,720,750,800,825,850,900,950,1000.
 		     Recommended: 1000. Note: not all values are tested -->
 		<name>CPU_FREQ_IN_MHZ</name>
 		<config>
@@ -765,6 +765,28 @@
 		<config>
 			<offset>0x151</offset>
 			<size>0x1</size>
+		</config>
+		<content format='32bit'>0</content>
+	</BinField>
+	
+	<BinField>
+		<!-- I3C clk divider. values from 1..16. For I3C : PLL0_OVERRIDE = 625, i3c_div = 13. -->
+		<name>I3C_CLK_DIVIDER</name>
+		<config>
+			<offset>0x153</offset>
+			<size>0x1</size>
+		</config>
+		<content format='32bit'>0xFF</content>
+	</BinField>
+	
+	<BinField>
+		<!-- PLL0 override. 0, or 0xFFFFFFFF are ignored. override is only possible if CPU == MC frequency. 
+		     supported values: 325,333,500,600,625,666,700,720,750,800,825,850,900,950,1000.
+		     Recommended: 625. Note: not all values are tested -->
+		<name>PLL0_OVERRIDE</name>
+		<config>
+			<offset>0x198</offset>
+			<size>0x4</size>
 		</config>
 		<content format='32bit'>0</content>
 	</BinField>

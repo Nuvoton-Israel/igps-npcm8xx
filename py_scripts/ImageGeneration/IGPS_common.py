@@ -267,40 +267,32 @@ def Write_key_ind_and_key_mask_to_headers():
 
 	# LMS :
 	# Put the key index number inside the header at offset 196 and the key mask at 192
-	
-	if is_LMS_kmt:
+	if isLMS:
 		Replace_binary_single_byte(KmtAndHeader_bin,        192, 2**(ord(lms_key_which_signs_kmt[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(KmtAndHeader_bin,        196, ord(lms_key_which_signs_kmt[-1]) - ord('0'))
 		
-	if is_LMS_tip_fw_L0:
 		Replace_binary_single_byte(TipFwAndHeader_L0_bin,   192, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,192, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,192, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(TipFwAndHeader_L0_bin,   196, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0'))
 		Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,196, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0'))
 		Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,196, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')) 
-		
-	if is_LMS_skmt:
+
 		Replace_binary_single_byte(SkmtAndHeader_bin,      192, 2**(ord(lms_key_which_signs_skmt[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(SkmtAndHeader_bin,      196, ord(lms_key_which_signs_skmt[-1]) - ord('0'))
 
-	if is_LMS_tip_fw_L1:
 		Replace_binary_single_byte(TipFwAndHeader_L1_bin,  192, 2**(ord(lms_key_which_signs_tip_fw_L1[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(TipFwAndHeader_L1_bin,  196, ord(lms_key_which_signs_tip_fw_L1[-1]) - ord('0'))
 
-	if is_LMS_bootblock:
 		Replace_binary_single_byte(BootBlockAndHeader_bin, 192, 2**(ord(lms_key_which_signs_bootblock[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(BootBlockAndHeader_bin, 196, ord(lms_key_which_signs_bootblock[-1]) - ord('0'))
 
-	if is_LMS_BL31:
 		Replace_binary_single_byte(BL31_AndHeader_bin,     192, 2**(ord(lms_key_which_signs_BL31[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(BL31_AndHeader_bin,     196, ord(lms_key_which_signs_BL31[-1]) - ord('0'))
 
-	if is_LMS_OpTee:
 		Replace_binary_single_byte(OpTeeAndHeader_bin,     192, 2**(ord(lms_key_which_signs_OpTee[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(OpTeeAndHeader_bin,     196, ord(lms_key_which_signs_OpTee[-1]) - ord('0'))
 
-	if is_LMS_uboot:
 		Replace_binary_single_byte(UbootAndHeader_bin,     192, 2**(ord(lms_key_which_signs_uboot[-1]) - ord('0')), 1)
 		Replace_binary_single_byte(UbootAndHeader_bin,     196, ord(lms_key_which_signs_uboot[-1]) - ord('0'))
 
@@ -408,7 +400,16 @@ def Generate_Or_Load_Keys(TypeOfKey, TypeOfKey_TIP, TypeOfKey_BMC, pinCode):
 	if TypeOfKey != "RemoteHSM":
 		if isLMS:
 			print("Generate SKMT LMS keys")
-			GenerateKeyLMS(otp_lms_key1,  TypeOfKey_TIP, pinCode, id_otp_key2)
+			GenerateKeyLMS(otp_lms_key0,  TypeOfKey_TIP, pinCode, id_lms_otp_key0)
+			GenerateKeyLMS(otp_lms_key1,  TypeOfKey_TIP, pinCode, id_lms_otp_key1)
+			GenerateKeyLMS(otp_lms_key2,  TypeOfKey_TIP, pinCode, id_lms_otp_key2)
+			GenerateKeyLMS(otp_lms_key3,  TypeOfKey_TIP, pinCode, id_lms_otp_key3)
+			GenerateKeyLMS(otp_lms_key4,  TypeOfKey_TIP, pinCode, id_lms_otp_key4)
+			GenerateKeyLMS(otp_lms_key5,  TypeOfKey_TIP, pinCode, id_lms_otp_key5)
+			GenerateKeyLMS(otp_lms_key6,  TypeOfKey_TIP, pinCode, id_lms_otp_key6)
+			GenerateKeyLMS(otp_lms_key7,  TypeOfKey_TIP, pinCode, id_lms_otp_key7)
+			GenerateKeyLMS(otp_lms_key8,  TypeOfKey_TIP, pinCode, id_lms_otp_key8)
+			
 			GenerateKeyLMS(skmt_lms_key5, TypeOfKey_TIP, pinCode, id_skmt_lms_key0)
 			GenerateKeyLMS(skmt_lms_key6, TypeOfKey_BMC, pinCode, id_skmt_lms_key1)
 			print("Generate KMT LMS keys")

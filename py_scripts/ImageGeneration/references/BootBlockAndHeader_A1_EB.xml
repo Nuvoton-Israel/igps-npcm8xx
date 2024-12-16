@@ -100,6 +100,24 @@
 
 
 	<BinField>
+		<name>KeyMask_LMS</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
+		<config>
+			<offset>192</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
+	</BinField>
+
+	<BinField>
+		<name>KeyIndex_LMS</name>
+		<config>
+			<offset>196</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
+	</BinField>
+
+	<BinField>
 		<!-- Board manufaturer ( Dell = 0, Nuvoton = 100, Google = 1, MS = 2) -->
 		<name>vendor</name>
 		<config>
@@ -127,10 +145,10 @@
 			<offset>0x10C</offset>
 			<size>0x2</size>
 		</config>
-		<content format='32bit'>1050</content>
+		<content format='32bit'>1000</content>
 	</BinField>
 	<BinField>
-		<!-- supporeted values: 333,500,600,666,700,720,750,800,825,850,900,950,1000.
+		<!-- supporeted values: 325,333,500,600,625,666,700,720,750,800,825,850,900,950,1000.
 		     Recommended: 1000. Note: not all values are tested -->
 		<name>CPU_FREQ_IN_MHZ</name>
 		<config>
@@ -329,7 +347,7 @@
 		<content format='32bit'>0</content>    <!-- content the user should fill -->
 	</BinField>
 	
-		<BinField>
+	<BinField>
 		<!--  -->
 		<name>NoECC_Region_7_Start</name>    <!-- 1MB granularity -->
 		<config>
@@ -746,6 +764,28 @@
 		<config>
 			<offset>0x151</offset>
 			<size>0x1</size>
+		</config>
+		<content format='32bit'>0</content>
+	</BinField>
+	
+	<BinField>
+		<!-- I3C clk divider. values from 1..16. For I3C : PLL0_OVERRIDE = 625, i3c_div = 13. -->
+		<name>I3C_CLK_DIVIDER</name>
+		<config>
+			<offset>0x153</offset>
+			<size>0x1</size>
+		</config>
+		<content format='32bit'>0xFF</content>
+	</BinField>
+	
+	<BinField>
+		<!-- PLL0 override. 0, or 0xFFFFFFFF are ignored. override is only possible if CPU == MC frequency. 
+		     supported values: 325,333,500,600,625,666,700,720,750,800,825,850,900,950,1000.
+		     Recommended: 625. Note: not all values are tested -->
+		<name>PLL0_OVERRIDE</name>
+		<config>
+			<offset>0x198</offset>
+			<size>0x4</size>
 		</config>
 		<content format='32bit'>0</content>
 	</BinField>
