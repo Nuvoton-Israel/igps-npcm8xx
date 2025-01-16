@@ -279,6 +279,7 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 
 		if (isLMS == True):
 			if (TypeOfKey == "openssl"):
+				bin_file_to_sign_hashed = bin_file_to_sign.replace(".bin", "_hashed.bin")
 				print("\033[95m" + "bin_file_to_sign is " + bin_file_to_sign)
 				sig_binary = output_filename.replace(".bin", "_sig.bin")
 				public_pickled_bin_file = lms_key.replace(".bin" , "_pickled_pub.bin")
@@ -291,8 +292,12 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 					priv_key_loaded = pickle.load(f)
 				with open(public_pickled_bin_file, 'rb') as f:
 					pub_key_loaded = pickle.load(f)
-					
-				with open(bin_file_to_sign, "rb") as file:
+				#sha 512 the input image and save it before signing it
+				cmd = "%s dgst -sha512 -binary -out \"%s\" \"%s\"" \
+				% (_openssl, bin_file_to_sign_hashed, bin_file_to_sign)
+				executeCMD(cmd)
+				
+				with open(bin_file_to_sign_hashed, "rb") as file:
 					buffer = file.read()
 				# private key is signing the bin_file_to_sign
 				signature = priv_key_loaded.sign(buffer)

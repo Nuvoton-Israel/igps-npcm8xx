@@ -5,8 +5,8 @@ Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.02.07
-Date:     Dec 2024
+Version:  04.02.09
+Date:     Jan 2025
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,32 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.2.9                 - Jan 16th      2025
+============
+- TIP_FW 0.7.8 L0 0.6.7 L1
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.8_L0_0.6.7_L1
+    * Add command for DRBG from BMC to TIP.
+    * Add to TIP_FW 'SystemControlFlags' flag to enable\disable features in TIP_FW: currently 3 bits: tip_recovery_force, tip_start_wd, tip_support_encryption
+    * Disable flash protection.
+    * Disable WOL.
+
+- Add to TIP_FW L1 XML 'SystemControlFlags' flag to enable\disable features in TIP_FW
+- Fixed default OTP LMS key0.
+- Optimize signing time for LMS.
+- Combo 1 : If LMS enabled all components are signed.
+
+HISTORY
+-------
+IGPS 4.2.8                 - Jan 2      2025
+============
+- A3 scripts
+- LMS signing : instead of signing the images as is, first run digest sha512 on them (same as ECC), and then sign the *digested-sha512* image 
+- TIP_FW 0.7.7 L0 0.6.6 L1 
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.7_L0_0.6.6_L1
+	* LMS: verify digest of image, and not image directly.
+	* GPIO WOL, included, not enabled.
+	* Added ENABLE_RESET_COUNTER_CACHE feature to keep track of reset counter inside a scrachpad.
+
 IGPS 4.2.7                 - Dec 10      2024
 ============
 - bootblock 0.5.4
@@ -161,8 +187,6 @@ IGPS 4.2.7                 - Dec 10      2024
   All other XMLs set to 100MHz needed for Root Complex.
 - Put all LMS keys as place-holder, both in the fuse XML and in the folder.
 
-HISTORY
--------
 IGPS 4.2.6                 - Nov 12      2024
 ============
 - bootblock 0.5.3

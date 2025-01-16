@@ -653,10 +653,10 @@ def Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 
 		else:
 			# Sign Images of BMC
-			Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]),isECC, is_LMS_bootblock, eval(lms_key_which_signs_bootblock))
-			Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]),isECC, is_LMS_uboot, eval(lms_key_which_signs_uboot))
-			Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]),isECC, is_LMS_OpTee, eval(lms_key_which_signs_OpTee))
-			Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]),isECC, is_LMS_BL31, eval(lms_key_which_signs_BL31))
+			Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]),isECC, isLMS, eval(lms_key_which_signs_bootblock))
+			Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]),isECC, isLMS, eval(lms_key_which_signs_uboot))
+			Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]),isECC, isLMS, eval(lms_key_which_signs_OpTee))
+			Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]),isECC, isLMS, eval(lms_key_which_signs_BL31))
 
 	except (Exception) as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()

@@ -364,15 +364,19 @@ bin_registers_uboot     = os.path.join("output_binaries", "regs", "registers_ubo
 
 from  .key_setting_edit_me import *
 
-def CheckIfFileExistsAndMove(srcFile, toFolder):
+def CheckIfFileExistsAndMove(srcFile, toFolder, ForceCopy = True):
 	dstFile = os.path.join(toFolder, os.path.split(srcFile)[-1])
 	
 	if (os.path.isfile(srcFile) == False):
 		print(("\033[91m" + "CheckIfFileExistsAndMove   Error: " +  srcFile + " file is missing\n\n" + "\033[97m"))
 		return
 	
-	print(("     Copy " +  srcFile + " to " + toFolder))
-	
 	if os.path.isfile(dstFile):
-		os.remove(dstFile)
+		if (ForceCopy == False):
+			print("     Destination file " + dstFile + " already exists. Copy operation skipped.")
+			return
+		else:
+			os.remove(dstFile)
+	
+	print("     Copy " + srcFile + " to " + toFolder)
 	copy(srcFile, toFolder)

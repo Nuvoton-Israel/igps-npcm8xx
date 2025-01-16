@@ -33,7 +33,21 @@
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>     <!-- will be calculated by IGPS -->
 	</BinField>
-
+	
+		<!-- SystemControlFlags.
+					Bit 0: tip_recovery_force
+					Bit 1: tip_start_wd
+					Bit 2: tip_support_encryption
+		-->
+	<BinField>
+		<name>SystemControlFlags</name>     
+		<config>
+			<offset>132</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x00000005</content>               <!-- key index, bitwise -->
+	</BinField>
+	
 	<BinField>
 		<name>KeyMask</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
