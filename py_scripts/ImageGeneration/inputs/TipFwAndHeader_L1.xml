@@ -33,11 +33,11 @@
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>     <!-- will be calculated by IGPS -->
 	</BinField>
-	
 		<!-- SystemControlFlags.
 					Bit 0: tip_recovery_force
 					Bit 1: tip_start_wd
 					Bit 2: tip_support_encryption
+					Bit 3: tip_gpio_wol
 		-->
 	<BinField>
 		<name>SystemControlFlags</name>     

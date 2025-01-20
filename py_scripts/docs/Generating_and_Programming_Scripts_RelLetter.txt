@@ -1,11 +1,11 @@
 -----------------------------------------------------------------------------
 Nuvoton Technology Corporation - Confidential
 NPCM8XX (Arbel) Image generation and programming scripts Release Letter
-Copyright (c) 2024 Nuvoton Technology Corporation. All Rights Reserved.
+Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.02.09
+Version:  04.03.10
 Date:     Jan 2025
 
 This package is released under the terms of the Source Code License Agreement
@@ -148,6 +148,16 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.0                 - Jan 20th      2025
+============
+- TIP_FW 0.7.8 L0 0.6.7 L1
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.7.9_L0_0.6.8_L1
+    * Bug fix: flash protection is enabled only if SystemControlFlags.tip_recovery_force is set.
+	  both for PORST and for secondary reset.
+- Add tip_gpio_wol flag in L1 XML.
+
+HISTORY
+-------
 IGPS 4.2.9                 - Jan 16th      2025
 ============
 - TIP_FW 0.7.8 L0 0.6.7 L1
@@ -161,9 +171,8 @@ IGPS 4.2.9                 - Jan 16th      2025
 - Fixed default OTP LMS key0.
 - Optimize signing time for LMS.
 - Combo 1 : If LMS enabled all components are signed.
+- Add supprot for Meta.
 
-HISTORY
--------
 IGPS 4.2.8                 - Jan 2      2025
 ============
 - A3 scripts
