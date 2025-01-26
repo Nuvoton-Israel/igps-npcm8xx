@@ -5,7 +5,7 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.10
+Version:  04.03.00
 Date:     Jan 2025
 
 This package is released under the terms of the Source Code License Agreement
