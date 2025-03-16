@@ -103,6 +103,7 @@ kmt_map_tmp_bin          = os.path.join(tmp_outputs_dir, filename_kmt_bin       
 BootBlockAndHeader_xml                = os.path.join(inputs_dir        , "BootBlockAndHeader.xml")
 BootBlockAndHeader_bin                = os.path.join(outputs_dir       , "BootBlockAndHeader.bin")
 BootBlockAndHeader_der                = os.path.join(outputs_dir       , "BootBlockAndHeader_sig.der")
+BootBlockAndHeader_lms_sig_bin        = os.path.join(outputs_dir       , "BootBlockAndHeader_sig.bin")
 BootBlockAndHeader_basic_bin          = os.path.join(basic_outputs_dir , "BootBlockAndHeader.bin")
 BootBlockAndHeader_secure_bin         = os.path.join(secure_outputs_dir, "BootBlockAndHeader.bin")
 
@@ -114,18 +115,21 @@ BootBlockAndHeader_no_tip_secure_bin  = os.path.join(secure_outputs_dir, "BootBl
 BL31_AndHeader_xml                    = os.path.join(inputs_dir        , "BL31_AndHeader.xml")
 BL31_AndHeader_bin                    = os.path.join(outputs_dir       , "BL31_AndHeader.bin")
 BL31_AndHeader_der                    = os.path.join(outputs_dir       , "BL31_AndHeader_sig.der")
+BL31_AndHeader_lms_sig_bin            = os.path.join(outputs_dir       , "BL31_AndHeader_sig.bin")
 BL31_AndHeader_basic_bin              = os.path.join(basic_outputs_dir , "BL31_AndHeader.bin")
 BL31_AndHeader_secure_bin             = os.path.join(secure_outputs_dir, "BL31_AndHeader.bin")
 
 OpTeeAndHeader_xml                    = os.path.join(inputs_dir        , "OpTeeAndHeader.xml")
 OpTeeAndHeader_bin                    = os.path.join(outputs_dir       , "OpTeeAndHeader.bin")
 OpTeeAndHeader_der                    = os.path.join(outputs_dir       , "OpTeeAndHeader_sig.der")
+OpTeeAndHeader_lms_sig_bin            = os.path.join(outputs_dir       , "OpTeeAndHeader_sig.bin")
 OpTeeAndHeader_basic_bin              = os.path.join(basic_outputs_dir , "OpTeeAndHeader.bin")
 OpTeeAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "OpTeeAndHeader.bin")
 
 UbootAndHeader_xml                    = os.path.join(inputs_dir        , "UbootHeader.xml")
 UbootAndHeader_bin                    = os.path.join(outputs_dir       , "UbootAndHeader.bin")
 UbootAndHeader_der                    = os.path.join(outputs_dir       , "UbootAndHeader_sig.der")
+UbootAndHeader_lms_sig_bin            = os.path.join(outputs_dir       , "UbootAndHeader_sig.bin")
 UbootAndHeader_basic_bin              = os.path.join(basic_outputs_dir , "UbootAndHeader.bin")
 UbootAndHeader_secure_bin             = os.path.join(secure_outputs_dir, "UbootAndHeader.bin")
 
@@ -143,18 +147,22 @@ id_rsa_key0 = "15"
 TipFwAndHeader_L0_xml                    = os.path.join(inputs_dir        , "TipFwAndHeader_L0.xml")
 TipFwAndHeader_L0_bin                    = os.path.join(outputs_dir       , "TipFwAndHeader_L0.bin")
 TipFwAndHeader_L0_der                    = os.path.join(outputs_dir       , "TipFwAndHeader_L0_sig.der")
+TipFwAndHeader_L0_lms_sig_bin            = os.path.join(outputs_dir       , "TipFwAndHeader_L0_sig.bin")
 TipFwAndHeader_L0_basic_bin              = os.path.join(basic_outputs_dir , "TipFwAndHeader_L0.bin")
 TipFwAndHeader_L0_secure_bin             = os.path.join(secure_outputs_dir, "TipFwAndHeader_L0.bin")
 
 TipFwAndHeader_L0_UT_xml                    = os.path.join(inputs_dir        , "TipFwAndHeader_L0_UT.xml")
 TipFwAndHeader_L0_UT_bin                    = os.path.join(outputs_dir       , "TipFwAndHeader_L0_UT.bin")
 TipFwAndHeader_L0_UT_der                    = os.path.join(outputs_dir       , "TipFwAndHeader_L0_UT_sig.der")
+TipFwAndHeader_L0_UT_lms_sig_bin            = os.path.join(outputs_dir       , "TipFwAndHeader_L0_UT_sig.bin")
 TipFwAndHeader_L0_UT_basic_bin              = os.path.join(basic_outputs_dir , "TipFwAndHeader_L0_UT.bin")
 TipFwAndHeader_L0_UT_secure_bin             = os.path.join(secure_outputs_dir, "TipFwAndHeader_L0_UT.bin")
 
 
 SA_TipFwAndHeader_L0_bin                  = os.path.join(outputs_dir        , "SA_TipFwAndHeader_L0.bin")
 SA_TipFwAndHeader_L0_xml                  = os.path.join(inputs_dir         , "SA_TipFwAndHeader_L0.xml")
+SA_TipFwAndHeader_L0_der                  = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0_sig.der")
+SA_TipFwAndHeader_L0_lms_sig_bin          = os.path.join(outputs_dir       , "SA_TipFwAndHeader_L0_sig.bin")
 SA_TipFwAndHeader_L0_basic_bin            = os.path.join(basic_outputs_dir  , "SA_TipFwAndHeader_L0.bin")
 SA_TipFwAndHeader_L0_secure_bin           = os.path.join(secure_outputs_dir , "SA_TipFwAndHeader_L0.bin")
 
@@ -165,6 +173,7 @@ image_no_tip_SA_secure_bin                = os.path.join(secure_outputs_dir , "i
 TipFwAndHeader_L1_xml                    = os.path.join(inputs_dir        , "TipFwAndHeader_L1.xml")
 TipFwAndHeader_L1_bin                    = os.path.join(outputs_dir       , "TipFwAndHeader_L1.bin")
 TipFwAndHeader_L1_der                    = os.path.join(outputs_dir       , "TipFwAndHeader_L1_sig.der")
+TipFwAndHeader_L1_lms_sig_bin            = os.path.join(outputs_dir       , "TipFwAndHeader_L1_sig.bin")
 TipFwAndHeader_L1_basic_bin              = os.path.join(basic_outputs_dir , "TipFwAndHeader_L1.bin")
 TipFwAndHeader_L1_secure_bin             = os.path.join(secure_outputs_dir, "TipFwAndHeader_L1.bin")
 
@@ -172,6 +181,7 @@ KmtAndHeader_xml                      = os.path.join(inputs_dir        , "KmtAnd
 Kmt_tmp_bin                           = os.path.join(tmp_outputs_dir   , "kmt_map_bin.bin")
 KmtAndHeader_bin                      = os.path.join(outputs_dir       , "KmtAndHeader.bin")
 KmtAndHeader_der                      = os.path.join(outputs_dir       , "KmtAndHeader_sig.der")
+KmtAndHeader_lms_sig_bin              = os.path.join(outputs_dir       , "KmtAndHeader_sig.bin")
 KmtAndHeader_basic_bin                = os.path.join(basic_outputs_dir , "KmtAndHeader.bin")
 KmtAndHeader_secure_bin               = os.path.join(secure_outputs_dir, "KmtAndHeader.bin")
 
@@ -179,6 +189,7 @@ SkmtAndHeader_xml                      = os.path.join(inputs_dir        , "SkmtA
 Skmt_tmp_bin                           = os.path.join(tmp_outputs_dir   , "skmt_map_bin.bin")
 SkmtAndHeader_bin                      = os.path.join(outputs_dir       , "SkmtAndHeader.bin")
 SkmtAndHeader_der                      = os.path.join(outputs_dir       , "SkmtAndHeader_sig.der")
+SkmtAndHeader_lms_sig_bin              = os.path.join(outputs_dir       , "SkmtAndHeader_sig.bin")
 SkmtAndHeader_basic_bin                = os.path.join(basic_outputs_dir , "SkmtAndHeader.bin")
 SkmtAndHeader_secure_bin               = os.path.join(secure_outputs_dir, "SkmtAndHeader.bin")
 

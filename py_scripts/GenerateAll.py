@@ -21,6 +21,7 @@ def main():
 		component_num = "0"
 		runPartial = False
 		isPalladium = False
+		isDebug = False
 		TypeOfKey = "openssl"
 		useSignedCombo0 = None
 
@@ -44,10 +45,13 @@ def main():
 			elif ((sys.argv[index] == "HSM") or (sys.argv[index] == "hsm")):
 				TypeOfKey = "HSM"
 			
-			elif ((sys.argv[index] == "pincode")):
+			elif (sys.argv[index] == "pincode"):
 				pinCode = sys.argv[index+1]
 				index += 1
-
+				
+			elif (sys.argv[index] == "debug"):
+				isDebug = True
+				
 			else:
 				component_num = sys.argv[index]
 			index += 1
@@ -83,7 +87,7 @@ def main():
 			print("==========================================================")
 			if component_num != "0":
 				useSignedCombo0 = component_num
-			ImageGeneration.GenerateImages.Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0)
+			ImageGeneration.GenerateImages.Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0, isDebug)
 
 	except Exception as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()

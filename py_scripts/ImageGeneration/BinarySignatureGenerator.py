@@ -366,14 +366,15 @@ def bin_calc_hash(bin_filename, max_size):
 	# hex_str = ''.join(['{:02x}'.format(byte) for byte in arr_ret])
 	# print(hex_str)
 	return arr_ret
-
-
-def Embed_external_sig(sig_der, input_file, output_file, embed_signature):
+	
+def Embed_external_sig(sig_der, sig_bin_lms, input_file, output_file, embed_signature, isLMS=False):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 	
 	print(("\033[95m" + "=========================================================="))
-	print(("== Embed external sig %s  to %s    " % (sig_der, input_file)))
+	print(("== Embed external sig ECC: %s to %s    " % (sig_der, input_file)))
+	if isLMS:
+		print(("== Embed external sig LMS: %s    " % (sig_bin_lms)))
 	print(("==========================================================" + "\x1b[0m"))
 
 	try:
@@ -383,14 +384,19 @@ def Embed_external_sig(sig_der, input_file, output_file, embed_signature):
 			raise Exception('Missing file')
 		
 		if (os.path.isfile(sig_der) == False):
-			print(("\033[91m" + "Embed_external_sig: sig file " + sig_der + " is missing\n\n" + "\033[97m"))
+			print(("\033[91m" + "Embed_external_sig: ECC sig file " + sig_der + " is missing\n\n" + "\033[97m"))
 			raise Exception('Missing file')
+		
+		if isLMS:
+			if (os.path.isfile(sig_bin_lms) == False):
+				print(("\033[91m" + "Embed_external_sig: LMS sig file " + sig_bin_lms + " is missing\n\n" + "\033[97m"))
+				raise Exception('Missing file')
 		
 		bin_file = open(input_file, "rb")
 		input = bin_file.read()
 		bin_file.close()
 
-		# get the generated signature and embed it in the input binary
+		# get the generated ECC signature and embed it in the input binary
 		s = 0
 		r = 0
 		signature = [r, s]
@@ -408,8 +414,16 @@ def Embed_external_sig(sig_der, input_file, output_file, embed_signature):
 		
 		print(("size of input " + str(len(input))))
 		output = input[:embed_signature] + arr_r + arr_s + input[(embed_signature + key_size*2):]
-		
-		# write the input with the embedded signature to the output file
+
+		# Process LMS signature as binary and concatenate at the end if isLMS is True
+		if isLMS:
+			with open(sig_bin_lms, "rb") as sig_file:
+				signature_lms = sig_file.read()
+			print("LMS Signature size: ", len(signature_lms))
+
+			output += signature_lms
+
+		# write the input with the embedded signature(s) to the output file
 		print(("write to output file " + output_file))
 		output_file = open(output_file, "w+b")
 		output_file.write(output)
@@ -423,8 +437,6 @@ def Embed_external_sig(sig_der, input_file, output_file, embed_signature):
 	finally:
 		os.chdir(currpath)
 
-	os.chdir(currpath)
-	
 # Replace_binary_single_byte: used to embed the key index inside the image. usually at offset 0x140.
 def Replace_binary_single_byte(binfile, offset, value, read_modify_write = 0):
 	currpath = os.getcwd()
@@ -452,7 +464,7 @@ def Replace_binary_single_byte(binfile, offset, value, read_modify_write = 0):
 		exc_type, exc_obj, exc_tb = sys.exc_info()
 		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
 		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
-		print(("\n\n FAIL %s Replace_binary_single_byte.py: file %s offset %s array %s    " % (binfile, str(offset), str(value), str(read_modify_write))))
+		print(("\n\n FAIL %s Replace_binary_single_byte.py: file %s offset %s array %s	" % (binfile, str(offset), str(value), str(read_modify_write))))
 		raise Exception('Replace_binary_single_byte')
 	finally:
 		os.chdir(currpath)
@@ -461,13 +473,14 @@ def Replace_binary_single_byte(binfile, offset, value, read_modify_write = 0):
 # Replace_binary_array: used to embed an array inside an image. Used for timestamp and address pointers.
 # bArray=True: num is an array, just write it in the file
 # bArray=False: num is a number in little endian, convert to array
-def Replace_binary_array(input_file, offset, num, size, bArray, title):
+# update_current_val = if it is true , the script will use "|" that will update and not replace entirely the existing value
+def Replace_binary_array(input_file, offset, num, size, bArray, title, update_current_val=False):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-	print(("\033[95m" + "=========================================================="))
+	print("\033[95m==========================================================")
 	print(("== %s Replace_binary_array file %s offset %s " % (title, input_file, hex(offset))))
-	print(("==========================================================" + "\x1b[0m"))
+	print("==========================================================\x1b[0m")
 
 	try:
 		# read input file:
@@ -476,13 +489,18 @@ def Replace_binary_array(input_file, offset, num, size, bArray, title):
 			raise Exception('Missing file')
 
 		bin_file = open(input_file, "rb")
-		input = bin_file.read()
+		input_data = bytearray(bin_file.read())  # Change input -> input_data to match the original style
 		bin_file.close()
 
 		if (bArray == True):
 			arr1 = BigNum_2_Array(num, size, True)
 		else:
-			arr1 = bytearray(num)
+			if isinstance(num, int):
+				arr1 = num.to_bytes(size, "little")  # Convert int to bytes (little-endian)
+			elif isinstance(num, bytes):
+				arr1 = num  # Use bytes directly
+			else:
+				raise TypeError("num should be an int or bytes, but got " + str(type(num)))
 
 		# pad with zeros if needed or truncate array if needed
 		if len(arr1) < size:
@@ -491,14 +509,20 @@ def Replace_binary_array(input_file, offset, num, size, bArray, title):
 			arr = arr1[:size]	
 		else:
 			arr = arr1
-	
+
+		if update_current_val:
+			# Perform bitwise OR with existing data
+			existing_data = input_data[offset:offset + size]
+			existing_data = existing_data.ljust(size, b'\x00')  # Ensure correct size
+			arr = bytes(a | b for a, b in zip(existing_data, arr))
+
 		hex_string = ''.join(['{:02x}'.format(byte) for byte in arr])
 		
-		#print(("size of input " + str(len(input))))
-		output = input[:offset] + arr + input[(offset + size):]
+		#print(("size of input " + str(len(input_data))))
+		output = input_data[:offset] + arr + input_data[(offset + size):]
 		
 		# write the input with the embedded signature to the output file
-		print(("write " + hex_string + " to file " + input_file))
+		print("write " + hex_string + " to file " + input_file)
 		input_file = open(input_file, "w+b")
 		input_file.write(output)
 		input_file.close()
@@ -506,12 +530,13 @@ def Replace_binary_array(input_file, offset, num, size, bArray, title):
 		exc_type, exc_obj, exc_tb = sys.exc_info()
 		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
 		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
-		print(("\n\n FAIL %s Replace_binary_array.py: file %s offset %s array %s    " % (title, input_file, str(offset), str(arr))))
+		print(("\n\n FAIL %s Replace_binary_array.py: file %s offset %s array %s	" % (title, input_file, str(offset), str(arr))))
 		raise Exception('Replace_binary_array')
+
 	finally:
 		os.chdir(currpath)
 
-	os.chdir(currpath)
+
 
 	
 def Sign_binary(binfile, begin_offset, key, embed_signature, outputFile, TypeOfKey, pinCode , idNum ,isECC, isLMS, lms_key):

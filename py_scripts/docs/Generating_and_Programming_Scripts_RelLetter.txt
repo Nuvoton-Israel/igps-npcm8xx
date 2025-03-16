@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.10
-Date:     Jan 2025
+Version:  04.03.03
+Date:     Mar 2025
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,53 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.3                 - Mar 13th      2025
+============
+- uboot v2023.10-npcm8xx-20240911
+  https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20240911
+   * Support sgpio persist feature.
+   * Enable npcm watchdog driver.
+- TIP_FW 0.8.0 L0 0.6.9 L1
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.0_L0_0.6.9_L1
+    * Update Cerberus core.
+    * Split GCM AES with all the rest of AES engine.
+    * Added SystemControlFlag to control dynamic decisions from the header
+    * BMC_DIRECT DRBG command - move to bit 3.
+    * Optimize UART FIFO.
+    * Check FUSTRAP2 before fetching OTP key
+    * When key invalidate header flag is zero no need to continue
+    * Hardening table parsing optimization.
+    * CPLD measurement supported, not enabled.
+    * Bug fix: print TIP reset and TIP WD reset.
+    * TCB SVN update for L0 .
+    * Reg definition of MCR fix.
+    * FIU1 frequency bug fix, divider is 8 bits (previously 5).
+    * Flash ioctl bug fix to support CPLD SPI reading.
+	* Increase protection for erroneous malloc.
+
+- Added RemoteHSM option for LMS signature.
+- Bug fix: CRC calculation should be after writing IV and key masks.
+
+HISTORY
+-------	
+IGPS 4.3.1                 - Feb 20th      2025
+============
+- Fixed an issue where the binary value of keyMask (ECC/LMS) in the kmtHeader bin was
+  being replaced using the Replace_binary_single_byte function.
+  This was updated to use Replace_binary_array instead, as the KMT is signed with one 
+  of the OTP keys, which can include up to 8 keys. 
+  Also fixed an issue in Replace_binary_array where the conversion was not working properly.
+- Fixed an issue on GenerateOtpProgrammerFlashImage.py. in which the KmtAndHeader.bin was not 
+  saved in the right place, and also the keyMask and index were not written as should.
+- bootblock 0.5.5
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.5
+    * version 0.5.5     - Feb 17th 2025 
+    * Read ADC int+ext calibration word to SCRPAD 60, 61.
+    * Remove Z1 support.
+    * SWC_HAL sync to 4.1.0.
+    * Rename SCRPAD_42_73 to SCRPAD_32_63 (to match the spec).
+- Update hardening table to increase security.
+
 IGPS 4.3.0                 - Jan 20th      2025
 ============
 - TIP_FW 0.7.8 L0 0.6.7 L1
@@ -156,8 +203,6 @@ IGPS 4.3.0                 - Jan 20th      2025
 	  both for PORST and for secondary reset.
 - Add tip_gpio_wol flag in L1 XML.
 
-HISTORY
--------
 IGPS 4.2.9                 - Jan 16th      2025
 ============
 - TIP_FW 0.7.8 L0 0.6.7 L1

@@ -178,7 +178,7 @@ def MergeBinFilesAndPadAndPrint(isPalladium, useSignedCombo0: str = None):
 	bl31S  =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin                        , BL31_AndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                                , 0x1000     , 0x20)
 	OpTeeS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                   , OpTeeAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin                          , 0x1000     , 0x20)
 	ubootS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin             , UbootAndHeader_bin, Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin                    , 0x1000     , 0x20)
-	# cpS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin     , CpAndHeader_bin   , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_bin                 , 0x1000     , 0x20)
+	# CP test, uncomment to init CP by bootblock:   cpS =       Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin       , CpAndHeader_bin   , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_bin                 , 0x1000     , 0x20)
 	imageS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin       , image_bin         , Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin              , 0x400000   , 0x20)
 	#romfsS =    Merge_bin_files_and_pad(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, romfs_bin         , tmp_bin                                                                    , 0x1000     , 0x20)
 	#dtbS =      Merge_bin_files_and_pad(tmp_bin                                                      , dtb_bin           ,               Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin, 0x1000     , 0x20)
@@ -213,7 +213,7 @@ def MergeBinFilesAndPadAndPrint(isPalladium, useSignedCombo0: str = None):
 	print(("BL31 starts at      "  + hex(bl31S   + startFl) + " size " + hex(os.path.getsize(BL31_AndHeader_bin))))
 	print(("OpTee starts at     "  + hex(OpTeeS  + startFl) + " size " + hex(os.path.getsize(OpTeeAndHeader_bin))))
 	print(("Uboot starts at     "  + hex(ubootS  + startFl) + " size " + hex(os.path.getsize(UbootAndHeader_bin))))
-	#print ("CP starts at        "  + hex(cpS     + startFl) + " size " + hex(os.path.getsize(CpAndHeader_bin)))
+	# CP test, uncomment to init CP by bootblock:   print ("CP starts at        "  + hex(cpS     + startFl) + " size " + hex(os.path.getsize(CpAndHeader_bin)))
 	print(("image starts at     "  + hex(imageS  + startFl) + " size " + hex(os.path.getsize(image_bin))))
 	# print ("romfs starts at     "+ hex(romfsS  + startFl) + " size " + hex(os.path.getsize(romfs_bin)))
 	# print ("dtb starts at       "+ hex(dtbS    + startFl) + " size " + hex(os.path.getsize(dtb_bin)))
@@ -240,61 +240,56 @@ def MergeBinFilesAndPadAndPrint(isPalladium, useSignedCombo0: str = None):
 def Write_key_ind_and_key_mask_to_headers():
 	# ECC
 	# print ("skip*************************************************************")
-	# Put the key mask number inside the header at offset 136
-	Replace_binary_single_byte(KmtAndHeader_bin,        136, 2**(ord(otp_key_which_signs_kmt[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(TipFwAndHeader_L0_bin,   136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,   136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,136, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(SkmtAndHeader_bin,      136, 2**(ord(kmt_key_which_signs_skmt[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  136, 2**(ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(BootBlockAndHeader_bin, 136, 2**(ord(skmt_key_which_signs_bootblock[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(BL31_AndHeader_bin,     136, 2**(ord(skmt_key_which_signs_BL31[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(OpTeeAndHeader_bin,     136, 2**(ord(skmt_key_which_signs_OpTee[-1]) - ord('0')), 1)
-	Replace_binary_single_byte(UbootAndHeader_bin,     136, 2**(ord(skmt_key_which_signs_uboot[-1]) - ord('0')), 1)
+	# Put the key mask number inside the header at offset 0x88 (132)
+	Replace_binary_array(KmtAndHeader_bin,           0x88 , 2**(ord(otp_key_which_signs_kmt[-1]) - ord('0')) ,2, False , "KMT Header", True)
+	Replace_binary_single_byte(TipFwAndHeader_L0_bin,   0x88, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,   0x88, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,0x88, 2**(ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(SkmtAndHeader_bin,      0x88, 2**(ord(kmt_key_which_signs_skmt[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  0x88, 2**(ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(BootBlockAndHeader_bin, 0x88, 2**(ord(skmt_key_which_signs_bootblock[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(BL31_AndHeader_bin,     0x88, 2**(ord(skmt_key_which_signs_BL31[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(OpTeeAndHeader_bin,     0x88, 2**(ord(skmt_key_which_signs_OpTee[-1]) - ord('0')), 1)
+	Replace_binary_single_byte(UbootAndHeader_bin,     0x88, 2**(ord(skmt_key_which_signs_uboot[-1]) - ord('0')), 1)
 	
-	# Put the key index number inside the header at offset 140
-	Replace_binary_single_byte(KmtAndHeader_bin,       140, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
-	Replace_binary_single_byte(TipFwAndHeader_L0_bin,  140, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))
-	Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,  140, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))
-	Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,140, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))        
-	Replace_binary_single_byte(SkmtAndHeader_bin,      140, ord(kmt_key_which_signs_skmt[-1]) - ord('0'))
-	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  140, ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0'))
-	Replace_binary_single_byte(BootBlockAndHeader_bin, 140, ord(skmt_key_which_signs_bootblock[-1]) - ord('0'))
-	Replace_binary_single_byte(BL31_AndHeader_bin,     140, ord(skmt_key_which_signs_BL31[-1]) - ord('0'))
-	Replace_binary_single_byte(OpTeeAndHeader_bin,     140, ord(skmt_key_which_signs_OpTee[-1]) - ord('0'))
-	Replace_binary_single_byte(UbootAndHeader_bin,     140, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
+	# Put the key index number inside the header at offset 0x8c  (140)
+	Replace_binary_single_byte(KmtAndHeader_bin,       0x8c, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
+	Replace_binary_single_byte(TipFwAndHeader_L0_bin,  0x8c, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))
+	Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,  0x8c, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))
+	Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,0x8c, ord(kmt_key_which_signs_tip_fw_L0[-1]) - ord('0'))        
+	Replace_binary_single_byte(SkmtAndHeader_bin,      0x8c, ord(kmt_key_which_signs_skmt[-1]) - ord('0'))
+	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  0x8c, ord(skmt_key_which_signs_tip_fw_L1[-1]) - ord('0'))
+	Replace_binary_single_byte(BootBlockAndHeader_bin, 0x8c, ord(skmt_key_which_signs_bootblock[-1]) - ord('0'))
+	Replace_binary_single_byte(BL31_AndHeader_bin,     0x8c, ord(skmt_key_which_signs_BL31[-1]) - ord('0'))
+	Replace_binary_single_byte(OpTeeAndHeader_bin,     0x8c, ord(skmt_key_which_signs_OpTee[-1]) - ord('0'))
+	Replace_binary_single_byte(UbootAndHeader_bin,     0x8c, ord(skmt_key_which_signs_uboot[-1]) - ord('0'))
 	
 
 	# LMS :
-	# Put the key index number inside the header at offset 196 and the key mask at 192
 	if isLMS:
-		Replace_binary_single_byte(KmtAndHeader_bin,        192, 2**(ord(lms_key_which_signs_kmt[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(KmtAndHeader_bin,        196, ord(lms_key_which_signs_kmt[-1]) - ord('0'))
+		# Put the key mask number inside the header at offset 0xc0  (192)
+		Replace_binary_array(KmtAndHeader_bin, 0xc0, 2**(ord(lms_key_which_signs_kmt[-1]) - ord('0')), 2, False, "KMT Header", True)
+		Replace_binary_single_byte(TipFwAndHeader_L0_bin, 0xc0, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin, 0xc0, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin, 0xc0, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(SkmtAndHeader_bin, 0xc0, 2**(ord(lms_key_which_signs_skmt[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(TipFwAndHeader_L1_bin, 0xc0, 2**(ord(lms_key_which_signs_tip_fw_L1[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(BootBlockAndHeader_bin, 0xc0, 2**(ord(lms_key_which_signs_bootblock[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(BL31_AndHeader_bin, 0xc0, 2**(ord(lms_key_which_signs_BL31[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(OpTeeAndHeader_bin, 0xc0, 2**(ord(lms_key_which_signs_OpTee[-1]) - ord('0')), 1)
+		Replace_binary_single_byte(UbootAndHeader_bin, 0xc0, 2**(ord(lms_key_which_signs_uboot[-1]) - ord('0')), 1)
 		
-		Replace_binary_single_byte(TipFwAndHeader_L0_bin,   192, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,192, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,192, 2**(ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(TipFwAndHeader_L0_bin,   196, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0'))
-		Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin,196, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0'))
-		Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin,196, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0')) 
-
-		Replace_binary_single_byte(SkmtAndHeader_bin,      192, 2**(ord(lms_key_which_signs_skmt[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(SkmtAndHeader_bin,      196, ord(lms_key_which_signs_skmt[-1]) - ord('0'))
-
-		Replace_binary_single_byte(TipFwAndHeader_L1_bin,  192, 2**(ord(lms_key_which_signs_tip_fw_L1[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(TipFwAndHeader_L1_bin,  196, ord(lms_key_which_signs_tip_fw_L1[-1]) - ord('0'))
-
-		Replace_binary_single_byte(BootBlockAndHeader_bin, 192, 2**(ord(lms_key_which_signs_bootblock[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(BootBlockAndHeader_bin, 196, ord(lms_key_which_signs_bootblock[-1]) - ord('0'))
-
-		Replace_binary_single_byte(BL31_AndHeader_bin,     192, 2**(ord(lms_key_which_signs_BL31[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(BL31_AndHeader_bin,     196, ord(lms_key_which_signs_BL31[-1]) - ord('0'))
-
-		Replace_binary_single_byte(OpTeeAndHeader_bin,     192, 2**(ord(lms_key_which_signs_OpTee[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(OpTeeAndHeader_bin,     196, ord(lms_key_which_signs_OpTee[-1]) - ord('0'))
-
-		Replace_binary_single_byte(UbootAndHeader_bin,     192, 2**(ord(lms_key_which_signs_uboot[-1]) - ord('0')), 1)
-		Replace_binary_single_byte(UbootAndHeader_bin,     196, ord(lms_key_which_signs_uboot[-1]) - ord('0'))
+		# Put the key index number inside the header at offset 0xc4  (196)
+		Replace_binary_single_byte(KmtAndHeader_bin, 0xc4, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
+		Replace_binary_single_byte(TipFwAndHeader_L0_bin, 0xc4, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0'))
+		Replace_binary_single_byte(TipFwAndHeader_L0_UT_bin, 0xc4, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0'))
+		Replace_binary_single_byte(SA_TipFwAndHeader_L0_bin, 0xc4, ord(lms_key_which_signs_tip_fw_L0[-1]) - ord('0'))
+		Replace_binary_single_byte(SkmtAndHeader_bin, 0xc4, ord(lms_key_which_signs_skmt[-1]) - ord('0'))
+		Replace_binary_single_byte(TipFwAndHeader_L1_bin, 0xc4, ord(lms_key_which_signs_tip_fw_L1[-1]) - ord('0'))
+		Replace_binary_single_byte(BootBlockAndHeader_bin, 0xc4, ord(lms_key_which_signs_bootblock[-1]) - ord('0'))
+		Replace_binary_single_byte(BL31_AndHeader_bin, 0xc4, ord(lms_key_which_signs_BL31[-1]) - ord('0'))
+		Replace_binary_single_byte(OpTeeAndHeader_bin, 0xc4, ord(lms_key_which_signs_OpTee[-1]) - ord('0'))
+		Replace_binary_single_byte(UbootAndHeader_bin, 0xc4, ord(lms_key_which_signs_uboot[-1]) - ord('0'))
 
 def Write_LMS_flags_to_headers():
 
@@ -369,6 +364,7 @@ def MoveToFolder(isPalladium, dstFolder):
 		move(Kmt_TipFwL0_Skmt_TipFwL1_bin.replace(".bin"                , ".hex"), dstFolder)
 		move(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_bin.replace(".bin"      , ".hex"), dstFolder)
 		move(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_bin.replace(".bin", ".hex"), dstFolder)
+		# CP test, uncomment to init CP by bootblock:   move(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_uboot_cp_bin.replace(".bin", ".hex"), dstFolder)
 		
 	CheckIfFileExistsAndMove(KmtAndHeader_bin                                                 , dstFolder)
 	CheckIfFileExistsAndMove(SkmtAndHeader_bin                                                , dstFolder)
@@ -391,6 +387,7 @@ def MoveToFolder(isPalladium, dstFolder):
 	# CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_bin                      , dstFolder)
 	# CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_bin                , dstFolder)
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_bin          , dstFolder)
+	# CP test, uncomment to init CP by bootblock:   CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_cp_bin       , dstFolder)
 	CheckIfFileExistsAndMove(BootBlock_BL31_OpTee_uboot_bin                                   , dstFolder)
 	CheckIfFileExistsAndMove(BootBlock_BL31_OpTee_uboot_no_tip_bin                            , dstFolder)
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin    , dstFolder)
@@ -577,12 +574,6 @@ def Build_basic_images():
 		if (offset_uboot != 0xFFFFFFFF):
 			Replace_binary_array(UbootAndHeader_bin,     0x1B4, offset_uboot             , 4, True, "uboot reg offset")
 		
-		CRC32_binary(KmtAndHeader_bin           , 112    , 12     , KmtAndHeader_bin)
-		CRC32_binary(TipFwAndHeader_L0_bin      , 112    , 12     , TipFwAndHeader_L0_bin)
-		CRC32_binary(TipFwAndHeader_L0_UT_bin   , 112    , 12     , TipFwAndHeader_L0_UT_bin)
-		CRC32_binary(SA_TipFwAndHeader_L0_bin   , 112    , 12     , SA_TipFwAndHeader_L0_bin)        
-		CRC32_binary(TipFwAndHeader_L1_bin      , 112    , 12     , TipFwAndHeader_L1_bin)
-		
 	except (Exception) as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()
 		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -593,6 +584,32 @@ def Build_basic_images():
 	finally:
 		os.chdir(currpath)
 
+def Write_CRC_to_TIP_images():
+
+	currpath = os.getcwd()
+	os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+	try:
+		# check inputs and align if needed:
+		
+		print("\Add CRC to TIP images only\n")
+		
+		CRC32_binary(KmtAndHeader_bin           , 112    , 12     , KmtAndHeader_bin)
+		CRC32_binary(TipFwAndHeader_L0_bin      , 112    , 12     , TipFwAndHeader_L0_bin)
+		CRC32_binary(TipFwAndHeader_L0_UT_bin   , 112    , 12     , TipFwAndHeader_L0_UT_bin)
+		CRC32_binary(SA_TipFwAndHeader_L0_bin   , 112    , 12     , SA_TipFwAndHeader_L0_bin)        
+		CRC32_binary(TipFwAndHeader_L1_bin      , 112    , 12     , TipFwAndHeader_L1_bin)
+		
+	except (Exception) as e:
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
+		print(("\n IGPS_common.py, Write_CRC_to_TIP_images Error building basic binaries (%s)" % str(e)))
+		raise
+
+	finally:
+		os.chdir(currpath)
+       
 
 def Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_BMC=None):
 
@@ -602,12 +619,13 @@ def Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 	try:
 		if TypeOfKey == "RemoteHSM":
 			# Embed_external_sig(sig_der             , binfile                     , outputFile            , embed_signature)
-			Embed_external_sig(KmtAndHeader_der      , KmtAndHeader_basic_bin      , KmtAndHeader_bin      , 16)
-			Embed_external_sig(TipFwAndHeader_L0_der , TipFwAndHeader_L0_basic_bin , TipFwAndHeader_L0_bin , 16)
-			Embed_external_sig(SA_TipFwAndHeader_L0_der , SA_TipFwAndHeader_L0_basic_bin ,SA_TipFwAndHeader_L0_bin , 16)
-			Embed_external_sig(SkmtAndHeader_der     , SkmtAndHeader_basic_bin     , SkmtAndHeader_bin     , 16)
-			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16)
+			Embed_external_sig(KmtAndHeader_der      ,KmtAndHeader_lms_sig_bin,  KmtAndHeader_basic_bin      , KmtAndHeader_bin      , 16, isLMS)
+			Embed_external_sig(TipFwAndHeader_L0_der , TipFwAndHeader_L0_lms_sig_bin, TipFwAndHeader_L0_basic_bin , TipFwAndHeader_L0_bin , 16, isLMS)
+			Embed_external_sig(SA_TipFwAndHeader_L0_der ,SA_TipFwAndHeader_L0_lms_sig_bin, SA_TipFwAndHeader_L0_basic_bin ,SA_TipFwAndHeader_L0_bin , 16, isLMS)
+			Embed_external_sig(SkmtAndHeader_der     , SkmtAndHeader_lms_sig_bin, SkmtAndHeader_basic_bin     , SkmtAndHeader_bin     , 16, isLMS)
+			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_lms_sig_bin, TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16, isLMS)
 		else:
+			
 			# Sign Images of TIP
 			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, isLMS, eval(lms_key_which_signs_kmt))
 			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, isLMS, eval(lms_key_which_signs_tip_fw_L0))
@@ -646,10 +664,10 @@ def Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 		if TypeOfKey == "RemoteHSM":
 			# Embed_external_sig(sig_der             , binfile                     , outputFile            , embed_signature)
 			# BMC bootloaders not verified now. Use tip l1 signature for builds for now
-			Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16)
-			Embed_external_sig(BL31_AndHeader_der    , BL31_AndHeader_basic_bin    , BL31_AndHeader_bin    , 16)
-			Embed_external_sig(OpTeeAndHeader_der    , OpTeeAndHeader_basic_bin    , OpTeeAndHeader_bin    , 16)
-			Embed_external_sig(UbootAndHeader_der    , UbootAndHeader_basic_bin    , UbootAndHeader_bin    , 16)
+			Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_lms_sig_bin, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16, isLMS)
+			Embed_external_sig(BL31_AndHeader_der    , BL31_AndHeader_lms_sig_bin, BL31_AndHeader_basic_bin    , BL31_AndHeader_bin    , 16, isLMS)
+			Embed_external_sig(OpTeeAndHeader_der    , OpTeeAndHeader_lms_sig_bin,  OpTeeAndHeader_basic_bin    , OpTeeAndHeader_bin    , 16, isLMS)
+			Embed_external_sig(UbootAndHeader_der    , UbootAndHeader_lms_sig_bin , UbootAndHeader_basic_bin    , UbootAndHeader_bin    , 16, isLMS)
 
 		else:
 			# Sign Images of BMC

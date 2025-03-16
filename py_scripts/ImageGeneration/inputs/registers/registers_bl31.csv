@@ -40,11 +40,14 @@ SWRSTC3LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 CORSTCLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+TIPRSTCLK   ,0            ,0              ,CA35CLK  ,1              ,0x102 ,0
 IPSRSTDIS1  ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 FLOCKR1     ,0            ,0              ,LKGPO2SLK,1              ,0x1FF ,0
-FLOCKR2    ,0            ,0              ,CRHEN    ,1              ,0x100 ,0
-FLOCKR2    ,0            ,0              ,CRHENLK  ,1              ,0x1FF ,0
+FLOCKR2     ,0            ,0              ,CRHEN    ,1              ,0x100 ,0
+FLOCKR2     ,0            ,0              ,CRHENLK  ,1              ,0x1FF ,0
 FLOCKR2     ,0            ,0              ,S0CSELK  ,1              ,0x1FF ,0
 FLOCKR2     ,0            ,0              ,S3CSELK  ,1              ,0x1FF ,0
 FLOCKR2     ,0            ,0              ,S1CSELK  ,1              ,0x1FF ,0
 RLOCKR1     ,0            ,0              ,0        ,0x0008C204     ,0x1FF ,0
+MCR_n       ,0            ,67             ,0        ,0x01001FF2     ,0x100 ,0
+MCR_n       ,0            ,127            ,0        ,0x01001FF3     ,0x100 ,0

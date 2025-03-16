@@ -24,7 +24,7 @@ from .IGPS_common import *
 from .Register_csv_parse import *
 from  .key_setting_edit_me import *
 
-def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0):
+def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0, isDebug):
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 	# in case user wants to use HSM only TIP side images will be signed with HSM. The other images are build with yocto+openssl
@@ -48,13 +48,15 @@ def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0):
 		
 		Build_basic_images()
 		
-		Write_key_ind_and_key_mask_to_headers()
-		
-		Write_LMS_flags_to_headers()
-		
-		Write_timestamp_and_IV_to_headers()
+		# for debug cases, don't edit the values and leave them as were on XMLs 
+		if isDebug is False:
+			Write_key_ind_and_key_mask_to_headers()	
+			Write_LMS_flags_to_headers()
+			Write_timestamp_and_IV_to_headers()
 
 		Uboot_header_embed_pointers_to_all_fw()
+        
+		Write_CRC_to_TIP_images()
 		
 		MergeBinFilesAndPadAndPrint(isPalladium)
 		
