@@ -332,10 +332,18 @@ kmt_key0                              = os.path.join(input_key_dir        , "kmt
 id_kmt_key0 = "8"
 kmt_key1                              = os.path.join(input_key_dir        , "kmt_ecc_key_1.der")
 id_kmt_key1 = "9"
+kmt_key2                              = os.path.join(input_key_dir        , "kmt_ecc_key_2.der")
+id_kmt_key2 = "31"
+kmt_key3                              = os.path.join(input_key_dir        , "kmt_ecc_key_3.der")
+id_kmt_key3 = "32"
 
 kmt_lms_key0                              = os.path.join(input_key_dir        , "kmt_lms_key_0.bin")
-id_lms_kmt_key0 = "20"
+id_lms_kmt_key0 = "18"
 kmt_lms_key1                             = os.path.join(input_key_dir        , "kmt_lms_key_1.bin")
+id_lms_kmt_key1 = "19"
+kmt_lms_key2                             = os.path.join(input_key_dir        , "kmt_lms_key_2.bin")
+id_lms_kmt_key2 = "20"
+kmt_lms_key3                             = os.path.join(input_key_dir        , "kmt_lms_key_3.bin")
 id_lms_kmt_key1 = "21"
 
 skmt_key0                              = os.path.join(input_key_dir        , "skmt_ecc_key_0.der")
@@ -350,10 +358,10 @@ skmt_key4                              = os.path.join(input_key_dir        , "sk
 id_skmt_key4 = "14"
 
 skmt_lms_key5                           = os.path.join(input_key_dir    , "skmt_lms_key_5.bin")
-id_skmt_lms_key0 = "15"
+id_skmt_lms_key0 = "16"
 
 skmt_lms_key6                           = os.path.join(input_key_dir    , "skmt_lms_key_6.bin")
-id_skmt_lms_key1 = "16"
+id_skmt_lms_key1 = "17"
 
 
 # versions_dir                          = os.path.join("ImageGeneration", "versions")

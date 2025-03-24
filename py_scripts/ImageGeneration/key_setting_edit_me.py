@@ -38,7 +38,7 @@ is_LMS_uboot = False
 
 # isLMS can be true, even when is_LMS_<image> is false. However if is_LMS_<image> is true, isLMS must be true as well , since it's not possible to verify with LMS key without creating the key (vice versa is allowed)
 isLMS = False
-
+isRemoteHSM = False
 lms_key_which_signs_kmt         = "otp_lms_key1"
 
 lms_key_which_signs_tip_fw_L0   = "kmt_lms_key0"

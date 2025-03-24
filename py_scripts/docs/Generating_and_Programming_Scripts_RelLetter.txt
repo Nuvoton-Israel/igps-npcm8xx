@@ -5,7 +5,7 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.03
+Version:  04.03.04
 Date:     Mar 2025
 
 This package is released under the terms of the Source Code License Agreement
@@ -148,6 +148,14 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.4                 - Mar 24th      2025
+============
+- Updated version of OTP programmer monitor - 1.1.4.
+- Added 2 ECC KMT keys and 2 LMS KMT keys definition - for testing .
+- Added "isRemoteHSM" flag.
+
+HISTORY
+-------	
 IGPS 4.3.3                 - Mar 13th      2025
 ============
 - uboot v2023.10-npcm8xx-20240911
@@ -175,8 +183,6 @@ IGPS 4.3.3                 - Mar 13th      2025
 - Added RemoteHSM option for LMS signature.
 - Bug fix: CRC calculation should be after writing IV and key masks.
 
-HISTORY
--------	
 IGPS 4.3.1                 - Feb 20th      2025
 ============
 - Fixed an issue where the binary value of keyMask (ECC/LMS) in the kmtHeader bin was

@@ -17,7 +17,7 @@ from .BinarySignatureGenerator import *
 from .GenerateKeyECC import *
 from .GenerateKeyRSA import *
 from  .key_setting_edit_me import *
-if isLMS:
+if isLMS and not isRemoteHSM:
 	from .GenerateKeyLMS import *
 from .BinaryGenerator import *
 from .CRC32_Generator import *
@@ -266,6 +266,7 @@ def Write_key_ind_and_key_mask_to_headers():
 	
 
 	# LMS :
+	# Put the key index number inside the header at offset 196 and the key mask at 192
 	if isLMS:
 		# Put the key mask number inside the header at offset 0xc0  (192)
 		Replace_binary_array(KmtAndHeader_bin, 0xc0, 2**(ord(lms_key_which_signs_kmt[-1]) - ord('0')), 2, False, "KMT Header", True)
@@ -410,9 +411,9 @@ def Generate_Or_Load_Keys(TypeOfKey, TypeOfKey_TIP, TypeOfKey_BMC, pinCode):
 			GenerateKeyLMS(skmt_lms_key5, TypeOfKey_TIP, pinCode, id_skmt_lms_key0)
 			GenerateKeyLMS(skmt_lms_key6, TypeOfKey_BMC, pinCode, id_skmt_lms_key1)
 			print("Generate KMT LMS keys")
-			GenerateKeyLMS(kmt_lms_key0, TypeOfKey_TIP, pinCode, id_kmt_key0)
-			GenerateKeyLMS(kmt_lms_key1, TypeOfKey_TIP, pinCode, id_kmt_key1)
-	
+			GenerateKeyLMS(kmt_lms_key0, TypeOfKey_TIP, pinCode, id_lms_kmt_key0)
+			GenerateKeyLMS(kmt_lms_key1, TypeOfKey_TIP, pinCode, id_lms_kmt_key1)
+			
 		print("Generate Manifest RSA keys")
 		GenerateKeyRSA(rsa_key0, TypeOfKey, pinCode, id_rsa_key0)
 		
