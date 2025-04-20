@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.04
-Date:     Mar 2025
+Version:  04.03.05
+Date:     Apr 2025
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,14 +148,19 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.5                 - Apr 10th      2025
+============
+- Bug fix: MFSEL_LK registers in hardening table is off. 
+  MFSEL names start in 1, but index in table should start in 0.
+
+HISTORY
+-------
 IGPS 4.3.4                 - Mar 24th      2025
 ============
 - Updated version of OTP programmer monitor - 1.1.4.
 - Added 2 ECC KMT keys and 2 LMS KMT keys definition - for testing .
 - Added "isRemoteHSM" flag.
 
-HISTORY
--------	
 IGPS 4.3.3                 - Mar 13th      2025
 ============
 - uboot v2023.10-npcm8xx-20240911
