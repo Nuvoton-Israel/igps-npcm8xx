@@ -25,19 +25,18 @@ skmt_key_which_signs_OpTee       = "skmt_key1"
 skmt_key_which_signs_uboot       = "skmt_key1"
 
 isECC = True
+lms_flags = {
+"is_LMS_kmt": False,
+"is_LMS_tip_fw_L0": False,
+"is_LMS_skmt": False,
+"is_LMS_tip_fw_L1": False,
+"is_LMS_bootblock": False,
+"is_LMS_BL31": False,
+"is_LMS_OpTee": False,
+"is_LMS_uboot": False
+}
 
-is_LMS_kmt = False
-is_LMS_tip_fw_L0 = False
-is_LMS_skmt = False
-is_LMS_tip_fw_L1 = False
-
-is_LMS_bootblock = False
-is_LMS_BL31 = False
-is_LMS_OpTee = False
-is_LMS_uboot = False
-
-# isLMS can be true, even when is_LMS_<image> is false. However if is_LMS_<image> is true, isLMS must be true as well , since it's not possible to verify with LMS key without creating the key (vice versa is allowed)
-isLMS = False
+isLMS = any(lms_flags.values())
 isRemoteHSM = False
 lms_key_which_signs_kmt         = "otp_lms_key1"
 
@@ -55,6 +54,11 @@ lms_key_which_signs_OpTee       = "skmt_lms_key6"
 
 lms_key_which_signs_uboot       = "skmt_lms_key6"
 
+# Define groups
+key_groups = {
+			"KMT_Keys": ["is_LMS_tip_fw_L0", "is_LMS_skmt"],
+			"SKMT_Keys": ["is_LMS_tip_fw_L1", "is_LMS_bootblock", "is_LMS_BL31", "is_LMS_OpTee", "is_LMS_uboot"]
+}
 # to put manifests after L1: select 2048*1024.
 # to put manifests at the end of flash: select 512*1024.
 COMBO1_OFFSET  = 512*1024

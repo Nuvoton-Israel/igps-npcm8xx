@@ -16,7 +16,7 @@ from shutil import rmtree
 from .BinarySignatureGenerator import *
 from .GenerateKeyECC import *
 from .GenerateKeyRSA import *
-from  .key_setting_edit_me import *
+from . import key_setting_edit_me as config
 if isLMS and not isRemoteHSM:
 	from .GenerateKeyLMS import *
 from .BinaryGenerator import *
@@ -293,8 +293,8 @@ def Write_key_ind_and_key_mask_to_headers():
 		Replace_binary_single_byte(UbootAndHeader_bin, 0xc4, ord(lms_key_which_signs_uboot[-1]) - ord('0'))
 
 def Write_LMS_flags_to_headers():
-
-	if isLMS:
+	kmt_keys_selected = any(config.lms_flags[key] for key in config.key_groups["KMT_Keys"])
+	if kmt_keys_selected:
 		#LMS_KMO - the place in kmt header, address 128-129, in which the content should be 128* num of ECC keys, which is the offset of the first LMS KMT key in kmt LMS map xml 
 		file_size = os.stat(kmt_map_tmp_bin).st_size #file_size =  128 * X + 80* X = (128+80) * X = 208 * X
 		num_of_keys =  file_size // 208 
@@ -307,23 +307,19 @@ def Write_LMS_flags_to_headers():
 		Replace_binary_single_byte(KmtAndHeader_bin,       128, byte2, 0)
 		Replace_binary_single_byte(KmtAndHeader_bin,       129, byte1, 0)
 		
-	LMS_kmt = 0x1 if is_LMS_kmt else 0x0
-	LMS_skmt = 0x1 if is_LMS_skmt else 0x0
-	LMS_tip_fw_L0 = 0x1 if is_LMS_tip_fw_L0 else 0x0
-	LMS_tip_fw_L1 = 0x1 if is_LMS_tip_fw_L1 else 0x0
-	LMS_bootblock = 0x1 if is_LMS_bootblock else 0x0
-	LMS_BL31 = 0x1 if is_LMS_BL31 else 0x0
-	LMS_OpTee = 0x1 if is_LMS_OpTee else 0x0
-	LMS_uboot = 0x1 if is_LMS_uboot else 0x0
+	if isLMS:
+		# Creating variables dynamically
+		lms_values = {key: 0x1 if value else 0x0 for key, value in config.lms_flags.items()}
 
-	Replace_binary_single_byte(KmtAndHeader_bin,       149, LMS_kmt, 0)
-	Replace_binary_single_byte(SkmtAndHeader_bin,      149, LMS_skmt , 0)
-	Replace_binary_single_byte(TipFwAndHeader_L0_bin,  149, LMS_tip_fw_L0, 0)
-	Replace_binary_single_byte(TipFwAndHeader_L1_bin,  149, LMS_tip_fw_L1,0)
-	Replace_binary_single_byte(BootBlockAndHeader_bin, 149, LMS_bootblock, 0)
-	Replace_binary_single_byte(BL31_AndHeader_bin,     149, LMS_BL31, 0)
-	Replace_binary_single_byte(OpTeeAndHeader_bin,     149, LMS_OpTee , 0)
-	Replace_binary_single_byte(UbootAndHeader_bin,     149, LMS_uboot, 0)
+		# Using the values in function calls
+		Replace_binary_single_byte(KmtAndHeader_bin,149, lms_values["is_LMS_kmt"], 0)
+		Replace_binary_single_byte(SkmtAndHeader_bin,149, lms_values["is_LMS_skmt"], 0)
+		Replace_binary_single_byte(TipFwAndHeader_L0_bin,149, lms_values["is_LMS_tip_fw_L0"], 0)
+		Replace_binary_single_byte(TipFwAndHeader_L1_bin,149, lms_values["is_LMS_tip_fw_L1"], 0)
+		Replace_binary_single_byte(BootBlockAndHeader_bin, 149, lms_values["is_LMS_bootblock"], 0)
+		Replace_binary_single_byte(BL31_AndHeader_bin,149, lms_values["is_LMS_BL31"], 0)
+		Replace_binary_single_byte(OpTeeAndHeader_bin,149, lms_values["is_LMS_OpTee"], 0)
+		Replace_binary_single_byte(UbootAndHeader_bin,149, lms_values["is_LMS_uboot"], 0)
 
 
 def Write_timestamp_and_IV_to_headers():
@@ -394,26 +390,36 @@ def MoveToFolder(isPalladium, dstFolder):
 	CheckIfFileExistsAndMove(Kmt_TipFwL0_Skmt_TipFwL1_BootBlock_BL31_OpTee_uboot_linux_bin    , dstFolder)
 	CheckIfFileExistsAndMove(image_no_tip_SA_bin                                              , dstFolder)
 
+# Dynamically generate keys based on configuration
+generated_keys = set()
+	
+def generate_single_LMS_key(key, TypeOfKey_TIP, pinCode):
+	if key in generated_keys:
+		return
+	generated_keys.add(key)
+
+	key_parts = key.split('_')
+	key_name = getattr(config, f"lms_key_which_signs_{'_'.join(key_parts[2:])}")
+	key_path, key_id = key_paths[key_name]
+	GenerateKeyLMS(key_path, TypeOfKey_TIP, pinCode, key_id)
+
+def generate_group(group ,TypeOfKey, TypeOfKey_TIP,  pinCode):
+	for key in group:
+		generate_single_LMS_key(key, TypeOfKey_TIP, pinCode)
+
 def Generate_Or_Load_Keys(TypeOfKey, TypeOfKey_TIP, TypeOfKey_BMC, pinCode):
 	if TypeOfKey != "RemoteHSM":
 		if isLMS:
-			print("Generate SKMT LMS keys")
-			GenerateKeyLMS(otp_lms_key0,  TypeOfKey_TIP, pinCode, id_lms_otp_key0)
-			GenerateKeyLMS(otp_lms_key1,  TypeOfKey_TIP, pinCode, id_lms_otp_key1)
-			GenerateKeyLMS(otp_lms_key2,  TypeOfKey_TIP, pinCode, id_lms_otp_key2)
-			GenerateKeyLMS(otp_lms_key3,  TypeOfKey_TIP, pinCode, id_lms_otp_key3)
-			GenerateKeyLMS(otp_lms_key4,  TypeOfKey_TIP, pinCode, id_lms_otp_key4)
-			GenerateKeyLMS(otp_lms_key5,  TypeOfKey_TIP, pinCode, id_lms_otp_key5)
-			GenerateKeyLMS(otp_lms_key6,  TypeOfKey_TIP, pinCode, id_lms_otp_key6)
-			GenerateKeyLMS(otp_lms_key7,  TypeOfKey_TIP, pinCode, id_lms_otp_key7)
-			GenerateKeyLMS(otp_lms_key8,  TypeOfKey_TIP, pinCode, id_lms_otp_key8)
-			
-			GenerateKeyLMS(skmt_lms_key5, TypeOfKey_TIP, pinCode, id_skmt_lms_key0)
-			GenerateKeyLMS(skmt_lms_key6, TypeOfKey_BMC, pinCode, id_skmt_lms_key1)
-			print("Generate KMT LMS keys")
-			GenerateKeyLMS(kmt_lms_key0, TypeOfKey_TIP, pinCode, id_lms_kmt_key0)
-			GenerateKeyLMS(kmt_lms_key1, TypeOfKey_TIP, pinCode, id_lms_kmt_key1)
-			
+			print("Generate all LMS keys")
+		for key, value in config.lms_flags.items():
+			if value:
+				if key in config.key_groups["KMT_Keys"]:
+					generate_group(config.key_groups["KMT_Keys"], TypeOfKey, TypeOfKey_TIP, pinCode)
+				elif key in config.key_groups["SKMT_Keys"]:
+					generate_group(config.key_groups["SKMT_Keys"], TypeOfKey, TypeOfKey_TIP, pinCode)
+				else:
+					generate_single_LMS_key(key,  TypeOfKey_TIP, pinCode)
+
 		print("Generate Manifest RSA keys")
 		GenerateKeyRSA(rsa_key0, TypeOfKey, pinCode, id_rsa_key0)
 		
@@ -522,12 +528,17 @@ def Build_basic_images():
 		Pad_bin_file_inplace(  Tip_FW_L1_bin  ,  32)
 		Pad_bin_file_inplace(  CP_FW_bin      ,  32)
 
-		# Generate kmt and skmt map files (no headers)		
-		if isLMS:
+		# Generate kmt and skmt map files (no headers)	
+		kmt_keys_selected = any(config.lms_flags[key] for key in config.key_groups["KMT_Keys"])	
+		if kmt_keys_selected:
 			Generate_binary(kmt_map_lms_xml, kmt_map_tmp_bin)
-			Generate_binary(skmt_map_lms_xml, skmt_map_tmp_bin)
 		else:
 			Generate_binary(kmt_map_xml, kmt_map_tmp_bin)
+			
+		skmt_keys_selected = any(config.lms_flags[key] for key in config.key_groups["SKMT_Keys"])
+		if skmt_keys_selected:
+			Generate_binary(skmt_map_lms_xml, skmt_map_tmp_bin)
+		else:
 			Generate_binary(skmt_map_xml, skmt_map_tmp_bin)
 		
 		Pad_bin_file_inplace(  kmt_map_tmp_bin       ,  32)
@@ -620,20 +631,20 @@ def Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 	try:
 		if TypeOfKey == "RemoteHSM":
 			# Embed_external_sig(sig_der             , binfile                     , outputFile            , embed_signature)
-			Embed_external_sig(KmtAndHeader_der      ,KmtAndHeader_lms_sig_bin,  KmtAndHeader_basic_bin      , KmtAndHeader_bin      , 16, isLMS)
-			Embed_external_sig(TipFwAndHeader_L0_der , TipFwAndHeader_L0_lms_sig_bin, TipFwAndHeader_L0_basic_bin , TipFwAndHeader_L0_bin , 16, isLMS)
-			Embed_external_sig(SA_TipFwAndHeader_L0_der ,SA_TipFwAndHeader_L0_lms_sig_bin, SA_TipFwAndHeader_L0_basic_bin ,SA_TipFwAndHeader_L0_bin , 16, isLMS)
-			Embed_external_sig(SkmtAndHeader_der     , SkmtAndHeader_lms_sig_bin, SkmtAndHeader_basic_bin     , SkmtAndHeader_bin     , 16, isLMS)
-			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_lms_sig_bin, TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16, isLMS)
+			Embed_external_sig(KmtAndHeader_der      ,KmtAndHeader_lms_sig_bin,  KmtAndHeader_basic_bin      , KmtAndHeader_bin      , 16, config.lms_flags["is_LMS_kmt"])
+			Embed_external_sig(TipFwAndHeader_L0_der , TipFwAndHeader_L0_lms_sig_bin, TipFwAndHeader_L0_basic_bin , TipFwAndHeader_L0_bin , 16, config.lms_flags["is_LMS_tip_fw_L0"])
+			Embed_external_sig(SA_TipFwAndHeader_L0_der ,SA_TipFwAndHeader_L0_lms_sig_bin, SA_TipFwAndHeader_L0_basic_bin ,SA_TipFwAndHeader_L0_bin , 16, False)
+			Embed_external_sig(SkmtAndHeader_der     , SkmtAndHeader_lms_sig_bin, SkmtAndHeader_basic_bin     , SkmtAndHeader_bin     , 16, config.lms_flags["is_LMS_skmt"])
+			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_lms_sig_bin, TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16, config.lms_flags["is_LMS_tip_fw_L1"])
 		else:
 			
 			# Sign Images of TIP
-			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, isLMS, eval(lms_key_which_signs_kmt))
-			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, isLMS, eval(lms_key_which_signs_tip_fw_L0))
+			Sign_binary(KmtAndHeader_basic_bin,       112, eval(otp_key_which_signs_kmt),        16, KmtAndHeader_bin,       TypeOfKey_TIP, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, config.lms_flags["is_LMS_kmt"] , key_paths[lms_key_which_signs_kmt][0])
+			Sign_binary(TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, config.lms_flags["is_LMS_tip_fw_L0"] ,key_paths[lms_key_which_signs_tip_fw_L0][0])
 			Sign_binary(SA_TipFwAndHeader_L0_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, SA_TipFwAndHeader_L0_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
 			Sign_binary(TipFwAndHeader_L0_UT_basic_bin,  112, eval(kmt_key_which_signs_tip_fw_L0),  16, TipFwAndHeader_L0_UT_bin,  TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
-			Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]), isECC, isLMS, eval(lms_key_which_signs_skmt))
-			Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]), isECC, isLMS, eval(lms_key_which_signs_tip_fw_L1))
+			Sign_binary(SkmtAndHeader_basic_bin,      112, eval(kmt_key_which_signs_skmt),       16, SkmtAndHeader_bin,      TypeOfKey_TIP, pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]), isECC, config.lms_flags["is_LMS_skmt"] ,key_paths[lms_key_which_signs_skmt][0])
+			Sign_binary(TipFwAndHeader_L1_basic_bin,  112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin,  TypeOfKey_TIP, pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]), isECC, config.lms_flags["is_LMS_tip_fw_L1"] ,key_paths[lms_key_which_signs_tip_fw_L1][0])
 			
 			# remove CRC
 			# Note: secure image will hold both CRC and signature, so that same
@@ -665,17 +676,17 @@ def Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 		if TypeOfKey == "RemoteHSM":
 			# Embed_external_sig(sig_der             , binfile                     , outputFile            , embed_signature)
 			# BMC bootloaders not verified now. Use tip l1 signature for builds for now
-			Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_lms_sig_bin, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16, isLMS)
-			Embed_external_sig(BL31_AndHeader_der    , BL31_AndHeader_lms_sig_bin, BL31_AndHeader_basic_bin    , BL31_AndHeader_bin    , 16, isLMS)
-			Embed_external_sig(OpTeeAndHeader_der    , OpTeeAndHeader_lms_sig_bin,  OpTeeAndHeader_basic_bin    , OpTeeAndHeader_bin    , 16, isLMS)
-			Embed_external_sig(UbootAndHeader_der    , UbootAndHeader_lms_sig_bin , UbootAndHeader_basic_bin    , UbootAndHeader_bin    , 16, isLMS)
+			Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_lms_sig_bin, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16, config.lms_flags["is_LMS_bootblock"])
+			Embed_external_sig(BL31_AndHeader_der    , BL31_AndHeader_lms_sig_bin, BL31_AndHeader_basic_bin    , BL31_AndHeader_bin    , 16, config.lms_flags["is_LMS_uboot"])
+			Embed_external_sig(OpTeeAndHeader_der    , OpTeeAndHeader_lms_sig_bin,  OpTeeAndHeader_basic_bin    , OpTeeAndHeader_bin    , 16, onfig.lms_flags["is_LMS_OpTee"])
+			Embed_external_sig(UbootAndHeader_der    , UbootAndHeader_lms_sig_bin , UbootAndHeader_basic_bin    , UbootAndHeader_bin    , 16, config.lms_flags["is_LMS_BL31"])
 
 		else:
 			# Sign Images of BMC
-			Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]),isECC, isLMS, eval(lms_key_which_signs_bootblock))
-			Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]),isECC, isLMS, eval(lms_key_which_signs_uboot))
-			Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]),isECC, isLMS, eval(lms_key_which_signs_OpTee))
-			Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]),isECC, isLMS, eval(lms_key_which_signs_BL31))
+			Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]),isECC, config.lms_flags["is_LMS_bootblock"] ,key_paths[lms_key_which_signs_bootblock][0])
+			Sign_binary(UbootAndHeader_basic_bin,     112, eval(skmt_key_which_signs_uboot),     16, UbootAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]),isECC, config.lms_flags["is_LMS_uboot"] ,key_paths[lms_key_which_signs_uboot][0])
+			Sign_binary(OpTeeAndHeader_basic_bin,     112, eval(skmt_key_which_signs_OpTee),     16, OpTeeAndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]),isECC, config.lms_flags["is_LMS_OpTee"] ,key_paths[lms_key_which_signs_OpTee][0])
+			Sign_binary(BL31_AndHeader_basic_bin,     112, eval(skmt_key_which_signs_BL31),      16, BL31_AndHeader_bin,     TypeOfKey_BMC, pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]),isECC, config.lms_flags["is_LMS_BL31"] ,key_paths[lms_key_which_signs_BL31][0])
 
 	except (Exception) as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()

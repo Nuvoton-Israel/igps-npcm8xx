@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.05
-Date:     Apr 2025
+Version:  04.03.06
+Date:     May 2025
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,13 +148,41 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.6                 - May 4th      2025
+============
+- LMS Changes:
+	* isLMS is true if at least one of the is_LMS_<IMG> is true. 
+	  i.e creating LMS key + signing + concatenating the signature will 
+	  only take place in case the user decides to set to true one of the is_LMS_<IMG> flags.
+	  in this case this specific image will be verified with LMS. 
+	  if the FUSTRAP1 bit is set, it means that one of the verify img flags are also set.
+	* Generating only the relevant LMS key according to the is_LMS_<IMG>.
+
+- Hardening: 
+	BMC FCFG1_7 registers on boot block , will be disabled and locked for programming 
+
+- TIP_FW 0.8.1 L0 0.7.0 L1
+    https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.1_L0_0.7.0_L1
+    - Add OTP programming to force CP reset.
+    - Remove allocation of last SKMT key for attestation.
+    - Removed support for Z1 devices.
+    - Add BMC_DIRECT command for AES command via proxy. 
+    - Add support for A3.
+    - Version is backward compatible for A2.
+    - LMS:
+       - Added FUSTRAP1 and OTP Valid\force value check before verify. 
+       - Added NCL_LMS_<X> functions for A3 and a wrapper function to do the auth process. 
+       - Added the LMS_SIG_SIZE to the image size as it is concatenated in the footer.
+       - Fixed a bug in get_key function.
+       - Reduce prints to spare RAM size.
+
+HISTORY
+-------
 IGPS 4.3.5                 - Apr 10th      2025
 ============
 - Bug fix: MFSEL_LK registers in hardening table is off. 
   MFSEL names start in 1, but index in table should start in 0.
 
-HISTORY
--------
 IGPS 4.3.4                 - Mar 24th      2025
 ============
 - Updated version of OTP programmer monitor - 1.1.4.

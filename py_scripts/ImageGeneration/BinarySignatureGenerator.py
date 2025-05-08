@@ -326,7 +326,16 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 		output_file = open(output_filename, "w+b")
 		output_file.write(output)
 		output_file.close()
+	
+		# Ensure output is aligned to 32 bytes
+		padding_length = 32 - (len(output) % 32)
+		if padding_length != 32:
+			output += b'\x00' * padding_length
 
+		output_file = open(output_filename, "w+b")
+		output_file.write(output)
+		output_file.close()
+		
 	finally:
 		if os.path.isfile(sig_der)  :
 			os.remove(sig_der)
