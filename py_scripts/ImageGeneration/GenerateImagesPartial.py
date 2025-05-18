@@ -20,10 +20,23 @@ from .GenerateKeyECC import *
 from .BinaryGenerator import *
 from .CRC32_Generator import *
 from .GenerateImages import *
-from  .key_setting_edit_me import *
-
 from .IGPS_files import *
 
+import json
+# Define the correct path to the JSON file
+json_file_path = os.path.join(os.path.dirname(__file__), 'key_setting_edit_me.json')
+# Load the JSON configuration
+with open(json_file_path, 'r') as file:
+	config = json.load(file)
+# Use the configuration values
+otp_key_which_signs_kmt            = config["otp_key_which_signs_kmt"]
+kmt_key_which_signs_tip_fw_L0      = config["kmt_key_which_signs_tip_fw_L0"]
+kmt_key_which_signs_skmt           = config["kmt_key_which_signs_skmt"]
+skmt_key_which_signs_tip_fw_L1     = config["skmt_key_which_signs_tip_fw_L1"]
+skmt_key_which_signs_bootblock     = config["skmt_key_which_signs_bootblock"]
+skmt_key_which_signs_BL31          = config["skmt_key_which_signs_BL31"]
+skmt_key_which_signs_OpTee         = config["skmt_key_which_signs_OpTee"]
+skmt_key_which_signs_uboot         = config["skmt_key_which_signs_uboot"]
 	
 def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 

@@ -5,7 +5,7 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.06
+Version:  04.03.07
 Date:     May 2025
 
 This package is released under the terms of the Source Code License Agreement
@@ -148,6 +148,15 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.7                 - May 12th      2025
+============
+- Modified key_setting_edit_me.py to a json file.
+	* As a result of the above:
+	  added definitions to the objects from the json file instead of calling them
+	  directly from the .py script as before.
+
+HISTORY
+-------
 IGPS 4.3.6                 - May 4th      2025
 ============
 - LMS Changes:
@@ -175,9 +184,7 @@ IGPS 4.3.6                 - May 4th      2025
        - Added the LMS_SIG_SIZE to the image size as it is concatenated in the footer.
        - Fixed a bug in get_key function.
        - Reduce prints to spare RAM size.
-
-HISTORY
--------
+ 
 IGPS 4.3.5                 - Apr 10th      2025
 ============
 - Bug fix: MFSEL_LK registers in hardening table is off. 

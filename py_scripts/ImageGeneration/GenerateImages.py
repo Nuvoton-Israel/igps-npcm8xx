@@ -18,11 +18,9 @@ from .GenerateKeyECC import *
 from .GenerateKeyRSA import *
 from .BinaryGenerator import *
 from .CRC32_Generator import *
-
 from .IGPS_files import *
 from .IGPS_common import *
 from .Register_csv_parse import *
-from  .key_setting_edit_me import *
 
 def Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0, isDebug):
 	currpath = os.getcwd()

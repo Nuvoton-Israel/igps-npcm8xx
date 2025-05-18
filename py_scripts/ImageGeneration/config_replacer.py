@@ -10,12 +10,14 @@ Usage:
     python config_replacer.py settings.json
     Please note the working directory should be the root of the project.
     example:
-        python py_scripts/ImageGeneration/config_replacer.py py_scripts/ImageGeneration/inputs/settings.json
+        python py_scripts/ImageGeneration/config_replacer.py
+            py_scripts/ImageGeneration/inputs/settings.json
 Test:
     python py_scripts/ImageGeneration/test_config_replacer.py
 
-This script is used for replacing the settings in the XML and Python files from Openbmc setting file.
-It would be useful to reduce effort of maintaining full XML for each configuration.
+This script is used for replacing the settings in the XML and Python files from
+Openbmc setting file. It would be useful to reduce effort of maintaining full
+XML for each configuration.
 """
 
 from itertools import chain
@@ -30,6 +32,23 @@ import xml.etree.ElementTree as ET
 XML_PATH = os.path.join("py_scripts", "ImageGeneration", "inputs")
 KEY_SETTINGS_PATH = os.path.join("py_scripts", "ImageGeneration")
 SETTING_FILE = os.path.join(XML_PATH, "settings.json")
+
+
+def is_in_instance(value, types):
+    """
+    Check if the value is in the instance of the types.
+
+    Args:
+        value: The value to check.
+        types: The types to check against.
+
+    Returns:
+        bool: True if the value is in the instance of the types, False otherwise.
+    """
+    for type in types:
+        if isinstance(value, type):
+            return True
+    return False
 
 
 def load_settings(file: str = SETTING_FILE) -> dict[str, dict[str, str]]:
@@ -54,7 +73,7 @@ def load_settings(file: str = SETTING_FILE) -> dict[str, dict[str, str]]:
         }
     }
     """
-    if os.path.isfile(file) == False:
+    if not os.path.isfile(file):
         raise FileNotFoundError(f"Error: {file} doesn't exist")
     # we should accept empty settings file or {} as valid
     settings = {}
@@ -62,12 +81,17 @@ def load_settings(file: str = SETTING_FILE) -> dict[str, dict[str, str]]:
         data = f.read().strip()
         if len(data) > 0:
             settings = json.loads(data)
+
     # remove comments
     def remove_comment(d: dict):
         if "//" in d:
             del d["//"]
         if "comment" in d:
             del d["comment"]
+
+    def raise_err(config: str, key: str):
+        raise ValueError(
+                 f"Error: Invalid format in settings file for {config}:{key}")
     remove_comment(settings)
     # check settings format
     for config in list(settings.keys()):
@@ -79,26 +103,37 @@ def load_settings(file: str = SETTING_FILE) -> dict[str, dict[str, str]]:
             del settings[config]
             continue
         for key, value in values.items():
-            if not isinstance(key, str) or not isinstance(value, str):
-                raise ValueError(f"Error: Invalid format in settings file for {config}")
+            # key should be str
+            if not isinstance(key, str):
+                raise_err(config, key)
+            # we allow the value in json get more type
+            elif config.endswith("json"):
+                if not is_in_instance(value, (str, int, dict, list, bool)):
+                    raise_err(config, key)
+            else:
+                if not isinstance(value, str):
+                    raise_err(config, key)
     print("Settings format is valid")
     return settings
 
 
-def replace_value_in_xml(xml_file: str, dict: dict[str, str], target_xml: str = None):
+def replace_value_in_xml(xml_file: str, dict: dict[str, str], target: str = None):
     """
     Replaces the values in the specified XML file with the given dictionary.
 
     Args:
         xml_file (str): The path to the XML file.
-        dict (dict[str, str]): The dictionary containing the tag-value pairs to replace.
-        target_xml (str, optional): The path to the target XML file. If not provided, the original XML file will be overwritten.
+        dict (dict[str, str]):
+            The dictionary containing the tag-value pairs to replace.
+        target (str, optional): The path to the target XML file.
+            If not provided, the original XML file will be overwritten.
 
     Raises:
         ValueError: If a tag is not found in the XML file.
 
     Example:
-        replace_value_in_xml("input.xml", {"TAG1": "VALUE1", "TAG2": "VALUE2"}, "output.xml")
+        replace_value_in_xml("input.xml",
+            {"TAG1": "VALUE1", "TAG2": "VALUE2"}, "output.xml")
     """
     tree = ET.parse(xml_file)
     root = tree.getroot()
@@ -122,16 +157,15 @@ def replace_value_in_xml(xml_file: str, dict: dict[str, str], target_xml: str = 
         if search_count == len(elements):
             raise ValueError(f"Error: TAG \"{tag}\" not found in the xml file")
     # write the xml file
-    if target_xml is not None:
-        tree.write(target_xml)
-    else:
-        tree.write(xml_file)
-        pass
+    if target is None:
+        target = xml_file
+    tree.write(target, "UTF-8", True)
 
 
 class NoSectionConfigParser:
     """
-    Hacks class for ConfigParser to avoid read/write section in the configuration file.
+    Hacks class for ConfigParser to avoid read/write section in the
+    configuration file.
     """
 
     def __init__(self):
@@ -164,14 +198,17 @@ def replace_value_in_py(py_file: str, dict: dict[str, str], target_py: str = Non
 
     Args:
         py_file (str): The path to the Python file.
-        dict (dict[str, str]): The dictionary containing the key-value pairs to replace.
-        target_py (str, optional): The path to the target Python file. If not provided, the original Python file will be overwritten.
+        dict (dict[str, str]):
+            The dictionary containing the key-value pairs to replace.
+        target_py (str, optional): The path to the target Python file. If not
+         provided, the original Python file will be overwritten.
 
     Raises:
         ValueError: If a key is not found in the configuration file.
 
     Example:
-        replace_value_in_py("script.py", {"KEY1": "VALUE1", "KEY2": "VALUE2"}, "output.py")
+        replace_value_in_py("script.py",
+            {"KEY1": "VALUE1", "KEY2": "VALUE2"}, "output.py")
     """
     cp = NoSectionConfigParser()
     cp.read(py_file)
@@ -181,6 +218,43 @@ def replace_value_in_py(py_file: str, dict: dict[str, str], target_py: str = Non
         cp.write(target_py)
     else:
         cp.write(py_file)
+
+
+def replace_settings_in_json(file: str, settings: dict, target: str = None):
+    with open(file, "r") as f:
+        data = json.load(f)
+
+    # modify data if settings keys are in the data
+    # assume we have two levels of data
+    # the first level is the key in the settings file
+    for key, value in settings.items():
+        if key in data:
+            # check if the value is a dict
+            if isinstance(value, dict):
+                # replace the value in the settings
+                for sub_key, sub_value in value.items():
+                    if sub_key in data[key]:
+                        print("replacing {}.{} value {} to {}".format(
+                                key, sub_key, data[key][sub_key], sub_value))
+                        data[key][sub_key] = sub_value
+                    else:
+                        raise ValueError(
+                            f"Error: {sub_key} not found in the settings file")
+            else:
+                # replace the value in the settings
+                if key == "COMBO1_OFFSET":
+                    # check if the value is a String
+                    if isinstance(value, str):
+                        value = eval(value)
+                print(f"replacing {key} value {data[key]} to {value}")
+                data[key] = value
+        else:
+            raise ValueError(f"Error: {key} not found in the settings file")
+    # write the data to the target file
+    if target is None:
+        target = file
+    with open(target, "w") as f:
+        json.dump(data, f, indent=4)
 
 
 def replace_settings_test(file: str):
@@ -199,8 +273,15 @@ def replace_settings_test(file: str):
                 settings[config],
                 os.path.join("test", config),
             )
+        elif config.endswith(".json"):
+            replace_settings_in_json(
+                os.path.join(KEY_SETTINGS_PATH, config),
+                settings[config],
+                os.path.join("test", config),
+            )
         else:
             raise ValueError(f"Error: {config} is not a supported configuration")
+
 
 def change_pwd_to_script_root() -> tuple[str, str]:
     # change the working directory to the root of the project
@@ -217,8 +298,9 @@ def change_pwd_to_script_root() -> tuple[str, str]:
     else:
         raise FileNotFoundError(f"Error: {root} not found in the path")
     os.chdir(target_pwd)
-    print (f"Working directory: {target_pwd}")
+    print(f"Working directory: {target_pwd}")
     return target_pwd, pwd
+
 
 if __name__ == "__main__":
     setting_file = SETTING_FILE
@@ -233,7 +315,11 @@ if __name__ == "__main__":
         if config.endswith(".xml"):
             replace_value_in_xml(os.path.join(XML_PATH, config), settings[config])
         elif config.endswith(".py"):
-            replace_value_in_py(os.path.join(KEY_SETTINGS_PATH, config), settings[config])
+            replace_value_in_py(os.path.join(KEY_SETTINGS_PATH, config),
+                                settings[config])
+        elif config.endswith(".json"):
+            replace_settings_in_json(os.path.join(KEY_SETTINGS_PATH, config),
+                                     settings[config])
         else:
             raise ValueError(f"Error: {config} is not a supported configuration")
     print("Done")

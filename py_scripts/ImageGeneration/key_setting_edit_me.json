@@ -1,0 +1,44 @@
+{
+    "otp_key_which_signs_kmt": "otp_key1",
+    "kmt_key_which_signs_tip_fw_L0": "kmt_key0",
+    "kmt_key_which_signs_skmt": "kmt_key1",
+    "skmt_key_which_signs_tip_fw_L1": "skmt_key0",
+    "skmt_key_which_signs_bootblock": "skmt_key1",
+    "skmt_key_which_signs_BL31": "skmt_key1",
+    "skmt_key_which_signs_OpTee": "skmt_key1",
+    "skmt_key_which_signs_uboot": "skmt_key1",
+    "isECC": true,
+    "lms_flags": {
+        "is_LMS_kmt": false,
+        "is_LMS_tip_fw_L0": false,
+        "is_LMS_skmt": false,
+        "is_LMS_tip_fw_L1": false,
+        "is_LMS_bootblock": false,
+        "is_LMS_BL31": false,
+        "is_LMS_OpTee": false,
+        "is_LMS_uboot": false
+    },
+    "isRemoteHSM": false,
+    "lms_key_which_signs_kmt": "otp_lms_key1",
+    "lms_key_which_signs_tip_fw_L0": "kmt_lms_key0",
+    "lms_key_which_signs_skmt": "kmt_lms_key1",
+    "lms_key_which_signs_tip_fw_L1": "skmt_lms_key5",
+    "lms_key_which_signs_bootblock": "skmt_lms_key6",
+    "lms_key_which_signs_BL31": "skmt_lms_key6",
+    "lms_key_which_signs_OpTee": "skmt_lms_key6",
+    "lms_key_which_signs_uboot": "skmt_lms_key6",
+    "key_groups": {
+        "KMT_Keys": [
+            "is_LMS_tip_fw_L0",
+            "is_LMS_skmt"
+        ],
+        "SKMT_Keys": [
+            "is_LMS_tip_fw_L1",
+            "is_LMS_bootblock",
+            "is_LMS_BL31",
+            "is_LMS_OpTee",
+            "is_LMS_uboot"
+        ]
+    },
+    "COMBO1_OFFSET": 2097152
+}

@@ -13,6 +13,17 @@ from shutil import move
 from shutil import copyfile
 from shutil import copy
 
+import json
+# Define the correct path to the JSON file
+json_file_path = os.path.join(os.path.dirname(__file__), 'key_setting_edit_me.json')
+# Load the JSON configuration
+with open(json_file_path, 'r') as file:
+	config = json.load(file)
+# Calculate isLMS based on lms_flags
+lms_flags    = config.get("lms_flags", {})
+isLMS        = any(lms_flags.values())
+isRemoteHSM  = config.get("isRemoteHSM", False)
+
 inputs_dir = "inputs"
 outputs_dir = "output_binaries"
 
@@ -363,9 +374,6 @@ bin_registers_bootblock = os.path.join("output_binaries", "regs", "registers_boo
 bin_registers_bl31      = os.path.join("output_binaries", "regs", "registers_bl31.bin")
 bin_registers_optee     = os.path.join("output_binaries", "regs", "registers_optee.bin")
 bin_registers_uboot     = os.path.join("output_binaries", "regs", "registers_uboot.bin")
-
-
-from  .key_setting_edit_me import *
 
 def CheckIfFileExistsAndMove(srcFile, toFolder, ForceCopy = True):
 	dstFile = os.path.join(toFolder, os.path.split(srcFile)[-1])
