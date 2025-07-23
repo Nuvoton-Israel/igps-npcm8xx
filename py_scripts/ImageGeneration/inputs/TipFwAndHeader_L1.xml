@@ -38,6 +38,8 @@
 					Bit 1: tip_start_wd
 					Bit 2: tip_support_encryption
 					Bit 3: tip_gpio_wol
+					Bit 5: disable_print_to_uart
+					Bit 6: print_to_memory
 		-->
 	<BinField>
 		<name>SystemControlFlags</name>     

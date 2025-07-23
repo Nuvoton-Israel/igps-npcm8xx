@@ -17,7 +17,7 @@
 	
 <!--********************************************************************* -->
 	<BinField>
-		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   , 0x0A-0x6C("\nL"): LMS   ,   0x0A-0x41("\nA"): AES -->
 		<name>SKMT_Key_Type_0</name>
 		<config>
 			<ecc>none</ecc>  
@@ -50,7 +50,7 @@
 
 <!--********************************************************************* -->
 	<BinField>
-		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   , 0x0A-0x6C("\nL"): LMS   ,   0x0A-0x41("\nA"): AES -->
 		<name>SKMT_Key_Type_1</name>
 		<config>
 			<ecc>none</ecc>  
@@ -83,7 +83,7 @@
 	
 <!--********************************************************************* -->
 	<BinField>
-		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   , 0x0A-0x6C("\nL"): LMS   ,   0x0A-0x41("\nA"): AES -->
 		<name>SKMT_Key_Type_2</name>
 		<config>
 			<ecc>none</ecc>  
@@ -116,7 +116,7 @@
 	
 <!--********************************************************************* -->
 	<BinField>
-		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x45("\nA"): AES -->
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   , 0x0A-0x6C("\nL"): LMS   ,   0x0A-0x41("\nA"): AES -->
 		<name>SKMT_Key_Type_3</name>
 		<config>
 			<ecc>none</ecc>  
@@ -148,7 +148,7 @@
 	
 <!--************ LAST KEY IS USED FOR MANIFEST ROOT KEY ***************** -->
 	<BinField>
-		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   ,   0x0A-0x41("\nA"): AES  , 0x0A-0x43 ("\nC") Certificate-->
+		<!-- SKMT Key type   0x0A-0x52("\nR"): RSA  ,  0x0A-0x45("\nE"): ECC   , 0x0A-0x6C("\nL"): LMS   ,   0x0A-0x41("\nA"): AES -->
 		<name>SKMT_Key_Type_4</name>
 		<config>
 			<ecc>none</ecc>  
