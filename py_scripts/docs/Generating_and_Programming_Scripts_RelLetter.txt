@@ -148,7 +148,7 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 4.3.8                 - Jul 20th      2025
+IGPS 4.3.8                 - Jul 28th      2025
 ============
 - SystemControlFlags on L1 - added bits 5+6. 5 controls the ability to disable the UART log printing (1 = to disable )
 					6 controls the new option to write the log to an address in the memory
@@ -169,17 +169,24 @@ IGPS 4.3.8                 - Jul 20th      2025
 	* SKMT keys: revert the manifest key to be the last one.
 	* Split GCM AES from all the rest of AES engine. Remove GCM calls from main AES engine.
 	* Bug fix: clear the SCRPAD mutex during init, for the case it's set previously.
-- bootblock 0.5.6
+	* LMS Changes:
+		- Check the KMT valid key only if the key is ECC, not LMS
+		- ECC verification needs sha alg enum, while LMS needs the digest length 
+		- Remove the 2nd keyindex loop
+- Bootblock 0.5.6
     https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.6
     * Add the flag "-ftrack-macro-expansion=0" (easier for handling compilation errors).
     * Print chip revision flag correctly for A3.
     * Lock DRAM memory regions. TIP region is locked for tip mode only. 
       No change in NO_TIP mode.
-      No change in NO_TIP mode.
-- Register tables: set lock on any reset (0x1FF instead of 0x100).
-- production scripts:
-	* version numbder will be without 0s. (4.3.8 and not 04.03.08)
-	* gerVersion.bat will look on \aglick as well as \tperry 
+	* Bug fix: reset UART FIFOs during serial_printf_init to avoid UART stuck when switching to 720MHz.
+- Register tables: set RCR locks on any reset (0x9FF instead of 0x100).
+	* Add bit 11 for WOL reset handling.
+- Uboot v2023.10-npcm8xx-20250728
+	https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20250728
+	* Add configuration of SPI Chip select for Recovery boot ENV.
+	* Support configurable VCD input source.
+	* Add PCIE-RC driver.
 
 HISTORY
 -------

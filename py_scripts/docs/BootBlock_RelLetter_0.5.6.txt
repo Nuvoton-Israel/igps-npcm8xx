@@ -56,12 +56,13 @@ to flash via the IGPS (https://github.com/Nuvoton-Israel/igps) or other means.
 
 # ENHANCEMENTS
 ----------------
-version 0.5.6     - Jul 20th 2025
+version 0.5.6     - Jul 27th 2025
 ============
 - Add the flag "-ftrack-macro-expansion=0" (easier for handling compilation errors).
 - Print chip revision flag correctly for A3.
 - Lock DRAM memory regions. TIP region is locked for tip mode only. 
   No change in NO_TIP mode.
+- Bug fix: reset UART FIFOs during serial_printf_init to avoid UART stuck when switching to 720MHz.
 
 # HISTORY
 ---------------

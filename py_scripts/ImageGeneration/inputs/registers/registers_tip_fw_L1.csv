@@ -11,7 +11,8 @@
 # Table will be executed by TIP FW L1 before L1 execution
 # Regs and fields must match 'versions\npcm8xx.chip' registers file of NPCM8XX (same as DS). 
 # 
-# Reset match INTCR2 upper 9 bits. For PORST only execution write 0x100. For any reset 0x1FF. 
+# Reset match INTCR2 upper 9 bits. For PORST only execution write 0x100. For any reset 0x9FF. 
+# bit 11: WOL
 # bit 8: PORST 
 # bit 7: CORST 
 # bit 6: WD0 
