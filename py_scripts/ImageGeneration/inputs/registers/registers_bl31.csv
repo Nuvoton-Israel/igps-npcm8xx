@@ -11,7 +11,8 @@
 # Table will be executed by TIP FW L1 before bl31 execution
 # Regs and fields must match 'versions\npcm8xx.chip' registers file of NPCM8XX (same as DS). 
 # 
-# Reset match INTCR2 upper 9 bits. For PORST only execution write 0x100. For any reset 0x1FF. 
+# Reset match INTCR2 upper 9 bits. For PORST only execution write 0x100. For any reset 0x9FF. 
+# bit 11: WOL
 # bit 8: PORST 
 # bit 7: CORST 
 # bit 6: WD0 
@@ -28,9 +29,9 @@
 # All numbers are in hex format only except delay. 
 ############################################################################################# 
 # Register  , Module index, Register index, field   , value_to_write, reset, delay_exp_us
-RLOCKR1     ,0            ,0              ,PLL0LK   ,1              ,0x1FF ,0
-RLOCKR1     ,0            ,0              ,PLL1LK   ,1              ,0x1FF ,0
-RLOCKR1     ,0            ,0              ,PLL2LK   ,1              ,0x1FF ,0
+RLOCKR1     ,0            ,0              ,PLL0LK   ,1              ,0x9FF ,0
+RLOCKR1     ,0            ,0              ,PLL1LK   ,1              ,0x9FF ,0
+RLOCKR1     ,0            ,0              ,PLL2LK   ,1              ,0x9FF ,0
 WD0RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 WD1RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 WD2RCRLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
@@ -38,16 +39,17 @@ SWRSTC1LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 SWRSTC2LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 SWRSTC3LK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
+TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 CORSTCLK    ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 TIPRSTCLK   ,0            ,0              ,MCLK     ,1              ,0x100 ,0
 TIPRSTCLK   ,0            ,0              ,CA35CLK  ,1              ,0x102 ,0
 IPSRSTDIS1  ,0            ,0              ,MCLK     ,1              ,0x100 ,0
-FLOCKR1     ,0            ,0              ,LKGPO2SLK,1              ,0x1FF ,0
+FLOCKR1     ,0            ,0              ,LKGPO2SLK,1              ,0x9FF ,0
 FLOCKR2     ,0            ,0              ,CRHEN    ,1              ,0x100 ,0
-FLOCKR2     ,0            ,0              ,CRHENLK  ,1              ,0x1FF ,0
-FLOCKR2     ,0            ,0              ,S0CSELK  ,1              ,0x1FF ,0
-FLOCKR2     ,0            ,0              ,S3CSELK  ,1              ,0x1FF ,0
-FLOCKR2     ,0            ,0              ,S1CSELK  ,1              ,0x1FF ,0
-RLOCKR1     ,0            ,0              ,0        ,0x0008C204     ,0x1FF ,0
+FLOCKR2     ,0            ,0              ,CRHENLK  ,1              ,0x9FF ,0
+FLOCKR2     ,0            ,0              ,S0CSELK  ,1              ,0x9FF ,0
+FLOCKR2     ,0            ,0              ,S3CSELK  ,1              ,0x9FF ,0
+FLOCKR2     ,0            ,0              ,S1CSELK  ,1              ,0x9FF ,0
+RLOCKR1     ,0            ,0              ,0        ,0x0008C204     ,0x9FF ,0
 MCR_n       ,0            ,67             ,0        ,0x01001FF2     ,0x100 ,0
 MCR_n       ,0            ,127            ,0        ,0x01001FF3     ,0x100 ,0

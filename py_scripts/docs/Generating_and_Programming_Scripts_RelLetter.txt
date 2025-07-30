@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.07
-Date:     May 2025
+Version:  04.03.08
+Date:     Jul 2025
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,48 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.8                 - Jul 28th      2025
+============
+- SystemControlFlags on L1 - added bits 5+6. 5 controls the ability to disable the UART log printing (1 = to disable )
+					6 controls the new option to write the log to an address in the memory
+- SystemControlFlags	on L0 - added bits 0 or 1 to control the print to uart \ memory, added log size and address as well.
+- Fix Lms flags configuration on programmer monitor generation (left over from previews transition to .json file)
+- Fuse map XML file:
+	- Edit the mask of <mask format='bytes'>
+	- Add PQA 1 field 
+- SKMT keys for LMS: remove SKMT ECC keys 2-3-4. we only use 0+1, change SKMT LMS keys 5-6 to 2-3
+- Pad value: changed to 0 instead of 0xFF for L0 XML.
+- TIP_FW 0.8.2 L0 0.7.1 L1
+    https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.2_L0_0.7.1_L1
+	* Added option to write the log to the memory instead and as addition to UART, using a flag from the L0 XML header and using the system flags on L1.
+	* Added Baud rate 750000 option.
+	* Added serial_printf_setup function that will include code from both serial_printf_init & serial_printf_reconfig.
+	* Update CLK and UART drv code to latest HAL.
+	* Supports AES, RNG, Flash, and FW update proxy commands to provide crypto services for A35. Code is under BMC_DIRECT flag, disabled by default.
+	* SKMT keys: revert the manifest key to be the last one.
+	* Split GCM AES from all the rest of AES engine. Remove GCM calls from main AES engine.
+	* Bug fix: clear the SCRPAD mutex during init, for the case it's set previously.
+	* LMS Changes:
+		- Check the KMT valid key only if the key is ECC, not LMS
+		- ECC verification needs sha alg enum, while LMS needs the digest length 
+		- Remove the 2nd keyindex loop
+- Bootblock 0.5.6
+    https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.5.6
+    * Add the flag "-ftrack-macro-expansion=0" (easier for handling compilation errors).
+    * Print chip revision flag correctly for A3.
+    * Lock DRAM memory regions. TIP region is locked for tip mode only. 
+      No change in NO_TIP mode.
+	* Bug fix: reset UART FIFOs during serial_printf_init to avoid UART stuck when switching to 720MHz.
+- Register tables: set RCR locks on any reset (0x9FF instead of 0x100).
+	* Add bit 11 for WOL reset handling.
+- Uboot v2023.10-npcm8xx-20250728
+	https://github.com/Nuvoton-Israel/u-boot/releases/tag/v2023.10-npcm8xx-20250728
+	* Add configuration of SPI Chip select for Recovery boot ENV.
+	* Support configurable VCD input source.
+	* Add PCIE-RC driver.
+
+HISTORY
+-------
 IGPS 4.3.7                 - May 12th      2025
 ============
 - Modified key_setting_edit_me.py to a json file.
@@ -155,8 +197,6 @@ IGPS 4.3.7                 - May 12th      2025
 	  added definitions to the objects from the json file instead of calling them
 	  directly from the .py script as before.
 
-HISTORY
--------
 IGPS 4.3.6                 - May 4th      2025
 ============
 - LMS Changes:

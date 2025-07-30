@@ -12,7 +12,7 @@
 	<!-- BMC mandatory fields -->
 	<ImageProperties>
 		<BinSize>0</BinSize> <!-- If 0 the binary size will be calculated by the tool -->
-		<PadValue>0xFF</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
+		<PadValue>0x00</PadValue>	<!-- Byte value to pad the empty areas, default is 0 -->
 	</ImageProperties>
 
 	<BinField>
@@ -165,6 +165,40 @@
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
 	</BinField>
 
+	<!-- SystemControlFlags.
+					Bit 0: disable_print_to_uart
+					Bit 1: print_to_memory
+	-->
+	<BinField>
+		<name>SystemControlFlags</name>     
+		<config>
+			<offset>200</offset>
+			<size>4</size>
+		</config>
+		<content format='32bit'>0x0</content>   <!-- key index, bitwise 0x0 print to uart, 0x1 disable print to uart,  0x2 print to memory + uart , 0x3 print to memory + don't print to uart -->
+	</BinField>
+	
+	<BinField>
+		<name>log_start_address</name>     
+		<config>
+			<offset>204</offset>
+			<size>4</size>
+		</config>
+		 <content format='32bit'>0xC0008000</content>
+		<!-- <content format='32bit'>0xFFFE0000(RAM2)   0xC0008000(RAM3) 0x20000000(DDR) </content> -->
+	</BinField>
+	
+		<BinField>
+		<name>log_size</name>     
+		<config>
+			<offset>208</offset>
+			<size>4</size>
+		</config>
+		
+		 <content format='32bit'>0x00004000</content>       
+		<!-- <content format='32bit'>0x00010000 (RAM2) 0x00004000(RAM3)</content> --->  
+	</BinField>
+	
 	<BinField>
 		<name>TipFW</name>
 		<config>
