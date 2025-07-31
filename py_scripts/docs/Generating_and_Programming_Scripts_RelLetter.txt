@@ -148,7 +148,7 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 4.3.8                 - Jul 28th      2025
+IGPS 4.3.8                 - Jul 31th      2025
 ============
 - SystemControlFlags on L1 - added bits 5+6. 5 controls the ability to disable the UART log printing (1 = to disable )
 					6 controls the new option to write the log to an address in the memory
@@ -157,7 +157,8 @@ IGPS 4.3.8                 - Jul 28th      2025
 - Fuse map XML file:
 	- Edit the mask of <mask format='bytes'>
 	- Add PQA 1 field 
-- SKMT keys for LMS: remove SKMT ECC keys 2-3-4. we only use 0+1, change SKMT LMS keys 5-6 to 2-3
+- SKMT keys: removed SKMT ECC keys 2-3-4. we only use 0+1, change SKMT LMS keys 5-6 to 2-3. 
+	Udpated both SKMT XMLs (ECC + LMS)
 - Pad value: changed to 0 instead of 0xFF for L0 XML.
 - TIP_FW 0.8.2 L0 0.7.1 L1
     https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.2_L0_0.7.1_L1
@@ -187,6 +188,7 @@ IGPS 4.3.8                 - Jul 28th      2025
 	* Add configuration of SPI Chip select for Recovery boot ENV.
 	* Support configurable VCD input source.
 	* Add PCIE-RC driver.
+- Programmer monitor 1.1.6 - supports A3.
 
 HISTORY
 -------
