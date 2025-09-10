@@ -29,7 +29,7 @@
 		<name>ECC_Key_0_valid</name>         <!-- name of field -->
 		<config>
 			<ecc>nibble</ecc>           <!-- ECC method: majority, nibble, 10_bits_majority, none -->
-			<offset>126</offset>            <!-- offset in the bin array -->
+			<offset>0x7E</offset>            <!-- offset in the bin array -->
 			<size>1</size>              <!-- size in the bin array (after ECC decode) -->
 		</config>
 		<content>0xAA</content>                <!-- content the user should fill -->
@@ -40,7 +40,7 @@
 		<name>ECC_Key_1</name>         <!-- name of field -->
 		<config>
 			<ecc>secded</ecc>           <!-- ECC method: majority, nibble, 10_bits_majority, none -->
-			<offset>128</offset>            <!-- offset in the bin array -->
+			<offset>0x80</offset>            <!-- offset in the bin array -->
 			<size>96</size>                <!-- size in the header calculated by tool-->
 		</config>
 		<content format='FileContent'>inputs/key_input/kmt_ecc_key_1_pub.bin</content>                <!-- content the user should fill -->
@@ -51,7 +51,7 @@
 		<name>ECC_Key_1_valid</name>         <!-- name of field -->
 		<config>
 			<ecc>nibble</ecc>           <!-- ECC method: majority, nibble, 10_bits_majority, none -->
-			<offset>254</offset>            <!-- offset in the bin array -->
+			<offset>0xFE</offset>            <!-- offset in the bin array -->
 			<size>1</size>              <!-- size in the bin array (after ECC decode) -->
 		</config>
 		<content>0xAA</content>                <!-- content the user should fill -->

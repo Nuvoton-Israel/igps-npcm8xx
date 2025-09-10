@@ -18,7 +18,7 @@
 	<BinField>
 		<name>Anchor</name>
 		<config>
-			<offset>0</offset>
+			<offset>0x0</offset>
 			<size>4</size>
 		</config>
 		<content format='bytes'>0x5E 0x4D 0x7A 0x9B</content>  <!-- content the user should fill -->
@@ -29,7 +29,7 @@
 		     CRC Disabled (0xE1 0x54 0xF2 0x57) -->
 		<name>ExendedAnchor_CrcEn</name>
 		<config>
-			<offset>4</offset>
+			<offset>0x4</offset>
 			<size>4</size>
 		</config>
 		<content format='bytes'>0xE1 0x54 0xF2 0x57</content>  <!-- content the user should fill -->
@@ -150,7 +150,7 @@
 	<BinField>
 		<name>KeyMask_LMS</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
-			<offset>192</offset>
+			<offset>0xC0</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
@@ -159,7 +159,7 @@
 	<BinField>
 		<name>KeyIndex_LMS</name>
 		<config>
-			<offset>196</offset>
+			<offset>0xC4</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
@@ -172,7 +172,7 @@
 	<BinField>
 		<name>SystemControlFlags</name>     
 		<config>
-			<offset>200</offset>
+			<offset>0xC8</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x0</content>   <!-- key index, bitwise 0x0 print to uart, 0x1 disable print to uart,  0x2 print to memory + uart , 0x3 print to memory + don't print to uart -->
@@ -181,7 +181,7 @@
 	<BinField>
 		<name>log_start_address</name>     
 		<config>
-			<offset>204</offset>
+			<offset>0xCC</offset>
 			<size>4</size>
 		</config>
 		 <content format='32bit'>0xC0008000</content>
@@ -191,7 +191,7 @@
 		<BinField>
 		<name>log_size</name>     
 		<config>
-			<offset>208</offset>
+			<offset>0xD0</offset>
 			<size>4</size>
 		</config>
 		
@@ -209,3 +209,4 @@
 	</BinField>
 
 </Bin_Ecc_Map>
+
