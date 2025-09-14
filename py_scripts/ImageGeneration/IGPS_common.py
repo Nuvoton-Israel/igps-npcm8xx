@@ -483,10 +483,6 @@ def Generate_Or_Load_Keys(TypeOfKey, TypeOfKey_TIP, TypeOfKey_BMC, pinCode):
 		GenerateKeyECC(skmt_key0, TypeOfKey_TIP, pinCode, id_skmt_key0)
 		GenerateKeyECC(skmt_key1, TypeOfKey_BMC, pinCode, id_skmt_key1)
 		GenerateKeyECC(skmt_key4, TypeOfKey_BMC, pinCode, id_skmt_key4)
-<<<<<<< HEAD
-=======
-
->>>>>>> 64302c28dfd68ee80236512162602ebc24891189
 
 def Hardening_all_images():
 	currpath = os.getcwd()
