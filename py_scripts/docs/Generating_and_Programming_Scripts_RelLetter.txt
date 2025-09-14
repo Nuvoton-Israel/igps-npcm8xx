@@ -148,6 +148,29 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.3.9                - Sep 10th    2025
+============
+- Programmer monitor generation script:
+	- Fixed GenerateOtpProgrammerFlashImage.py to support LMS , added LMS_KMO, KEY_INDEX and KEY_MASK to kmt header, same as igps_common.py does 
+	- cleaned GenerateOtpProgrammerFlashImage.py from redendant parameters declarations and imports.
+- ReplaceComponent.py fix: use new format config["lms_flags"]["is_LMS_<img>"] instead of the old format
+- Programmer monitor 1.1.7
+- TIP_FW 0.8.3 L0 0.7.2 L1
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.3_L0_0.7.2_L1
+	- AES encrypt\decrypt: support AES CTR for A3 and keep CBC support for A2
+	- LMS:
+		- Enhancement to the AES decryption code part, copies the LMS signature to the staging area
+		- Enter isLMS code to macro "LMS_ENABLE" code
+	- To Fix BMC-TIP main crash issue added dummy ECC public key verfifcation interface
+	- Add TIP_SCR1 and INTCR2 reset bit for WOL. Bit can be used in register tables
+	- Align GP_59_63_OFFSET calculation with GP_21_30_OFFSET calculation
+	- Update FUSE_WRPR_PROP_BLOCK macros to align with new FUSE_BLOCK58_OFFSET def.
+	- Fixed a potential buffer overflow. Previously rejected buffers larger than CPLD_READ_SIZE; now reject buffers smaller than CPLD_READ_SIZE, as a smaller buffer would result in a buffer overflow.
+	- Add AES proxy command to provide crypto services for A35. Code is under BMC_DIRECT flag, disabled by default.
+	- Fix out-of-bounds read in tip_firmware_component_get_key() due to missing key index validatio
+
+HISTORY
+-------
 IGPS 4.3.8                 - Jul 31th      2025
 ============
 - SystemControlFlags on L1 - added bits 5+6. 5 controls the ability to disable the UART log printing (1 = to disable )
@@ -190,8 +213,6 @@ IGPS 4.3.8                 - Jul 31th      2025
 	* Add PCIE-RC driver.
 - Programmer monitor 1.1.6 - supports A3.
 
-HISTORY
--------
 IGPS 4.3.7                 - May 12th      2025
 ============
 - Modified key_setting_edit_me.py to a json file.
