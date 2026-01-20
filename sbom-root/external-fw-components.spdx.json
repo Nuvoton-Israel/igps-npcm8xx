@@ -2,8 +2,8 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "name": "IGPS 4.3.9 \u2013 Firmware & External Tools",
-  "documentNamespace": "https://nuvoton.example.com/sbom/igps/4.3.9/fw-components",
+  "name": "IGPS 4.3.9",
+  "documentNamespace": "https://github.com/Nuvoton-Israel/igps-npcm8xx/releases/tag/IGPS_04.03.09",
   "creationInfo": {
     "creators": [
       "Tool: M365-Copilot",
@@ -15,7 +15,7 @@
     {
       "name": "npcm8xx-bootblock",
       "SPDXID": "SPDXRef-Package-npcm8xx-bootblock",
-      "versionInfo": "unknown",
+      "versionInfo": "0.5.6",
       "supplier": "Organization: Nuvoton Technology Corporation - Israel",
       "downloadLocation": "https://github.com/Nuvoton-Israel/npcm8xx-bootblock",
       "homepage": "https://github.com/Nuvoton-Israel/npcm8xx-bootblock",
@@ -34,7 +34,7 @@
     {
       "name": "u-boot (Nuvoton fork)",
       "SPDXID": "SPDXRef-Package-u-boot-nuvoton",
-      "versionInfo": "unknown",
+      "versionInfo": "v2023.10-npcm8xx-20250728",
       "supplier": "Organization: Nuvoton Technology Corporation - Israel",
       "downloadLocation": "https://github.com/Nuvoton-Israel/u-boot",
       "homepage": "https://github.com/Nuvoton-Israel/u-boot",
@@ -53,7 +53,7 @@
     {
       "name": "arm-trusted-firmware (Nuvoton fork)",
       "SPDXID": "SPDXRef-Package-atf-nuvoton",
-      "versionInfo": "unknown",
+      "versionInfo": "0.0.4",
       "supplier": "Organization: Nuvoton Technology Corporation - Israel",
       "downloadLocation": "https://github.com/Nuvoton-Israel/arm-trusted-firmware",
       "homepage": "https://github.com/Nuvoton-Israel/arm-trusted-firmware",
@@ -91,7 +91,7 @@
     {
       "name": "Bingo",
       "SPDXID": "SPDXRef-Package-Bingo",
-      "versionInfo": "unknown",
+      "versionInfo": "0.0.6",
       "supplier": "Organization: Nuvoton Technology Corporation - Israel",
       "downloadLocation": "https://github.com/Nuvoton-Israel/bingo",
       "homepage": "https://github.com/Nuvoton-Israel/bingo",
