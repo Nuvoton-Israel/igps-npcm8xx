@@ -331,11 +331,11 @@ def Write_LMS_flags_to_headers():
 		start_lms_offset = 128 * num_of_keys
 
 		# Extract the first byte 
-		byte1 = (start_lms_offset >> 8) & 0xFF
+		MSB = (start_lms_offset >> 8) & 0xFF
 		# Extract the second byte 
-		byte2 = start_lms_offset & 0xFF
-		Replace_binary_single_byte(KmtAndHeader_bin,       128, byte2, 0)
-		Replace_binary_single_byte(KmtAndHeader_bin,       129, byte1, 0)
+		LSB = start_lms_offset & 0xFF
+		Replace_binary_single_byte(KmtAndHeader_bin,       128, LSB, 0)
+		Replace_binary_single_byte(KmtAndHeader_bin,       129, MSB, 0)
 		
 	if isLMS:
 		# Creating variables dynamically
@@ -571,7 +571,7 @@ def Build_basic_images():
 		else:
 			Generate_binary(skmt_map_xml, skmt_map_tmp_bin)
 		
-		Pad_bin_file_inplace(  kmt_map_tmp_bin       ,  32)
+		Pad_bin_file_inplace(  kmt_map_tmp_bin       ,  16)
 		Pad_bin_file_inplace(  skmt_map_tmp_bin      ,  32)
 		
 		Generate_binary(KmtAndHeader_xml             , KmtAndHeader_bin)

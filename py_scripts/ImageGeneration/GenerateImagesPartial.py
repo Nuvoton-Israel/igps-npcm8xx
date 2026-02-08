@@ -71,8 +71,12 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			return
 		
 		if (choice != 6):
-			shutil.copy(KmtAndHeader_secure_bin                                       , KmtAndHeader_bin)
-			shutil.copy(SkmtAndHeader_secure_bin                                      , SkmtAndHeader_bin)
+			# Don't copy KMT when replacing KMT (choice 1) or TIP_FW (choice 2) - will be regenerated
+			if (choice != 1 and choice != 2):
+				shutil.copy(KmtAndHeader_secure_bin                                       , KmtAndHeader_bin)
+			# Don't copy SKMT when replacing SKMT (choice 9)
+			if (choice != 9):
+				shutil.copy(SkmtAndHeader_secure_bin                                      , SkmtAndHeader_bin)
 			shutil.copy(TipFwAndHeader_L0_secure_bin                                  , TipFwAndHeader_L0_bin)
 			shutil.copy(TipFwAndHeader_L1_secure_bin                                  , TipFwAndHeader_L1_bin)
 			shutil.copy(BL31_AndHeader_secure_bin                                     , BL31_AndHeader_bin)
@@ -101,8 +105,20 @@ def ReplaceComponent(TypeOfKey, pinCode,isPalladium, component_num):
 			
 		elif (choice == 2):
 			print("Replace TIP_FW")
+			# Rebuild KMT since it wraps the TIP FW
+			Generate_binary(kmt_map_xml, kmt_map_tmp_bin)
+			Pad_bin_file_inplace(  kmt_map_tmp_bin       ,  32)
+			Generate_binary(KmtAndHeader_xml             , KmtAndHeader_bin)
+			Replace_binary_single_byte(KmtAndHeader_bin,       140, ord(otp_key_which_signs_kmt[-1]) - ord('0'))
+			Replace_binary_array(KmtAndHeader_bin,       0xBC, ticks, 4, True, "KMT       add timestamp")
+			CRC32_binary(KmtAndHeader_bin        , 112    , 12     , KmtAndHeader_bin)
+			Sign_binary(KmtAndHeader_bin,                                          112, eval(otp_key_which_signs_kmt),       16, KmtAndHeader_secure_bin,                                       TypeOfKey, pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, config["lms_flags"]["is_LMS_kmt"] , key_paths[lms_key_which_signs_kmt][0])
+			shutil.copy(KmtAndHeader_secure_bin,            KmtAndHeader_bin)
+			
+			# Copy fresh TIP FW binaries from inputs to tmp (same as full generation)
 			Pad_bin_file_inplace(  Tip_FW_L0_bin ,  32)
 			Pad_bin_file_inplace(  Tip_FW_L1_bin ,  32)
+			copyfile(Tip_FW_L0_bin, Tip_FW_L0_tmp_bin)
 			
 			Register_csv_file_handler(registers_L1           , bin_registers_L1        , registers)
 			offset_L1    = Build_single_image_with_regs(Tip_FW_L1_bin,  bin_registers_L1        )

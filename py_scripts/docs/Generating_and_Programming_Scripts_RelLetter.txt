@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.03.08
-Date:     Jul 2025
+Version:  04.04.00
+Date:     Feb 2026
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,28 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.4.0                - Feb 8th 2026
+============
+- kmt_map_tmp_bin - modify its padding , instead of alignemnt to 32 , to 16 since it changes the KMT size calculation in LMS usage case.
+- Replace_binary_single_byte function, fix : skip chr() and encode() entirely. Instead, write the byte directly using f.write(bytes())
+- Added ConvertKeyFormat.bat and GenerateKeyECC_fromKnownFile.py , the .bat file runs the Python script to convert between PEM/DER/BIN 
+  formats for ECDSA public keys with proper Nuvoton little-endian byte-order.  Usage: ConvertKeyFormat.bat <input_key_file_path>
+- fix generateImagesPartial.py to be able to run "parital"
+- TIP_FW 0.8.4 L0 0.7.3 L1
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.4_L0_0.7.3_L1
+	* TIP_Dummy_OTP - per validation request, removed initialization of the ram to 0s.
+	* HAL improvements:
+		- update npcm850_fuse_wrapper.h and fuse_drv.c to latest HAL fixes
+		- FUSE_ProgramBit signature is now the same with or without TIP_Dummy_OTP
+		- CLK: added CLK_GetUpTimeMicroseconds
+		- npcm850_regs.h: shorten and fixed the definition of SCRPAD_42_73
+	* RNG fixes:
+		- Removed pROM_NCL_DRBG_* init function calls with inner context from init_state function, as the ROM code context is used for drbg_generate
+		- Added NCL_Debg_config function option for future reference, using the NCL_DRBG_context_l context as used on ROM
+		- Fix rng writes to registers.
+
+HISTORY
+-------
 IGPS 4.3.9                - Sep 10th    2025
 ============
 - Programmer monitor generation script:
@@ -169,8 +191,6 @@ IGPS 4.3.9                - Sep 10th    2025
 	- Add AES proxy command to provide crypto services for A35. Code is under BMC_DIRECT flag, disabled by default.
 	- Fix out-of-bounds read in tip_firmware_component_get_key() due to missing key index validatio
 
-HISTORY
--------
 IGPS 4.3.8                 - Jul 31th      2025
 ============
 - SystemControlFlags on L1 - added bits 5+6. 5 controls the ability to disable the UART log printing (1 = to disable )

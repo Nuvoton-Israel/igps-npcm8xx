@@ -465,7 +465,7 @@ def Replace_binary_single_byte(binfile, offset, value, read_modify_write = 0):
 				val = val | value
 				f.seek(int(offset))
 			print("   Writing %s" % hex(val))
-			f.write((chr(int(val))).encode('utf8'))
+			f.write(bytes([val]))
 		
 		f.close()
 		
