@@ -179,7 +179,7 @@
 	</BinField>
 	
 	<BinField>
-		<name>log_start_address</name>     
+		<name>log_start_address</name>
 		<config>
 			<offset>0xCC</offset>
 			<size>4</size>
@@ -196,7 +196,7 @@
 		</config>
 		
 		 <content format='32bit'>0x00004000</content>       
-		<!-- <content format='32bit'>0x00010000 (RAM2) 0x00004000(RAM3)</content> --->  
+		<!-- <content format='32bit'>0x00010000 (RAM2) 0x00004000(RAM3)</content> -->  
 	</BinField>
 	
 	<BinField>
