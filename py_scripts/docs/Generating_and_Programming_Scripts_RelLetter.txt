@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.04.00
-Date:     Feb 2026
+Version:  04.04.01
+Date:     March 2026
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,21 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.4.1                - March 2nd 2026
+============
+- Added SBOM generation in SPDX 3.0.1 format using Microsoft SBOM Tool for all binary images and all external tools
+- BootBlockAndHeader_A1_EB XML - updated MC_CONFIG to 0x05, ECC enabled
+- SignHSM_Everything.bat - added goto Failed upon every HSM failure, updated Production.bat to fail as well in this case.
+- TIP_FW 0.8.5 L0 0.7.4 L1
+	https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.5_L0_0.7.4_L1
+	- Life cycle handling improvements:
+		- Changed life cycle constants from full byte to nibble values (0x33→0x3, 0x55→0x5, 0x77→0x7, 0xFF→0xF)
+		- Added LIFE_CYCLE_NO_TIP (0x6) and LIFE_CYCLE_UNDEFINED (0xFF) states
+		- Life cycle reading now uses OR function between LSB and MSB nibbles
+		- Avoid OTP fusing when life cycle is UNTESTED (0) or NO_TIP (0x6)
+
+HISTORY
+-------
 IGPS 4.4.0                - Feb 8th 2026
 ============
 - kmt_map_tmp_bin - modify its padding , instead of alignemnt to 32 , to 16 since it changes the KMT size calculation in LMS usage case.
@@ -168,8 +183,6 @@ IGPS 4.4.0                - Feb 8th 2026
 		- Added NCL_Debg_config function option for future reference, using the NCL_DRBG_context_l context as used on ROM
 		- Fix rng writes to registers.
 
-HISTORY
--------
 IGPS 4.3.9                - Sep 10th    2025
 ============
 - Programmer monitor generation script:
