@@ -1,0 +1,346 @@
+[Wed 03/04/2026 14:14:34.12] Starting SBOM generation source file processing 
+[Wed 03/04/2026 14:14:47.66] Processing TIP FW L0 source... 
+>>> Looking for tar files in: sbom-tmp
+>>> Using patterns: ['*.source.tar*', '*.tar*']
+>>> Found tarball: sbom-tmp\ARBEL_TIP_FW_L0_0.8.5.source.tar.gzip
+>>> Extracting to: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-be307dc2
+>>> Extraction successful
+>>> Fixing file permissions...
+>>> Permission fix complete
+>>> Running base scan for: tipfw-l0-source...
+>>> Base path: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-be307dc2
+>>> Manifest root: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-9eceadf4
+>>> Command: C:\APP\aio\Arbel\IGPS\4.4.1\sources\sbom-tool.exe generate -b C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-be307dc2 -bc C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-be307dc2 -pn tipfw-l0-source -pv 0.8.5 -ps Nuvoton -nsb https://github.com/Nuvoton-Israel/igps-npcm8xx -mi SPDX:3.0 -pm true -m C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-9eceadf4
+>>> SBOM tool exit code: 0
+>>> SBOM tool STDOUT:
+                               Detection Summary                                
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ Component         ³ Detection Time    ³ # Components      ³ # Explicitly     ³
+³ Detector Id       ³                   ³ Found             ³ Referenced       ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ CocoaPods         ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ ConanLock         ³ 0.16 seconds      ³ 0                 ³ 0                ³
+³ DotNet            ³ 0.24 seconds      ³ 0                 ³ 0                ³
+³ Go                ³ 0.24 seconds      ³ 0                 ³ 0                ³
+³ Gradle            ³ 0.24 seconds      ³ 0                 ³ 0                ³
+³ Ivy (Beta)        ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ Linux             ³ 0.055 seconds     ³ 0                 ³ 0                ³
+³ LinuxApplicationL ³ 0.004 seconds     ³ 0                 ³ 0                ³
+³ ayer (Beta)       ³                   ³                   ³                  ³
+³ MvnCli            ³ 0.23 seconds      ³ 0                 ³ 0                ³
+³ Npm               ³ 0.18 seconds      ³ 0                 ³ 0                ³
+³ NpmLockfile3      ³ 0.19 seconds      ³ 0                 ³ 0                ³
+³ NpmWithRoots      ³ 0.19 seconds      ³ 0                 ³ 0                ³
+³ NuGet             ³ 0.19 seconds      ³ 0                 ³ 0                ³
+³ NuGetPackagesConf ³ 0.19 seconds      ³ 0                 ³ 0                ³
+³ ig                ³                   ³                   ³                  ³
+³ NuGetProjectCentr ³ 0.19 seconds      ³ 0                 ³ 0                ³
+³ ic                ³                   ³                   ³                  ³
+³ PipReport         ³ 13 seconds        ³ 28                ³ 27               ³
+³ Pnpm              ³ 0.18 seconds      ³ 0                 ³ 0                ³
+³ Poetry (Beta)     ³ 0.19 seconds      ³ 0                 ³ 0                ³
+³ Ruby              ³ 0.18 seconds      ³ 0                 ³ 0                ³
+³ RustSbom          ³ 0.18 seconds      ³ 0                 ³ 0                ³
+³ SPDX22SBOM        ³ 0.16 seconds      ³ 0                 ³ 0                ³
+³ UvLock (Beta)     ³ 0.18 seconds      ³ 0                 ³ 0                ³
+³ Vcpkg             ³ 0.18 seconds      ³ 0                 ³ 0                ³
+³ Yarn              ³ 0.18 seconds      ³ 0                 ³ 0                ³
+³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³
+³ Total             ³ 13 seconds        ³ 28                ³ 27               ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+>>> Looking for manifest at: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-9eceadf4\_manifest\spdx_3.0\manifest.spdx.json
+>>> Manifest found!
+>>> Integrating 1 external components into 3.0.1 graph...
+>>> Successfully generated and integrated SBOM: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-root\spdx_3.0\tipfw-l0-source.spdx.json
+[Wed 03/04/2026 14:15:31.52] Processing TIP FW L1 source... 
+>>> Looking for tar files in: sbom-tmp
+>>> Using patterns: ['*.source.tar*', '*.tar*']
+>>> Found tarball: sbom-tmp\ARBEL_TIP_FW_L1_0.7.4.source.tar.gzip
+>>> Extracting to: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-20f288d6
+>>> Extraction successful
+>>> Fixing file permissions...
+>>> Permission fix complete
+>>> Running base scan for: tipfw-l1-source...
+>>> Base path: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-20f288d6
+>>> Manifest root: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-3044be2e
+>>> Command: C:\APP\aio\Arbel\IGPS\4.4.1\sources\sbom-tool.exe generate -b C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-20f288d6 -bc C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-20f288d6 -pn tipfw-l1-source -pv 0.7.4 -ps Nuvoton -nsb https://github.com/Nuvoton-Israel/igps-npcm8xx -mi SPDX:3.0 -pm true -m C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-3044be2e
+>>> SBOM tool exit code: 0
+>>> SBOM tool STDOUT:
+                               Detection Summary                                
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ Component         ³ Detection Time    ³ # Components      ³ # Explicitly     ³
+³ Detector Id       ³                   ³ Found             ³ Referenced       ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ CocoaPods         ³ 0.31 seconds      ³ 0                 ³ 0                ³
+³ ConanLock         ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ DotNet            ³ 0.31 seconds      ³ 0                 ³ 0                ³
+³ Go                ³ 0.31 seconds      ³ 0                 ³ 0                ³
+³ Gradle            ³ 0.31 seconds      ³ 0                 ³ 0                ³
+³ Ivy (Beta)        ³ 0.3 seconds       ³ 0                 ³ 0                ³
+³ Linux             ³ 0.0058 seconds    ³ 0                 ³ 0                ³
+³ LinuxApplicationL ³ 0.0042 seconds    ³ 0                 ³ 0                ³
+³ ayer (Beta)       ³                   ³                   ³                  ³
+³ MvnCli            ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Npm               ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ NpmLockfile3      ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ NpmWithRoots      ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ NuGet             ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ NuGetPackagesConf ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ ig                ³                   ³                   ³                  ³
+³ NuGetProjectCentr ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ ic                ³                   ³                   ³                  ³
+³ PipReport         ³ 13 seconds        ³ 28                ³ 27               ³
+³ Pnpm              ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ Poetry (Beta)     ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Ruby              ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ RustSbom          ³ 0.26 seconds      ³ 0                 ³ 0                ³
+³ SPDX22SBOM        ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ UvLock (Beta)     ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Vcpkg             ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Yarn              ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³
+³ Total             ³ 13 seconds        ³ 28                ³ 27               ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+>>> Looking for manifest at: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-3044be2e\_manifest\spdx_3.0\manifest.spdx.json
+>>> Manifest found!
+>>> Integrating 1 external components into 3.0.1 graph...
+>>> Successfully generated and integrated SBOM: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-root\spdx_3.0\tipfw-l1-source.spdx.json
+[Wed 03/04/2026 14:16:14.79] Processing u-boot source... 
+>>> Looking for tar files in: sbom-tmp
+>>> Using patterns: ['*.source.tar*', '*.tar*']
+>>> Found tarball: sbom-tmp\u-boot-2023.10-npcm8xx-20250728.tar.gz
+>>> Extracting to: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699
+>>> Extraction successful
+>>> Fixing file permissions...
+>>> Permission fix complete
+>>> Running base scan for: uboot-source...
+>>> Base path: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699
+>>> Manifest root: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-489d0069
+>>> Command: C:\APP\aio\Arbel\IGPS\4.4.1\sources\sbom-tool.exe generate -b C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699 -bc C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699 -pn uboot-source -pv v2023.10-npcm8xx-20250728 -ps Nuvoton -nsb https://github.com/Nuvoton-Israel/igps-npcm8xx -mi SPDX:3.0 -pm true -m C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-489d0069
+>>> SBOM tool exit code: 1
+>>> SBOM tool STDOUT:
+##[warning]PipReport: Failure while parsing pip installation report for "C:\\APP\\aio\\Arbel\\IGPS\\4.4.1\\sources\\deliverables\\IGPS_4.4.1_Github\\sbom-tmp\\ext-06c13699\\u-boot-2023.10-npcm8xx-20250728\\tools\\buildman\\requirements.txt"
+System.InvalidOperationException: PipReport: Failed to generate pip installation report for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\tools\buildman\requirements.txt with exit code 1
+   at Microsoft.ComponentDetection.Detectors.Pip.PipCommandService.GenerateInstallationReportAsync(String path, String pipExePath, String pythonExePath, CancellationToken cancellationToken)
+   at Microsoft.ComponentDetection.Detectors.Pip.PipReportComponentDetector.OnFileFoundAsync(ProcessRequest processRequest, IDictionary`2 detectorArgs, CancellationToken cancellationToken)
+##[warning]PipReport: Failure while parsing pip installation report for "C:\\APP\\aio\\Arbel\\IGPS\\4.4.1\\sources\\deliverables\\IGPS_4.4.1_Github\\sbom-tmp\\ext-06c13699\\u-boot-2023.10-npcm8xx-20250728\\scripts\\dtc\\pylibfdt\\setup.py"
+System.InvalidOperationException: PipReport: Failed to generate pip installation report for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\scripts\dtc\pylibfdt\setup.py with exit code 1
+   at Microsoft.ComponentDetection.Detectors.Pip.PipCommandService.GenerateInstallationReportAsync(String path, String pipExePath, String pythonExePath, CancellationToken cancellationToken)
+   at Microsoft.ComponentDetection.Detectors.Pip.PipReportComponentDetector.OnFileFoundAsync(ProcessRequest processRequest, IDictionary`2 detectorArgs, CancellationToken cancellationToken)
+                               Detection Summary                                
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ Component         ³ Detection Time    ³ # Components      ³ # Explicitly     ³
+³ Detector Id       ³                   ³ Found             ³ Referenced       ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ CocoaPods         ³ 0.82 seconds      ³ 0                 ³ 0                ³
+³ ConanLock         ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ DotNet            ³ 0.81 seconds      ³ 0                 ³ 0                ³
+³ Go                ³ 0.81 seconds      ³ 0                 ³ 0                ³
+³ Gradle            ³ 0.81 seconds      ³ 0                 ³ 0                ³
+³ Ivy (Beta)        ³ 0.31 seconds      ³ 0                 ³ 0                ³
+³ Linux             ³ 0.0059 seconds    ³ 0                 ³ 0                ³
+³ LinuxApplicationL ³ 0.0059 seconds    ³ 0                 ³ 0                ³
+³ ayer (Beta)       ³                   ³                   ³                  ³
+³ MvnCli            ³ 0.24 seconds      ³ 0                 ³ 0                ³
+³ Npm               ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ NpmLockfile3      ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ NpmWithRoots      ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ NuGet             ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ NuGetPackagesConf ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ ig                ³                   ³                   ³                  ³
+³ NuGetProjectCentr ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ ic                ³                   ³                   ³                  ³
+³ PipReport         ³ 1.5e+02 seconds   ³ 71                ³ 56               ³
+³ Pnpm              ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ Poetry (Beta)     ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ Ruby              ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ RustSbom          ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ SPDX22SBOM        ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ UvLock (Beta)     ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ Vcpkg             ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ Yarn              ³ 0.75 seconds      ³ 0                 ³ 0                ³
+³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³
+³ Total             ³ 1.5e+02 seconds   ³ 71                ³ 56               ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\arm\dts\include\dt-bindings: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\arm\dts\include\dt-bindings' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\nios2\dts\include\dt-bindings: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\nios2\dts\include\dt-bindings' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\microblaze\dts\include\dt-bindings: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\microblaze\dts\include\dt-bindings' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\mips\dts\include\dt-bindings: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\mips\dts\include\dt-bindings' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\sandbox\dts\include\dt-bindings: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\sandbox\dts\include\dt-bindings' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\x86\dts\include\dt-bindings: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\x86\dts\include\dt-bindings' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\xtensa\dts\include\dt-bindings: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\arch\xtensa\dts\include\dt-bindings' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini-emmc0: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini-emmc0' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini-emmc1: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini-emmc1' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynq\zynq-cse-nor: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynq\zynq-cse-nor' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynq\zynq-cse-qspi-single: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynq\zynq-cse-qspi-single' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\avnet-ultra96-rev1: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\avnet-ultra96-rev1' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynq\zynq-cse-nand: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynq\zynq-cse-nand' is denied.
+##[error]Encountered an error while generating hash for file C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini-qspi: Access to the path 'C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-06c13699\u-boot-2023.10-npcm8xx-20250728\board\xilinx\zynqmp\zynqmp-mini-qspi' is denied.
+
+>>> Looking for manifest at: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-489d0069\_manifest\spdx_3.0\manifest.spdx.json
+>>> Manifest found!
+>>> Standard SBOM generated: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-root\spdx_3.0\uboot-source.spdx.json
+[Wed 03/04/2026 14:20:16.85] Processing OP-TEE source... 
+>>> Looking for tar files in: sbom-tmp
+>>> Using patterns: ['*.source.tar*', '*.tar*']
+>>> Found tarball: sbom-tmp\optee_os-npcm_4_0_0.tar.gz
+>>> Extracting to: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-5d28df7f
+>>> Extraction successful
+>>> Fixing file permissions...
+>>> Permission fix complete
+>>> Running base scan for: optee-source...
+>>> Base path: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-5d28df7f
+>>> Manifest root: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-290d6f4f
+>>> Command: C:\APP\aio\Arbel\IGPS\4.4.1\sources\sbom-tool.exe generate -b C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-5d28df7f -bc C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-5d28df7f -pn optee-source -pv optee_os-npcm845x_4.0.0-rc1 -ps Nuvoton -nsb https://github.com/Nuvoton-Israel/igps-npcm8xx -mi SPDX:3.0 -pm true -m C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-290d6f4f
+>>> SBOM tool exit code: 0
+>>> SBOM tool STDOUT:
+                               Detection Summary                                
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ Component         ³ Detection Time    ³ # Components      ³ # Explicitly     ³
+³ Detector Id       ³                   ³ Found             ³ Referenced       ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ CocoaPods         ³ 0.32 seconds      ³ 0                 ³ 0                ³
+³ ConanLock         ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ DotNet            ³ 0.32 seconds      ³ 0                 ³ 0                ³
+³ Go                ³ 0.32 seconds      ³ 0                 ³ 0                ³
+³ Gradle            ³ 0.32 seconds      ³ 0                 ³ 0                ³
+³ Ivy (Beta)        ³ 0.24 seconds      ³ 0                 ³ 0                ³
+³ Linux             ³ 0.068 seconds     ³ 0                 ³ 0                ³
+³ LinuxApplicationL ³ 0.0042 seconds    ³ 0                 ³ 0                ³
+³ ayer (Beta)       ³                   ³                   ³                  ³
+³ MvnCli            ³ 0.24 seconds      ³ 0                 ³ 0                ³
+³ Npm               ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ NpmLockfile3      ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ NpmWithRoots      ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ NuGet             ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ NuGetPackagesConf ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ ig                ³                   ³                   ³                  ³
+³ NuGetProjectCentr ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ ic                ³                   ³                   ³                  ³
+³ PipReport         ³ 1.6 seconds       ³ 0                 ³ 0                ³
+³ Pnpm              ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Poetry (Beta)     ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Ruby              ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ RustSbom          ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ SPDX22SBOM        ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ UvLock (Beta)     ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Vcpkg             ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ Yarn              ³ 0.25 seconds      ³ 0                 ³ 0                ³
+³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³
+³ Total             ³ 1.7 seconds       ³ 0                 ³ 0                ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+##[warning]There were no packages detected during the generation workflow.
+
+>>> Looking for manifest at: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-290d6f4f\_manifest\spdx_3.0\manifest.spdx.json
+>>> Manifest found!
+>>> Standard SBOM generated: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-root\spdx_3.0\optee-source.spdx.json
+[Wed 03/04/2026 14:20:34.08] Processing BL31 source... 
+>>> Looking for tar files in: sbom-tmp
+>>> Using patterns: ['*.source.tar*', '*.tar*']
+>>> Found tarball: sbom-tmp\arm-trusted-firmware-2.9.1.tar.gz
+>>> Extracting to: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-cda31286
+>>> Extraction successful
+>>> Fixing file permissions...
+>>> Permission fix complete
+>>> Running base scan for: bl31-source...
+>>> Base path: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-cda31286
+>>> Manifest root: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-8b5ebc1a
+>>> Command: C:\APP\aio\Arbel\IGPS\4.4.1\sources\sbom-tool.exe generate -b C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-cda31286 -bc C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-cda31286 -pn bl31-source -pv V2.9.1_npcm845x_20240318 -ps Nuvoton -nsb https://github.com/Nuvoton-Israel/igps-npcm8xx -mi SPDX:3.0 -pm true -m C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-8b5ebc1a
+>>> SBOM tool exit code: 0
+>>> SBOM tool STDOUT:
+                               Detection Summary                                
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ Component         ³ Detection Time    ³ # Components      ³ # Explicitly     ³
+³ Detector Id       ³                   ³ Found             ³ Referenced       ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ CocoaPods         ³ 0.71 seconds      ³ 0                 ³ 0                ³
+³ ConanLock         ³ 0.58 seconds      ³ 0                 ³ 0                ³
+³ DotNet            ³ 0.7 seconds       ³ 0                 ³ 0                ³
+³ Go                ³ 0.7 seconds       ³ 0                 ³ 0                ³
+³ Gradle            ³ 0.7 seconds       ³ 0                 ³ 0                ³
+³ Ivy (Beta)        ³ 0.51 seconds      ³ 0                 ³ 0                ³
+³ Linux             ³ 0.0087 seconds    ³ 0                 ³ 0                ³
+³ LinuxApplicationL ³ 0.0042 seconds    ³ 0                 ³ 0                ³
+³ ayer (Beta)       ³                   ³                   ³                  ³
+³ MvnCli            ³ 0.41 seconds      ³ 0                 ³ 0                ³
+³ Npm               ³ 0.61 seconds      ³ 2                 ³ 0                ³
+³ NpmLockfile3      ³ 0.61 seconds      ³ 0                 ³ 0                ³
+³ NpmWithRoots      ³ 0.61 seconds      ³ 334               ³ 7                ³
+³ NuGet             ³ 0.61 seconds      ³ 0                 ³ 0                ³
+³ NuGetPackagesConf ³ 0.61 seconds      ³ 0                 ³ 0                ³
+³ ig                ³                   ³                   ³                  ³
+³ NuGetProjectCentr ³ 0.61 seconds      ³ 0                 ³ 0                ³
+³ ic                ³                   ³                   ³                  ³
+³ PipReport         ³ 2 seconds         ³ 0                 ³ 0                ³
+³ Pnpm              ³ 0.61 seconds      ³ 0                 ³ 0                ³
+³ Poetry (Beta)     ³ 0.6 seconds       ³ 48                ³ 0                ³
+³ Ruby              ³ 0.58 seconds      ³ 0                 ³ 0                ³
+³ RustSbom          ³ 0.58 seconds      ³ 0                 ³ 0                ³
+³ SPDX22SBOM        ³ 0.58 seconds      ³ 0                 ³ 0                ³
+³ UvLock (Beta)     ³ 0.58 seconds      ³ 0                 ³ 0                ³
+³ Vcpkg             ³ 0.58 seconds      ³ 0                 ³ 0                ³
+³ Yarn              ³ 0.58 seconds      ³ 0                 ³ 0                ³
+³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³
+³ Total             ³ 2.1 seconds       ³ 384               ³ 7                ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+>>> Looking for manifest at: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-8b5ebc1a\_manifest\spdx_3.0\manifest.spdx.json
+>>> Manifest found!
+>>> Standard SBOM generated: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-root\spdx_3.0\bl31-source.spdx.json
+[Wed 03/04/2026 14:21:02.32] Processing Linux source... 
+>>> Looking for tar files in: sbom-tmp
+>>> Using patterns: ['*.source.tar*', '*.tar*']
+>>> Found tarball: sbom-tmp\BMC_LINUX_5.10.161.01.04.source.tar.bz2
+>>> Extracting to: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-e5439cf6
+>>> Extraction successful
+>>> Fixing file permissions...
+>>> Permission fix complete
+>>> Running base scan for: linux-source...
+>>> Base path: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-e5439cf6
+>>> Manifest root: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-833c0a4b
+>>> Command: C:\APP\aio\Arbel\IGPS\4.4.1\sources\sbom-tool.exe generate -b C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-e5439cf6 -bc C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\ext-e5439cf6 -pn linux-source -pv 5.10.161.01.04 -ps Nuvoton -nsb https://github.com/Nuvoton-Israel/igps-npcm8xx -mi SPDX:3.0 -pm true -m C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-833c0a4b
+>>> SBOM tool exit code: 0
+>>> SBOM tool STDOUT:
+                               Detection Summary                                
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ Component         ³ Detection Time    ³ # Components      ³ # Explicitly     ³
+³ Detector Id       ³                   ³ Found             ³ Referenced       ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ CocoaPods         ³ 0.33 seconds      ³ 0                 ³ 0                ³
+³ ConanLock         ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ DotNet            ³ 0.33 seconds      ³ 0                 ³ 0                ³
+³ Go                ³ 0.33 seconds      ³ 0                 ³ 0                ³
+³ Gradle            ³ 0.34 seconds      ³ 0                 ³ 0                ³
+³ Ivy (Beta)        ³ 0.33 seconds      ³ 0                 ³ 0                ³
+³ Linux             ³ 0.097 seconds     ³ 0                 ³ 0                ³
+³ LinuxApplicationL ³ 0.0039 seconds    ³ 0                 ³ 0                ³
+³ ayer (Beta)       ³                   ³                   ³                  ³
+³ MvnCli            ³ 0.41 seconds      ³ 0                 ³ 0                ³
+³ Npm               ³ 0.27 seconds      ³ 0                 ³ 0                ³
+³ NpmLockfile3      ³ 0.27 seconds      ³ 0                 ³ 0                ³
+³ NpmWithRoots      ³ 0.27 seconds      ³ 0                 ³ 0                ³
+³ NuGet             ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ NuGetPackagesConf ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ ig                ³                   ³                   ³                  ³
+³ NuGetProjectCentr ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ ic                ³                   ³                   ³                  ³
+³ PipReport         ³ 1.7 seconds       ³ 0                 ³ 0                ³
+³ Pnpm              ³ 0.27 seconds      ³ 0                 ³ 0                ³
+³ Poetry (Beta)     ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ Ruby              ³ 0.27 seconds      ³ 0                 ³ 0                ³
+³ RustSbom          ³ 0.29 seconds      ³ 0                 ³ 0                ³
+³ SPDX22SBOM        ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ UvLock (Beta)     ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ Vcpkg             ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ Yarn              ³ 0.28 seconds      ³ 0                 ³ 0                ³
+³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ ³
+³ Total             ³ 1.8 seconds       ³ 0                 ³ 0                ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+##[warning]There were no packages detected during the generation workflow.
+
+>>> Looking for manifest at: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-tmp\m-833c0a4b\_manifest\spdx_3.0\manifest.spdx.json
+>>> Manifest found!
+>>> Standard SBOM generated: C:\APP\aio\Arbel\IGPS\4.4.1\sources\deliverables\IGPS_4.4.1_Github\sbom-root\spdx_3.0\linux-source.spdx.json

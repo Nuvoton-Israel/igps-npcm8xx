@@ -1,0 +1,730 @@
+{
+  "@context": [
+    "https://spdx.org/rdf/3.0.1/spdx-context.json"
+  ],
+  "@graph": [
+    {
+      "name": "./arbel_a35_bootblock.0.5.6.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--arbel-a35-bootblock.0.5.6.bin-C3A3A482ADAD8D03986C2223A395CFB4DBEC8991",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "c5383654036d1b398a73802ac8c68dc03324f142bb7c4455a8c057b8c1d1bdd1",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "c3a3a482adad8d03986c2223a395cfb4dbec8991",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "creationInfo": "_:creationinfo",
+      "name": "NOASSERTION",
+      "spdxId": "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969",
+      "type": "Element"
+    },
+    {
+      "from": "SPDXRef-File--arbel-a35-bootblock.0.5.6.bin-C3A3A482ADAD8D03986C2223A395CFB4DBEC8991",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-E0DE97CF85C84ABBD358545E51542AAC4ABF9FFD29C55E4E571562C91CC40768",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--arbel-a35-bootblock.0.5.6.bin-C3A3A482ADAD8D03986C2223A395CFB4DBEC8991",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-C9E0B0F8C9218E11C5F4D95A095FE5DAE54867D150B82AA50D20200657D12751",
+      "type": "Relationship"
+    },
+    {
+      "name": "./nuvoton-npcm845-evb_5.10.161.01.04.dtb",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--nuvoton-npcm845-evb-5.10.161.01.04.dtb-2AF2FBA2F649181B1E324217CE4432C2AF009ECA",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "f582b54e172dac4568ca54484c01f0e9ad8950f22a4317ef6d63123237d4f227",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "2af2fba2f649181b1e324217ce4432c2af009eca",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--nuvoton-npcm845-evb-5.10.161.01.04.dtb-2AF2FBA2F649181B1E324217CE4432C2AF009ECA",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-65D367ECDAF2D870F2E9BFFC99D73C5122D2C133A779DF26B38B608E51FB60DE",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--nuvoton-npcm845-evb-5.10.161.01.04.dtb-2AF2FBA2F649181B1E324217CE4432C2AF009ECA",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-08767B799B7CB710F5294249AB65FF38043D602EE5656C5C67AFD1CFBE25E643",
+      "type": "Relationship"
+    },
+    {
+      "name": "./arbel_cp_fw.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--arbel-cp-fw.bin-54CAF7BA6E511D3E423EE1E86587D595A066D7D6",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "4969e3f3dacaf0e769a4484db67558aff6b953d2747e8ccb2cb700bfc66bda51",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "54caf7ba6e511d3e423ee1e86587d595a066d7d6",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--arbel-cp-fw.bin-54CAF7BA6E511D3E423EE1E86587D595A066D7D6",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-474C928CC604729C212DED99F5E319C08D9D1F376AE8D4711F64CCE2930FC51B",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--arbel-cp-fw.bin-54CAF7BA6E511D3E423EE1E86587D595A066D7D6",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-BC6D6B9A24CA1BA978600E3175BE542EAA71CC7B6B98EB5C8E3F2D29A879E10C",
+      "type": "Relationship"
+    },
+    {
+      "name": "./arbel_tip_fw_L0.0.8.5.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--arbel-tip-fw-L0.0.8.5.bin-E2FA32351BAFD5EAB9FD27B17AA2CBFD06F59116",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "fd219e3c6ee527035c331153ddc693e066a0f9d9cd7f8a48fca270c1f47bd479",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "e2fa32351bafd5eab9fd27b17aa2cbfd06f59116",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--arbel-tip-fw-L0.0.8.5.bin-E2FA32351BAFD5EAB9FD27B17AA2CBFD06F59116",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-0F4122403DB99EEAF8747A77D49D7869965340EA48138875DA5F5992D31EB5C3",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--arbel-tip-fw-L0.0.8.5.bin-E2FA32351BAFD5EAB9FD27B17AA2CBFD06F59116",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-06A8A8A63FA732A0F51A139559A3EA4B5740337AB57842416767BDBB5C7ECD6E",
+      "type": "Relationship"
+    },
+    {
+      "name": "./sa_arbel_tip_fw_L0.0.2.1.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--sa-arbel-tip-fw-L0.0.2.1.bin-5CAF06761FEF51BD1FF3DC8CA9C3F6162E7FAABC",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "56963c33a886a637af7fcbd8d375feab5ca77aae21c92bdddbfc0d5df7d4be02",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "5caf06761fef51bd1ff3dc8ca9c3f6162e7faabc",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--sa-arbel-tip-fw-L0.0.2.1.bin-5CAF06761FEF51BD1FF3DC8CA9C3F6162E7FAABC",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-3390F065C8F9334FFC92AC778370BB38427C2DF982B2B536D30E0E7E65809B58",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--sa-arbel-tip-fw-L0.0.2.1.bin-5CAF06761FEF51BD1FF3DC8CA9C3F6162E7FAABC",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-844040BDE62F12537A35FDAC21D2D0734E6D7EB5E3E2F6D7E445B396073609B5",
+      "type": "Relationship"
+    },
+    {
+      "name": "./arbel_tip_fw_L1.0.7.4.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--arbel-tip-fw-L1.0.7.4.bin-618B110E10C7D407E41AE374FF9C01F08EE1A24C",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "1a30ba2abcf9b707bd8cb8102cf1e56184807aa31d6d6914c98f01d42f419d9e",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "618b110e10c7d407e41ae374ff9c01f08ee1a24c",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--arbel-tip-fw-L1.0.7.4.bin-618B110E10C7D407E41AE374FF9C01F08EE1A24C",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-DF9F2A781F2FB6DB216F3D0E13ACC0287F05060DE7F120E9E36200CA4C9DF72C",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--arbel-tip-fw-L1.0.7.4.bin-618B110E10C7D407E41AE374FF9C01F08EE1A24C",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-3C2CC76478FD5D7B33419A4244F4962917FFAC8993A04936C856F05F93314FDC",
+      "type": "Relationship"
+    },
+    {
+      "name": "./npcm8xx.chip",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--npcm8xx.chip-EB42135F65445A457611B615931FDFCEB575EE55",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "808250b6a91f06daad989c40a800caaae8c5aa153cc67cf610fa9fdb38b82c53",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "eb42135f65445a457611b615931fdfceb575ee55",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--npcm8xx.chip-EB42135F65445A457611B615931FDFCEB575EE55",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-3F7608588BC039CB318E560E077B4FD81A98ABF73B5E8EBF3258250FE7ECDEF0",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--npcm8xx.chip-EB42135F65445A457611B615931FDFCEB575EE55",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-3AEC9FC63F38B6AA7BAECD65E7A620682D80ABE57E928919A1F5B191AD44E1BE",
+      "type": "Relationship"
+    },
+    {
+      "name": "./tee_optee_os-npcm845x_4.0.0-rc1.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--tee-optee-os-npcm845x-4.0.0-rc1.bin-A4D43910636701177DE715965B0186E9FFAA2774",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "ad82ab347dbaf4dd648a4652594ae8161a6299ef61dd21191db6a510b1aaf802",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "a4d43910636701177de715965b0186e9ffaa2774",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--tee-optee-os-npcm845x-4.0.0-rc1.bin-A4D43910636701177DE715965B0186E9FFAA2774",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-7261DEB1CF263E8316A3F3F968D14590468A35BEC8CBCBD118110406F099B2FA",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--tee-optee-os-npcm845x-4.0.0-rc1.bin-A4D43910636701177DE715965B0186E9FFAA2774",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-12CB5196E99BB0184A9107B03D154124D042B098B8BD21CD611C1B5267E3F51B",
+      "type": "Relationship"
+    },
+    {
+      "name": "./arbel_a35_bootblock_no_tip.0.5.6.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--arbel-a35-bootblock-no-tip.0.5.6.bin-0E70A3CB286CB6F3A2E085D78782C725F9B13451",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "79ad25c53210357d1c1804a1b153c8804551ba7f3fb634171534fe918f7b184d",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "0e70a3cb286cb6f3a2e085d78782c725f9b13451",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--arbel-a35-bootblock-no-tip.0.5.6.bin-0E70A3CB286CB6F3A2E085D78782C725F9B13451",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-22728EF693992632D188811F6F868FE2102AAB2A61968C221C938FB7DD70A285",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--arbel-a35-bootblock-no-tip.0.5.6.bin-0E70A3CB286CB6F3A2E085D78782C725F9B13451",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-51077B53B5EF7DDB1AE3D16ED2BF843A3DD0C07D4CA01F1EB7039D882AEA1797",
+      "type": "Relationship"
+    },
+    {
+      "name": "./bl31_V2.9.1_npcm845x_20240318.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--bl31-V2.9.1-npcm845x-20240318.bin-D6E514CC2F0C64002CC45F964B9CA5CD64D67E9D",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "b58a14d8939889c2a44015baa806ab6dbefcb36ed1b764d453eb4aa64b00d264",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "d6e514cc2f0c64002cc45f964b9ca5cd64d67e9d",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--bl31-V2.9.1-npcm845x-20240318.bin-D6E514CC2F0C64002CC45F964B9CA5CD64D67E9D",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-A07CE0985E59DE68C73881507F46BA7B220D734A191A63D875EC4C324600C02F",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--bl31-V2.9.1-npcm845x-20240318.bin-D6E514CC2F0C64002CC45F964B9CA5CD64D67E9D",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-2593F38D9A141B955E370CC14E1A43B8AF8A880A34760AB58B284928F19BBE4D",
+      "type": "Relationship"
+    },
+    {
+      "name": "./u-boot_v2023.10-npcm8xx-20250728.bin",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--u-boot-v2023.10-npcm8xx-20250728.bin-EE0A32A5E12684F411E643924E8469AFDF44CE71",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "a7c32df9c72ac27cb3d1afb19029111f6dcf98e92ad59ecc12c0d63ec9e43ef3",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "ee0a32a5e12684f411e643924e8469afdf44ce71",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--u-boot-v2023.10-npcm8xx-20250728.bin-EE0A32A5E12684F411E643924E8469AFDF44CE71",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-5D883EAE581A38D20849C2921B78FCEBCE216B29559223B3606D9AAFB71F1662",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--u-boot-v2023.10-npcm8xx-20250728.bin-EE0A32A5E12684F411E643924E8469AFDF44CE71",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-48C07F231B41A1685FD06998982157C962845C4A5A4BBC076E2009224E14CB44",
+      "type": "Relationship"
+    },
+    {
+      "name": "./image_5.10.161.01.04",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--image-5.10.161.01.04-BE26FE414DD5E8C1AEE9DA79F9F9992FEDB0008A",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "5db8b1eb4d1fe4f01075bdc2378aa609f5dc5bac2b619cdc5e753ffb56c63915",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "be26fe414dd5e8c1aee9da79f9f9992fedb0008a",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--image-5.10.161.01.04-BE26FE414DD5E8C1AEE9DA79F9F9992FEDB0008A",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-2CDB3DB16584B21B525D435EBA8A7B1326DC2694B327F8F9174BD4C2A8D7763D",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--image-5.10.161.01.04-BE26FE414DD5E8C1AEE9DA79F9F9992FEDB0008A",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-01B41F0B4BFC5EE7932A85AE67CBCB67775779F69891A44D7A1840EB78C804FD",
+      "type": "Relationship"
+    },
+    {
+      "name": "./romfs_5.10.161.01.04.img.gz",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--romfs-5.10.161.01.04.img.gz-4A2CE5816E9AA92378E2926FDEFC55B95C5CB8A6",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "dfd89ce0eccb64f6ce3a0178a3ac25236e1c6c126a71efccba3bf347344b360e",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "4a2ce5816e9aa92378e2926fdefc55b95c5cb8a6",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--romfs-5.10.161.01.04.img.gz-4A2CE5816E9AA92378E2926FDEFC55B95C5CB8A6",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-A6E9F3FED44FB8B0284DEE894CC25E2A82676587DDAD241F27E9CECF162C28FE",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--romfs-5.10.161.01.04.img.gz-4A2CE5816E9AA92378E2926FDEFC55B95C5CB8A6",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-0621700F31763FDD149B589A9B57639CCB7FF74BAEC19ADD6AF73F40FC598028",
+      "type": "Relationship"
+    },
+    {
+      "name": "./nuvoton-npcm845-uRamdisk_5.10.161.01.04",
+      "software_copyrightText": "NOASSERTION",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-File--nuvoton-npcm845-uRamdisk-5.10.161.01.04-545480B83A598CD9E433B426388BD0E238A3F946",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha256",
+          "hashValue": "ceb50f98409829b94810e2f8f6e3eb63eb13938fbca2c01843aeb88ad47ea1ff",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-5D5B09F6DCB2D53A5FFFC60C4AC0D55FABDF556069D6631545F42AA6E3500F2E",
+          "type": "PackageVerificationCode"
+        },
+        {
+          "algorithm": "sha1",
+          "hashValue": "545480b83a598cd9e433b426388bd0e238a3f946",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_File"
+    },
+    {
+      "from": "SPDXRef-File--nuvoton-npcm845-uRamdisk-5.10.161.01.04-545480B83A598CD9E433B426388BD0E238A3F946",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-B3FA2BFDB8F391172453FD0A5AF6FBC57A9FD10C06578467D47F054A4A25562E",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-File--nuvoton-npcm845-uRamdisk-5.10.161.01.04-545480B83A598CD9E433B426388BD0E238A3F946",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-462B1C622498A8E73D5D767A0DF214063CE28642F8AD55B25567F33F397E91F7",
+      "type": "Relationship"
+    },
+    {
+      "externalIdentifierType": "purl",
+      "identifier": "pkg:swid/Nuvoton/github.com/external-fw-components@4.4.1?tag_id=02ede163-1545-4e80-8f22-4dc8a1dd6068",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-ExternalIdentifier-58A4F4E21F450ABE1C700DEBE5409B113A2D29CF26D4AC4CA9139B38226CC68C",
+      "type": "ExternalIdentifier"
+    },
+    {
+      "creationInfo": "_:creationinfo",
+      "name": "Organization: Nuvoton",
+      "spdxId": "SPDXRef-Organization-BBB93A164B4ABD3ED0E0ACBD386A8C7FCAF9FDAC23B9F7E55387F3C913EA219E",
+      "type": "Organization"
+    },
+    {
+      "name": "external-fw-components",
+      "software_copyrightText": "NOASSERTION",
+      "software_downloadLocation": "NOASSERTION",
+      "software_packageVersion": "4.4.1",
+      "creationInfo": "_:creationinfo",
+      "externalIdentifier": [
+        "SPDXRef-ExternalIdentifier-58A4F4E21F450ABE1C700DEBE5409B113A2D29CF26D4AC4CA9139B38226CC68C"
+      ],
+      "spdxId": "SPDXRef-RootPackage",
+      "verifiedUsing": [
+        {
+          "algorithm": "sha1",
+          "hashValue": "4a5b128ae2b8e5e49633ded5dec4a28ac5917e8a",
+          "creationInfo": "_:creationinfo",
+          "spdxId": "SPDXRef-PackageVerificationCode-B1565820A5CDAC40E0520D23F9D0B1497F240DDC51D72EAC6423D97D952D444F",
+          "type": "PackageVerificationCode"
+        }
+      ],
+      "type": "software_Package"
+    },
+    {
+      "from": "SPDXRef-RootPackage",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-7DF43F21BD7F09FB8F3B2D0E77A6A7F8BF42588FA2602BF0A6BD8FC1A3F284B2",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-RootPackage",
+      "relationshipType": "HAS_CONCLUDED_LICENSE",
+      "to": [
+        "SPDXRef-Element-8560FC6692684D8DF52223FF78E30B9630A1CF5A6FA371AAE24FCA896AE20969"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-0D5D61E52301E1C0B515E7719E4A236A45089872763C39D9DA40AB21EEEC39E2",
+      "type": "Relationship"
+    },
+    {
+      "creationInfo": "_:creationinfo",
+      "name": "Tool: Microsoft.SBOMTool-4.1.5",
+      "spdxId": "SPDXRef-Tool-BD3921D6A9AA92752B7AA0C76512D774E4DECB85ED9D05FD93CF5565056B9399",
+      "type": "Tool"
+    },
+    {
+      "@id": "_:creationinfo",
+      "created": "2026-03-04T12:14:33Z",
+      "createdBy": [
+        "SPDXRef-Organization-BBB93A164B4ABD3ED0E0ACBD386A8C7FCAF9FDAC23B9F7E55387F3C913EA219E"
+      ],
+      "createdUsing": [
+        "SPDXRef-Tool-BD3921D6A9AA92752B7AA0C76512D774E4DECB85ED9D05FD93CF5565056B9399"
+      ],
+      "specVersion": "3.0",
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-CreationInfo-0799B4D592549CF6159C30BA3E278BF063A6A241B8728C18E7AEC18BFC2CFF6F",
+      "type": "CreationInfo"
+    },
+    {
+      "creationInfo": "_:creationinfo",
+      "name": "CC0-1.0",
+      "spdxId": "SPDXRef-AnyLicenseInfo-6E237C55B0583CB7BBA05562316C54B0A105ABA04775017E2253237B9A64613C",
+      "type": "AnyLicenseInfo"
+    },
+    {
+      "dataLicense": "SPDXRef-AnyLicenseInfo-6E237C55B0583CB7BBA05562316C54B0A105ABA04775017E2253237B9A64613C",
+      "namespaceMap": {
+        "sbom": "https://github.com/Nuvoton-Israel/igps-npcm8xx/external-fw-components/4.4.1/7B4uuvzT90ak0n3rtA4NTA"
+      },
+      "profileConformance": [
+        "software",
+        "core",
+        "simpleLicensing"
+      ],
+      "creationInfo": "_:creationinfo",
+      "name": "external-fw-components 4.4.1",
+      "spdxId": "SPDXRef-SpdxDocument-3A35CE8677E29E1621912868757A64FFF3B1651D21781B282A84837818E5BD18",
+      "type": "SpdxDocument"
+    },
+    {
+      "from": "SPDXRef-AnyLicenseInfo-6E237C55B0583CB7BBA05562316C54B0A105ABA04775017E2253237B9A64613C",
+      "relationshipType": "HAS_DECLARED_LICENSE",
+      "to": [
+        "SPDXRef-SpdxDocument-3A35CE8677E29E1621912868757A64FFF3B1651D21781B282A84837818E5BD18"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-8560DDD448AA3C39FF0E54201CA958471A9BE1A90035BA4AD6DD46FB74FC9C6F",
+      "type": "Relationship"
+    },
+    {
+      "from": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "to": [
+        "SPDXRef-RootPackage"
+      ],
+      "creationInfo": "_:creationinfo",
+      "spdxId": "SPDXRef-Relationship-DA0DB5678F61CCE687901C5BC4C5F6A707FE56B7091631BE2598C4926C78BDBB",
+      "type": "Relationship"
+    }
+  ]
+}
