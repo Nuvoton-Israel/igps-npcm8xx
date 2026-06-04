@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.04.01
-Date:     March 2026
+Version:  04.04.04
+Date:     June 2026
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,50 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.4.4                - June 2nd 2026
+============
+- UpdateInputsBinaries.py - copy_default_keys() Optimization
+	Purpose: Speed up key file copying from 18+ seconds to ~0.015 seconds when unchanged.
+	*	Added state file caching (.key_copy_state.json) to skip re-copying unchanged files
+	*	Added timing measurements and reporting
+	*	Only copies files if missing or content differs
+-	Image checksum verification:
+
+- Update XML Refernce files to document automatic CRC enable\disable management and preserve the legacy value from the Tag [4-7] bytes
+- key_setting_edit_me.json and IGPS_common.py:
+	Add CRC_Enable flag to control CRC verification in firmware images
+	Defaults to false for backward compatibility. When enabled, IGPS writes CRC_ENABLED sentinel (0x57F2AB1E) at offset 0x4.
+	Applies to all images. CRC values always calculated regardless of flag and  CRC  is controlled by this flag
+- TIP FW L1 XML - added bit 4 to SystemControlFlags bit mask
+
+- TIP_FW 0.8.8 L0 0.7.7 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.8_L0_0.7.7_L1
+	- Fix SHA-384 digest buffer copying issue in firmware component verification 
+	- Redefine TIP and BMC scratch pad names with meaningful descriptive names 
+	- HAL driver updates for fuse, clock, HSS, and boot improvements 
+	- RNG performance improvements and register write fixes 
+	- Removed duplicate AES GCM function calls, consolidated to tip_aes_gcm_ncl.c
+	- Add NCL crypto engine mutex synchronization and refactor to use direct engine APIs, add SHA-512 support
+	- Fix OTP version handling and standardize bits_per_version across image types
+	- Security hardening: add conditional JTAG disable controlled by SystemControlFlags bit 4, validate ECC public key on curve
+	- Update file headers to Apache 2.0 license, cleanup unused boot and fuse wrapper definitions
+
+HISTORY
+-------
+IGPS 4.4.3                - April 28nd 2026
+============
+- TIP_FW 0.8.7 L0 0.7.6 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.7_L0_0.7.6_L1
+   * Add support for Winbond DTR device.
+   * Bug fix flash recovery image locking. 
+     Fix is relevant only for systems with single flash of 128MB.
+
+IGPS 4.4.2                - March 26nd 2026
+============
+- TIP_FW 0.8.6 L0 0.7.5 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.6_L0_0.7.5_L1
+  - Add support for GigaDevice flash. print SFDP table always.
+ 
 IGPS 4.4.1                - March 2nd 2026
 ============
 - Added SBOM generation in SPDX 3.0.1 format using Microsoft SBOM Tool for all binary images and all external tools
@@ -161,8 +205,6 @@ IGPS 4.4.1                - March 2nd 2026
 		- Life cycle reading now uses OR function between LSB and MSB nibbles
 		- Avoid OTP fusing when life cycle is UNTESTED (0) or NO_TIP (0x6)
 
-HISTORY
--------
 IGPS 4.4.0                - Feb 8th 2026
 ============
 - kmt_map_tmp_bin - modify its padding , instead of alignemnt to 32 , to 16 since it changes the KMT size calculation in LMS usage case.

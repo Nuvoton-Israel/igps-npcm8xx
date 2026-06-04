@@ -8,6 +8,7 @@
     "skmt_key_which_signs_OpTee": "skmt_key1",
     "skmt_key_which_signs_uboot": "skmt_key1",
     "isECC": true,
+    "CRC_Enable": false,
     "lms_flags": {
         "is_LMS_kmt": false,
         "is_LMS_tip_fw_L0": false,

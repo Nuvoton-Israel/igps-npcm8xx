@@ -14,10 +14,21 @@
 		<name>CP1StartTag</name> <!-- name of field -->
 		<config>
 			<offset>0</offset>           
-			<size>8</size> 
+			<size>4</size> 
 		</config>
-		<content format='bytes'>0x08 0x50 0x43 0x50 0x42 0x4F 0x4F 0x54</content>  <!-- content the user should fill -->
+		<content format='bytes'>0x08 0x50 0x43 0x50</content>  <!-- content the user should fill -->
+
 	</BinField>
+
+	<BinField>
+		<name>ExendedAnchor_CrcEn</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.json (CRC_Enable). CRC Enabled = 0x1E 0xAB 0xF2 0x57, Disabled = legacy value -->
+		<config>
+			<offset>0x4</offset>
+			<size>4</size>
+		</config>
+		<content format='bytes'>0x42 0x4F 0x4F 0x54</content>
+	</BinField>
+
 	<BinField>
 		<!-- Code size -->
 		<name>CP1SourceSize</name>         <!-- name of field -->

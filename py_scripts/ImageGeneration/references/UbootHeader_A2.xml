@@ -15,14 +15,25 @@
 	</ImageProperties>
 
 	<BinField>
-		<!-- uboot tag (0x0A 0x55 0x42 0x4F 0x4F 0x54 0x42 0x4C) -->
+		<!-- uboot tag (0x0A 0x55 0x42 0x4F) -->
 		<name>StartTag</name>
 		<config>
 			<offset>0</offset>
-			<size>0x8</size>
+			<size>0x4</size>
 		</config>
-		<content format='bytes'>0x0A 0x55 0x42 0x4F 0x4F 0x54 0x42 0x4C</content>
+		<content format='bytes'>0x0A 0x55 0x42 0x4F</content>
+
 	</BinField>
+
+	<BinField>
+		<name>ExendedAnchor_CrcEn</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.json (CRC_Enable). CRC Enabled = 0x1E 0xAB 0xF2 0x57, Disabled = legacy value -->
+		<config>
+			<offset>0x4</offset>
+			<size>4</size>
+		</config>
+		<content format='bytes'>0x4F 0x54 0x42 0x4C</content>
+	</BinField>
+
 
 	<BinField>
 		<name>KeyMask</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->

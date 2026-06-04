@@ -15,13 +15,22 @@
 	</ImageProperties>
 
 	<BinField>
-		<!-- BootBlock tag (0x0A 0x50 0x08 0x55 0xAA 0x54 0x4F 0x4F) -->
+		<!-- BootBlock tag (0x0A 0x50 0x08 0x55) -->
 		<name>StartTag</name>
 		<config>
 			<offset>0</offset>
-			<size>0x8</size>
+			<size>0x4</size>
 		</config>
-		<content format='bytes'>0x0A 0x50 0x08 0x55 0xAA 0x54 0x4F 0x4F</content>
+		<content format='bytes'>0x0A 0x50 0x08 0x55</content>
+	</BinField>
+
+	<BinField>
+		<name>ExendedAnchor_CrcEn</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.json (CRC_Enable). CRC Enabled = 0x1E 0xAB 0xF2 0x57, Disabled = legacy value -->
+		<config>
+			<offset>0x4</offset>
+			<size>4</size>
+		</config>
+		<content format='bytes'>0xAA 0x54 0x4F 0x4F</content>
 	</BinField>
 
 	<BinField>

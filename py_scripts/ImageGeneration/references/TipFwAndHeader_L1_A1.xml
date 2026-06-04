@@ -16,13 +16,22 @@
 	</ImageProperties>
 
 	<BinField>
-		<!-- tip_fw_L1 tag (0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A) -->
+		<!-- tip_fw_L1 tag (0x0A 0x54 0x49 0x50) -->
 		<name>StartTag</name>
 		<config>
 			<offset>0x0</offset>            <!-- offset in the header -->
-			<size>0x8</size>              <!-- size in the header -->
+			<size>0x4</size>              <!-- size in the header -->
 		</config>
-		<content format='bytes'>0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A</content>
+		<content format='bytes'>0x0A 0x54 0x49 0x50</content>
+	</BinField>
+
+	<BinField>
+		<name>ExendedAnchor_CrcEn</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.json (CRC_Enable). CRC Enabled = 0x1E 0xAB 0xF2 0x57, Disabled = legacy value -->
+		<config>
+			<offset>0x4</offset>
+			<size>4</size>
+		</config>
+		<content format='bytes'>0x5F 0x4C 0x31 0x0A</content>
 	</BinField>
 
 	<BinField>
@@ -38,6 +47,7 @@
 					Bit 1: tip_start_wd
 					Bit 2: tip_support_encryption
 					Bit 3: tip_gpio_wol
+					Bit 4: tip_disable_jtag
 					Bit 5: disable_print_to_uart
 					Bit 6: print_to_memory
 		-->

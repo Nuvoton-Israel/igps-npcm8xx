@@ -16,13 +16,22 @@
 	</ImageProperties>
 
 	<BinField>
-		<!-- skmt tag (0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A) -->
+		<!-- skmt tag (0x73 0x6B 0x6D 0x74) -->
 		<name>StartTag</name>
 		<config>
 			<offset>0</offset>
-			<size>0x8</size>
+			<size>0x4</size>
 		</config>
-		<content format='bytes'>0x73 0x6B 0x6D 0x74 0x50 0x08 0x0D 0x0A</content>
+		<content format='bytes'>0x73 0x6B 0x6D 0x74</content>
+	</BinField>
+
+	<BinField>
+		<name>ExendedAnchor_CrcEn</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.json (CRC_Enable). CRC Enabled = 0x1E 0xAB 0xF2 0x57, Disabled = legacy value -->
+		<config>
+			<offset>0x4</offset>
+			<size>4</size>
+		</config>
+		<content format='bytes'>0x50 0x08 0x0D 0x0A</content>
 	</BinField>
 
 	<BinField>

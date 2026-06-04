@@ -16,19 +16,28 @@
 	</ImageProperties>
 
 	<BinField>
-		<!-- tip_fw_L1 tag (0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A) -->
+		<!-- tip_fw_L1 tag (0x0A 0x54 0x49 0x50) -->
 		<name>StartTag</name>
 		<config>
-			<offset>0</offset>            <!-- offset in the header -->
-			<size>0x8</size>              <!-- size in the header -->
+			<offset>0x0</offset>            <!-- offset in the header -->
+			<size>0x4</size>              <!-- size in the header -->
 		</config>
-		<content format='bytes'>0x0A 0x54 0x49 0x50 0x5F 0x4C 0x31 0x0A</content>
+		<content format='bytes'>0x0A 0x54 0x49 0x50</content>
+	</BinField>
+
+	<BinField>
+		<name>ExendedAnchor_CrcEn</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.json (CRC_Enable). CRC Enabled = 0x1E 0xAB 0xF2 0x57, Disabled = legacy value -->
+		<config>
+			<offset>0x4</offset>
+			<size>4</size>
+		</config>
+		<content format='bytes'>0x5F 0x4C 0x31 0x0A</content>
 	</BinField>
 
 	<BinField>
 		<name>FWCrc</name>
 		<config>
-			<offset>12</offset>
+			<offset>0xC</offset>
 			<size>4</size>
 		</config>
 		<content format='bytes'>0x00 0x00 0x00 0x00</content>     <!-- will be calculated by IGPS -->
@@ -39,19 +48,23 @@
 					Bit 1: tip_start_wd
 					Bit 2: tip_support_encryption
 					Bit 3: tip_gpio_wol
+					Bit 4: tip_disable_jtag
+					Bit 5: disable_print_to_uart
+					Bit 6: print_to_memory
 		-->
 	<BinField>
 		<name>SystemControlFlags</name>     
 		<config>
-			<offset>132</offset>
+			<offset>0x84</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x00000004</content>               <!-- key index, bitwise -->
 	</BinField>
+	
 	<BinField>
 		<name>KeyMask</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
-			<offset>136</offset>
+			<offset>0x88</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
@@ -60,7 +73,7 @@
 	<BinField>
 		<name>KeyIndex</name>
 		<config>
-			<offset>140</offset>
+			<offset>0x8C</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->
@@ -69,7 +82,7 @@
 	<BinField>
 		<name>EncryptionControl</name>
 		<config>
-			<offset>148</offset>
+			<offset>0x94</offset>
 			<size>1</size>
 		</config>
 		<content format='bytes'>0x0</content>    <!-- FW encryption: to enable set value to 0x03 -->
@@ -124,7 +137,7 @@
 	<BinField>
 		<name>KeyMask_LMS</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.py -->
 		<config>
-			<offset>192</offset>
+			<offset>0xC0</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x00</content>               <!-- key index, bitwise -->
@@ -133,7 +146,7 @@
 	<BinField>
 		<name>KeyIndex_LMS</name>
 		<config>
-			<offset>196</offset>
+			<offset>0xC4</offset>
 			<size>4</size>
 		</config>
 		<content format='32bit'>0x0</content>               <!-- DO NOT EDIT, IGPS fills this field automatically -->

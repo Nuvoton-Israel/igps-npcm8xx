@@ -28,6 +28,8 @@ isECC                              = config.get("isECC")
 isLMS                              = any(lms_flags.values())
 isRemoteHSM                        = config.get("isRemoteHSM", False)
 COMBO1_OFFSET                      = config.get("COMBO1_OFFSET")
+CRC_Enable                         = config.get("CRC_Enable", True)
+print(f"DEBUG: CRC_Enable loaded from JSON = {CRC_Enable} (type: {type(CRC_Enable)})")
 otp_key_which_signs_kmt            = config["otp_key_which_signs_kmt"]
 kmt_key_which_signs_tip_fw_L0      = config["kmt_key_which_signs_tip_fw_L0"]
 kmt_key_which_signs_skmt           = config["kmt_key_which_signs_skmt"]
@@ -626,21 +628,74 @@ def Build_basic_images():
 	finally:
 		os.chdir(currpath)
 
+def Write_CRC_Sentinel(binfile, sentinel_offset, enable_crc):
+	"""
+	Write CRC sentinel and optionally CRC value to image header.
+	If CRC is disabled, does NOT modify offset 4 (preserves original legacy tag values for backward compatibility).
+	If CRC is enabled, writes enabled sentinel to offset 4.
+	
+	Args:
+		binfile: Binary file to modify
+		sentinel_offset: Offset to write CRC sentinel (4 for offset 0x4)
+		enable_crc: True to write CRC_ENABLED, False to leave offset 4 unchanged
+	"""
+	CRC_ENABLED = 0x57F2AB1E
+	
+	if not enable_crc:
+		# When CRC is disabled, don't modify offset 4 - preserve original legacy values
+		# for backward compatibility (each image type has different legacy values)
+		return
+	
+	try:
+		with open(binfile, "rb") as f:
+			data = bytearray(f.read())
+		
+		# CRC enabled - write the enabled sentinel at offset 4
+		sentinel = CRC_ENABLED
+		for ind in range(4):
+			data[sentinel_offset + ind] = (sentinel >> (ind*8)) & 0xFF
+		
+		# Write back
+		with open(binfile, "wb") as f:
+			f.write(data)
+			
+	except Exception as e:
+		print(f"\nIGPS_common.py: Error writing CRC sentinel to {binfile}: {str(e)}")
+		raise
+
 def Write_CRC_to_TIP_images():
 
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 	try:
-		# check inputs and align if needed:
-		
-		print("\Add CRC to TIP images only\n")
-		
+		# Always calculate and write CRC value to offset 0xC for ALL images.
+		# This ensures the CRC is present even if users manually edit XML files.
+		# The sentinel at offset 0x4 (written below) controls whether FW verifies it.
+		print("\nCalculate CRC for all TIP images (CRC value always written to offset 0xC)\n")
 		CRC32_binary(KmtAndHeader_bin           , 112    , 12     , KmtAndHeader_bin)
 		CRC32_binary(TipFwAndHeader_L0_bin      , 112    , 12     , TipFwAndHeader_L0_bin)
 		CRC32_binary(TipFwAndHeader_L0_UT_bin   , 112    , 12     , TipFwAndHeader_L0_UT_bin)
-		CRC32_binary(SA_TipFwAndHeader_L0_bin   , 112    , 12     , SA_TipFwAndHeader_L0_bin)        
+		CRC32_binary(SA_TipFwAndHeader_L0_bin   , 112    , 12     , SA_TipFwAndHeader_L0_bin)
 		CRC32_binary(TipFwAndHeader_L1_bin      , 112    , 12     , TipFwAndHeader_L1_bin)
+		CRC32_binary(SkmtAndHeader_bin          , 112    , 12     , SkmtAndHeader_bin)
+		CRC32_binary(BootBlockAndHeader_bin     , 112    , 12     , BootBlockAndHeader_bin)
+		CRC32_binary(BL31_AndHeader_bin         , 112    , 12     , BL31_AndHeader_bin)
+		CRC32_binary(OpTeeAndHeader_bin         , 112    , 12     , OpTeeAndHeader_bin)
+		CRC32_binary(UbootAndHeader_bin         , 112    , 12     , UbootAndHeader_bin)
+		
+		# Write CRC sentinels to control whether FW verifies CRC:
+		# All images controlled by CRC_Enable flag in key_setting_edit_me.json
+		Write_CRC_Sentinel(KmtAndHeader_bin           , 4, CRC_Enable)
+		Write_CRC_Sentinel(TipFwAndHeader_L0_bin      , 4, CRC_Enable)
+		Write_CRC_Sentinel(TipFwAndHeader_L0_UT_bin   , 4, CRC_Enable)
+		Write_CRC_Sentinel(SA_TipFwAndHeader_L0_bin   , 4, CRC_Enable)
+		Write_CRC_Sentinel(TipFwAndHeader_L1_bin      , 4, CRC_Enable)
+		Write_CRC_Sentinel(SkmtAndHeader_bin          , 4, CRC_Enable)
+		Write_CRC_Sentinel(BootBlockAndHeader_bin     , 4, CRC_Enable)
+		Write_CRC_Sentinel(BL31_AndHeader_bin         , 4, CRC_Enable)
+		Write_CRC_Sentinel(OpTeeAndHeader_bin         , 4, CRC_Enable)
+		Write_CRC_Sentinel(UbootAndHeader_bin         , 4, CRC_Enable)
 		
 	except (Exception) as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()
