@@ -337,8 +337,9 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 		output_file.close()
 		
 	finally:
-		if os.path.isfile(sig_der)  :
-			os.remove(sig_der)
+		# Temporarily keep .der files for RemoteHSM testing - comment out deletion
+		# if os.path.isfile(sig_der)  :
+		# 	os.remove(sig_der)
 		if os.path.isfile(bin_file_to_sign):
 			os.remove(bin_file_to_sign)
 		if os.path.isfile(bin_file_to_sign_hashed):
@@ -380,6 +381,17 @@ def Embed_external_sig(sig_der, sig_bin_lms, input_file, output_file, embed_sign
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
 	
+	# Check if signature files exist - if not, skip this binary (customer didn't sign it)
+	if not os.path.isfile(sig_der):
+		print(("\033[93m" + "Embed_external_sig: Signature file %s not found, skipping..." % sig_der + "\033[0m"))
+		os.chdir(currpath)
+		return False
+	
+	if isLMS and not os.path.isfile(sig_bin_lms):
+		print(("\033[93m" + "Embed_external_sig: LMS signature file %s not found, skipping..." % sig_bin_lms + "\033[0m"))
+		os.chdir(currpath)
+		return False
+	
 	print(("\033[95m" + "=========================================================="))
 	print(("== Embed external sig ECC: %s to %s    " % (sig_der, input_file)))
 	if isLMS:
@@ -391,15 +403,6 @@ def Embed_external_sig(sig_der, sig_bin_lms, input_file, output_file, embed_sign
 		if (os.path.isfile(input_file) == False):
 			print(("\033[91m" + "Embed_external_sig: input file " + input_file + " is missing\n\n" + "\033[97m"))
 			raise Exception('Missing file')
-		
-		if (os.path.isfile(sig_der) == False):
-			print(("\033[91m" + "Embed_external_sig: ECC sig file " + sig_der + " is missing\n\n" + "\033[97m"))
-			raise Exception('Missing file')
-		
-		if isLMS:
-			if (os.path.isfile(sig_bin_lms) == False):
-				print(("\033[91m" + "Embed_external_sig: LMS sig file " + sig_bin_lms + " is missing\n\n" + "\033[97m"))
-				raise Exception('Missing file')
 		
 		bin_file = open(input_file, "rb")
 		input = bin_file.read()
@@ -437,6 +440,7 @@ def Embed_external_sig(sig_der, sig_bin_lms, input_file, output_file, embed_sign
 		output_file = open(output_file, "w+b")
 		output_file.write(output)
 		output_file.close()
+		return True  # Signature embedding successful
 	except:
 		exc_type, exc_obj, exc_tb = sys.exc_info()
 		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -535,10 +539,11 @@ def Replace_binary_array(input_file, offset, num, size, bArray, title, update_cu
 		input_file = open(input_file, "w+b")
 		input_file.write(output)
 		input_file.close()
-	except:
+	except Exception as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()
 		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
 		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
+		print(f"Exception type: {exc_type}, message: {exc_obj}")
 		print(("\n\n FAIL %s Replace_binary_array.py: file %s offset %s array %s	" % (title, input_file, str(offset), str(arr))))
 		raise Exception('Replace_binary_array')
 

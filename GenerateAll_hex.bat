@@ -7,17 +7,9 @@ rem -------------------------------------------------------------------------
 
 echo off
 
-if not exist C:\Python37\python.exe (
-echo ==================================================
-echo  ERROR, PLEASE INSTALL PYTHON 3.7 
-echo .
-echo .
-echo      press any key to open the installation folder, and run installer for %PROCESSOR_ARCHITECTURE%
-echo ==================================================
-timeout \T 3  
-start https://www.python.org/downloads/release/python-379/
+rem Check Python version
+call CheckPythonVersion.bat
+if errorlevel 1 exit /b 1
 
-) else (
-C:\Python37\python.exe .\py_scripts\GenerateAll.py openssl 0 palladium
-)
+python .\py_scripts\GenerateAll.py openssl 0 palladium
 timeout /T 100

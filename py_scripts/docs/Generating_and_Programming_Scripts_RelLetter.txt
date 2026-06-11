@@ -148,8 +148,28 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 4.4.4                - June 2nd 2026
+IGPS 4.4.4                - June 11th 2026
 ============
+- all .bat files that are checking if python 3 exist call CheckPythonVersion.bat
+- Add image veification script for customers and internal usage:
+  - py_scripts/verify_image.py            - the test
+  - py_scripts/docs/verify_image.md       - test procedure
+  - py_scripts/tests/test_verify_image.py - test procedure
+
+- RemoteHSM Feature Implementation 
+	* Fixed RemoteHSM signing workflow - feature was previously non-functional
+	* Implemented two-pass workflow: extraction (`RemoteHSM`) and embedding (`RemoteHSM embed`)
+	* Added signature file backup/restore to survive Run_Init() directory cleanup during embed phase
+	* Added automatic fallback to openssl signing for missing signature files
+	* Enables customers to sign firmware with their HSM without exposing private keys
+	* Supports dual ECC P-384 + LMS signing for all 9 firmware binaries
+	* Added flexible partial signing option - customers can sign only critical components (minimum KMT + L0)
+	* Created comprehensive customer documentation: docs/RemoteHSM_Customer_Instructions.md
+	* Made hsslms Python library optional (GenerateKeyLMS.py) - allows RemoteHSM mode without installing hsslms dependencies
+	* Removed redundant isRemoteHSM JSON flag - RemoteHSM mode now controlled solely via command line argument
+	
+- Modified production.bat: SBOM generation failures are now non-fatal, allowing signing process to continue with warning message
+
 - UpdateInputsBinaries.py - copy_default_keys() Optimization
 	Purpose: Speed up key file copying from 18+ seconds to ~0.015 seconds when unchanged.
 	*	Added state file caching (.key_copy_state.json) to skip re-copying unchanged files

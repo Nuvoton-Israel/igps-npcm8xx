@@ -4,24 +4,14 @@ rem  Nuvoton IGPS: Image Generation And Programming Scripts For Arbel BMC
 rem 
 rem  Copyright (C) 2022 Nuvoton Technologies, All Rights Reserved
 rem -------------------------------------------------------------------------
-import subprocess
+
 echo off
 
+rem Check Python version
+call .\CheckPythonVersion.bat
+if errorlevel 1 exit /b 1
 
-if not exist C:\Python37\python.exe (
-echo ==================================================
-echo  ERROR, PLEASE INSTALL PYTHON 3.7 
-echo .
-echo .
-echo      press any key to open the installation folder, and run installer for %PROCESSOR_ARCHITECTURE%
-echo ==================================================
-
-timeout \T 3  
-start https://www.python.org/downloads/release/python-379/
-
-) else (
 cd py_scripts
-C:\Python37\python.exe UpdateInputsBinaries_Arbel_A3_SVB.py
+python UpdateInputsBinaries_Arbel_A3_SVB.py
 cd ..
-)
 timeout /T 100

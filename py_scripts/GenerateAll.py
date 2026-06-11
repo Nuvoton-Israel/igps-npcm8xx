@@ -24,6 +24,7 @@ def main():
 		isDebug = False
 		TypeOfKey = "openssl"
 		useSignedCombo0 = None
+		remotehsm_embed = False
 
 
 		index = 1
@@ -41,6 +42,10 @@ def main():
 			elif (sys.argv[index] == "RemoteHSM"):
 				TypeOfKey = "RemoteHSM"
 				print("No keys will be generated. Signing remotely in HSM")
+			
+			elif (sys.argv[index] == "embed"):
+				remotehsm_embed = True
+				print("RemoteHSM: Embedding mode - will embed provided signatures")
 			
 			elif ((sys.argv[index] == "HSM") or (sys.argv[index] == "hsm")):
 				TypeOfKey = "HSM"
@@ -87,7 +92,7 @@ def main():
 			print("==========================================================")
 			if component_num != "0":
 				useSignedCombo0 = component_num
-			ImageGeneration.GenerateImages.Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0, isDebug)
+			ImageGeneration.GenerateImages.Run(TypeOfKey, pinCode, isPalladium, useSignedCombo0, isDebug, remotehsm_embed)
 
 	except Exception as e:
 		exc_type, exc_obj, exc_tb = sys.exc_info()

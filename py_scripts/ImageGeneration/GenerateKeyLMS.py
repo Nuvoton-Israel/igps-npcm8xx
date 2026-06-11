@@ -19,9 +19,19 @@ with open(json_file_path, 'r') as file:
 lms_flags = config.get("lms_flags", {})
 isLMS = any(lms_flags.values())
 
+# Try to import hsslms only if needed, fail gracefully for RemoteHSM mode
+LMS_Priv = None
+LMS_ALGORITHM_TYPE = None
+LMOTS_ALGORITHM_TYPE = None
+
 if isLMS:
-	from hsslms import LMS_Priv
-	from hsslms.utils import *
+	try:
+		from hsslms import LMS_Priv
+		from hsslms.utils import LMS_ALGORITHM_TYPE, LMOTS_ALGORITHM_TYPE
+	except ImportError as e:
+		# hsslms not installed - will be caught later if actually needed for key generation
+		print("Warning: hsslms module not found. LMS key generation will fail if attempted.")
+		print("To install: python3 -m pip install hsslms")
 from shutil import move
 from shutil import copyfile
 from .BinarySignatureGenerator import *
@@ -96,6 +106,10 @@ def GenerateKeyLMS_OpenSSL(keyFileName):
 		else:
 			print("Creating a LMS private key that will be stored at: " + private_pickled_bin_file + ".....")
 	
+		# Check if hsslms was successfully imported
+		if LMS_Priv is None or LMS_ALGORITHM_TYPE is None:
+			raise ImportError("hsslms module not installed. Install with: python3 -m pip install hsslms")
+	
 		# Note: for debug can change to H20 and W2 (validation test), or H20 w8
 		priv_key = LMS_Priv(LMS_ALGORITHM_TYPE.LMS_SHA256_M32_H20, LMOTS_ALGORITHM_TYPE.LMOTS_SHA256_N32_W4)
 		print("LMS PRIV key ready")
@@ -113,7 +127,7 @@ def GenerateKeyLMS_OpenSSL(keyFileName):
 		exc_type, exc_obj, exc_tb = sys.exc_info()
 		fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
 		print("Error at: " , fname, "line: ", exc_tb.tb_lineno)
-		print(("Generate Key failed" % (keyFileName)))
+		print(("Generate Key failed %s" % (keyFileName)))
 		raise
 	finally:
 		os.chdir(currpath)

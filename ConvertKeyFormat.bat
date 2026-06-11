@@ -9,17 +9,9 @@ rem -------------------------------------------------------------------------
 @echo off
 setlocal enabledelayedexpansion
 
-if not exist C:\Python37\python.exe (
-    echo ==================================================
-    echo  ERROR, PLEASE INSTALL PYTHON 3.7
-    echo .
-    echo .
-    echo      Press any key to open the installation page
-    echo ==================================================
-    timeout /T 3
-    start https://www.python.org/downloads/release/python-379/
-    goto :end
-)
+rem Check Python version
+call CheckPythonVersion.bat
+if errorlevel 1 goto :end
 
 if "%~1"=="" (
     echo ==================================================
@@ -35,7 +27,7 @@ echo ==================================================
 echo  Input: %~1
 echo.
 
-C:\Python37\python.exe .\py_scripts\ImageGeneration\GenerateKeyECC_fromKnownFile.py "%~1"
+python .\py_scripts\ImageGeneration\GenerateKeyECC_fromKnownFile.py "%~1"
 
 :end
 timeout /T 5

@@ -22,7 +22,6 @@ with open(json_file_path, 'r') as file:
 # Calculate isLMS based on lms_flags
 lms_flags    = config.get("lms_flags", {})
 isLMS        = any(lms_flags.values())
-isRemoteHSM  = config.get("isRemoteHSM", False)
 
 inputs_dir = "inputs"
 outputs_dir = "output_binaries"

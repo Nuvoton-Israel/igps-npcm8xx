@@ -26,10 +26,9 @@ with open(json_file_path, 'r') as file:
 lms_flags                          = config.get("lms_flags", {})
 isECC                              = config.get("isECC")
 isLMS                              = any(lms_flags.values())
-isRemoteHSM                        = config.get("isRemoteHSM", False)
 COMBO1_OFFSET                      = config.get("COMBO1_OFFSET")
 CRC_Enable                         = config.get("CRC_Enable", True)
-print(f"DEBUG: CRC_Enable loaded from JSON = {CRC_Enable} (type: {type(CRC_Enable)})")
+# Debug: print(f"DEBUG: CRC_Enable loaded from JSON = {CRC_Enable} (type: {type(CRC_Enable)})")
 otp_key_which_signs_kmt            = config["otp_key_which_signs_kmt"]
 kmt_key_which_signs_tip_fw_L0      = config["kmt_key_which_signs_tip_fw_L0"]
 kmt_key_which_signs_skmt           = config["kmt_key_which_signs_skmt"]
@@ -48,8 +47,7 @@ lms_key_which_signs_OpTee          = config["lms_key_which_signs_OpTee"]
 lms_key_which_signs_uboot          = config["lms_key_which_signs_uboot"]
 
 
-if isLMS and not isRemoteHSM:
-	from .GenerateKeyLMS import *
+from .GenerateKeyLMS import *
 from .BinaryGenerator import *
 from .CRC32_Generator import *
 
@@ -538,7 +536,7 @@ def Build_single_image_with_regs(bin_file, reg_bin_img):
 	finally:
 		os.chdir(currpath)
 
-def Build_basic_images():
+def Build_basic_images(TypeOfKey="openssl"):
 
 	currpath = os.getcwd()
 	os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -559,16 +557,16 @@ def Build_basic_images():
 		Pad_bin_file_inplace(  CP_FW_bin      ,  32)
 
 		# Generate kmt and skmt map files (no headers)	
-		
+		# In RemoteHSM mode, use non-LMS XMLs even if LMS flags are true (keys don't exist yet)
 		kmt_keys_selected = any(config["lms_flags"][key] for key in config["key_groups"]["KMT_Keys"])
 
-		if kmt_keys_selected:
+		if kmt_keys_selected and TypeOfKey != "RemoteHSM":
 			Generate_binary(kmt_map_lms_xml, kmt_map_tmp_bin)
 		else:
 			Generate_binary(kmt_map_xml, kmt_map_tmp_bin)
 			
 		skmt_keys_selected = any(config["lms_flags"][key] for key in config["key_groups"]["SKMT_Keys"])
-		if skmt_keys_selected:
+		if skmt_keys_selected and TypeOfKey != "RemoteHSM":
 			Generate_binary(skmt_map_lms_xml, skmt_map_tmp_bin)
 		else:
 			Generate_binary(skmt_map_xml, skmt_map_tmp_bin)
@@ -715,12 +713,21 @@ def Sign_combo0(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 
 	try:
 		if TypeOfKey == "RemoteHSM":
-			# Embed_external_sig(sig_der             , binfile                     , outputFile            , embed_signature)
-			Embed_external_sig(KmtAndHeader_der      ,KmtAndHeader_lms_sig_bin,  KmtAndHeader_basic_bin      , KmtAndHeader_bin      , 16, config["lms_flags"]["is_LMS_kmt"])
-			Embed_external_sig(TipFwAndHeader_L0_der , TipFwAndHeader_L0_lms_sig_bin, TipFwAndHeader_L0_basic_bin , TipFwAndHeader_L0_bin , 16, config["lms_flags"]["is_LMS_tip_fw_L0"])
-			Embed_external_sig(SA_TipFwAndHeader_L0_der ,SA_TipFwAndHeader_L0_lms_sig_bin, SA_TipFwAndHeader_L0_basic_bin ,SA_TipFwAndHeader_L0_bin , 16, False)
-			Embed_external_sig(SkmtAndHeader_der     , SkmtAndHeader_lms_sig_bin, SkmtAndHeader_basic_bin     , SkmtAndHeader_bin     , 16, config["lms_flags"]["is_LMS_skmt"])
-			Embed_external_sig(TipFwAndHeader_L1_der , TipFwAndHeader_L1_lms_sig_bin, TipFwAndHeader_L1_basic_bin , TipFwAndHeader_L1_bin , 16, config["lms_flags"]["is_LMS_tip_fw_L1"])
+			# Try to embed external signatures. If signature files are missing, fall back to openssl signing
+			if not Embed_external_sig(KmtAndHeader_der, KmtAndHeader_lms_sig_bin, KmtAndHeader_basic_bin, KmtAndHeader_bin, 16, config["lms_flags"]["is_LMS_kmt"]):
+				Sign_binary(KmtAndHeader_basic_bin, 112, eval(otp_key_which_signs_kmt), 16, KmtAndHeader_bin, "openssl", pinCode, eval("id_otp_key" + otp_key_which_signs_kmt[-1]), isECC, False, 0)
+			
+			if not Embed_external_sig(TipFwAndHeader_L0_der, TipFwAndHeader_L0_lms_sig_bin, TipFwAndHeader_L0_basic_bin, TipFwAndHeader_L0_bin, 16, config["lms_flags"]["is_LMS_tip_fw_L0"]):
+				Sign_binary(TipFwAndHeader_L0_basic_bin, 112, eval(kmt_key_which_signs_tip_fw_L0), 16, TipFwAndHeader_L0_bin, "openssl", pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
+			
+			if not Embed_external_sig(SA_TipFwAndHeader_L0_der, SA_TipFwAndHeader_L0_lms_sig_bin, SA_TipFwAndHeader_L0_basic_bin, SA_TipFwAndHeader_L0_bin, 16, False):
+				Sign_binary(SA_TipFwAndHeader_L0_basic_bin, 112, eval(kmt_key_which_signs_tip_fw_L0), 16, SA_TipFwAndHeader_L0_bin, "openssl", pinCode, eval("id_kmt_key" + kmt_key_which_signs_tip_fw_L0[-1]), isECC, False, 0)
+			
+			if not Embed_external_sig(SkmtAndHeader_der, SkmtAndHeader_lms_sig_bin, SkmtAndHeader_basic_bin, SkmtAndHeader_bin, 16, config["lms_flags"]["is_LMS_skmt"]):
+				Sign_binary(SkmtAndHeader_basic_bin, 112, eval(kmt_key_which_signs_skmt), 16, SkmtAndHeader_bin, "openssl", pinCode, eval("id_kmt_key" + kmt_key_which_signs_skmt[-1]), isECC, False, 0)
+			
+			if not Embed_external_sig(TipFwAndHeader_L1_der, TipFwAndHeader_L1_lms_sig_bin, TipFwAndHeader_L1_basic_bin, TipFwAndHeader_L1_bin, 16, config["lms_flags"]["is_LMS_tip_fw_L1"]):
+				Sign_binary(TipFwAndHeader_L1_basic_bin, 112, eval(skmt_key_which_signs_tip_fw_L1), 16, TipFwAndHeader_L1_bin, "openssl", pinCode, eval("id_skmt_key" + skmt_key_which_signs_tip_fw_L1[-1]), isECC, False, 0)
 		else:
 			
 			# Sign Images of TIP
@@ -759,12 +766,18 @@ def Sign_combo1(TypeOfKey, pinCode, isPalladium, TypeOfKey_TIP=None, TypeOfKey_B
 
 	try:
 		if TypeOfKey == "RemoteHSM":
-			# Embed_external_sig(sig_der             , binfile                     , outputFile            , embed_signature)
-			# BMC bootloaders not verified now. Use tip l1 signature for builds for now
-			Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_lms_sig_bin, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16, config["lms_flags"]["is_LMS_bootblock"])
-			Embed_external_sig(BL31_AndHeader_der    , BL31_AndHeader_lms_sig_bin, BL31_AndHeader_basic_bin    , BL31_AndHeader_bin    , 16, config["lms_flags"]["is_LMS_uboot"])
-			Embed_external_sig(OpTeeAndHeader_der    , OpTeeAndHeader_lms_sig_bin,  OpTeeAndHeader_basic_bin    , OpTeeAndHeader_bin    , 16, config["lms_flags"]["is_LMS_OpTee"])
-			Embed_external_sig(UbootAndHeader_der    , UbootAndHeader_lms_sig_bin , UbootAndHeader_basic_bin    , UbootAndHeader_bin    , 16, config["lms_flags"]["is_LMS_BL31"])
+			# Try to embed external signatures. If signature files are missing, fall back to openssl signing
+			if not Embed_external_sig(BootBlockAndHeader_der, BootBlockAndHeader_lms_sig_bin, BootBlockAndHeader_basic_bin, BootBlockAndHeader_bin, 16, config["lms_flags"]["is_LMS_bootblock"]):
+				Sign_binary(BootBlockAndHeader_basic_bin, 112, eval(skmt_key_which_signs_bootblock), 16, BootBlockAndHeader_bin, "openssl", pinCode, eval("id_skmt_key" + skmt_key_which_signs_bootblock[-1]), isECC, False, 0)
+			
+			if not Embed_external_sig(BL31_AndHeader_der, BL31_AndHeader_lms_sig_bin, BL31_AndHeader_basic_bin, BL31_AndHeader_bin, 16, config["lms_flags"]["is_LMS_uboot"]):
+				Sign_binary(BL31_AndHeader_basic_bin, 112, eval(skmt_key_which_signs_BL31), 16, BL31_AndHeader_bin, "openssl", pinCode, eval("id_skmt_key" + skmt_key_which_signs_BL31[-1]), isECC, False, 0)
+			
+			if not Embed_external_sig(OpTeeAndHeader_der, OpTeeAndHeader_lms_sig_bin, OpTeeAndHeader_basic_bin, OpTeeAndHeader_bin, 16, config["lms_flags"]["is_LMS_OpTee"]):
+				Sign_binary(OpTeeAndHeader_basic_bin, 112, eval(skmt_key_which_signs_OpTee), 16, OpTeeAndHeader_bin, "openssl", pinCode, eval("id_skmt_key" + skmt_key_which_signs_OpTee[-1]), isECC, False, 0)
+			
+			if not Embed_external_sig(UbootAndHeader_der, UbootAndHeader_lms_sig_bin, UbootAndHeader_basic_bin, UbootAndHeader_bin, 16, config["lms_flags"]["is_LMS_BL31"]):
+				Sign_binary(UbootAndHeader_basic_bin, 112, eval(skmt_key_which_signs_uboot), 16, UbootAndHeader_bin, "openssl", pinCode, eval("id_skmt_key" + skmt_key_which_signs_uboot[-1]), isECC, False, 0)
 
 		else:
 			# Sign Images of BMC

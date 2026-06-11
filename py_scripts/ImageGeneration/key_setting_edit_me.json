@@ -19,7 +19,6 @@
         "is_LMS_OpTee": false,
         "is_LMS_uboot": false
     },
-    "isRemoteHSM": false,
     "lms_key_which_signs_kmt": "otp_lms_key1",
     "lms_key_which_signs_tip_fw_L0": "kmt_lms_key0",
     "lms_key_which_signs_skmt": "kmt_lms_key1",
