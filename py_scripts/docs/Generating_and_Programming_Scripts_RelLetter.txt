@@ -148,7 +148,7 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
-IGPS 4.4.4                - June 11th 2026
+IGPS 4.4.4                - June 15th 2026
 ============
 - all .bat files that are checking if python 3 exist call CheckPythonVersion.bat
 - Add image veification script for customers and internal usage:
@@ -182,10 +182,13 @@ IGPS 4.4.4                - June 11th 2026
 	Add CRC_Enable flag to control CRC verification in firmware images
 	Defaults to false for backward compatibility. When enabled, IGPS writes CRC_ENABLED sentinel (0x57F2AB1E) at offset 0x4.
 	Applies to all images. CRC values always calculated regardless of flag and  CRC  is controlled by this flag
-- TIP FW L1 XML - added bit 4 to SystemControlFlags bit mask
+- TipFwAndHeader_L1 reference XMLs - Updated SystemControlFlags:
+	* Meta: Changed default value from 0x4 to 0x6 (enables tip_start_wd and tip_support_encryption by default)
+	* all: Added bit 4 (tip_disable_jtag) to SystemControlFlags documentation
 
 - TIP_FW 0.8.8 L0 0.7.7 L1
   https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.8_L0_0.7.7_L1
+	- Add runtime control for recovery image restore functionality via SystemControlFlags bit 0 (tip_recovery_force)
 	- Fix SHA-384 digest buffer copying issue in firmware component verification 
 	- Redefine TIP and BMC scratch pad names with meaningful descriptive names 
 	- HAL driver updates for fuse, clock, HSS, and boot improvements 

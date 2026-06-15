@@ -48,8 +48,8 @@
 					Bit 2: tip_support_encryption
 					Bit 3: tip_gpio_wol
 					Bit 4: tip_disable_jtag
-					Bit 5: disable_print_to_uart
-					Bit 6: print_to_memory
+					Bit 5: tip_disable_print_to_uart
+					Bit 6: tip_print_to_memory
 		-->
 	<BinField>
 		<name>SystemControlFlags</name>     
