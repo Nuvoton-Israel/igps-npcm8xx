@@ -1,0 +1,29 @@
+# Python cache
+*.pyc
+__pycache__/
+.idea/
+
+# Generated output binaries
+py_scripts/ImageGeneration/output_binaries_*/
+
+# Keys (never commit private keys)
+py_scripts/ImageGeneration/keys/HSM/
+py_scripts/ImageGeneration/keys/openssl/
+
+# Input binaries and key inputs
+py_scripts/ImageGeneration/inputs/All_FF.bin
+py_scripts/ImageGeneration/inputs/ID.bin
+py_scripts/ImageGeneration/inputs/key_input/
+
+# Internal programming scripts
+py_scripts/FormatFlash.py
+py_scripts/Program*.py
+py_scripts/ImageProgramming/Program.py
+py_scripts/ImageProgramming/ProgrammingErrors.py
+py_scripts/ImageProgramming/TEB_tools/
+py_scripts/ImageProgramming/inputs/
+
+# Internal tools
+py_scripts/docs/NitroKey_FW*
+download_sbom_tool.py
+generate_source_sbom.py
