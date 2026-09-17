@@ -302,6 +302,9 @@ def Sign_binary_openssl_or_HSM(bin_filename, begin_offset, key, embed_signature,
 				# private key is signing the bin_file_to_sign
 				signature = priv_key_loaded.sign(buffer)
 				
+				# Persist updated private key (LMS is stateful; leaf counter must advance)
+				with open(private_pickled_bin_file, 'wb') as f:
+					pickle.dump(priv_key_loaded, f)
 				# verify the signature, if invalid an exception will be raised
 				try:
 					pub_key_loaded.verify(buffer, signature)

@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.04.04
-Date:     June 2026
+Version:  04.04.05
+Date:     September 2026
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,44 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.4.5               - September 17th 2026
+===========
+- RemoteHSM two-pass mode:
+	Fix timestamp mismatch causing signature verification failures
+	Fixed RemoteHSM signing flow where pass 2 regenerated binaries with new timestamps, causing ECDSA and LMS signature verifications to fail
+	Pass 2 (embed mode) now skips binary regeneration and embeds signatures directly into pass 1 binaries with matching timestamps
+-LMS: Add counter increment between sign and verify operations
+	Added counter advancement code between LMS signature generation and verification to maintain proper security counter state
+	Prevents counter desynchronization that could cause signature verification failures in LMS (Leighton-Micali Signature) one-time signature scheme
+- publisher_igps_is00.bat fix : remove the removal of the arbel_fuse_map xml
+- removed CRC_Enable flag and all relevant code from igps_common and key_setting_edit_me file and revert all XML references files change from previews version
+
+- TIP_FW 0.8.9 L0 0.7.8 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.8.9_L0_0.7.8_L1
+	- Add TIP Composite EAT support (tip/common/composite_eat/): RoT-neutral protocol machinery and
+  	feature-gated TIP integration producing a signed Composite EAT main token (CWT/COSE encoding,
+  	TCG DICE Concise Evidence model), including a BMC-direct shared-memory transport (PR #4/#5, xsun)
+  		- Vendor QCBOR dependency
+  		- Add strict request decoder, TCG Concise Evidence support, streaming token builder
+  		- Add BMC/TIP evidence adapters, TIP signing integration, BMC-direct Composite EAT transport
+  		- Add standalone protocol tests and BMC/TIP integration tests
+	- Add tip_rom_dme_handoff: DME (Device Measurement Environment) handoff support used by the
+ 	 Composite EAT generation flow; consolidates the previously inline SEC_DME_* structs in tip_boot.h
+	- Add GitHub Actions CI workflow to build TIP FW (L0 + L1) on every push/PR
+	- Add build_tip_fw.sh (later renamed quick_build.sh): root-level wrapper to build TIP FW and place
+  	outputs at workspace root; build now outputs straight into bld_boot/bld_cerberus
+	- Enable TIP_COMPOSITE_EAT in the CI build so L1 actually validates the composite EAT feature
+	- Fix LMS_Power (lms_drv.c): translate NCL_STATUS_T to DEFS_STATUS by comparing against
+  	NCL_STATUS_OK instead of a raw enum cast, fixing a GCC 13 -Wenum-conversion build error
+	- Update build/manifest instructions to use GitHub (npcm8xx-tip-fw-manifest) instead of the
+  	retired Azure DevOps manifest
+	- Fix tip_ecc_hw_ncl_engine_ecdsa_sign to return actual NCL status instead of hardcoded NCL_STATUS_OK
+	- Fix tip_ecc_hw_ncl_engine_ecdsa_verify: replace NCL_STATUS_RET_CHECK_MUTEX with hardened pattern
+  	(positive equality checks on both ret and sigOk, anti-glitch re-verify) to prevent glitch-induced
+  	false-positive verification when ROM returns ret=0 (NCL_STATUS_OK_Z1)
+
+HISTORY
+-------
 IGPS 4.4.4                - June 15th 2026
 ============
 - all .bat files that are checking if python 3 exist call CheckPythonVersion.bat
@@ -199,8 +237,6 @@ IGPS 4.4.4                - June 15th 2026
 	- Security hardening: add conditional JTAG disable controlled by SystemControlFlags bit 4, validate ECC public key on curve
 	- Update file headers to Apache 2.0 license, cleanup unused boot and fuse wrapper definitions
 
-HISTORY
--------
 IGPS 4.4.3                - April 28nd 2026
 ============
 - TIP_FW 0.8.7 L0 0.7.6 L1
