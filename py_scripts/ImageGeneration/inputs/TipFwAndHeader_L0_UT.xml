@@ -27,9 +27,9 @@
 	<BinField>
 		<!-- CRC Enabled  (0x1E 0xAB 0xF2 0x57) or
 		     CRC Disabled (0xE1 0x54 0xF2 0x57) -->
-		<name>ExendedAnchor_CrcEn</name>     <!-- DO NOT EDIT. IGPS fills this field automatically according to key_setting_edit_me.json (CRC_Enable). CRC Enabled = 0x1E 0xAB 0xF2 0x57, Disabled = legacy value -->
+		<name>ExendedAnchor_CrcEn</name>
 		<config>
-			<offset>0x4</offset>
+			<offset>4</offset>
 			<size>4</size>
 		</config>
 		<content format='bytes'>0xE1 0x54 0xF2 0x57</content>  <!-- content the user should fill -->

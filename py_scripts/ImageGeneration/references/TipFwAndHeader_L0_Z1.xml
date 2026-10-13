@@ -27,7 +27,7 @@
 	<BinField>
 		<!-- CRC Enabled  (0x1E 0xAB 0xF2 0x57) or
 		     CRC Disabled (0xE1 0x54 0xF2 0x57) -->
-		<name>ExendedAnchor_CrcEn</name>
+		<name>ExendedAnchor</name>     <!-- Legacy anchor tag continuation; fixed per image type -->
 		<config>
 			<offset>0x4</offset>
 			<size>4</size>
