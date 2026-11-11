@@ -5,8 +5,8 @@ Copyright (c) 2025 Nuvoton Technology Corporation. All Rights Reserved.
 -----------------------------------------------------------------------------
 
 NPCM850   Image generation and programming scripts Package Release Letter
-Version:  04.04.06
-Date:     October 2026
+Version:  04.04.07
+Date:     November 2026
 
 This package is released under the terms of the Source Code License Agreement
 which is included in this package.
@@ -148,6 +148,30 @@ Tool: can be
 	
 ENHANCEMENTS
 ------------
+IGPS 4.4.7               - November 11th 2026
+===========
+- TIP FW 0.9.1 L0 0.8.0 L1
+  https://github.com/Nuvoton-Israel/npcm8xx-tip-fw/releases/tag/TIP_FW_0.9.1_L0_0.8.0_L1
+	- OTP: version-write log now prints "dummy write to RAM3" when TIP_DUMMY_OTP_ON_RAM is set and
+  	"will program" only when FUSE_OTP is set; nothing is printed when both are off (logging only,
+  	no change to fuse programming)
+	- Fix the default build (FUSE_OTP=0, TIP_DUMMY_OTP_ON_RAM=0): mark "address" as used in
+  	tip_version_set_in_OTP to avoid -Werror=unused-but-set-variable
+	- Fix A1 DME/DICE export to the PCI mailbox (bmc_export_data): the A1 branch read the address of the
+  	local pointer instead of the DME/DICE table, so the mailbox got stack contents instead of the DME
+  	nonce, DICE public key, DME PCR0, DME public key and DME signature
+	- initialize_cerberus_attestation now returns the first failed PCR measurement update instead of
+  	always 0. cerberus_init treats it as fatal, so a failed measurement now resets TIP
+  	(INIT_LOGGING_PCR_STORE) and bmc_export_data does not run on that boot
+	- Cerberus core (core-igps, npcm8xx-tip-fw-project-cerberus): support flash devices of 16MB or
+  	smaller that support 4-byte address mode (spi_flash.c; commit 19d90da7)
+	- Cerberus core (core-igps): fix the QER switch/case flow in spi_flash_sfdp.c; Winbond W25Q devices
+  	that incorrectly report QER value 6 are now handled instead of returning an unknown quad-enable
+  	result (commit 40a94de2)
+- New BootBlock version: https://github.com/Nuvoton-Israel/npcm8xx-bootblock/releases/tag/A35_BootBlock_0.6.0
+
+HISTORY
+-------
 IGPS 4.4.6               - October 13th 2026
 ===========
 - TIP FW 0.9.0 L0 0.7.9 L1
@@ -164,8 +188,6 @@ IGPS 4.4.6               - October 13th 2026
 - New OpTee version: https://github.com/Nuvoton-Israel/optee_os/releases/tag/npcm845x_4.10.0
 - New BL31 version: https://github.com/Nuvoton-Israel/arm-trusted-firmware/releases/tag/v2.14
 
-HISTORY
--------
 IGPS 4.4.5               - September 17th 2026
 ===========
 - RemoteHSM two-pass mode:
